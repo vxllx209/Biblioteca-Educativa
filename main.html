@@ -127,6 +127,7 @@
             font-weight: 500;
             transition: var(--transition);
             margin-bottom: 2px;
+            cursor: pointer;
         }
 
         .sidebar-nav a i {
@@ -260,10 +261,30 @@
         }
 
         /* ============================================
-                   CONTENIDO (Dashboard)
+                   CONTENIDO (Páginas dinámicas)
                    ============================================ */
         .content {
             padding: 28px 32px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Tarjetas de estadísticas */
@@ -381,6 +402,17 @@
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
 
+        .section-header .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .section-header .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         .table-container {
             background: white;
             border-radius: var(--border-radius);
@@ -475,6 +507,112 @@
         }
 
         /* ============================================
+                   ESTILOS ESPECÍFICOS POR PÁGINA
+                   ============================================ */
+        
+        /* Página de Estudiantes - Grid de cards */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .student-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .student-card .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .student-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .student-card p {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin: 4px 0 8px;
+        }
+
+        .student-card .student-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .student-card .student-tags span {
+            background: var(--gray-100);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--gray-600);
+        }
+
+        /* Página de Cursos */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .course-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .course-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .course-card .course-meta {
+            color: var(--gray-500);
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .course-card .course-meta i {
+            margin-right: 6px;
+        }
+
+        .course-card .course-progress {
+            margin-top: 12px;
+        }
+
+        /* ============================================
                    RESPONSIVE
                    ============================================ */
         @media (max-width: 768px) {
@@ -509,6 +647,11 @@
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .students-grid,
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -538,6 +681,34 @@
             background: var(--gray-300);
             border-radius: 10px;
         }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gray-900);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            margin-right: 10px;
+            color: var(--success);
+        }
     </style>
 </head>
 <body>
@@ -556,36 +727,36 @@
 
         <nav class="sidebar-nav">
             <div class="nav-label">Principal</div>
-            <a href="#" class="active">
+            <a class="nav-link active" data-page="dashboard">
                 <i class="fas fa-home"></i> Dashboard
             </a>
-            <a href="#">
+            <a class="nav-link" data-page="estudiantes">
                 <i class="fas fa-users"></i> Estudiantes
                 <span class="badge">24</span>
             </a>
-            <a href="#">
+            <a class="nav-link" data-page="cursos">
                 <i class="fas fa-book"></i> Cursos
             </a>
-            <a href="#">
+            <a class="nav-link" data-page="docentes">
                 <i class="fas fa-chalkboard-teacher"></i> Docentes
             </a>
 
             <div class="nav-label" style="margin-top: 24px;">Gestión</div>
-            <a href="#">
+            <a class="nav-link" data-page="evaluaciones">
                 <i class="fas fa-clipboard-list"></i> Evaluaciones
             </a>
-            <a href="#">
+            <a class="nav-link" data-page="progreso">
                 <i class="fas fa-chart-line"></i> Progreso
             </a>
-            <a href="#">
+            <a class="nav-link" data-page="recursos">
                 <i class="fas fa-cogs"></i> Recursos
             </a>
 
             <div class="nav-label" style="margin-top: 24px;">Configuración</div>
-            <a href="#">
+            <a class="nav-link" data-page="ajustes">
                 <i class="fas fa-cog"></i> Ajustes
             </a>
-            <a href="#">
+            <a href="#" onclick="cerrarSesion()">
                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión
             </a>
         </nav>
@@ -602,7 +773,7 @@
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h1>
+                <h1 id="pageTitle">
                     Dashboard
                     <small>Bienvenido de vuelta, Profesor</small>
                 </h1>
@@ -610,199 +781,295 @@
             <div class="header-right">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Buscar...">
+                    <input type="text" placeholder="Buscar..." id="searchInput">
                 </div>
-                <i class="fas fa-bell" style="color: var(--gray-400); font-size: 20px; cursor: pointer;"></i>
-                <div class="avatar">JD</div>
+                <i class="fas fa-bell" style="color: var(--gray-400); font-size: 20px; cursor: pointer;" onclick="mostrarToast('📬 No tienes notificaciones nuevas')"></i>
+                <div class="avatar" onclick="mostrarToast('👤 Perfil: Juan Díaz')">JD</div>
             </div>
         </header>
 
         <!-- CONTENIDO -->
         <div class="content">
 
-            <!-- Tarjetas de estadísticas -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-label">Total Estudiantes</span>
-                        <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+            <!-- ==========================================
+            PÁGINA: DASHBOARD
+            ========================================== -->
+            <div id="page-dashboard" class="page active">
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">Total Estudiantes</span>
+                            <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+                        </div>
+                        <div class="stat-number">1,284</div>
+                        <div class="stat-change up">↑ 12% este mes</div>
                     </div>
-                    <div class="stat-number">1,284</div>
-                    <div class="stat-change up">↑ 12% este mes</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-label">Cursos Activos</span>
-                        <div class="stat-icon green"><i class="fas fa-book-open"></i></div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">Cursos Activos</span>
+                            <div class="stat-icon green"><i class="fas fa-book-open"></i></div>
+                        </div>
+                        <div class="stat-number">18</div>
+                        <div class="stat-change up">↑ 3 nuevos este mes</div>
                     </div>
-                    <div class="stat-number">18</div>
-                    <div class="stat-change up">↑ 3 nuevos este mes</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-label">Progreso Promedio</span>
-                        <div class="stat-icon yellow"><i class="fas fa-chart-simple"></i></div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">Progreso Promedio</span>
+                            <div class="stat-icon yellow"><i class="fas fa-chart-simple"></i></div>
+                        </div>
+                        <div class="stat-number">76%</div>
+                        <div class="stat-change up">↑ 5% vs mes anterior</div>
                     </div>
-                    <div class="stat-number">76%</div>
-                    <div class="stat-change up">↑ 5% vs mes anterior</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <span class="stat-label">Brechas Detectadas</span>
-                        <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-label">Brechas Detectadas</span>
+                            <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+                        </div>
+                        <div class="stat-number">43</div>
+                        <div class="stat-change down">↑ 8% requiere atención</div>
                     </div>
-                    <div class="stat-number">43</div>
-                    <div class="stat-change down">↑ 8% requiere atención</div>
+                </div>
+
+                <div class="section-header">
+                    <h3>📋 Estudiantes Recientes</h3>
+                    <button class="btn" onclick="navegarA('estudiantes')">Ver todos</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                                <th>Grado</th>
+                                <th>Curso</th>
+                                <th>Progreso</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>María González</strong></td>
+                                <td>5to Primaria</td>
+                                <td>Matemáticas</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge active">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Carlos Pérez</strong></td>
+                                <td>2º ESO</td>
+                                <td>Lengua</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill yellow" style="width: 45%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge pending">En pausa</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ana Martínez</strong></td>
+                                <td>3er Semestre</td>
+                                <td>Robótica</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill green" style="width: 92%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge completed">Finalizado</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jorge Ramírez</strong></td>
+                                <td>4to Primaria</td>
+                                <td>Ciencias</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill red" style="width: 28%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge inactive">Alerta</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-header">
+                    <h3>📝 Últimas Evaluaciones Formativas</h3>
+                    <button class="btn" onclick="navegarA('evaluaciones')">Ver todas</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                                <th>Tipo</th>
+                                <th>Curso</th>
+                                <th>Nota</th>
+                                <th>Feedback</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>María González</strong></td>
+                                <td>Rúbrica</td>
+                                <td>Matemáticas</td>
+                                <td>8.5</td>
+                                <td>Excelente razonamiento lógico</td>
+                                <td>15/08/2026</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Carlos Pérez</strong></td>
+                                <td>Proyecto</td>
+                                <td>Lengua</td>
+                                <td>6.0</td>
+                                <td>Mejorar estructura del texto</td>
+                                <td>14/08/2026</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ana Martínez</strong></td>
+                                <td>Autoevaluación</td>
+                                <td>Robótica</td>
+                                <td>9.2</td>
+                                <td>Muy buen dominio de Arduino</td>
+                                <td>12/08/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Tabla: Estudiantes Recientes -->
-            <div class="section-header">
-                <h3>📋 Estudiantes Recientes</h3>
-                <button class="btn">Ver todos</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Estudiante</th>
-                            <th>Grado</th>
-                            <th>Curso</th>
-                            <th>Progreso</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>María González</strong></td>
-                            <td>5to Primaria</td>
-                            <td>Matemáticas</td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 85%;"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-badge active">Activo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carlos Pérez</strong></td>
-                            <td>2º ESO</td>
-                            <td>Lengua</td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress-fill yellow" style="width: 45%;"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-badge pending">En pausa</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ana Martínez</strong></td>
-                            <td>3er Semestre</td>
-                            <td>Robótica</td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress-fill green" style="width: 92%;"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-badge completed">Finalizado</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Jorge Ramírez</strong></td>
-                            <td>4to Primaria</td>
-                            <td>Ciencias</td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress-fill red" style="width: 28%;"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-badge inactive">Alerta</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- ==========================================
+            PÁGINA: ESTUDIANTES
+            ========================================== -->
+            <div id="page-estudiantes" class="page">
+                <div class="section-header">
+                    <h3>👨‍🎓 Todos los Estudiantes</h3>
+                    <button class="btn">+ Agregar Estudiante</button>
+                </div>
 
-            <!-- Tabla: Evaluaciones Formativas -->
-            <div class="section-header">
-                <h3>📝 Últimas Evaluaciones Formativas</h3>
-                <button class="btn">+ Nueva</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Estudiante</th>
-                            <th>Tipo</th>
-                            <th>Curso</th>
-                            <th>Nota</th>
-                            <th>Feedback</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>María González</strong></td>
-                            <td>Rúbrica</td>
-                            <td>Matemáticas</td>
-                            <td>8.5</td>
-                            <td>Excelente razonamiento lógico</td>
-                            <td>15/08/2026</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carlos Pérez</strong></td>
-                            <td>Proyecto</td>
-                            <td>Lengua</td>
-                            <td>6.0</td>
-                            <td>Mejorar estructura del texto</td>
-                            <td>14/08/2026</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ana Martínez</strong></td>
-                            <td>Autoevaluación</td>
-                            <td>Robótica</td>
-                            <td>9.2</td>
-                            <td>Muy buen dominio de Arduino</td>
-                            <td>12/08/2026</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="students-grid">
+                    <div class="student-card">
+                        <div class="student-avatar">MG</div>
+                        <h4>María González</h4>
+                        <p>5to Primaria • Matemáticas</p>
+                        <div class="student-tags">
+                            <span>Progreso: 85%</span>
+                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
+                            <span>Necesidad: Ninguna</span>
+                        </div>
+                    </div>
+                    <div class="student-card">
+                        <div class="student-avatar" style="background:#F59E0B;">CP</div>
+                        <h4>Carlos Pérez</h4>
+                        <p>2º ESO • Lengua</p>
+                        <div class="student-tags">
+                            <span>Progreso: 45%</span>
+                            <span style="background:#FEF3C7;color:#92400E;">En pausa</span>
+                            <span>Necesidad: Dislexia</span>
+                        </div>
+                    </div>
+                    <div class="student-card">
+                        <div class="student-avatar" style="background:#10B981;">AM</div>
+                        <h4>Ana Martínez</h4>
+                        <p>3er Semestre • Robótica</p>
+                        <div class="student-tags">
+                            <span>Progreso: 92%</span>
+                            <span style="background:#DBEAFE;color:#1E40AF;">Finalizado</span>
+                            <span>Necesidad: Altas capacidades</span>
+                        </div>
+                    </div>
+                    <div class="student-card">
+                        <div class="student-avatar" style="background:#EF4444;">JR</div>
+                        <h4>Jorge Ramírez</h4>
+                        <p>4to Primaria • Ciencias</p>
+                        <div class="student-tags">
+                            <span>Progreso: 28%</span>
+                            <span style="background:#FEE2E2;color:#991B1B;">Alerta</span>
+                            <span>Necesidad: TDAH</span>
+                        </div>
+                    </div>
+                    <div class="student-card">
+                        <div class="student-avatar" style="background:#8B5CF6;">LS</div>
+                        <h4>Laura Sánchez</h4>
+                        <p>1º ESO • Inglés</p>
+                        <div class="student-tags">
+                            <span>Progreso: 67%</span>
+                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
+                            <span>Necesidad: Ninguna</span>
+                        </div>
+                    </div>
+                    <div class="student-card">
+                        <div class="student-avatar" style="background:#EC4899;">PT</div>
+                        <h4>Pedro Torres</h4>
+                        <p>6to Primaria • Historia</p>
+                        <div class="student-tags">
+                            <span>Progreso: 53%</span>
+                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
+                            <span>Necesidad: Disgrafía</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <!-- Fin .content -->
+            <!-- ==========================================
+            PÁGINA: CURSOS
+            ========================================== -->
+            <div id="page-cursos" class="page">
+                <div class="section-header">
+                    <h3>📚 Catálogo de Cursos</h3>
+                    <button class="btn">+ Nuevo Curso</button>
+                </div>
 
-    </main>
-    <!-- Fin .main-content -->
-
-
-    <!-- ==========================================
-    JAVASCRIPT
-    ========================================== -->
-    <script>
-        // Toggle del menú en móvil
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-        });
-
-        // Cerrar menú al hacer click fuera (en móvil)
-        document.addEventListener('click', function(event) {
-            const isClickInsideSidebar = sidebar.contains(event.target);
-            const isClickOnToggle = menuToggle.contains(event.target);
-            
-            if (!isClickInsideSidebar && !isClickOnToggle && window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-        // Cerrar menú al redimensionar a > 768px
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-    </script>
-
-</body>
-</html>
+                <div class="courses-grid">
+                    <div class="course-card" style="border-top-color: #4F46E5;">
+                        <h4>Matemáticas</h4>
+                        <div class="course-meta"><i class="fas fa-users"></i> 156 estudiantes</div>
+                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Ana Ruiz</div>
+                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Proyectos</div>
+                        <div class="course-progress">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
+                                <span>Progreso promedio</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:78%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card" style="border-top-color: #10B981;">
+                        <h4>Lengua y Literatura</h4>
+                        <div class="course-meta"><i class="fas fa-users"></i> 98 estudiantes</div>
+                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Carlos Méndez</div>
+                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Gamificación</div>
+                        <div class="course-progress">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
+                                <span>Progreso promedio</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill yellow" style="width:65%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card" style="border-top-color: #F59E0B;">
+                        <h4>Robótica</h4>
+                        <div class="course-meta"><i class="fas fa-users"></i> 42 estudiantes</div>
+                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Laura Vega</div>
+                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Taller</div>
+                        <div class="course-progress">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
+                                <span>Progreso promedio</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width:88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card" style="border-top-color: #EF4444;">
+                        <h4>Ciencias Naturales</h4>
+                        <div class="course-meta"><i class="fas fa-users"></i> 73 estudiantes</div>
+                        <div class="course-meta"><i class="fas fa-chalk
