@@ -1,1075 +1,912 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduInnovate - Sistema Educativo Personalizado</title>
-    
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ============================================
-                   RESET Y VARIABLES GLOBALES
-                   ============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #4F46E5;
-            --primary-dark: #4338CA;
-            --primary-light: #818CF8;
-            --secondary: #0EA5E9;
-            --success: #10B981;
-            --warning: #F59E0B;
-            --danger: #EF4444;
-            --gray-50: #F9FAFB;
-            --gray-100: #F3F4F6;
-            --gray-200: #E5E7EB;
-            --gray-300: #D1D5DB;
-            --gray-400: #9CA3AF;
-            --gray-500: #6B7280;
-            --gray-600: #4B5563;
-            --gray-700: #374151;
-            --gray-800: #1F2937;
-            --gray-900: #111827;
-            --sidebar-width: 260px;
-            --header-height: 70px;
-            --border-radius: 12px;
-            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            --transition: all 0.3s ease;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ============================================
-                   SIDEBAR (Panel lateral)
-                   ============================================ */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: white;
-            border-right: 1px solid var(--gray-200);
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-            transition: var(--transition);
-            padding: 0;
-        }
-
-        .sidebar-brand {
-            padding: 24px 20px;
-            border-bottom: 1px solid var(--gray-200);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sidebar-brand i {
-            font-size: 28px;
-            color: var(--primary);
-        }
-
-        .sidebar-brand h2 {
-            font-size: 20px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .sidebar-brand span {
-            font-size: 12px;
-            color: var(--gray-400);
-            font-weight: 400;
-            -webkit-text-fill-color: var(--gray-400);
-        }
-
-        .sidebar-nav {
-            padding: 20px 12px;
-        }
-
-        .sidebar-nav .nav-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-400);
-            font-weight: 600;
-            padding: 0 12px;
-            margin-bottom: 8px;
-        }
-
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            color: var(--gray-600);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition);
-            margin-bottom: 2px;
-            cursor: pointer;
-        }
-
-        .sidebar-nav a i {
-            width: 20px;
-            font-size: 16px;
-            color: var(--gray-400);
-            transition: var(--transition);
-        }
-
-        .sidebar-nav a:hover {
-            background: var(--gray-100);
-            color: var(--gray-800);
-        }
-
-        .sidebar-nav a:hover i {
-            color: var(--primary);
-        }
-
-        .sidebar-nav a.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        .sidebar-nav a.active i {
-            color: white;
-        }
-
-        .sidebar-nav a .badge {
-            margin-left: auto;
-            background: var(--danger);
-            color: white;
-            font-size: 11px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* ============================================
-                   CONTENIDO PRINCIPAL
-                   ============================================ */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            min-height: 100vh;
-        }
-
-        /* HEADER */
-        .header {
-            height: var(--header-height);
-            background: white;
-            border-bottom: 1px solid var(--gray-200);
-            padding: 0 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-left .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: var(--gray-600);
-            cursor: pointer;
-        }
-
-        .header-left h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .header-left h1 small {
-            font-weight: 400;
-            color: var(--gray-400);
-            font-size: 14px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-right .search-box {
-            display: flex;
-            align-items: center;
-            background: var(--gray-100);
-            border-radius: 8px;
-            padding: 6px 14px;
-            gap: 10px;
-        }
-
-        .header-right .search-box input {
-            border: none;
-            background: transparent;
-            padding: 6px 0;
-            font-size: 14px;
-            outline: none;
-            width: 200px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .header-right .search-box i {
-            color: var(--gray-400);
-        }
-
-        .header-right .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        /* ============================================
-                   CONTENIDO (Páginas dinámicas)
-                   ============================================ */
-        .content {
-            padding: 28px 32px;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Tarjetas de estadísticas */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px 24px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--gray-200);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
-        }
-
-        .stat-card .stat-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .stat-card .stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .stat-card .stat-icon.blue {
-            background: #EFF6FF;
-            color: #3B82F6;
-        }
-
-        .stat-card .stat-icon.green {
-            background: #ECFDF5;
-            color: #10B981;
-        }
-
-        .stat-card .stat-icon.yellow {
-            background: #FFFBEB;
-            color: #F59E0B;
-        }
-
-        .stat-card .stat-icon.red {
-            background: #FEF2F2;
-            color: #EF4444;
-        }
-
-        .stat-card .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            margin-top: 8px;
-        }
-
-        .stat-card .stat-label {
-            font-size: 14px;
-            color: var(--gray-500);
-            font-weight: 500;
-        }
-
-        .stat-card .stat-change {
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        .stat-card .stat-change.up {
-            color: var(--success);
-        }
-
-        .stat-card .stat-change.down {
-            color: var(--danger);
-        }
-
-        /* Sección de tablas */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header h3 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .section-header .btn {
-            padding: 8px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .section-header .btn:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        .section-header .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .section-header .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .table-container {
-            background: white;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--gray-200);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 32px;
-        }
-
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table-container th {
-            text-align: left;
-            padding: 14px 20px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-500);
-            font-weight: 600;
-            background: var(--gray-50);
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .table-container td {
-            padding: 14px 20px;
-            font-size: 14px;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .table-container tr:last-child td {
-            border-bottom: none;
-        }
-
-        .table-container tr:hover td {
-            background: var(--gray-50);
-        }
-
-        .status-badge {
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .status-badge.active {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-
-        .status-badge.pending {
-            background: #FEF3C7;
-            color: #92400E;
-        }
-
-        .status-badge.completed {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-
-        .status-badge.inactive {
-            background: #FEE2E2;
-            color: #991B1B;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--gray-200);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar .progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: var(--primary);
-        }
-
-        .progress-fill.green {
-            background: var(--success);
-        }
-
-        .progress-fill.yellow {
-            background: var(--warning);
-        }
-
-        .progress-fill.red {
-            background: var(--danger);
-        }
-
-        /* ============================================
-                   ESTILOS ESPECÍFICOS POR PÁGINA
-                   ============================================ */
-        
-        /* Página de Estudiantes - Grid de cards */
-        .students-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .student-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            border: 1px solid var(--gray-200);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .student-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
-        }
-
-        .student-card .student-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-
-        .student-card h4 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .student-card p {
-            color: var(--gray-500);
-            font-size: 14px;
-            margin: 4px 0 8px;
-        }
-
-        .student-card .student-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .student-card .student-tags span {
-            background: var(--gray-100);
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            color: var(--gray-600);
-        }
-
-        /* Página de Cursos */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            border: 1px solid var(--gray-200);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-top: 4px solid var(--primary);
-        }
-
-        .course-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
-        }
-
-        .course-card h4 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .course-card .course-meta {
-            color: var(--gray-500);
-            font-size: 13px;
-            margin: 8px 0;
-        }
-
-        .course-card .course-meta i {
-            margin-right: 6px;
-        }
-
-        .course-card .course-progress {
-            margin-top: 12px;
-        }
-
-        /* ============================================
-                   RESPONSIVE
-                   ============================================ */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .header-left .menu-toggle {
-                display: block;
-            }
-
-            .header {
-                padding: 0 16px;
-            }
-
-            .header-right .search-box input {
-                width: 120px;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .students-grid,
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-left h1 small {
-                display: none;
-            }
-
-            .header-right .search-box {
-                display: none;
-            }
-        }
-
-        /* Scrollbar personalizada */
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--gray-300);
-            border-radius: 10px;
-        }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gray-900);
-            color: white;
-            padding: 14px 24px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            font-size: 14px;
-            font-weight: 500;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.4s ease;
-            z-index: 2000;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .toast i {
-            margin-right: 10px;
-            color: var(--success);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Educativa</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root{
+    --accent:#0057FF;
+    --accent-dark:#0041C4;
+    --accent-light:#5C8DFF;
+    --bg-tint:#EEF3FF;
+    --sidebar-width:260px;
+    --header-height:70px;
+    --radius:12px;
+    --shadow:0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-lg:0 10px 25px -5px rgba(0,0,0,.15);
+    --gray-50:#F9FAFB; --gray-100:#F3F4F6; --gray-200:#E5E7EB; --gray-300:#D1D5DB;
+    --gray-400:#9CA3AF; --gray-500:#6B7280; --gray-600:#4B5563; --gray-700:#374151;
+    --gray-800:#1F2937; --gray-900:#111827;
+    --danger:#EF4444;
+  }
+
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-tint);
+    color:var(--gray-800);
+    min-height:100vh;
+    transition:background .4s ease;
+  }
+
+  [hidden]{ display:none !important; }
+
+  button, input { font-family:'Inter',sans-serif; }
+
+  /* ============== PANTALLA DE AUTENTICACIÓN ============== */
+  #authScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));
+    padding:20px;
+    transition:background .4s ease;
+  }
+
+  .auth-card{
+    background:#fff;
+    width:100%;
+    max-width:400px;
+    border-radius:16px;
+    box-shadow:var(--shadow-lg);
+    padding:36px 32px;
+  }
+
+  .auth-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:8px;
+  }
+
+  .auth-brand i{ font-size:30px; color:var(--accent); }
+  .auth-brand h1{ font-size:22px; font-weight:800; }
+
+  .auth-card p.subtitle{
+    text-align:center;
+    color:var(--gray-500);
+    font-size:13px;
+    margin-bottom:24px;
+  }
+
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block; font-size:13px; font-weight:600;
+    margin-bottom:6px; color:var(--gray-700);
+  }
+  .field input{
+    width:100%;
+    padding:11px 14px;
+    border:1px solid var(--gray-200);
+    border-radius:8px;
+    font-size:14px;
+    outline:none;
+    transition:border .2s ease;
+  }
+  .field input:focus{ border-color:var(--accent); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:11px 20px;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{ background:var(--accent-dark); }
+  .btn:disabled{ opacity:.6; cursor:not-allowed; }
+  .btn.btn-block{ width:100%; }
+  .btn.btn-outline{
+    background:transparent; color:var(--accent); border:1px solid var(--accent);
+  }
+  .btn.btn-outline:hover{ background:var(--accent); color:#fff; }
+  .btn.btn-danger{ background:var(--danger); }
+  .btn.btn-danger:hover{ background:#C53030; }
+
+  .auth-switch{
+    text-align:center;
+    margin-top:18px;
+    font-size:13px;
+    color:var(--gray-500);
+  }
+  .auth-switch a{ color:var(--accent); font-weight:600; cursor:pointer; text-decoration:none; }
+
+  .auth-error{
+    background:#FEF2F2; color:#991B1B; border:1px solid #FECACA;
+    padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px;
+  }
+  .auth-info{
+    background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0;
+    padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px;
+  }
+
+  /* ============== APP PRINCIPAL ============== */
+  .sidebar{
+    width:var(--sidebar-width);
+    background:#fff;
+    border-right:1px solid var(--gray-200);
+    position:fixed; top:0; left:0; height:100vh;
+    overflow-y:auto; z-index:1000; padding:0;
+    transition:transform .3s ease;
+  }
+
+  .sidebar-brand{
+    padding:24px 20px; border-bottom:1px solid var(--gray-200);
+    display:flex; align-items:center; gap:12px;
+  }
+  .sidebar-brand i{ font-size:26px; color:var(--accent); transition:color .4s ease; }
+  .sidebar-brand h2{ font-size:17px; font-weight:800; }
+  .sidebar-brand span{ font-size:11px; color:var(--gray-400); }
+
+  .sidebar-nav{ padding:16px 12px; }
+  .nav-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.5px;
+    color:var(--gray-400); font-weight:600; padding:0 12px; margin-bottom:8px;
+  }
+
+  .nav-link{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 16px; border-radius:8px;
+    color:var(--gray-600); text-decoration:none; font-size:14px; font-weight:500;
+    margin-bottom:3px; cursor:pointer; border:none; background:none; width:100%;
+    text-align:left; transition:background .2s ease, color .2s ease;
+  }
+  .nav-link i{ width:20px; font-size:15px; color:var(--gray-400); transition:color .2s ease; }
+  .nav-link:hover{ background:var(--gray-100); color:var(--gray-800); }
+  .nav-link.active{ background:var(--subject-color,var(--accent)); color:#fff; box-shadow:var(--shadow); }
+  .nav-link.active i{ color:#fff; }
+  .nav-link.logout{ color:var(--danger); margin-top:20px; }
+  .nav-link.logout i{ color:var(--danger); }
+
+  .main-content{ margin-left:var(--sidebar-width); min-height:100vh; }
+
+  .header{
+    height:var(--header-height);
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--gray-200);
+    padding:0 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100;
+  }
+  .header h1{ font-size:19px; font-weight:700; }
+  .header h1 small{ display:block; font-weight:400; color:var(--gray-400); font-size:13px; }
+
+  .header-right{ display:flex; align-items:center; gap:14px; }
+  .user-name{ font-size:14px; font-weight:600; color:var(--gray-700); }
+  .avatar{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px; transition:background .4s ease;
+  }
+
+  .content{ padding:28px 32px; }
+
+  /* Dashboard: tarjetas de materias */
+  .subjects-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px; margin-bottom:8px;
+  }
+  .subject-card{
+    background:#fff; border-radius:var(--radius); padding:24px;
+    border:1px solid var(--gray-200); box-shadow:var(--shadow);
+    cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;
+    border-top:5px solid var(--card-color, #999);
+  }
+  .subject-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+  .subject-card.selected{ outline:2px solid var(--card-color,#999); }
+  .subject-card .subj-icon{
+    width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; color:#fff; background:var(--card-color,#999); margin-bottom:14px;
+  }
+  .subject-card h3{ font-size:17px; font-weight:700; margin-bottom:4px; }
+  .subject-card p{ font-size:13px; color:var(--gray-500); }
+
+  /* Vista de materia: lista de PDFs */
+  .section-header{
+    display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:12px;
+  }
+  .section-header h3{ font-size:18px; font-weight:700; }
+
+  .pdf-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px;
+  }
+  .pdf-card{
+    background:#fff; border-radius:var(--radius); padding:18px;
+    border:1px solid var(--gray-200); box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .pdf-card .pdf-icon{ font-size:30px; color:var(--accent); }
+  .pdf-card h4{ font-size:15px; font-weight:600; word-break:break-word; }
+  .pdf-card .pdf-meta{ font-size:12px; color:var(--gray-500); }
+  .pdf-card .pdf-actions{ display:flex; gap:8px; margin-top:auto; }
+  .pdf-card .pdf-actions .btn{ flex:1; padding:8px 10px; font-size:13px; }
+
+  .empty-state{
+    text-align:center; padding:60px 20px; color:var(--gray-400);
+  }
+  .empty-state i{ font-size:40px; margin-bottom:12px; display:block; }
+
+  /* Modal */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(17,24,39,.55);
+    display:flex; align-items:center; justify-content:center; z-index:2000; padding:20px;
+  }
+  .modal{
+    background:#fff; border-radius:16px; width:100%; max-width:440px;
+    padding:28px; box-shadow:var(--shadow-lg);
+  }
+  .modal.modal-viewer{ max-width:900px; height:85vh; padding:0; display:flex; flex-direction:column; }
+  .modal-viewer .modal-viewer-header{
+    display:flex; justify-content:space-between; align-items:center; padding:16px 20px;
+    border-bottom:1px solid var(--gray-200);
+  }
+  .modal-viewer iframe{ flex:1; width:100%; border:none; }
+  .modal h3{ font-size:17px; font-weight:700; margin-bottom:18px; }
+  .modal-close{
+    background:none; border:none; font-size:18px; color:var(--gray-500); cursor:pointer;
+  }
+  .modal-actions{ display:flex; gap:10px; margin-top:20px; }
+  .modal-actions .btn{ flex:1; }
+
+  .toast{
+    position:fixed; bottom:30px; right:30px; background:var(--gray-900); color:#fff;
+    padding:14px 22px; border-radius:10px; box-shadow:var(--shadow-lg); font-size:14px; font-weight:500;
+    transform:translateY(100px); opacity:0; transition:all .4s ease; z-index:3000;
+  }
+  .toast.show{ transform:translateY(0); opacity:1; }
+
+  @media (max-width:768px){
+    .sidebar{ transform:translateX(-100%); }
+    .sidebar.open{ transform:translateX(0); }
+    .main-content{ margin-left:0; }
+    .header{ padding:0 16px; }
+    .content{ padding:16px; }
+  }
+
+  .menu-toggle{
+    display:none; background:none; border:none; font-size:20px; color:var(--gray-600); cursor:pointer;
+  }
+  @media (max-width:768px){ .menu-toggle{ display:block; } }
+</style>
 </head>
 <body>
 
-    <!-- ==========================================
-    SIDEBAR
-    ========================================== -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <i class="fas fa-graduation-cap"></i>
-            <div>
-                <h2>EduInnovate</h2>
-                <span>Sistema Educativo</span>
-            </div>
+<!-- ============== PANTALLA LOGIN / REGISTRO ============== -->
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <i class="fas fa-book-reader"></i>
+      <h1>Biblioteca Educativa</h1>
+    </div>
+    <p class="subtitle" id="authSubtitle">Inicia sesión para repasar y estudiar</p>
+
+    <div id="authMessage"></div>
+
+    <!-- LOGIN -->
+    <form id="loginForm">
+      <div class="field">
+        <label>Correo (Gmail)</label>
+        <input type="email" id="loginEmail" placeholder="tucorreo@gmail.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-block" id="loginBtn">
+        <i class="fas fa-right-to-bracket"></i> Iniciar sesión
+      </button>
+    </form>
+
+    <!-- REGISTRO -->
+    <form id="registerForm" hidden>
+      <div class="field">
+        <label>Correo (Gmail)</label>
+        <input type="email" id="registerEmail" placeholder="tucorreo@gmail.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirmar contraseña</label>
+        <input type="password" id="registerPassword2" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-block" id="registerBtn">
+        <i class="fas fa-user-plus"></i> Crear cuenta
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      <span id="toRegister">¿No tienes cuenta? <a onclick="mostrarRegistro()">Regístrate</a></span>
+      <span id="toLogin" hidden>¿Ya tienes cuenta? <a onclick="mostrarLogin()">Inicia sesión</a></span>
+    </p>
+  </div>
+</div>
+
+<!-- ============== APP PRINCIPAL ============== -->
+<div id="app" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <i class="fas fa-book-reader"></i>
+      <div>
+        <h2>Biblioteca Educativa</h2>
+        <span>Repasa por materia</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="nav-label">Principal</div>
+      <button class="nav-link" data-view="dashboard">
+        <i class="fas fa-house"></i> Dashboard
+      </button>
+      <div class="nav-label" style="margin-top:20px;">Materias</div>
+      <!-- generado por JS -->
+      <div id="subjectLinks"></div>
+
+      <button class="nav-link logout" id="logoutBtn">
+        <i class="fas fa-right-from-bracket"></i> Cerrar sesión
+      </button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <h1 id="pageTitle">Dashboard<small id="pageSubtitle">Elige una materia para repasar</small></h1>
+      </div>
+      <div class="header-right">
+        <span class="user-name" id="userName"></span>
+        <div class="avatar" id="userAvatar"></div>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+      <!-- DASHBOARD -->
+      <div id="view-dashboard">
+        <div class="subjects-grid" id="subjectsGrid"></div>
+      </div>
+
+      <!-- VISTA DE MATERIA -->
+      <div id="view-subject" hidden>
+        <div class="section-header">
+          <h3 id="subjectHeading"></h3>
+          <button class="btn" id="uploadBtn"><i class="fas fa-upload"></i> Subir PDF</button>
         </div>
+        <div class="pdf-grid" id="pdfGrid"></div>
+      </div>
+    </div>
+  </main>
+</div>
 
-        <nav class="sidebar-nav">
-            <div class="nav-label">Principal</div>
-            <a class="nav-link active" data-page="dashboard">
-                <i class="fas fa-home"></i> Dashboard
-            </a>
-            <a class="nav-link" data-page="estudiantes">
-                <i class="fas fa-users"></i> Estudiantes
-                <span class="badge">24</span>
-            </a>
-            <a class="nav-link" data-page="cursos">
-                <i class="fas fa-book"></i> Cursos
-            </a>
-            <a class="nav-link" data-page="docentes">
-                <i class="fas fa-chalkboard-teacher"></i> Docentes
-            </a>
+<!-- Modal subir PDF -->
+<div class="modal-overlay" id="uploadModal" hidden>
+  <div class="modal">
+    <h3>Subir PDF</h3>
+    <form id="uploadForm">
+      <div class="field">
+        <label>Título</label>
+        <input type="text" id="pdfTitle" placeholder="Ej: Guía de fracciones" required>
+      </div>
+      <div class="field">
+        <label>Archivo PDF</label>
+        <input type="file" id="pdfFile" accept="application/pdf" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="cancelUpload">Cancelar</button>
+        <button type="submit" class="btn" id="confirmUpload">Subir</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-            <div class="nav-label" style="margin-top: 24px;">Gestión</div>
-            <a class="nav-link" data-page="evaluaciones">
-                <i class="fas fa-clipboard-list"></i> Evaluaciones
-            </a>
-            <a class="nav-link" data-page="progreso">
-                <i class="fas fa-chart-line"></i> Progreso
-            </a>
-            <a class="nav-link" data-page="recursos">
-                <i class="fas fa-cogs"></i> Recursos
-            </a>
+<!-- Modal visor de PDF -->
+<div class="modal-overlay" id="viewerModal" hidden>
+  <div class="modal modal-viewer">
+    <div class="modal-viewer-header">
+      <h3 id="viewerTitle" style="font-size:15px;"></h3>
+      <button class="modal-close" id="closeViewer"><i class="fas fa-xmark"></i></button>
+    </div>
+    <iframe id="viewerFrame" src=""></iframe>
+  </div>
+</div>
 
-            <div class="nav-label" style="margin-top: 24px;">Configuración</div>
-            <a class="nav-link" data-page="ajustes">
-                <i class="fas fa-cog"></i> Ajustes
-            </a>
-            <a href="#" onclick="cerrarSesion()">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </a>
-        </nav>
-    </aside>
+<div class="toast" id="toast"></div>
 
-    <!-- ==========================================
-    CONTENIDO PRINCIPAL
-    ========================================== -->
-    <main class="main-content">
+<script>
+/* ==================================================
+   BACKEND LOCAL (sin Supabase por ahora)
+   Cuentas en localStorage, PDFs (blobs) en IndexedDB.
+   Cuando reconectemos Supabase, solo hay que reemplazar
+   este objeto `backend` por llamadas a supabase-js;
+   el resto de la app llama siempre a `backend.*`.
+   ================================================== */
+const DB_NAME = 'biblioteca_educativa';
+const DB_VERSION = 1;
 
-        <!-- HEADER -->
-        <header class="header">
-            <div class="header-left">
-                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1 id="pageTitle">
-                    Dashboard
-                    <small>Bienvenido de vuelta, Profesor</small>
-                </h1>
-            </div>
-            <div class="header-right">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Buscar..." id="searchInput">
-                </div>
-                <i class="fas fa-bell" style="color: var(--gray-400); font-size: 20px; cursor: pointer;" onclick="mostrarToast('📬 No tienes notificaciones nuevas')"></i>
-                <div class="avatar" onclick="mostrarToast('👤 Perfil: Juan Díaz')">JD</div>
-            </div>
-        </header>
+function abrirDB(){
+  return new Promise((resolve, reject)=>{
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = ()=>{
+      const db = req.result;
+      if(!db.objectStoreNames.contains('pdfs')){
+        const store = db.createObjectStore('pdfs', { keyPath:'id' });
+        store.createIndex('subject', 'subject');
+      }
+    };
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error);
+  });
+}
 
-        <!-- CONTENIDO -->
-        <div class="content">
+async function idbTx(storeName, mode, fn){
+  const db = await abrirDB();
+  return new Promise((resolve, reject)=>{
+    const tx = db.transaction(storeName, mode);
+    const store = tx.objectStore(storeName);
+    const result = fn(store);
+    tx.oncomplete = ()=> resolve(result && result.result !== undefined ? result.result : result);
+    tx.onerror = ()=> reject(tx.error);
+  });
+}
 
-            <!-- ==========================================
-            PÁGINA: DASHBOARD
-            ========================================== -->
-            <div id="page-dashboard" class="page active">
+function idbRequest(req){
+  return new Promise((resolve, reject)=>{
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error);
+  });
+}
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <span class="stat-label">Total Estudiantes</span>
-                            <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
-                        </div>
-                        <div class="stat-number">1,284</div>
-                        <div class="stat-change up">↑ 12% este mes</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <span class="stat-label">Cursos Activos</span>
-                            <div class="stat-icon green"><i class="fas fa-book-open"></i></div>
-                        </div>
-                        <div class="stat-number">18</div>
-                        <div class="stat-change up">↑ 3 nuevos este mes</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <span class="stat-label">Progreso Promedio</span>
-                            <div class="stat-icon yellow"><i class="fas fa-chart-simple"></i></div>
-                        </div>
-                        <div class="stat-number">76%</div>
-                        <div class="stat-change up">↑ 5% vs mes anterior</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <span class="stat-label">Brechas Detectadas</span>
-                            <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
-                        </div>
-                        <div class="stat-number">43</div>
-                        <div class="stat-change down">↑ 8% requiere atención</div>
-                    </div>
-                </div>
+const LS_USERS = 'be_local_users';
+const LS_SESSION = 'be_local_session';
+let authListeners = [];
 
-                <div class="section-header">
-                    <h3>📋 Estudiantes Recientes</h3>
-                    <button class="btn" onclick="navegarA('estudiantes')">Ver todos</button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Estudiante</th>
-                                <th>Grado</th>
-                                <th>Curso</th>
-                                <th>Progreso</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>María González</strong></td>
-                                <td>5to Primaria</td>
-                                <td>Matemáticas</td>
-                                <td>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 85%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="status-badge active">Activo</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Carlos Pérez</strong></td>
-                                <td>2º ESO</td>
-                                <td>Lengua</td>
-                                <td>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill yellow" style="width: 45%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="status-badge pending">En pausa</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ana Martínez</strong></td>
-                                <td>3er Semestre</td>
-                                <td>Robótica</td>
-                                <td>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill green" style="width: 92%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="status-badge completed">Finalizado</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Jorge Ramírez</strong></td>
-                                <td>4to Primaria</td>
-                                <td>Ciencias</td>
-                                <td>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill red" style="width: 28%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="status-badge inactive">Alerta</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+function leerUsuariosLocal(){
+  try { return JSON.parse(localStorage.getItem(LS_USERS)) || []; }
+  catch(e){ return []; }
+}
+function guardarUsuariosLocal(users){
+  localStorage.setItem(LS_USERS, JSON.stringify(users));
+}
+function leerSesionLocal(){
+  try { return JSON.parse(localStorage.getItem(LS_SESSION)) || null; }
+  catch(e){ return null; }
+}
+function guardarSesionLocal(session){
+  if(session) localStorage.setItem(LS_SESSION, JSON.stringify(session));
+  else localStorage.removeItem(LS_SESSION);
+  authListeners.forEach(cb => cb(session ? 'SIGNED_IN' : 'SIGNED_OUT', session));
+}
 
-                <div class="section-header">
-                    <h3>📝 Últimas Evaluaciones Formativas</h3>
-                    <button class="btn" onclick="navegarA('evaluaciones')">Ver todas</button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Estudiante</th>
-                                <th>Tipo</th>
-                                <th>Curso</th>
-                                <th>Nota</th>
-                                <th>Feedback</th>
-                                <th>Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>María González</strong></td>
-                                <td>Rúbrica</td>
-                                <td>Matemáticas</td>
-                                <td>8.5</td>
-                                <td>Excelente razonamiento lógico</td>
-                                <td>15/08/2026</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Carlos Pérez</strong></td>
-                                <td>Proyecto</td>
-                                <td>Lengua</td>
-                                <td>6.0</td>
-                                <td>Mejorar estructura del texto</td>
-                                <td>14/08/2026</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ana Martínez</strong></td>
-                                <td>Autoevaluación</td>
-                                <td>Robótica</td>
-                                <td>9.2</td>
-                                <td>Muy buen dominio de Arduino</td>
-                                <td>12/08/2026</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+const backend = {
+  auth: {
+    async signUp({ email, password }){
+      const users = leerUsuariosLocal();
+      if(users.find(u => u.email.toLowerCase() === email.toLowerCase())){
+        return { data:null, error:{ message:'Ya existe una cuenta con ese correo.' } };
+      }
+      const user = { id: crypto.randomUUID(), email, password };
+      users.push(user);
+      guardarUsuariosLocal(users);
+      const session = { user:{ id:user.id, email:user.email } };
+      guardarSesionLocal(session);
+      return { data:{ session }, error:null };
+    },
+    async signInWithPassword({ email, password }){
+      const users = leerUsuariosLocal();
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+      if(!user) return { error:{ message:'Correo o contraseña incorrectos.' } };
+      const session = { user:{ id:user.id, email:user.email } };
+      guardarSesionLocal(session);
+      return { error:null };
+    },
+    async signOut(){ guardarSesionLocal(null); return {}; },
+    async getSession(){ return { data:{ session: leerSesionLocal() } }; },
+    onAuthStateChange(cb){
+      authListeners.push(cb);
+      return { data:{ subscription:{ unsubscribe(){ authListeners = authListeners.filter(f => f !== cb); } } } };
+    },
+  },
+  pdfs: {
+    async listBySubject(subject){
+      const registros = await idbTx('pdfs', 'readonly', store => idbRequest(store.index('subject').getAll(subject)));
+      return registros.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+    },
+    async countBySubject(subject){
+      const registros = await idbTx('pdfs', 'readonly', store => idbRequest(store.index('subject').getAll(subject)));
+      return registros.length;
+    },
+    async upload({ subject, title, file, userId, userName }){
+      const registro = {
+        id: crypto.randomUUID(),
+        subject, title,
+        blob: file,
+        uploaded_by: userId,
+        uploader_name: userName,
+        created_at: new Date().toISOString(),
+      };
+      await idbTx('pdfs', 'readwrite', store => store.add(registro));
+    },
+    async remove(id){
+      await idbTx('pdfs', 'readwrite', store => store.delete(id));
+    },
+    getUrl(registro){
+      return URL.createObjectURL(registro.blob);
+    },
+  },
+};
 
-            <!-- ==========================================
-            PÁGINA: ESTUDIANTES
-            ========================================== -->
-            <div id="page-estudiantes" class="page">
-                <div class="section-header">
-                    <h3>👨‍🎓 Todos los Estudiantes</h3>
-                    <button class="btn">+ Agregar Estudiante</button>
-                </div>
+/* ==================================================
+   MATERIAS Y COLORES
+   ================================================== */
+const MATERIAS = {
+  matematicas: { nombre:'Matemáticas', icon:'fa-calculator',   color:'#0057FF', dark:'#0041C4', light:'#5C8DFF', bgTint:'#EEF3FF' },
+  lenguaje:    { nombre:'Lenguaje',    icon:'fa-book',         color:'#D62828', dark:'#A81E1E', light:'#FF7A7A', bgTint:'#FFF1F1' },
+  historia:    { nombre:'Historia',    icon:'fa-landmark',     color:'#F2B705', dark:'#C79A04', light:'#FFDE70', bgTint:'#FFFBE6' },
+  ciencias:    { nombre:'Ciencias',    icon:'fa-flask',        color:'#10B981', dark:'#0C8F63', light:'#5EEAB5', bgTint:'#ECFDF5' },
+  ingles:      { nombre:'Inglés',      icon:'fa-language',     color:'#7C3AED', dark:'#5F27C9', light:'#B794F6', bgTint:'#F5F0FF' },
+};
+const MATERIA_KEYS = Object.keys(MATERIAS);
 
-                <div class="students-grid">
-                    <div class="student-card">
-                        <div class="student-avatar">MG</div>
-                        <h4>María González</h4>
-                        <p>5to Primaria • Matemáticas</p>
-                        <div class="student-tags">
-                            <span>Progreso: 85%</span>
-                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
-                            <span>Necesidad: Ninguna</span>
-                        </div>
-                    </div>
-                    <div class="student-card">
-                        <div class="student-avatar" style="background:#F59E0B;">CP</div>
-                        <h4>Carlos Pérez</h4>
-                        <p>2º ESO • Lengua</p>
-                        <div class="student-tags">
-                            <span>Progreso: 45%</span>
-                            <span style="background:#FEF3C7;color:#92400E;">En pausa</span>
-                            <span>Necesidad: Dislexia</span>
-                        </div>
-                    </div>
-                    <div class="student-card">
-                        <div class="student-avatar" style="background:#10B981;">AM</div>
-                        <h4>Ana Martínez</h4>
-                        <p>3er Semestre • Robótica</p>
-                        <div class="student-tags">
-                            <span>Progreso: 92%</span>
-                            <span style="background:#DBEAFE;color:#1E40AF;">Finalizado</span>
-                            <span>Necesidad: Altas capacidades</span>
-                        </div>
-                    </div>
-                    <div class="student-card">
-                        <div class="student-avatar" style="background:#EF4444;">JR</div>
-                        <h4>Jorge Ramírez</h4>
-                        <p>4to Primaria • Ciencias</p>
-                        <div class="student-tags">
-                            <span>Progreso: 28%</span>
-                            <span style="background:#FEE2E2;color:#991B1B;">Alerta</span>
-                            <span>Necesidad: TDAH</span>
-                        </div>
-                    </div>
-                    <div class="student-card">
-                        <div class="student-avatar" style="background:#8B5CF6;">LS</div>
-                        <h4>Laura Sánchez</h4>
-                        <p>1º ESO • Inglés</p>
-                        <div class="student-tags">
-                            <span>Progreso: 67%</span>
-                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
-                            <span>Necesidad: Ninguna</span>
-                        </div>
-                    </div>
-                    <div class="student-card">
-                        <div class="student-avatar" style="background:#EC4899;">PT</div>
-                        <h4>Pedro Torres</h4>
-                        <p>6to Primaria • Historia</p>
-                        <div class="student-tags">
-                            <span>Progreso: 53%</span>
-                            <span style="background:#D1FAE5;color:#065F46;">Activo</span>
-                            <span>Necesidad: Disgrafía</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+let state = {
+  session: null,
+  activeView: 'dashboard',
+  activeSubject: 'matematicas',
+  pdfCounts: {},
+};
 
-            <!-- ==========================================
-            PÁGINA: CURSOS
-            ========================================== -->
-            <div id="page-cursos" class="page">
-                <div class="section-header">
-                    <h3>📚 Catálogo de Cursos</h3>
-                    <button class="btn">+ Nuevo Curso</button>
-                </div>
+/* ==================================================
+   UTILIDADES
+   ================================================== */
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
 
-                <div class="courses-grid">
-                    <div class="course-card" style="border-top-color: #4F46E5;">
-                        <h4>Matemáticas</h4>
-                        <div class="course-meta"><i class="fas fa-users"></i> 156 estudiantes</div>
-                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Ana Ruiz</div>
-                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Proyectos</div>
-                        <div class="course-progress">
-                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
-                                <span>Progreso promedio</span>
-                                <span>78%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width:78%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-card" style="border-top-color: #10B981;">
-                        <h4>Lengua y Literatura</h4>
-                        <div class="course-meta"><i class="fas fa-users"></i> 98 estudiantes</div>
-                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Carlos Méndez</div>
-                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Gamificación</div>
-                        <div class="course-progress">
-                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
-                                <span>Progreso promedio</span>
-                                <span>65%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill yellow" style="width:65%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-card" style="border-top-color: #F59E0B;">
-                        <h4>Robótica</h4>
-                        <div class="course-meta"><i class="fas fa-users"></i> 42 estudiantes</div>
-                        <div class="course-meta"><i class="fas fa-chalkboard-teacher"></i> Prof. Laura Vega</div>
-                        <div class="course-meta"><i class="fas fa-tag"></i> Metodología: Taller</div>
-                        <div class="course-progress">
-                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray-500);">
-                                <span>Progreso promedio</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill green" style="width:88%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-card" style="border-top-color: #EF4444;">
-                        <h4>Ciencias Naturales</h4>
-                        <div class="course-meta"><i class="fas fa-users"></i> 73 estudiantes</div>
-                        <div class="course-meta"><i class="fas fa-chalk
+function nombreDesdeEmail(email){
+  if(!email) return 'Usuario';
+  const local = email.split('@')[0];
+  const limpio = local.replace(/[._\-\d]+/g,' ').trim();
+  if(!limpio) return local;
+  return limpio.split(' ').filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+function inicialesDe(nombre){
+  const partes = nombre.trim().split(' ').filter(Boolean);
+  if(partes.length === 0) return '?';
+  if(partes.length === 1) return partes[0].slice(0,2).toUpperCase();
+  return (partes[0][0] + partes[1][0]).toUpperCase();
+}
+
+function aplicarTema(key){
+  const m = MATERIAS[key];
+  const root = document.documentElement;
+  root.style.setProperty('--accent', m.color);
+  root.style.setProperty('--accent-dark', m.dark);
+  root.style.setProperty('--accent-light', m.light);
+  root.style.setProperty('--bg-tint', m.bgTint);
+  document.getElementById('sidebarNav').style.setProperty('--subject-color', m.color);
+}
+
+/* ==================================================
+   AUTENTICACIÓN
+   ================================================== */
+function mostrarRegistro(){
+  document.getElementById('loginForm').hidden = true;
+  document.getElementById('registerForm').hidden = false;
+  document.getElementById('toRegister').hidden = true;
+  document.getElementById('toLogin').hidden = false;
+  document.getElementById('authSubtitle').textContent = 'Crea tu cuenta para empezar a estudiar';
+  document.getElementById('authMessage').innerHTML = '';
+}
+function mostrarLogin(){
+  document.getElementById('loginForm').hidden = false;
+  document.getElementById('registerForm').hidden = true;
+  document.getElementById('toRegister').hidden = false;
+  document.getElementById('toLogin').hidden = true;
+  document.getElementById('authSubtitle').textContent = 'Inicia sesión para repasar y estudiar';
+  document.getElementById('authMessage').innerHTML = '';
+}
+
+function mostrarMensajeAuth(msg, tipo){
+  const el = document.getElementById('authMessage');
+  const clase = tipo === 'error' ? 'auth-error' : 'auth-info';
+  el.innerHTML = `<div class="${clase}">${msg}</div>`;
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  const { error } = await backend.auth.signInWithPassword({ email, password });
+  btn.disabled = false;
+  if(error){
+    mostrarMensajeAuth(error.message, 'error');
+    return;
+  }
+});
+
+document.getElementById('registerForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('registerEmail').value.trim();
+  const password = document.getElementById('registerPassword').value;
+  const password2 = document.getElementById('registerPassword2').value;
+  if(password !== password2){
+    mostrarMensajeAuth('Las contraseñas no coinciden.', 'error');
+    return;
+  }
+  const btn = document.getElementById('registerBtn');
+  btn.disabled = true;
+  const { error } = await backend.auth.signUp({ email, password });
+  btn.disabled = false;
+  if(error){
+    mostrarMensajeAuth(error.message, 'error');
+    return;
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+  await backend.auth.signOut();
+});
+
+backend.auth.onAuthStateChange((_event, session)=>{
+  state.session = session;
+  if(session){
+    mostrarApp(session);
+  } else {
+    mostrarAuth();
+  }
+});
+
+function mostrarAuth(){
+  document.getElementById('authScreen').hidden = false;
+  document.getElementById('app').hidden = true;
+}
+
+function mostrarApp(session){
+  document.getElementById('authScreen').hidden = true;
+  document.getElementById('app').hidden = false;
+  const email = session.user.email;
+  const nombre = nombreDesdeEmail(email);
+  document.getElementById('userName').textContent = nombre;
+  document.getElementById('userAvatar').textContent = inicialesDe(nombre);
+  seleccionarMateria('matematicas');
+  irADashboard();
+}
+
+/* ==================================================
+   NAVEGACIÓN LATERAL
+   ================================================== */
+function construirMenuMaterias(){
+  const cont = document.getElementById('subjectLinks');
+  cont.innerHTML = '';
+  MATERIA_KEYS.forEach(key=>{
+    const m = MATERIAS[key];
+    const btn = document.createElement('button');
+    btn.className = 'nav-link';
+    btn.dataset.subject = key;
+    btn.innerHTML = `<i class="fas ${m.icon}"></i> ${m.nombre}`;
+    btn.addEventListener('click', ()=>{ seleccionarMateria(key); irAMateria(key); });
+    cont.appendChild(btn);
+  });
+}
+construirMenuMaterias();
+
+document.getElementById('sidebarNav').addEventListener('click', (e)=>{
+  const dashBtn = e.target.closest('[data-view="dashboard"]');
+  if(dashBtn) irADashboard();
+});
+
+function actualizarActivos(){
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+  if(state.activeView === 'dashboard'){
+    document.querySelector('[data-view="dashboard"]').classList.add('active');
+  } else {
+    const el = document.querySelector(`[data-subject="${state.activeSubject}"]`);
+    if(el) el.classList.add('active');
+  }
+}
+
+function seleccionarMateria(key){
+  state.activeSubject = key;
+  aplicarTema(key);
+}
+
+/* ==================================================
+   VISTAS
+   ================================================== */
+async function irADashboard(){
+  state.activeView = 'dashboard';
+  document.getElementById('view-dashboard').hidden = false;
+  document.getElementById('view-subject').hidden = true;
+  document.getElementById('pageTitle').innerHTML = 'Dashboard<small>Elige una materia para repasar</small>';
+  actualizarActivos();
+  await renderDashboard();
+}
+
+async function irAMateria(key){
+  state.activeView = 'subject';
+  document.getElementById('view-dashboard').hidden = true;
+  document.getElementById('view-subject').hidden = false;
+  const m = MATERIAS[key];
+  document.getElementById('pageTitle').innerHTML = `${m.nombre}<small>Material de estudio en PDF</small>`;
+  document.getElementById('subjectHeading').innerHTML = `<i class="fas ${m.icon}"></i> ${m.nombre}`;
+  actualizarActivos();
+  await cargarPdfs(key);
+}
+
+async function renderDashboard(){
+  const grid = document.getElementById('subjectsGrid');
+  grid.innerHTML = '';
+  await Promise.all(MATERIA_KEYS.map(async key=>{
+    state.pdfCounts[key] = await backend.pdfs.countBySubject(key);
+  }));
+  MATERIA_KEYS.forEach(key=>{
+    const m = MATERIAS[key];
+    const card = document.createElement('div');
+    card.className = 'subject-card' + (key === state.activeSubject ? ' selected' : '');
+    card.style.setProperty('--card-color', m.color);
+    card.innerHTML = `
+      <div class="subj-icon"><i class="fas ${m.icon}"></i></div>
+      <h3>${m.nombre}</h3>
+      <p>${state.pdfCounts[key]} PDF(s) disponibles</p>
+    `;
+    card.addEventListener('click', ()=>{ seleccionarMateria(key); irAMateria(key); });
+    grid.appendChild(card);
+  });
+}
+
+async function cargarPdfs(key){
+  const grid = document.getElementById('pdfGrid');
+  grid.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i>Cargando...</div>';
+  let data;
+  try {
+    data = await backend.pdfs.listBySubject(key);
+  } catch(error){
+    grid.innerHTML = `<div class="empty-state"><i class="fas fa-triangle-exclamation"></i>No se pudieron cargar los PDFs.</div>`;
+    toast('Error al cargar PDFs: ' + error.message);
+    return;
+  }
+  if(!data || data.length === 0){
+    grid.innerHTML = `<div class="empty-state"><i class="fas fa-file-circle-question"></i>Todavía no hay PDFs en esta materia.</div>`;
+    return;
+  }
+  grid.innerHTML = '';
+  data.forEach(pdf=>{
+    const url = backend.pdfs.getUrl(pdf);
+    const esMio = state.session && pdf.uploaded_by === state.session.user.id;
+    const card = document.createElement('div');
+    card.className = 'pdf-card';
+    card.innerHTML = `
+      <i class="fas fa-file-pdf pdf-icon"></i>
+      <h4>${pdf.title}</h4>
+      <div class="pdf-meta">Subido por ${pdf.uploader_name || 'Usuario'} · ${new Date(pdf.created_at).toLocaleDateString()}</div>
+      <div class="pdf-actions">
+        <button class="btn btn-outline btn-ver"><i class="fas fa-eye"></i> Ver</button>
+        ${esMio ? '<button class="btn btn-danger btn-borrar"><i class="fas fa-trash"></i></button>' : ''}
+      </div>
+    `;
+    card.querySelector('.btn-ver').addEventListener('click', ()=> abrirVisor(pdf.title, url));
+    const btnBorrar = card.querySelector('.btn-borrar');
+    if(btnBorrar) btnBorrar.addEventListener('click', ()=> borrarPdf(pdf, key));
+    grid.appendChild(card);
+  });
+}
+
+async function borrarPdf(pdf, key){
+  if(!confirm(`¿Eliminar "${pdf.title}"?`)) return;
+  try {
+    await backend.pdfs.remove(pdf.id);
+  } catch(error){
+    toast('Error al borrar: ' + error.message);
+    return;
+  }
+  toast('PDF eliminado');
+  cargarPdfs(key);
+}
+
+/* ==================================================
+   VISOR DE PDF
+   ================================================== */
+let viewerObjectUrl = null;
+function abrirVisor(titulo, url){
+  document.getElementById('viewerTitle').textContent = titulo;
+  document.getElementById('viewerFrame').src = url;
+  viewerObjectUrl = url;
+  document.getElementById('viewerModal').hidden = false;
+}
+document.getElementById('closeViewer').addEventListener('click', ()=>{
+  document.getElementById('viewerModal').hidden = true;
+  document.getElementById('viewerFrame').src = '';
+  if(viewerObjectUrl){ URL.revokeObjectURL(viewerObjectUrl); viewerObjectUrl = null; }
+});
+
+/* ==================================================
+   SUBIR PDF
+   ================================================== */
+document.getElementById('uploadBtn').addEventListener('click', ()=>{
+  document.getElementById('uploadModal').hidden = false;
+});
+document.getElementById('cancelUpload').addEventListener('click', ()=>{
+  document.getElementById('uploadModal').hidden = true;
+  document.getElementById('uploadForm').reset();
+});
+
+document.getElementById('uploadForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const title = document.getElementById('pdfTitle').value.trim();
+  const file = document.getElementById('pdfFile').files[0];
+  if(!file) return;
+  const btn = document.getElementById('confirmUpload');
+  btn.disabled = true;
+  btn.textContent = 'Subiendo...';
+
+  const subject = state.activeSubject;
+  const nombre = nombreDesdeEmail(state.session.user.email);
+
+  try {
+    await backend.pdfs.upload({
+      subject, title, file,
+      userId: state.session.user.id,
+      userName: nombre,
+    });
+  } catch(error){
+    toast('Error al subir el PDF: ' + error.message);
+    btn.disabled = false; btn.innerHTML = 'Subir';
+    return;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'Subir';
+
+  toast('PDF subido correctamente');
+  document.getElementById('uploadModal').hidden = true;
+  document.getElementById('uploadForm').reset();
+  cargarPdfs(subject);
+});
+
+/* ==================================================
+   MENÚ MÓVIL
+   ================================================== */
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+/* ==================================================
+   INICIO
+   ================================================== */
+(async function init(){
+  aplicarTema('matematicas');
+  const { data } = await backend.auth.getSession();
+  state.session = data.session;
+  if(state.session){
+    mostrarApp(state.session);
+  } else {
+    mostrarAuth();
+  }
+})();
+</script>
+</body>
+</html>
