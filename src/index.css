@@ -251,3 +251,115 @@
     border: 3px solid var(--c-primary);
   }
 }
+
+/* ---------- Reader: page layout & page-turn animation ---------- */
+.reader-text {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-align: justify;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  orphans: 2;
+  widows: 2;
+}
+/* Narrow pages: justified text leaves wide gaps, so use a ragged right edge. */
+.reader-text.reader-ragged {
+  text-align: left;
+}
+.reader-text p + p {
+  text-indent: 1.4em;
+}
+.reader-text .rb-h {
+  break-after: avoid;
+  text-align: left;
+}
+.reader-text .rb-v {
+  white-space: pre-line;
+  text-align: left;
+  break-inside: avoid;
+}
+.reader-font-serif {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, 'Times New Roman', serif;
+}
+
+.page-stage {
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+}
+.page-leaf {
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.page-leaf.turn-next {
+  animation: leaf-next 620ms cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+}
+.page-leaf.turn-prev {
+  animation: leaf-prev 620ms cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+}
+.page-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.page-face-back {
+  transform: rotateY(180deg);
+}
+/* Light on the turning page: darkens as it lifts, then fades. */
+.page-leaf .leaf-shade {
+  background: linear-gradient(to left, rgba(24, 32, 29, 0.28), rgba(24, 32, 29, 0) 55%);
+}
+.page-leaf.turn-next .leaf-shade {
+  animation: leaf-shade-next 620ms ease-in forwards;
+}
+.page-leaf.turn-prev .leaf-shade {
+  animation: leaf-shade-prev 620ms ease-out forwards;
+}
+/* Shadow the turning page casts on the page underneath. */
+.page-cast {
+  background: linear-gradient(to right, rgba(24, 32, 29, 0.22), rgba(24, 32, 29, 0) 70%);
+  pointer-events: none;
+}
+.page-cast.turn-next {
+  animation: cast-next 620ms ease-out forwards;
+}
+.page-cast.turn-prev {
+  animation: cast-prev 620ms ease-in forwards;
+}
+@keyframes leaf-next {
+  0% { transform: rotateY(0deg); box-shadow: 0 0 0 rgba(24, 32, 29, 0); }
+  40% { box-shadow: -18px 0 40px rgba(24, 32, 29, 0.22); }
+  100% { transform: rotateY(-180deg); box-shadow: 0 0 0 rgba(24, 32, 29, 0); }
+}
+@keyframes leaf-prev {
+  0% { transform: rotateY(-180deg); box-shadow: 0 0 0 rgba(24, 32, 29, 0); }
+  60% { box-shadow: -18px 0 40px rgba(24, 32, 29, 0.22); }
+  100% { transform: rotateY(0deg); box-shadow: 0 0 0 rgba(24, 32, 29, 0); }
+}
+@keyframes leaf-shade-next {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes leaf-shade-prev {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes cast-next {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes cast-prev {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-fade {
+  animation: fade-in 160ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-leaf.turn-next,
+  .page-leaf.turn-prev {
+    animation-duration: 1ms !important;
+  }
+}

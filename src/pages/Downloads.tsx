@@ -15,7 +15,7 @@ import { formatDate } from '../lib/format'
 import type { Book, Download as DownloadItem } from '../types'
 
 export default function Downloads() {
-  const { downloads, downloading, removeDownload } = useLibrary()
+  const { downloads, downloading, removeDownload, cancelDownload } = useLibrary()
   const { isPremium } = useAuth()
   const [confirm, setConfirm] = useState<Book | null>(null)
   const loading = useSimulatedLoading()
@@ -25,7 +25,7 @@ export default function Downloads() {
     [downloads],
   )
   const inProgress = Object.entries(downloading)
-  const totalMB = items.reduce((s, x) => s + x.d.sizeMB, 0)
+  const totalMB = items.reduce((s, x) => s + x.d.bytes, 0) / 1_048_576
 
   return (
     <div className="animate-fade-in">
@@ -57,6 +57,9 @@ export default function Downloads() {
                   <p className="text-sm font-semibold text-text">{b?.title}</p>
                   <ProgressBar value={pct} showValue className="mt-2" label={`Descargando ${b?.title}`} />
                 </div>
+                <button onClick={() => cancelDownload(id)} className="btn-ghost min-h-10 px-3 text-sm" aria-label={`Cancelar descarga de ${b?.title}`}>
+                  Cancelar
+                </button>
               </li>
             )
           })}
@@ -83,7 +86,7 @@ export default function Downloads() {
       ) : (
         <ul className="grid gap-4 xl:grid-cols-2">
           {items.map(({ d, book }) => (
-            <li key={book.id} className="card flex gap-4 p-4 sm:p-5">
+            <li key={book.id} className="card flex min-w-0 gap-4 p-4 sm:p-5">
               <Link to={`/book/${book.id}`} className="w-20 shrink-0 overflow-hidden rounded-[10px] shadow-card sm:w-24" aria-label={`Ver ${book.title}`}>
                 <BookCover book={book} showText={false} />
               </Link>
@@ -95,7 +98,7 @@ export default function Downloads() {
                   </div>
                 </div>
                 <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
-                  <span>{d.sizeMB.toFixed(1)} MB</span>
+                  <span>{d.bytes < 1_048_576 ? `${Math.round(d.bytes / 1024)} KB` : `${(d.bytes / 1_048_576).toFixed(1)} MB`}</span>
                   <span aria-hidden>·</span>
                   <span>Descargado el {formatDate(d.downloadedAt)}</span>
                 </p>

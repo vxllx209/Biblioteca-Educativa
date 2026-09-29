@@ -6,12 +6,12 @@ import { Avatar } from './Avatar'
 
 export function ProfileCard() {
   const { user, isPremium } = useAuth()
-  const { favorites, downloads, progress, tasks } = useLibrary()
+  const { favorites, progress, tasks, practice } = useLibrary()
   if (!user) return null
   const stats = [
     { label: 'Leyendo', value: Object.keys(progress).length },
     { label: 'Favoritos', value: favorites.length },
-    { label: 'Descargas', value: downloads.length },
+    { label: 'Prácticas', value: Object.keys(practice).length },
     { label: 'Tareas hechas', value: tasks.filter((t) => t.status === 'completada').length },
   ]
   return (

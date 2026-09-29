@@ -1,11 +1,11 @@
-import { Pause, Play, X } from 'lucide-react'
+import { LoaderCircle, Pause, Play, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useAudio } from '../context/AudioContext'
 import { BookCover } from './BookCover'
 
 /** Persistent player: above the bottom nav on mobile, floating over the content bottom on tablet/desktop. */
 export function MiniPlayer() {
-  const { book, track, position, duration, playing, toggle, close } = useAudio()
+  const { book, track, position, duration, playing, status, toggle, close } = useAudio()
   if (!book) return null
   const pct = duration ? (position / duration) * 100 : 0
   return (
@@ -22,7 +22,7 @@ export function MiniPlayer() {
             </span>
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold text-text">{book.title}</span>
-              <span className="block truncate text-xs text-muted">{book.chapters[track]?.title}</span>
+              <span className="block truncate text-xs text-muted">{status === 'error' ? 'Sin conexión: toca para reintentar' : book.audio?.tracks[track]?.title}</span>
             </span>
           </Link>
           <button
@@ -30,7 +30,13 @@ export function MiniPlayer() {
             className="grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition-all duration-200 hover:bg-primary-hover active:scale-95"
             aria-label={playing ? 'Pausar' : 'Reproducir'}
           >
-            {playing ? <Pause className="size-5 fill-current" /> : <Play className="ml-0.5 size-5 fill-current" />}
+            {playing && status === 'loading' ? (
+              <LoaderCircle className="size-5 animate-spin" />
+            ) : playing ? (
+              <Pause className="size-5 fill-current" />
+            ) : (
+              <Play className="ml-0.5 size-5 fill-current" />
+            )}
           </button>
           <button
             onClick={close}

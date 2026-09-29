@@ -1,5 +1,5 @@
-import { ArrowLeft, BookOpen, Check, Crown, Download, Headphones, LoaderCircle, Share2, Star } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { ArrowLeft, ArrowRight, BookOpen, Check, CircleCheck, Crown, Download, ExternalLink, Headphones, LoaderCircle, PenLine, Share2, Star } from 'lucide-react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
 import { BookGrid } from '../components/BookGrid'
@@ -11,9 +11,10 @@ import { ErrorState } from '../components/States'
 import { useAudio } from '../context/AudioContext'
 import { useLibrary } from '../context/LibraryContext'
 import { useToast } from '../context/ToastContext'
-import { BOOKS, getBook, totalAudioSeconds } from '../data/books'
+import { BOOKS, formatYear, getBook, totalAudioSeconds } from '../data/books'
+import { KIND_LABEL, setsForBook, SUBJECT_APPROACH } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
-import { formatDate, formatTime } from '../lib/format'
+import { formatTime } from '../lib/format'
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -49,7 +50,7 @@ export default function BookDetail() {
   const navigate = useNavigate()
   const toast = useToast()
   const audio = useAudio()
-  const { progress, isDownloaded, downloading, startDownload, canAccess } = useLibrary()
+  const { progress, isDownloaded, downloading, startDownload, canAccess, practice } = useLibrary()
   const [gate, setGate] = useState<string | null>(null)
   const loading = useSimulatedLoading([id], 400)
 
@@ -105,17 +106,28 @@ export default function BookDetail() {
   const info = [
     { label: 'Autor', value: book.author },
     { label: 'Categoría', value: book.category },
-    { label: 'Páginas', value: book.pages },
+    { label: 'Páginas', value: `≈ ${book.pages.toLocaleString('es-ES')}` },
     { label: 'Idioma', value: book.language },
-    { label: 'Fecha de publicación', value: formatDate(book.publishedAt, { day: 'numeric', month: 'long', year: 'numeric' }) },
+    { label: 'Fecha de publicación', value: formatYear(book.year) },
   ]
-  const extra = [
-    { label: 'Editorial', value: book.publisher },
-    { label: 'ISBN', value: book.isbn },
+  const extra: { label: string; value: ReactNode }[] = [
+    { label: 'Edición', value: book.edition },
     { label: 'Materia', value: book.subject },
-    { label: 'Capítulos', value: book.chapters.length },
-    { label: 'Audiolibro', value: book.hasAudio ? formatTime(totalAudioSeconds(book)) : 'No disponible' },
-    { label: 'Tamaño de descarga', value: `${book.sizeMB.toFixed(1)} MB` },
+    { label: 'Extensión', value: `${book.words.toLocaleString('es-ES')} palabras · ${book.chapters.length} secciones` },
+    {
+      label: 'Audiolibro',
+      value: book.hasAudio ? `${formatTime(totalAudioSeconds(book))} · ${book.audio!.tracks.length} pistas` : 'No disponible',
+    },
+    { label: 'Tamaño de descarga', value: book.sizeMB < 1 ? `${Math.round(book.sizeMB * 1024)} KB` : `${book.sizeMB.toFixed(1)} MB` },
+    {
+      label: 'Fuente del texto',
+      value: (
+        <a href={book.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+          {book.sourceUrl.includes('wikisource') ? 'Wikisource' : 'Project Gutenberg'} <ExternalLink className="size-3" aria-hidden />
+        </a>
+      ),
+    },
+    { label: 'Derechos', value: 'Dominio público' },
   ]
 
   return (
@@ -164,7 +176,7 @@ export default function BookDetail() {
               {p && (
                 <div className="mt-5 max-w-md rounded-[14px] bg-softer p-4">
                   <p className="mb-2 text-sm font-medium text-text">
-                    Vas en la página {p.page + 1} de {p.totalPages}
+                    Vas en «{book.chapters[p.chapter]?.title}» · {Math.round(p.percent)}% leído
                   </p>
                   <ProgressBar value={p.percent} showValue size="md" label="Progreso de lectura" />
                 </div>
@@ -258,6 +270,52 @@ export default function BookDetail() {
               </dl>
             </section>
           </div>
+
+          <section className="mt-12" aria-labelledby="practice-title">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h2 id="practice-title" className="text-lg font-semibold text-text sm:text-xl">
+                Practica lo que lees
+              </h2>
+              <Link to={`/practice/${book.id}`} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
+                Ver todo
+              </Link>
+            </div>
+            <p className="mb-4 max-w-3xl text-sm text-muted">{SUBJECT_APPROACH[book.category]}</p>
+            <ul className="grid gap-3 md:grid-cols-2">
+              {setsForBook(book.id)
+                .slice(0, 4)
+                .map((s) => (
+                  <li key={s.id} className="min-w-0">
+                    <Link to={`/practice/${book.id}/${s.id}`} className="card group flex items-center gap-3 p-4 transition-colors hover:border-line-active">
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-soft text-accent">
+                        <PenLine className="size-5" aria-hidden />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate font-medium text-text">{s.title}</span>
+                        <span className="block truncate text-xs text-muted">
+                          {book.chapters[s.chapter]?.title} · {KIND_LABEL[s.kind]} · {s.questions.length} preguntas
+                        </span>
+                      </span>
+                      {practice[s.id] ? (
+                        <span className="badge shrink-0 bg-success-soft text-success">
+                          <CircleCheck className="size-3.5" aria-hidden /> {Math.round(practice[s.id].best * 100)}%
+                        </span>
+                      ) : (
+                        <ArrowRight className="size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5" aria-hidden />
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              <li className="min-w-0">
+                <Link to={`/practice/${book.id}`} className="card flex h-full items-center gap-3 border-dashed p-4 text-sm text-muted transition-colors hover:border-line-active hover:text-accent">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-bg2">
+                    <PenLine className="size-5" aria-hidden />
+                  </span>
+                  Práctica libre de cualquier capítulo, con espacio de desarrollo y pizarra
+                </Link>
+              </li>
+            </ul>
+          </section>
 
           <section className="mt-12" aria-labelledby="related">
             <SectionHeader id="related" title="Libros relacionados" />

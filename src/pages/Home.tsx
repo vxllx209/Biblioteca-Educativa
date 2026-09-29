@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpenText, ClipboardList, Compass, Crown, type LucideIcon } from 'lucide-react'
+import { ArrowRight, BookOpenText, ClipboardList, Compass, Crown, PenLine, type LucideIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
@@ -11,6 +11,7 @@ import { RowSkeleton } from '../components/States'
 import { useAuth } from '../context/AuthContext'
 import { useLibrary } from '../context/LibraryContext'
 import { BOOKS, getBook } from '../data/books'
+import { KIND_LABEL, PRACTICE_SETS } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { relativeTime } from '../lib/format'
 import type { Book, ReadingProgress } from '../types'
@@ -39,7 +40,7 @@ function QuickAction({ to, icon: Icon, title, description, cta }: { to: string; 
 
 function ContinueCard({ book, progress }: { book: Book; progress: ReadingProgress }) {
   return (
-    <article className="card flex gap-4 p-4">
+    <article className="card flex min-w-0 gap-4 p-4">
       <Link to={`/book/${book.id}`} className="w-[72px] shrink-0 overflow-hidden rounded-[10px] shadow-card" aria-label={`Ver ${book.title}`}>
         <BookCover book={book} showText={false} />
       </Link>
@@ -67,7 +68,7 @@ function ContinueCard({ book, progress }: { book: Book; progress: ReadingProgres
 
 export default function Home() {
   const { user } = useAuth()
-  const { progress, tasks } = useLibrary()
+  const { progress, tasks, practice } = useLibrary()
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [showAll, setShowAll] = useState(false)
@@ -90,6 +91,13 @@ export default function Home() {
     [progress],
   )
   const pendingTasks = tasks.filter((t) => t.status !== 'completada').length
+  // Practices for chapters already read in the books in progress; otherwise, applied exercises to start with.
+  const toPractice = useMemo(() => {
+    const open = PRACTICE_SETS.filter((s) => !practice[s.id])
+    const fromReading = open.filter((s) => progress[s.bookId] && s.chapter <= progress[s.bookId].chapter)
+    const pick = fromReading.length ? fromReading : open.filter((s) => s.kind === 'ejercicios')
+    return pick.slice(0, 3)
+  }, [practice, progress])
 
   const search = (q: string) => navigate(q.trim() ? `/explore?q=${encodeURIComponent(q.trim())}` : '/explore')
 
@@ -162,6 +170,32 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {toPractice.length > 0 && (
+        <section aria-labelledby="practice-title">
+          <SectionHeader id="practice-title" title="Practica lo que leíste" />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {toPractice.map((s) => {
+              const b = getBook(s.bookId)!
+              return (
+                <Link key={s.id} to={`/practice/${s.bookId}/${s.id}`} className="card group flex min-w-0 items-start gap-4 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-line-active">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-soft text-accent">
+                    <PenLine className="size-5" aria-hidden />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-xs text-muted">{b.title}</span>
+                    <span className="block font-semibold text-text">{s.title}</span>
+                    <span className="mt-1 block text-xs text-muted">
+                      {KIND_LABEL[s.kind]} · {s.questions.length} preguntas
+                    </span>
+                  </span>
+                  <ArrowRight className="mt-1 size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5" aria-hidden />
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       <section aria-labelledby="reco-title">
         <SectionHeader

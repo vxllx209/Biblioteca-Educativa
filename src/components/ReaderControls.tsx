@@ -1,14 +1,18 @@
 import { AArrowDown, AArrowUp, Bookmark, ChevronLeft, ChevronRight, Search, Settings2, Type, Volume2, VolumeX } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { cn } from '../lib/format'
 
 interface Props {
-  page: number
-  total: number
+  /** Whole-book progress 0..100 */
   percent: number
+  pageLabel: string
   onPrev: () => void
   onNext: () => void
-  onSeek: (page: number) => void
+  canPrev: boolean
+  canNext: boolean
+  /** Jump to a whole-book position 0..1 */
+  onScrub: (fraction: number) => void
+  scrubLabel: (fraction: number) => string
   bookmarked: boolean
   onBookmark: () => void
   fontSize: number
@@ -17,13 +21,12 @@ interface Props {
   onSearch: () => void
   speaking: boolean
   onSpeak: () => void
-  canNext: boolean
 }
 
 export const FONT_MIN = 15
-export const FONT_MAX = 24
+export const FONT_MAX = 26
 
-function Tool({ label, onClick, active, children }: { label: string; onClick: () => void; active?: boolean; children: React.ReactNode }) {
+function Tool({ label, onClick, active, children }: { label: string; onClick: () => void; active?: boolean; children: ReactNode }) {
   return (
     <button
       onClick={onClick}
@@ -42,10 +45,23 @@ function Tool({ label, onClick, active, children }: { label: string; onClick: ()
 
 export function ReaderControls(p: Props) {
   const [fontOpen, setFontOpen] = useState(false)
-  const fill = p.total > 1 ? (p.page / (p.total - 1)) * 100 : 100
+  const [scrub, setScrub] = useState<number | null>(null)
+  const value = scrub ?? p.percent * 10
+
+  // Commit slider moves shortly after the user stops dragging.
+  useEffect(() => {
+    if (scrub === null) return
+    const t = setTimeout(() => p.onScrub(scrub / 1000), 180)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrub])
+  useEffect(() => {
+    setScrub(null)
+  }, [p.percent])
+
   return (
     <div className="border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:bg-bg/95">
-      <div className="relative mx-auto max-w-[800px] px-4 pt-2 pb-2 sm:px-6">
+      <div className="relative mx-auto max-w-[800px] px-3 pt-2 pb-1.5 sm:px-6">
         {fontOpen && (
           <div className="absolute bottom-full left-1/2 mb-3 flex -translate-x-1/2 animate-rise items-center gap-2 rounded-[14px] border border-line bg-surface p-2 shadow-pop">
             <button
@@ -70,28 +86,31 @@ export function ReaderControls(p: Props) {
           </div>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="relative flex items-center gap-3">
+          {scrub !== null && (
+            <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 max-w-[80%] -translate-x-1/2 truncate rounded-lg bg-ink px-3 py-1.5 text-xs font-medium text-white shadow-pop">
+              {p.scrubLabel(scrub / 1000)}
+            </span>
+          )}
           <label htmlFor="reader-progress" className="sr-only">
-            Ir a la página
+            Posición en el libro
           </label>
           <input
             id="reader-progress"
             type="range"
             min={0}
-            max={Math.max(0, p.total - 1)}
-            value={p.page}
-            onChange={(e) => p.onSeek(Number(e.target.value))}
+            max={1000}
+            value={value}
+            onChange={(e) => setScrub(Number(e.target.value))}
             className="range flex-1"
-            style={{ ['--fill' as string]: `${fill}%` }}
-            aria-valuetext={`Página ${p.page + 1} de ${p.total}`}
+            style={{ ['--fill' as string]: `${value / 10}%` }}
+            aria-valuetext={`${Math.round(value / 10)}% del libro`}
           />
-          <span className="w-24 text-right text-xs font-medium text-muted tabular-nums">
-            {p.page + 1} / {p.total} · {p.percent}%
-          </span>
+          <span className="w-12 text-right text-xs font-semibold text-accent tabular-nums">{Math.round(p.percent)}%</span>
         </div>
 
         <div className="flex items-center justify-between gap-1">
-          <button onClick={p.onPrev} disabled={p.page === 0} className="btn-ghost min-h-11 px-3 disabled:opacity-40" aria-label="Página anterior">
+          <button onClick={p.onPrev} disabled={!p.canPrev} className="btn-ghost min-h-11 px-2.5 disabled:opacity-40 sm:px-3" aria-label="Página anterior">
             <ChevronLeft className="size-5" />
             <span className="hidden sm:inline">Anterior</span>
           </button>
@@ -112,16 +131,14 @@ export function ReaderControls(p: Props) {
               <Settings2 className="size-5" />
             </Tool>
           </div>
-          <button
-            onClick={p.onNext}
-            disabled={!p.canNext}
-            className="btn-ghost min-h-11 px-3 text-accent disabled:opacity-40"
-            aria-label="Página siguiente"
-          >
+          <button onClick={p.onNext} disabled={!p.canNext} className="btn-ghost min-h-11 px-2.5 text-accent disabled:opacity-40 sm:px-3" aria-label="Página siguiente">
             <span className="hidden sm:inline">Siguiente</span>
             <ChevronRight className="size-5" />
           </button>
         </div>
+        <p className="-mt-1 pb-1 text-center text-[11px] text-muted tabular-nums" aria-live="polite">
+          {p.pageLabel}
+        </p>
       </div>
     </div>
   )

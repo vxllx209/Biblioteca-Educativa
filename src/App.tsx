@@ -10,6 +10,8 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
+import PracticeHub from './pages/PracticeHub'
+import PracticeRun from './pages/PracticeRun'
 import Premium from './pages/Premium'
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
@@ -44,6 +46,8 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/practice/:bookId" element={<PracticeHub />} />
+            <Route path="/practice/:bookId/:setId" element={<PracticeRun />} />
           </Route>
           {/* Full-screen experiences */}
           <Route path="/reader/:id" element={<Reader />} />

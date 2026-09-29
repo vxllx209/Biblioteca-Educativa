@@ -1,8 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { DEMO_USER, DOWNLOADS, FAVORITES, FREE_DOWNLOAD_LIMIT, NOTIFICATIONS, READING_PROGRESS, TASKS } from '../data/mock'
+import { DEMO_USER, FAVORITES, FREE_DOWNLOAD_LIMIT, NOTIFICATIONS, READING_PROGRESS, TASKS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
+import { downloadBook, isBookCached, removeBookDownload } from '../lib/offline'
 import { userKey } from '../lib/storage'
-import type { AppNotification, Book, Download, ReadingProgress, Task } from '../types'
+import type { AppNotification, Book, Bookmark, Download, PracticeResult, PracticeSet, ReadingProgress, Task } from '../types'
 import { useAuth } from './AuthContext'
 import { usePreferences } from './PreferencesContext'
 import { useToast } from './ToastContext'
@@ -16,14 +17,19 @@ interface LibraryValue {
   downloading: Record<string, number>
   isDownloaded: (bookId: string) => boolean
   startDownload: (book: Book) => void
-  removeDownload: (bookId: string) => void
+  cancelDownload: (bookId: string) => void
+  removeDownload: (bookId: string) => Promise<void>
 
   progress: Record<string, ReadingProgress>
   saveProgress: (p: Omit<ReadingProgress, 'updatedAt' | 'bookmarks'>) => void
-  toggleBookmark: (bookId: string, page: number) => void
+  addBookmark: (bookId: string, bookmark: Omit<Bookmark, 'createdAt'>) => void
+  removeBookmark: (bookId: string, index: number) => void
 
   tasks: Task[]
   updateTask: (id: string, patch: Partial<Task>) => void
+
+  practice: Record<string, PracticeResult>
+  savePracticeResult: (set: PracticeSet, score: number, max: number) => void
 
   notifications: AppNotification[]
   unreadCount: number
@@ -47,22 +53,40 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   const isDemo = uid === DEMO_USER.id
   const k = (key: string) => (uid ? userKey(uid, key) : null)
 
-  const [favorites, setFavorites] = usePersistentState<string[]>(k('favorites'), () => (isDemo ? FAVORITES : []))
-  const [downloads, setDownloads] = usePersistentState<Download[]>(k('downloads'), () => (isDemo ? DOWNLOADS : []))
-  const [progress, setProgress] = usePersistentState<Record<string, ReadingProgress>>(k('progress'), () =>
+  const [favorites, setFavorites] = usePersistentState<string[]>(k('favorites.v2'), () => (isDemo ? FAVORITES : []))
+  const [downloads, setDownloads] = usePersistentState<Download[]>(k('downloads.v2'), () => [])
+  const [progress, setProgress] = usePersistentState<Record<string, ReadingProgress>>(k('progress.v2'), () =>
     isDemo ? byBook(READING_PROGRESS) : {},
   )
-  const [tasks, setTasks] = usePersistentState<Task[]>(k('tasks'), () => TASKS)
-  const [notifications, setNotifications] = usePersistentState<AppNotification[]>(k('notifications'), () =>
-    isDemo ? NOTIFICATIONS : NOTIFICATIONS.filter((n) => n.kind !== 'download'),
-  )
+  const [tasks, setTasks] = usePersistentState<Task[]>(k('tasks.v2'), () => TASKS)
+  const [notifications, setNotifications] = usePersistentState<AppNotification[]>(k('notifications.v2'), () => NOTIFICATIONS)
+  const [practice, setPractice] = usePersistentState<Record<string, PracticeResult>>(k('practice.v1'), () => ({}))
   const [downloading, setDownloading] = useState<Record<string, number>>({})
-  const timers = useRef<Record<string, ReturnType<typeof setInterval>>>({})
+  const controllers = useRef<Record<string, AbortController>>({})
 
   useEffect(() => {
-    const active = timers.current
-    return () => Object.values(active).forEach(clearInterval)
+    const active = controllers.current
+    return () => Object.values(active).forEach((c) => c.abort())
   }, [])
+
+  // Keep the list honest: forget downloads whose offline copy the browser has cleared.
+  const downloadsRef = useRef(downloads)
+  useEffect(() => {
+    downloadsRef.current = downloads
+  }, [downloads])
+  useEffect(() => {
+    const list = downloadsRef.current
+    if (!list.length || typeof caches === 'undefined') return
+    let cancelled = false
+    Promise.all(list.map((d) => isBookCached(d.bookId))).then((present) => {
+      if (cancelled || present.every(Boolean)) return
+      const missing = new Set(list.filter((_, i) => !present[i]).map((d) => d.bookId))
+      setDownloads((current) => current.filter((d) => !missing.has(d.bookId)))
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [uid, setDownloads])
 
   const isFavorite = useCallback((id: string) => favorites.includes(id), [favorites])
   const toggleFavorite = useCallback(
@@ -84,7 +108,6 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   )
 
   const isDownloaded = useCallback((id: string) => downloads.some((d) => d.bookId === id), [downloads])
-
   const canAccess = useCallback((book: Book) => !book.premium || isPremium, [isPremium])
 
   const notifyDownloadsRef = useRef(prefs.notifyDownloads)
@@ -92,28 +115,9 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     notifyDownloadsRef.current = prefs.notifyDownloads
   }, [prefs.notifyDownloads])
 
-  const finishDownload = useCallback(
-    (book: Book) => {
-      setDownloads((list) =>
-        list.some((d) => d.bookId === book.id)
-          ? list
-          : [{ bookId: book.id, downloadedAt: new Date().toISOString(), sizeMB: book.sizeMB }, ...list],
-      )
-      toast(`“${book.title}” se descargó correctamente`)
-      if (notifyDownloadsRef.current)
-        addNotification({
-          title: 'Tu descarga terminó',
-          body: `“${book.title}” está disponible sin conexión.`,
-          kind: 'download',
-          link: '/downloads',
-        })
-    },
-    [setDownloads, toast, addNotification],
-  )
-
   const startDownload = useCallback(
-    (book: Book) => {
-      if (isDownloaded(book.id) || timers.current[book.id]) return
+    async (book: Book) => {
+      if (isDownloaded(book.id) || controllers.current[book.id]) return
       if (!canAccess(book)) {
         toast('Este libro requiere Premium para descargarse.', 'error')
         return
@@ -122,26 +126,39 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
         toast(`El plan Gratis permite ${FREE_DOWNLOAD_LIMIT} descargas. Elimina una o mejora tu plan.`, 'error')
         return
       }
-      // Simulated transfer; replace with a real fetch + Cache API / IndexedDB when a backend exists.
-      let value = 0
+      const controller = new AbortController()
+      controllers.current[book.id] = controller
       setDownloading((d) => ({ ...d, [book.id]: 0 }))
-      timers.current[book.id] = setInterval(() => {
-        value = Math.min(100, value + 12 + Math.random() * 14)
-        if (value < 100) {
-          setDownloading((d) => ({ ...d, [book.id]: value }))
-          return
-        }
-        clearInterval(timers.current[book.id])
-        delete timers.current[book.id]
+      try {
+        const bytes = await downloadBook(book, (pct) => setDownloading((d) => ({ ...d, [book.id]: pct })), controller.signal)
+        setDownloads((list) =>
+          list.some((d) => d.bookId === book.id)
+            ? list
+            : [{ bookId: book.id, downloadedAt: new Date().toISOString(), bytes }, ...list],
+        )
+        toast(`«${book.title}» ya está disponible sin conexión`)
+        if (notifyDownloadsRef.current)
+          addNotification({
+            title: 'Tu descarga terminó',
+            body: `«${book.title}» está disponible sin conexión.`,
+            kind: 'download',
+            link: '/downloads',
+          })
+      } catch (e) {
+        if ((e as Error).name !== 'AbortError') toast((e as Error).message || 'No se pudo descargar el libro', 'error')
+      } finally {
+        delete controllers.current[book.id]
         setDownloading(({ [book.id]: _done, ...rest }) => rest)
-        finishDownload(book)
-      }, 220)
+      }
     },
-    [isDownloaded, canAccess, isPremium, downloads.length, toast, finishDownload],
+    [isDownloaded, canAccess, isPremium, downloads.length, toast, setDownloads, addNotification],
   )
 
+  const cancelDownload = useCallback((id: string) => controllers.current[id]?.abort(), [])
+
   const removeDownload = useCallback(
-    (id: string) => {
+    async (id: string) => {
+      await removeBookDownload(id).catch(() => undefined)
       setDownloads((list) => list.filter((d) => d.bookId !== id))
       toast('Descarga eliminada', 'info')
     },
@@ -157,19 +174,25 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     [setProgress],
   )
 
-  const toggleBookmark = useCallback(
-    (bookId: string, page: number) =>
+  const addBookmark = useCallback<LibraryValue['addBookmark']>(
+    (bookId, b) =>
       setProgress((all) => {
         const current = all[bookId]
         if (!current) return all
-        const has = current.bookmarks.includes(page)
-        return {
-          ...all,
-          [bookId]: {
-            ...current,
-            bookmarks: has ? current.bookmarks.filter((b) => b !== page) : [...current.bookmarks, page].sort((a, b) => a - b),
-          },
-        }
+        const bookmarks = [...current.bookmarks, { ...b, createdAt: new Date().toISOString() }].sort(
+          (x, y) => x.chapter - y.chapter || x.position - y.position,
+        )
+        return { ...all, [bookId]: { ...current, bookmarks } }
+      }),
+    [setProgress],
+  )
+
+  const removeBookmark = useCallback(
+    (bookId: string, index: number) =>
+      setProgress((all) => {
+        const current = all[bookId]
+        if (!current) return all
+        return { ...all, [bookId]: { ...current, bookmarks: current.bookmarks.filter((_, i) => i !== index) } }
       }),
     [setProgress],
   )
@@ -194,6 +217,38 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     [setTasks],
   )
 
+  const savePracticeResult = useCallback<LibraryValue['savePracticeResult']>(
+    (set, score, max) => {
+      setPractice((all) => {
+        const prev = all[set.id]
+        const pct = max ? score / max : 0
+        return {
+          ...all,
+          [set.id]: {
+            setId: set.id,
+            bookId: set.bookId,
+            chapter: set.chapter,
+            score,
+            max,
+            best: Math.max(prev?.best ?? 0, pct),
+            attempts: (prev?.attempts ?? 0) + 1,
+            completedAt: new Date().toISOString(),
+          },
+        }
+      })
+      // A task linked to this practice advances with the result.
+      setTasks((list) =>
+        list.map((t) => {
+          const linked = t.practiceSetId ?? TASKS.find((s) => s.id === t.id)?.practiceSetId
+          if (linked !== set.id || t.status === 'completada') return t
+          const progress = Math.max(t.progress, Math.round((max ? score / max : 0) * 100))
+          return { ...t, practiceSetId: linked, progress, status: progress >= 100 ? 'completada' : 'en-progreso' }
+        }),
+      )
+    },
+    [setPractice, setTasks],
+  )
+
   const markNotificationRead = useCallback(
     (id: string) => setNotifications((list) => list.map((n) => (n.id === id ? { ...n, read: true } : n))),
     [setNotifications],
@@ -215,12 +270,16 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
       downloading,
       isDownloaded,
       startDownload,
+      cancelDownload,
       removeDownload,
       progress,
       saveProgress,
-      toggleBookmark,
+      addBookmark,
+      removeBookmark,
       tasks,
       updateTask,
+      practice,
+      savePracticeResult,
       notifications,
       unreadCount,
       addNotification,
@@ -230,9 +289,9 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
       canAccess,
     }),
     [
-      favorites, isFavorite, toggleFavorite, downloads, downloading, isDownloaded, startDownload, removeDownload,
-      progress, saveProgress, toggleBookmark, tasks, updateTask, notifications, unreadCount, addNotification,
-      markNotificationRead, markAllNotificationsRead, clearNotifications, canAccess,
+      favorites, isFavorite, toggleFavorite, downloads, downloading, isDownloaded, startDownload, cancelDownload,
+      removeDownload, progress, saveProgress, addBookmark, removeBookmark, tasks, updateTask, practice, savePracticeResult, notifications,
+      unreadCount, addNotification, markNotificationRead, markAllNotificationsRead, clearNotifications, canAccess,
     ],
   )
   return <LibraryContext.Provider value={value}>{children}</LibraryContext.Provider>

@@ -43,7 +43,7 @@ function score(book: Book, terms: string[]) {
 
 function sortBooks(list: { book: Book; s: number }[], sort: Sort) {
   const sorted = [...list]
-  if (sort === 'recent') sorted.sort((a, b) => b.book.publishedAt.localeCompare(a.book.publishedAt))
+  if (sort === 'recent') sorted.sort((a, b) => b.book.year - a.book.year)
   else if (sort === 'popular') sorted.sort((a, b) => b.book.popularity - a.book.popularity)
   else sorted.sort((a, b) => b.s - a.s || b.book.rating * b.book.popularity - a.book.rating * a.book.popularity)
   return sorted.map((x) => x.book)
@@ -73,7 +73,7 @@ export default function Explore() {
   const filtering = !!query.trim() || !!category
   const recommended = useMemo(() => [...BOOKS].sort((a, b) => b.rating - a.rating).slice(0, 6), [])
   const popular = useMemo(() => [...BOOKS].sort((a, b) => b.popularity - a.popularity).slice(0, 6), [])
-  const newest = useMemo(() => [...BOOKS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)).slice(0, 6), [])
+  const newest = useMemo(() => [...BOOKS].sort((a, b) => b.year - a.year).slice(0, 6), [])
 
   const sortControl = (
     <label className="relative inline-flex items-center">

@@ -1,4 +1,4 @@
-import { BookOpen, CalendarDays, CircleCheck, ClipboardCheck, ClipboardList } from 'lucide-react'
+import { BookOpen, CalendarDays, CircleCheck, ClipboardCheck, ClipboardList, PenLine } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Modal } from '../components/Modal'
@@ -10,6 +10,8 @@ import { TaskCard } from '../components/TaskCard'
 import { useLibrary } from '../context/LibraryContext'
 import { useToast } from '../context/ToastContext'
 import { getBook } from '../data/books'
+import { TASKS } from '../data/mock'
+import { getPracticeSet } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { cn, dueLabel, formatDate } from '../lib/format'
 import type { TaskStatus } from '../types'
@@ -23,7 +25,7 @@ const FILTERS: { value: Filter; label: string }[] = [
 ]
 
 export default function Tasks() {
-  const { tasks, updateTask } = useLibrary()
+  const { tasks, updateTask, practice } = useLibrary()
   const toast = useToast()
   const [filter, setFilter] = useState<Filter>('todas')
   const [openId, setOpenId] = useState<string | null>(null)
@@ -44,6 +46,8 @@ export default function Tasks() {
   )
   const open = tasks.find((t) => t.id === openId) ?? null
   const book = open?.bookId ? getBook(open.bookId) : undefined
+  const linkedId = open ? (open.practiceSetId ?? TASKS.find((t) => t.id === open.id)?.practiceSetId) : undefined
+  const linkedSet = linkedId ? getPracticeSet(linkedId) : undefined
   const overall = tasks.length ? Math.round(tasks.reduce((s, t) => s + t.progress, 0) / tasks.length) : 0
 
   return (
@@ -184,6 +188,23 @@ export default function Tasks() {
               </div>
             </fieldset>
 
+            {linkedSet && (
+              <Link
+                to={`/practice/${linkedSet.bookId}/${linkedSet.id}`}
+                className="flex items-center gap-3 rounded-[14px] border border-primary bg-softer p-3 transition-colors hover:bg-soft dark:border-secondary"
+              >
+                <span className="grid size-10 place-items-center rounded-lg bg-primary text-white">
+                  <PenLine className="size-5" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-xs text-muted">
+                    Práctica de la tarea{practice[linkedSet.id] ? ` · mejor resultado ${Math.round(practice[linkedSet.id].best * 100)}%` : ''}
+                  </span>
+                  <span className="block truncate text-sm font-semibold text-text">{linkedSet.title}</span>
+                </span>
+                <span className="text-sm font-semibold text-accent">Resolver</span>
+              </Link>
+            )}
             {book && (
               <Link to={`/book/${book.id}`} className="flex items-center gap-3 rounded-[14px] border border-line p-3 transition-colors hover:border-line-active">
                 <span className="grid size-10 place-items-center rounded-lg bg-soft text-accent">

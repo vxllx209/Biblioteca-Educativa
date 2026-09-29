@@ -17,7 +17,8 @@ export default function AudioPage() {
     if (book?.hasAudio) load(book.id)
   }, [book, load])
 
-  const minimize = () => (window.history.length > 1 ? navigate(-1) : navigate(`/book/${id}`))
+  // Go back inside the app when possible; otherwise to the book's page.
+  const minimize = () => ((window.history.state?.idx ?? 0) > 0 ? navigate(-1) : navigate(`/book/${id}`))
 
   if (!book || !book.hasAudio)
     return (
