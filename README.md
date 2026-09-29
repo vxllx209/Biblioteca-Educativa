@@ -1,16 +1,33 @@
-# React + Vite
+# Biblioteca Educativa
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Plataforma web para estudiantes: descubrir, leer, escuchar y descargar libros educativos, gestionar tareas, favoritos, perfil y planes Premium.
 
-Currently, two official plugins are available:
+**Stack:** React 19 + TypeScript + Tailwind CSS v4 + React Router 7 + lucide-react (Vite).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+bun install
+bun run dev        # http://localhost:5173
+bun run build      # typecheck + build de producción
+```
 
-## React Compiler
+Cuenta de demostración: `javier@biblioteca.edu` / `demo1234` (o “Continuar con Google”, simulado).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Estructura
 
-## Expanding the Oxlint configuration
+```
+src/
+  data/        books.ts (catálogo + capítulos), mock.ts (usuarios, tareas, planes, notificaciones, preferencias)
+  context/     Auth, Library (favoritos, descargas, progreso, tareas, notificaciones), Audio, Preferences (tema), Toast
+  components/  BookCard, BookGrid, SearchBar, Sidebar, BottomNavigation, TaskCard, AudioPlayer, MiniPlayer,
+               ProgressBar, ProfileCard, PremiumPlan, ReaderControls, NotificationPanel, Modal, Toast, …
+  pages/       Welcome, Login, Register, ForgotPassword, Home, Explore, BookDetail, Reader, Tasks,
+               Favorites, Downloads, Profile, ProfileEdit, Premium, AudioPage
+  services/    payments.ts — preparado para Stripe (define VITE_PAYMENTS_URL con un backend de checkout)
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Notas
+
+- Sin backend: sesión, usuarios, favoritos, progreso de lectura, tareas, descargas, tema y preferencias se guardan en `localStorage` (prefijo `be:`), por usuario.
+- Los pagos, las descargas y el audio de los audiolibros son simulados. El lector usa la síntesis de voz del navegador para “Leer en voz alta”.
+- Las portadas se generan con SVG; la app no depende de recursos externos (la fuente Inter se incluye vía `@fontsource/inter`).
+- Responsive: barra lateral completa ≥1200px, barra de iconos 768–1199px, navegación inferior <768px.
