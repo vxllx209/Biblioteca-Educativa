@@ -57,6 +57,7 @@ export default function Register() {
     const res = await register({ fullName: form.name, email: form.email, password: form.password })
     setLoading(null)
     if (!res.ok) setError(res.error)
+    else if (res.notice) toast(res.notice, 'info')
     else toast('¡Tu cuenta fue creada con éxito!')
   }
 

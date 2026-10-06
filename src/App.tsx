@@ -17,6 +17,7 @@ import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
 import Reader from './pages/Reader'
 import Register from './pages/Register'
+import ResetPassword from './pages/ResetPassword'
 import Tasks from './pages/Tasks'
 import Welcome from './pages/Welcome'
 
@@ -34,6 +35,9 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
+
+        {/* Reached from the reset email link, which signs the user in. */}
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route element={<RequireAuth />}>
           <Route element={<AppLayout />}>

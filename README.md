@@ -11,7 +11,7 @@ bun run build      # typecheck + build de producción (incluye soporte sin conex
 bun run preview    # sirve el build de producción
 ```
 
-Cuenta de demostración: `javier@biblioteca.edu` / `demo1234` (o “Continuar con Google”, simulado).
+Configura Supabase (ver [Backend](#backend-supabase)); sin él, la cuenta de demostración local es `javier@biblioteca.edu` / `demo1234`.
 
 ## Material real
 
@@ -49,6 +49,17 @@ Las prácticas están en `src/data/practice/`; valida que coincidan con el conte
 - **Descargas reales:** el texto se guarda en Cache Storage y un service worker permite abrir la app y leer los libros descargados sin conexión (en `build`/`preview`, no en `dev`).
 - **Premium:** los libros Premium permiten leer los 2 primeros capítulos y escuchar la primera pista; los pagos están preparados para Stripe en `src/services/payments.ts` (define `VITE_PAYMENTS_URL`).
 
-## Qué sigue siendo local / simulado
+## Backend: Supabase
 
-No hay backend: cuentas, sesión, progreso, tareas y preferencias viven en `localStorage`. El inicio con Google, el correo de recuperación y el cobro de los planes son simulados hasta conectar un backend (p. ej. Supabase + Stripe).
+El proyecto se conecta a Supabase (`orlnrwjvxuetpupcsept`) para cuentas y datos:
+
+1. Copia `.env.example` a `.env.local` y pega la **anon / publishable key** (Project Settings → API).
+2. Ejecuta `supabase/migrations/20261006000000_init.sql` en el SQL Editor del panel (o `supabase db push`). Crea:
+   - `profiles`: nombre, avatar, plan… (se crea sola al registrarse, con RLS).
+   - `user_state`: favoritos, progreso, marcadores, tareas, prácticas, notificaciones y audio de cada usuario, con RLS.
+3. En Authentication → URL Configuration agrega `http://localhost:5173/**` (y tu dominio) a *Redirect URLs*. Para Google, activa el proveedor en Authentication → Providers.
+
+- **Auth real:** correo/contraseña, Google (OAuth), confirmación por correo, recuperación de contraseña (`/reset-password`) y cambio de correo.
+- **Sincronización:** los datos se guardan al instante en `localStorage` y se replican a Supabase; al entrar desde otro dispositivo se recuperan. Las descargas sin conexión y las preferencias de visualización quedan en cada dispositivo.
+- **Sin variables de entorno** la app funciona en modo local (todo en `localStorage`, con la cuenta demo `javier@biblioteca.edu` / `demo1234`).
+- El cobro de planes sigue simulado: el plan se actualiza desde el cliente. Al conectar Stripe, revoca la escritura de `profiles.plan` y fíjalo desde un webhook.

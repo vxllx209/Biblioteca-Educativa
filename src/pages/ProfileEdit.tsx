@@ -93,7 +93,7 @@ export default function ProfileEdit() {
     })
     setLoading(false)
     if (!res.ok) return setError(res.error)
-    toast('Cambios guardados correctamente')
+    toast(res.notice ?? 'Cambios guardados correctamente', res.notice ? 'info' : 'success')
     navigate('/profile')
   }
 

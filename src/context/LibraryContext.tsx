@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { DEMO_USER, FAVORITES, FREE_DOWNLOAD_LIMIT, NOTIFICATIONS, READING_PROGRESS, TASKS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
+import { useSyncedState } from '../hooks/useSyncedState'
 import { downloadBook, isBookCached, removeBookDownload } from '../lib/offline'
 import { userKey } from '../lib/storage'
 import type { AppNotification, Book, Bookmark, Download, PracticeResult, PracticeSet, ReadingProgress, Task } from '../types'
@@ -53,14 +54,15 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   const isDemo = uid === DEMO_USER.id
   const k = (key: string) => (uid ? userKey(uid, key) : null)
 
-  const [favorites, setFavorites] = usePersistentState<string[]>(k('favorites.v2'), () => (isDemo ? FAVORITES : []))
+  const [favorites, setFavorites] = useSyncedState<string[]>(uid, 'favorites.v2', () => (isDemo ? FAVORITES : []))
+  // Downloads stay on this device: they point at its offline cache.
   const [downloads, setDownloads] = usePersistentState<Download[]>(k('downloads.v2'), () => [])
-  const [progress, setProgress] = usePersistentState<Record<string, ReadingProgress>>(k('progress.v2'), () =>
+  const [progress, setProgress] = useSyncedState<Record<string, ReadingProgress>>(uid, 'progress.v2', () =>
     isDemo ? byBook(READING_PROGRESS) : {},
   )
-  const [tasks, setTasks] = usePersistentState<Task[]>(k('tasks.v2'), () => TASKS)
-  const [notifications, setNotifications] = usePersistentState<AppNotification[]>(k('notifications.v2'), () => NOTIFICATIONS)
-  const [practice, setPractice] = usePersistentState<Record<string, PracticeResult>>(k('practice.v1'), () => ({}))
+  const [tasks, setTasks] = useSyncedState<Task[]>(uid, 'tasks.v2', () => TASKS)
+  const [notifications, setNotifications] = useSyncedState<AppNotification[]>(uid, 'notifications.v2', () => NOTIFICATIONS)
+  const [practice, setPractice] = useSyncedState<Record<string, PracticeResult>>(uid, 'practice.v1', () => ({}))
   const [downloading, setDownloading] = useState<Record<string, number>>({})
   const controllers = useRef<Record<string, AbortController>>({})
 

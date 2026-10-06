@@ -1,7 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { getBook, trackUrls } from '../data/books'
-import { usePersistentState } from '../hooks/usePersistentState'
-import { userKey } from '../lib/storage'
+import { useSyncedState } from '../hooks/useSyncedState'
 import type { AudioProgress, Book } from '../types'
 import { useAuth } from './AuthContext'
 import { usePreferences } from './PreferencesContext'
@@ -42,7 +41,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const { user, isPremium } = useAuth()
   const { prefs, setPref } = usePreferences()
   const toast = useToast()
-  const [saved, setSaved] = usePersistentState<Record<string, AudioProgress>>(user ? userKey(user.id, 'audio.v2') : null, () => ({}))
+  const [saved, setSaved] = useSyncedState<Record<string, AudioProgress>>(user?.id ?? null, 'audio.v2', () => ({}))
   const [el] = useState<HTMLAudioElement | null>(() => (typeof Audio === 'undefined' ? null : new Audio()))
   const [bookId, setBookId] = useState<string | null>(null)
   const [track, setTrackState] = useState(0)
@@ -55,7 +54,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const fallbacks = useRef<string[]>([])
   const wantPlay = useRef(false)
   const restored = useRef(false)
-  const [lastBook, setLastBook] = usePersistentState<string | null>(user ? userKey(user.id, 'audio.last') : null, () => null)
+  const [lastBook, setLastBook] = useSyncedState<string | null>(user?.id ?? null, 'audio.last', () => null)
 
   const book = bookId ? (getBook(bookId) ?? null) : null
   const previewOnly = !isPremium
