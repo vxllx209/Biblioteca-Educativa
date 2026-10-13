@@ -1,4 +1,4 @@
-import { ArrowDownUp, SearchX } from 'lucide-react'
+import { ArrowDownUp, GraduationCap, SearchX } from 'lucide-react'
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { BookGrid } from '../components/BookGrid'
@@ -9,7 +9,9 @@ import { EmptyState } from '../components/States'
 import { BOOKS, CATEGORIES } from '../data/books'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { cn, normalize } from '../lib/format'
-import type { Book, Category } from '../types'
+import type { Book, Category, Level } from '../types'
+
+const LEVEL: Level = '4° medio'
 
 /** Six cards per row-section, trimmed so the grid never leaves a lonely last row. */
 const ONE_ROW = 'lg:max-xl:[&>*:nth-child(n+5)]:hidden xl:max-2xl:[&>*:nth-child(n+6)]:hidden'
@@ -30,6 +32,7 @@ function score(book: Book, terms: string[]) {
     [normalize(book.subject), 3],
     [normalize(book.category), 3],
     [normalize(book.tags.join(' ')), 2],
+    [normalize((book.levels ?? []).join(' ')), 2],
     [normalize(book.description), 1],
   ]
   let total = 0
@@ -54,7 +57,8 @@ export default function Explore() {
   const query = params.get('q') ?? ''
   const category = (params.get('cat') as Category | null) ?? null
   const sort = (params.get('sort') as Sort | null) ?? 'relevance'
-  const loading = useSimulatedLoading([category, sort], 350)
+  const level = params.get('nivel') === LEVEL ? LEVEL : null
+  const loading = useSimulatedLoading([category, sort, level], 350)
 
   const update = (patch: Record<string, string | null>) => {
     const next = new URLSearchParams(params)
@@ -64,13 +68,14 @@ export default function Explore() {
 
   const results = useMemo(() => {
     const terms = normalize(query).split(/\s+/).filter(Boolean)
-    const scored = BOOKS.filter((b) => !category || b.category === category)
+    const scored = BOOKS.filter((b) => (!category || b.category === category) && (!level || b.levels?.includes(level)))
       .map((book) => ({ book, s: score(book, terms) }))
       .filter((x) => x.s > 0)
     return sortBooks(scored, sort)
-  }, [query, category, sort])
+  }, [query, category, sort, level])
 
-  const filtering = !!query.trim() || !!category
+  const filtering = !!query.trim() || !!category || !!level
+  const forLevel = useMemo(() => BOOKS.filter((b) => b.levels?.includes(LEVEL)).sort((a, b) => b.popularity - a.popularity), [])
   const recommended = useMemo(() => [...BOOKS].sort((a, b) => b.rating - a.rating).slice(0, 6), [])
   const popular = useMemo(() => [...BOOKS].sort((a, b) => b.popularity - a.popularity).slice(0, 6), [])
   const newest = useMemo(() => [...BOOKS].sort((a, b) => b.year - a.year).slice(0, 6), [])
@@ -110,6 +115,16 @@ export default function Explore() {
 
       <div className="-mx-4 mt-5 overflow-x-auto px-4 sm:mx-0 sm:px-0 no-scrollbar">
         <div role="group" aria-label="Filtrar por categoría" className="flex w-max gap-2">
+          <button
+            onClick={() => update({ nivel: level ? null : LEVEL })}
+            aria-pressed={!!level}
+            className={cn(
+              'chip',
+              level ? 'border-primary bg-primary text-white' : 'border-line-active bg-soft text-accent hover:border-primary',
+            )}
+          >
+            <GraduationCap className="size-4" aria-hidden /> {LEVEL}
+          </button>
           {[null, ...CATEGORIES].map((c) => {
             const active = category === c
             return (
@@ -144,6 +159,7 @@ export default function Explore() {
                     </>
                   )}
                   {category && <> en {category}</>}
+                  {level && <> · {level}</>}
                 </>
               )}
             </p>
@@ -158,7 +174,7 @@ export default function Explore() {
                 title="Sin resultados"
                 description="No encontramos libros que coincidan. Revisa la ortografía o prueba con otra materia."
                 action={
-                  <button className="btn-secondary" onClick={() => update({ q: null, cat: null })}>
+                  <button className="btn-secondary" onClick={() => update({ q: null, cat: null, nivel: null })}>
                     Limpiar filtros
                   </button>
                 }
@@ -168,6 +184,21 @@ export default function Explore() {
         </section>
       ) : (
         <div className="mt-8 space-y-10 lg:space-y-12">
+          <section aria-labelledby="ex-level">
+            <SectionHeader
+              id="ex-level"
+              title="Para 4° medio"
+              action={
+                <button onClick={() => update({ nivel: LEVEL })} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
+                  Ver todo
+                </button>
+              }
+            />
+            <p className="-mt-2 mb-4 max-w-3xl text-sm text-muted">
+              Teoría y práctica de las asignaturas del plan común, y lecturas que enseñan a mirar el mundo de otra forma. Cada libro termina con 10 ejercicios.
+            </p>
+            <BookGrid books={forLevel.slice(0, 6)} loading={loading} skeletonCount={6} className={ONE_ROW} />
+          </section>
           <PremiumBanner />
           <section aria-labelledby="ex-reco">
             <SectionHeader id="ex-reco" title="Recomendados para ti" />

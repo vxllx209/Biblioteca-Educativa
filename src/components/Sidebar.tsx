@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { cn } from '../lib/format'
 import { Avatar } from './Avatar'
 import { Logo } from './Logo'
-import { NAV_ITEMS } from './nav'
+import { navItems } from './nav'
 
 /** Desktop (≥1200px): full 256px sidebar. Tablet (768–1199px): 80px icon rail. Hidden on mobile. */
 export function Sidebar() {
@@ -21,7 +21,7 @@ export function Sidebar() {
 
       <nav className="mt-2 flex-1 overflow-y-auto px-3 lg:px-4">
         <ul className="space-y-1">
-          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          {navItems(user?.role).map(({ to, label, icon: Icon }) => (
             <li key={to}>
               <NavLink
                 to={to}

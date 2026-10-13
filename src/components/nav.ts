@@ -1,4 +1,5 @@
-import { ClipboardList, Compass, Download, Heart, House, UserRound, type LucideIcon } from 'lucide-react'
+import { ClipboardList, Compass, Download, Heart, House, Presentation, UserRound, type LucideIcon } from 'lucide-react'
+import type { Role } from '../types'
 
 export interface NavItem {
   to: string
@@ -7,13 +8,17 @@ export interface NavItem {
   icon: LucideIcon
 }
 
-export const NAV_ITEMS: NavItem[] = [
+const TASKS_ITEM: NavItem = { to: '/tasks', label: 'Mis tareas', shortLabel: 'Tareas', icon: ClipboardList }
+const COURSES_ITEM: NavItem = { to: '/aula', label: 'Mis cursos', shortLabel: 'Cursos', icon: Presentation }
+
+/** Teachers get their courses where students see their tasks. */
+export const navItems = (role?: Role): NavItem[] => [
   { to: '/home', label: 'Inicio', icon: House },
   { to: '/explore', label: 'Explorar', icon: Compass },
-  { to: '/tasks', label: 'Mis tareas', shortLabel: 'Tareas', icon: ClipboardList },
+  role === 'Profesor' ? COURSES_ITEM : TASKS_ITEM,
   { to: '/favorites', label: 'Favoritos', icon: Heart },
   { to: '/downloads', label: 'Descargas', icon: Download },
   { to: '/profile', label: 'Perfil', icon: UserRound },
 ]
 
-export const MOBILE_NAV = NAV_ITEMS.filter((i) => i.to !== '/downloads')
+export const mobileNav = (role?: Role) => navItems(role).filter((i) => i.to !== '/downloads')

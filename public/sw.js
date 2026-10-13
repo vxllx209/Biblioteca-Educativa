@@ -52,7 +52,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Hashed build assets and static files: cache first, then network (and remember it).
-  if (url.pathname.includes('/assets/') || /\.(svg|png|woff2?|css|js)$/.test(url.pathname)) {
+  // Includes the .ttf fonts embedded in PDF downloads, so PDFs can be made offline once used.
+  if (url.pathname.includes('/assets/') || /\.(svg|png|woff2?|ttf|css|js)$/.test(url.pathname)) {
     event.respondWith(
       caches.match(req).then(
         (hit) =>

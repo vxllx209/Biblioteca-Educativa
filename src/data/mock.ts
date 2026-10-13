@@ -130,11 +130,13 @@ export const PLANS: Plan[] = [
     features: [
       { label: 'Acceso a libros gratuitos', included: true },
       { label: 'Favoritos ilimitados', included: true },
-      { label: 'Hasta 3 descargas', included: true },
+      { label: 'Hasta 3 libros sin conexión', included: true },
+      { label: 'PDF de libros gratuitos (con marca de agua)', included: true },
       { label: 'Vista previa de audiolibros', included: true },
       { label: 'Audiolibros completos', included: false },
       { label: 'Contenido premium', included: false },
       { label: 'Lectura sin límites', included: false },
+      { label: 'PDF sin marca de agua', included: false },
     ],
   },
   {
@@ -147,10 +149,12 @@ export const PLANS: Plan[] = [
     features: [
       { label: 'Acceso a todos los libros', included: true },
       { label: 'Favoritos ilimitados', included: true },
-      { label: 'Descargas ilimitadas', included: true },
+      { label: 'Libros sin conexión ilimitados', included: true },
+      { label: 'PDF de todos los libros (con marca de agua)', included: true },
       { label: 'Audiolibros completos', included: true },
       { label: 'Contenido premium', included: true },
       { label: 'Lectura sin límites', included: true },
+      { label: 'PDF sin marca de agua', included: false },
     ],
   },
   {
@@ -164,7 +168,8 @@ export const PLANS: Plan[] = [
     features: [
       { label: 'Acceso a todos los libros', included: true },
       { label: 'Favoritos ilimitados', included: true },
-      { label: 'Descargas ilimitadas', included: true },
+      { label: 'Libros sin conexión ilimitados', included: true },
+      { label: 'PDF de todos los libros sin marca de agua', included: true },
       { label: 'Audiolibros completos', included: true },
       { label: 'Contenido premium', included: true },
       { label: 'Lectura sin límites', included: true },

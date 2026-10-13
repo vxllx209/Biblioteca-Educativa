@@ -1,9 +1,11 @@
 import type { AnswerValue, Book, Category, PracticeKind, PracticeSet, Question } from '../../types'
 import { normalize } from '../../lib/format'
 import { HUMANITIES_SETS } from './humanities'
+import { CUARTO_MEDIO_SETS } from './cuarto-medio'
+import { LECTURAS_SETS } from './lecturas'
 import { SCIENCE_SETS } from './sciences'
 
-export const PRACTICE_SETS: PracticeSet[] = [...SCIENCE_SETS, ...HUMANITIES_SETS]
+export const PRACTICE_SETS: PracticeSet[] = [...SCIENCE_SETS, ...HUMANITIES_SETS, ...CUARTO_MEDIO_SETS, ...LECTURAS_SETS]
 
 export const KIND_LABEL: Record<PracticeKind, string> = {
   ejercicios: 'Ejercicios de aplicación',
@@ -18,6 +20,8 @@ export const SUBJECT_APPROACH: Record<Category, string> = {
   Ciencias: 'En ciencias, aplica lo leído: calcula, observa, dibuja esquemas y propone cómo comprobarías cada idea.',
   Historia: 'En historia, ordena los hechos, identifica causas y consecuencias, y pregúntate quién cuenta la historia.',
   Literatura: 'En literatura, comprueba tu comprensión y luego interpreta: personajes, lenguaje y lo que el texto te hace pensar.',
+  Filosofía: 'En filosofía, define los conceptos, reconstruye el argumento del autor y ponlo a prueba con objeciones y ejemplos.',
+  Ciudadanía: 'En ciudadanía, conecta las ideas con instituciones y casos reales, y argumenta qué harías tú como ciudadano.',
   Tecnología: 'En tecnología, separa lo científico de lo imaginario y relaciona las ideas con los inventos de hoy.',
   Otros: 'Aplica las ideas del libro a tu vida: da ejemplos, argumenta y pon en práctica lo aprendido.',
 }
@@ -100,6 +104,41 @@ const FREE_PROMPTS: Record<Category, { prompt: string; guidance: string; criteri
       prompt: 'Copia una frase que te haya llamado la atención y explica qué significa y por qué es valiosa.',
       guidance: 'Fíjate en el lenguaje: comparaciones, imágenes, ironía, ritmo.',
       criteria: ['Explico el significado', 'Comento un recurso del lenguaje'],
+    },
+  ],
+  Filosofía: [
+    {
+      prompt: '¿Qué pregunta intenta responder el autor en esta sección y cuál es su respuesta?',
+      guidance: 'Formula la pregunta con tus palabras y resume la tesis en una o dos frases.',
+      criteria: ['Identifico la pregunta', 'Resumo la tesis con mis palabras'],
+    },
+    {
+      prompt: 'Reconstruye el argumento: ¿qué razones da el autor para sostener su tesis?',
+      guidance: 'Puedes hacer un esquema en la pizarra: razones → conclusión.',
+      criteria: ['Identifico al menos dos razones', 'Muestro cómo llevan a la conclusión'],
+      board: true,
+    },
+    {
+      prompt: 'Plantea la mejor objeción que se te ocurra y responde como lo haría el autor.',
+      guidance: 'Una buena objeción ataca una razón concreta, no a la persona.',
+      criteria: ['Planteo una objeción pertinente', 'Respondo desde la postura del autor'],
+    },
+  ],
+  Ciudadanía: [
+    {
+      prompt: '¿Qué derecho, deber o institución está en juego en esta sección? Explícalo.',
+      guidance: 'Usa tus palabras y relaciónalo con cómo funciona hoy en Chile.',
+      criteria: ['Identifico el derecho, deber o institución', 'Lo relaciono con el presente'],
+    },
+    {
+      prompt: 'Describe un caso real de tu comunidad o del país en que se aplique esta idea.',
+      guidance: 'Puede ser una noticia, una situación de tu colegio o de tu barrio.',
+      criteria: ['Describo un caso concreto', 'Explico la relación con el texto'],
+    },
+    {
+      prompt: '¿Qué harías tú, como ciudadano, frente a ese caso? Argumenta tu propuesta.',
+      guidance: 'Propón una acción concreta y legítima, y explica por qué serviría al bien común.',
+      criteria: ['Propongo una acción concreta', 'La justifico con argumentos'],
     },
   ],
   Tecnología: [

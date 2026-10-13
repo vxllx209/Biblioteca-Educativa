@@ -2,6 +2,112 @@
 import type { LibraryMeta } from '../types'
 
 export const LIBRARY: Record<string, LibraryMeta> = {
+ "1984": {
+  "words": 100906,
+  "bytes": 621805,
+  "chapters": [
+   {
+    "title": "Primera parte · Capítulo 1",
+    "chars": 35613
+   },
+   {
+    "title": "Primera parte · Capítulo 2",
+    "chars": 16473
+   },
+   {
+    "title": "Primera parte · Capítulo 3",
+    "chars": 16496
+   },
+   {
+    "title": "Primera parte · Capítulo 4",
+    "chars": 20996
+   },
+   {
+    "title": "Primera parte · Capítulo 5",
+    "chars": 29465
+   },
+   {
+    "title": "Primera parte · Capítulo 6",
+    "chars": 10742
+   },
+   {
+    "title": "Primera parte · Capítulo 7",
+    "chars": 23855
+   },
+   {
+    "title": "Primera parte · Capítulo 8",
+    "chars": 42595
+   },
+   {
+    "title": "Segunda parte · Capítulo 1",
+    "chars": 22637
+   },
+   {
+    "title": "Segunda parte · Capítulo 2",
+    "chars": 17911
+   },
+   {
+    "title": "Segunda parte · Capítulo 3",
+    "chars": 18742
+   },
+   {
+    "title": "Segunda parte · Capítulo 4",
+    "chars": 19628
+   },
+   {
+    "title": "Segunda parte · Capítulo 5",
+    "chars": 18523
+   },
+   {
+    "title": "Segunda parte · Capítulo 6",
+    "chars": 5275
+   },
+   {
+    "title": "Segunda parte · Capítulo 7",
+    "chars": 14374
+   },
+   {
+    "title": "Segunda parte · Capítulo 8",
+    "chars": 20936
+   },
+   {
+    "title": "Segunda parte · Capítulo 9",
+    "chars": 80280
+   },
+   {
+    "title": "Segunda parte · Capítulo 10",
+    "chars": 12949
+   },
+   {
+    "title": "Tercera parte · Capítulo 1",
+    "chars": 26714
+   },
+   {
+    "title": "Tercera parte · Capítulo 2",
+    "chars": 38438
+   },
+   {
+    "title": "Tercera parte · Capítulo 3",
+    "chars": 25416
+   },
+   {
+    "title": "Tercera parte · Capítulo 4",
+    "chars": 15490
+   },
+   {
+    "title": "Tercera parte · Capítulo 5",
+    "chars": 8452
+   },
+   {
+    "title": "Tercera parte · Capítulo 6",
+    "chars": 21106
+   },
+   {
+    "title": "Apéndice. Los principios de la neolengua",
+    "chars": 28659
+   }
+  ]
+ },
  "reglas-investigacion-cientifica": {
   "words": 55385,
   "bytes": 368849,
@@ -5922,5 +6028,2228 @@ export const LIBRARY: Record<string, LibraryMeta> = {
     }
    ]
   }
+ },
+ "el-proceso": {
+  "words": 78728,
+  "bytes": 490982,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/77334",
+  "chapters": [
+   {
+    "title": "La detención",
+    "chars": 34899
+   },
+   {
+    "title": "Conversación con la señora Grubach · la señorita Bürstner",
+    "chars": 25517
+   },
+   {
+    "title": "Primera citación judicial",
+    "chars": 32789
+   },
+   {
+    "title": "En la sala de sesiones · el estudiante · las oficinas del juzgado (1/2)",
+    "chars": 22287
+   },
+   {
+    "title": "En la sala de sesiones · el estudiante · las oficinas del juzgado (2/2)",
+    "chars": 22210
+   },
+   {
+    "title": "El azotador",
+    "chars": 13115
+   },
+   {
+    "title": "El tío Leni (1/2)",
+    "chars": 20967
+   },
+   {
+    "title": "El tío Leni (2/2)",
+    "chars": 20925
+   },
+   {
+    "title": "El abogado · el fabricante · el pintor (1/3)",
+    "chars": 33898
+   },
+   {
+    "title": "El abogado · el fabricante · el pintor (2/3)",
+    "chars": 32437
+   },
+   {
+    "title": "El abogado · el fabricante · el pintor (3/3)",
+    "chars": 30292
+   },
+   {
+    "title": "El comerciante Block · k renuncia al abogado (1/2)",
+    "chars": 28338
+   },
+   {
+    "title": "El comerciante Block · k renuncia al abogado (2/2)",
+    "chars": 28118
+   },
+   {
+    "title": "En la catedral (1/2)",
+    "chars": 23319
+   },
+   {
+    "title": "En la catedral (2/2)",
+    "chars": 23191
+   },
+   {
+    "title": "El final",
+    "chars": 10524
+   },
+   {
+    "title": "Fragmentos (1/2)",
+    "chars": 25724
+   },
+   {
+    "title": "Fragmentos (2/2)",
+    "chars": 24021
+   },
+   {
+    "title": "Anotaciones en los diarios · de Kafka referentes a · el proceso",
+    "chars": 6780
+   }
+  ]
+ },
+ "niebla": {
+  "words": 56755,
+  "bytes": 348905,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/49836",
+  "chapters": [
+   {
+    "title": "Prólogo",
+    "chars": 16367
+   },
+   {
+    "title": "Post-prólogo",
+    "chars": 2012
+   },
+   {
+    "title": "I",
+    "chars": 7748
+   },
+   {
+    "title": "II",
+    "chars": 8645
+   },
+   {
+    "title": "III",
+    "chars": 3764
+   },
+   {
+    "title": "IV",
+    "chars": 6862
+   },
+   {
+    "title": "V",
+    "chars": 12051
+   },
+   {
+    "title": "VI",
+    "chars": 7822
+   },
+   {
+    "title": "VII",
+    "chars": 4321
+   },
+   {
+    "title": "VIII",
+    "chars": 10966
+   },
+   {
+    "title": "IX",
+    "chars": 4168
+   },
+   {
+    "title": "X",
+    "chars": 9642
+   },
+   {
+    "title": "XI",
+    "chars": 8939
+   },
+   {
+    "title": "XII",
+    "chars": 6565
+   },
+   {
+    "title": "XIII",
+    "chars": 8508
+   },
+   {
+    "title": "XIV",
+    "chars": 11871
+   },
+   {
+    "title": "XV",
+    "chars": 8624
+   },
+   {
+    "title": "XVI",
+    "chars": 5733
+   },
+   {
+    "title": "XVII",
+    "chars": 13696
+   },
+   {
+    "title": "XVIII",
+    "chars": 7268
+   },
+   {
+    "title": "XIX",
+    "chars": 12269
+   },
+   {
+    "title": "XX",
+    "chars": 11971
+   },
+   {
+    "title": "XXI",
+    "chars": 10165
+   },
+   {
+    "title": "XXII",
+    "chars": 6381
+   },
+   {
+    "title": "XXIII",
+    "chars": 18576
+   },
+   {
+    "title": "XXIV",
+    "chars": 9884
+   },
+   {
+    "title": "XXV",
+    "chars": 5658
+   },
+   {
+    "title": "XXVI",
+    "chars": 4678
+   },
+   {
+    "title": "XXVII",
+    "chars": 4989
+   },
+   {
+    "title": "XXVIII",
+    "chars": 6418
+   },
+   {
+    "title": "XXIX",
+    "chars": 7931
+   },
+   {
+    "title": "XXX",
+    "chars": 8973
+   },
+   {
+    "title": "XXXI",
+    "chars": 14443
+   },
+   {
+    "title": "XXXII",
+    "chars": 12715
+   },
+   {
+    "title": "XXXIII",
+    "chars": 4150
+   },
+   {
+    "title": "Por modo de epílogo",
+    "chars": 8224
+   }
+  ],
+  "audio": {
+   "archiveId": "niebla_1701_librivox",
+   "mirrors": [
+    "https://dn601308.us.archive.org/0/items/niebla_1701_librivox"
+   ],
+   "tracks": [
+    {
+     "title": "Prólogo y post - prólogo",
+     "file": "niebla_00_unamuno_64kb.mp3",
+     "seconds": 1353
+    },
+    {
+     "title": "Capítulo I",
+     "file": "niebla_01_unamuno_64kb.mp3",
+     "seconds": 645
+    },
+    {
+     "title": "Capítulo II",
+     "file": "niebla_02_unamuno_64kb.mp3",
+     "seconds": 683
+    },
+    {
+     "title": "Capítulo III",
+     "file": "niebla_03_unamuno_64kb.mp3",
+     "seconds": 349
+    },
+    {
+     "title": "Capítulo IV",
+     "file": "niebla_04_unamuno_64kb.mp3",
+     "seconds": 590
+    },
+    {
+     "title": "Capítulo V",
+     "file": "niebla_05_unamuno_64kb.mp3",
+     "seconds": 1008
+    },
+    {
+     "title": "Capítulo VI",
+     "file": "niebla_06_unamuno_64kb.mp3",
+     "seconds": 653
+    },
+    {
+     "title": "Capítulo VII",
+     "file": "niebla_07_unamuno_64kb.mp3",
+     "seconds": 350
+    },
+    {
+     "title": "Capítulo VIII",
+     "file": "niebla_08_unamuno_64kb.mp3",
+     "seconds": 900
+    },
+    {
+     "title": "Capítulo IX",
+     "file": "niebla_09_unamuno_64kb.mp3",
+     "seconds": 354
+    },
+    {
+     "title": "Capítulo X",
+     "file": "niebla_10_unamuno_64kb.mp3",
+     "seconds": 800
+    },
+    {
+     "title": "Capítulo XI",
+     "file": "niebla_11_unamuno_64kb.mp3",
+     "seconds": 708
+    },
+    {
+     "title": "Capítulo XII",
+     "file": "niebla_12_unamuno_64kb.mp3",
+     "seconds": 547
+    },
+    {
+     "title": "Capítulo XIII",
+     "file": "niebla_13_unamuno_64kb.mp3",
+     "seconds": 661
+    },
+    {
+     "title": "Capítulo XIV",
+     "file": "niebla_14_unamuno_64kb.mp3",
+     "seconds": 928
+    },
+    {
+     "title": "Capítulo XV",
+     "file": "niebla_15_unamuno_64kb.mp3",
+     "seconds": 690
+    },
+    {
+     "title": "Capítulo XVI",
+     "file": "niebla_16_unamuno_64kb.mp3",
+     "seconds": 482
+    },
+    {
+     "title": "Capítulo XVII",
+     "file": "niebla_17_unamuno_64kb.mp3",
+     "seconds": 1052
+    },
+    {
+     "title": "Capítulo XVIII",
+     "file": "niebla_18_unamuno_64kb.mp3",
+     "seconds": 626
+    },
+    {
+     "title": "Capítulo XIX",
+     "file": "niebla_19_unamuno_64kb.mp3",
+     "seconds": 927
+    },
+    {
+     "title": "Capítulo XX",
+     "file": "niebla_20_unamuno_64kb.mp3",
+     "seconds": 984
+    },
+    {
+     "title": "Capítulo XXI",
+     "file": "niebla_21_unamuno_64kb.mp3",
+     "seconds": 763
+    },
+    {
+     "title": "Capítulo XXII",
+     "file": "niebla_22_unamuno_64kb.mp3",
+     "seconds": 501
+    },
+    {
+     "title": "Capítulo XXIII",
+     "file": "niebla_23_unamuno_64kb.mp3",
+     "seconds": 1332
+    },
+    {
+     "title": "Capítulo XXIV",
+     "file": "niebla_24_unamuno_64kb.mp3",
+     "seconds": 822
+    },
+    {
+     "title": "Capítulo XXV",
+     "file": "niebla_25_unamuno_64kb.mp3",
+     "seconds": 482
+    },
+    {
+     "title": "Capítulo XXVI",
+     "file": "niebla_26_unamuno_64kb.mp3",
+     "seconds": 423
+    },
+    {
+     "title": "Capítulo XXVII",
+     "file": "niebla_27_unamuno_64kb.mp3",
+     "seconds": 412
+    },
+    {
+     "title": "Capítulo XXVIII",
+     "file": "niebla_28_unamuno_64kb.mp3",
+     "seconds": 510
+    },
+    {
+     "title": "Capítulo XXIX",
+     "file": "niebla_29_unamuno_64kb.mp3",
+     "seconds": 647
+    },
+    {
+     "title": "Capítulo XXX",
+     "file": "niebla_30_unamuno_64kb.mp3",
+     "seconds": 714
+    },
+    {
+     "title": "Capítulo XXXI",
+     "file": "niebla_31_unamuno_64kb.mp3",
+     "seconds": 1113
+    },
+    {
+     "title": "Capítulo XXXII",
+     "file": "niebla_32_unamuno_64kb.mp3",
+     "seconds": 1008
+    },
+    {
+     "title": "Capítulo XXXIII",
+     "file": "niebla_33_unamuno_64kb.mp3",
+     "seconds": 340
+    },
+    {
+     "title": "Oración Fúnebre. Por modo de epílogo.",
+     "file": "niebla_34_unamuno_64kb.mp3",
+     "seconds": 658
+    }
+   ]
+  }
+ },
+ "tragedias-sofocles": {
+  "words": 40994,
+  "bytes": 259942,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/63509",
+  "chapters": [
+   {
+    "title": "Acto primero",
+    "subtitle": "Escena primera",
+    "part": "Edipo rey",
+    "chars": 11333
+   },
+   {
+    "title": "Acto segundo",
+    "subtitle": "Escena primera",
+    "chars": 15431
+   },
+   {
+    "title": "Acto tercero",
+    "subtitle": "Escena primera",
+    "chars": 20516
+   },
+   {
+    "title": "Acto cuarto",
+    "subtitle": "Escena primera",
+    "chars": 16353
+   },
+   {
+    "title": "Acto quinto",
+    "subtitle": "Escena primera",
+    "chars": 14957
+   },
+   {
+    "title": "Acto primero",
+    "subtitle": "Escena primera",
+    "part": "Edipo en Colona",
+    "chars": 27245
+   },
+   {
+    "title": "Acto segundo",
+    "subtitle": "Escena primera",
+    "chars": 8311
+   },
+   {
+    "title": "Acto tercero",
+    "subtitle": "Escena primera",
+    "chars": 19160
+   },
+   {
+    "title": "Acto cuarto",
+    "subtitle": "Escena primera",
+    "chars": 24200
+   },
+   {
+    "title": "Acto quinto",
+    "subtitle": "Escena primera",
+    "chars": 8883
+   },
+   {
+    "title": "Acto primero",
+    "subtitle": "Escena primera",
+    "part": "Antígona",
+    "chars": 17974
+   },
+   {
+    "title": "Acto segundo",
+    "subtitle": "Escena primera",
+    "chars": 12558
+   },
+   {
+    "title": "Acto tercero",
+    "subtitle": "Escena primera",
+    "chars": 16124
+   },
+   {
+    "title": "Acto cuarto",
+    "subtitle": "Escena primera",
+    "chars": 7822
+   },
+   {
+    "title": "Acto quinto",
+    "subtitle": "Escena primera",
+    "chars": 8891
+   }
+  ],
+  "audio": {
+   "archiveId": "tragediassofocles_1606_librivox",
+   "mirrors": [
+    "https://dn801705.us.archive.org/0/items/tragediassofocles_1606_librivox"
+   ],
+   "tracks": [
+    {
+     "title": "Edipo Rey - Primera Parte",
+     "file": "tragedias_07_sophocles_64kb.mp3",
+     "seconds": 2564
+    },
+    {
+     "title": "Edipo Rey - Segunda Parte",
+     "file": "tragedias_08_sophocles_64kb.mp3",
+     "seconds": 1858
+    },
+    {
+     "title": "Edipo Rey - Tercera Parte",
+     "file": "tragedias_09_sophocles_64kb.mp3",
+     "seconds": 2837
+    },
+    {
+     "title": "Edipo en Colono - Primera Parte",
+     "file": "tragedias_10_sophocles_64kb.mp3",
+     "seconds": 2257
+    },
+    {
+     "title": "Edipo en Colono - Segunda Parte",
+     "file": "tragedias_11_sophocles_64kb.mp3",
+     "seconds": 2300
+    },
+    {
+     "title": "Edipo en Colono - Tercera Parte",
+     "file": "tragedias_12_sophocles_64kb.mp3",
+     "seconds": 2383
+    },
+    {
+     "title": "Edipo en Colono - Cuarta Parte",
+     "file": "tragedias_13_sophocles_64kb.mp3",
+     "seconds": 1820
+    },
+    {
+     "title": "Antígona - Primera Parte",
+     "file": "tragedias_14_sophocles_64kb.mp3",
+     "seconds": 2502
+    },
+    {
+     "title": "Antígona - Segunda Parte",
+     "file": "tragedias_15_sophocles_64kb.mp3",
+     "seconds": 2413
+    },
+    {
+     "title": "Antígona - Tercera Parte",
+     "file": "tragedias_16_sophocles_64kb.mp3",
+     "seconds": 1176
+    }
+   ]
+  }
+ },
+ "candido": {
+  "words": 31433,
+  "bytes": 186654,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/7109",
+  "chapters": [
+   {
+    "title": "Capitulo primero",
+    "subtitle": "Donde se da cuenta de como fué criado Candido en una hermosa quinta, y como de ella fué echado á patadas",
+    "chars": 4341
+   },
+   {
+    "title": "Capitulo II",
+    "subtitle": "De lo que sucedió á Candido con los Búlgaros",
+    "chars": 4232
+   },
+   {
+    "title": "Capitulo III",
+    "subtitle": "De qué modo se libró Candido de manos de los Bulgaros, y de lo que le sucedió despues",
+    "chars": 4123
+   },
+   {
+    "title": "Capitulo IV",
+    "subtitle": "De qué modo encontró Candido á su maestro de filosofía, el doctor Panglós, y de lo que le aconteció",
+    "chars": 5939
+   },
+   {
+    "title": "Capitulo V",
+    "subtitle": "De una tormenta, un naufragio, y un terremoto. De los sucesos del doctor Panglós, de Candido, y de Santiago el anabautista",
+    "chars": 5112
+   },
+   {
+    "title": "Capitulo VI",
+    "subtitle": "Del magnífico auto de fe que se hizo para que cesara el terremoto, y de los doscientos azotes que pegáron á Candido",
+    "chars": 2233
+   },
+   {
+    "title": "Capitulo VII",
+    "subtitle": "Que cuenta como una vieja remedió las cuitas de Candido, y como topó este con su dama",
+    "chars": 3515
+   },
+   {
+    "title": "Capitulo VIII",
+    "subtitle": "Historia de Cunegunda",
+    "chars": 5648
+   },
+   {
+    "title": "Capitulo IX",
+    "subtitle": "Prosiguen los sucesos de Cunegunda, Candido, el Inquisidor general, y el Judío",
+    "chars": 2778
+   },
+   {
+    "title": "Capitulo X",
+    "subtitle": "De la triste situacion en que, se viéron Candido, Cunegunda y la vieja; de su arribo á Cadiz, y como se embarcáron para América",
+    "chars": 3483
+   },
+   {
+    "title": "Capitulo XI",
+    "subtitle": "Que cuenta la historia de la vieja",
+    "chars": 6470
+   },
+   {
+    "title": "Capitulo XII",
+    "subtitle": "Donde prosigue la historia de la vieja",
+    "chars": 6728
+   },
+   {
+    "title": "Capitulo XIII",
+    "subtitle": "De como Candido tuvo que separarse por fuerza de la hermosa Cunegunda y la vieja",
+    "chars": 4398
+   },
+   {
+    "title": "Capitulo XIV",
+    "subtitle": "Del recibimiento que á Candido y á Cacambo hiciéron los jesuitas del Paraguay",
+    "chars": 6261
+   },
+   {
+    "title": "Capitulo XV",
+    "subtitle": "Que cuenta la muerte gue dió Candido al hermano de su querida Cunegunda",
+    "chars": 3713
+   },
+   {
+    "title": "Capitulo XVI",
+    "subtitle": "Donde se da cuenta de los sucesos de nuestros dos caminantes con dos muchachas, dos ximios, y los salvages llamados Orejones",
+    "chars": 6671
+   },
+   {
+    "title": "Capitulo XVII",
+    "subtitle": "Cuéntase el arribo de Candido con su criado al pais del Dorada, y lo que alli viéron",
+    "chars": 6872
+   },
+   {
+    "title": "Capitulo XVIII",
+    "subtitle": "Donde se da cuenta de lo que en el pais del Dorado viéron",
+    "chars": 10077
+   },
+   {
+    "title": "Capitulo XIX",
+    "subtitle": "De los sucesos de Surinam, y del conocimiento que hizo Candido de Martin",
+    "chars": 9610
+   },
+   {
+    "title": "Capitulo XX",
+    "subtitle": "De lo que sucedió á Candido y á Martin durante la navegacion",
+    "chars": 4482
+   },
+   {
+    "title": "Capitulo XXI",
+    "subtitle": "Donde se da cuenta de la plática de Candido y Martín, al acercarse á las costas de Francia",
+    "chars": 2968
+   },
+   {
+    "title": "Capitulo XXII",
+    "subtitle": "De los sucesos que en Francia aconteciéron á Candido y á Martin",
+    "chars": 18055
+   },
+   {
+    "title": "Capitulo XXIII",
+    "subtitle": "Del arribo de Candido y Martin á la costa de Inglaterra, y de lo que allí viéron",
+    "chars": 2237
+   },
+   {
+    "title": "Capitulo XXIV",
+    "subtitle": "Que trata de fray Hilarion y de Paquita",
+    "chars": 8654
+   },
+   {
+    "title": "Capitulo XXV",
+    "subtitle": "Que da cuenta de la visita que hiciéron Martin y Candido al señor Pococurante, noble veneciano",
+    "chars": 9781
+   },
+   {
+    "title": "Capitulo XXVI",
+    "subtitle": "Que da cuenta de como Candido y Martin cenáron con unos extranjeros, y quien eran estos",
+    "chars": 6111
+   },
+   {
+    "title": "Capitulo XXVII",
+    "subtitle": "Del viage de Candido á Constantinopla",
+    "chars": 6602
+   },
+   {
+    "title": "Capitulo XXVIII",
+    "subtitle": "Que trata de los sucesos que pasáron con Candido, Cunegunda, Panglós y Martin",
+    "chars": 4635
+   },
+   {
+    "title": "Capitulo XXIX",
+    "subtitle": "De como topó Candido con Cunegunda y con la vieja",
+    "chars": 2066
+   },
+   {
+    "title": "Capitulo XXX",
+    "subtitle": "Donde se da fin á la historia",
+    "chars": 9029
+   }
+  ],
+  "audio": {
+   "archiveId": "candido_2604_librivox",
+   "mirrors": [
+    "https://ia601902.us.archive.org/27/items/candido_2604_librivox",
+    "https://ia801902.us.archive.org/27/items/candido_2604_librivox"
+   ],
+   "tracks": [
+    {
+     "title": "Capítulo I (En que trata de cómo Cándido fue criado en un hermoso castillo, y de cómo le echaron de él)",
+     "file": "candido_01_voltaire_64kb.mp3",
+     "seconds": 426
+    },
+    {
+     "title": "Capítulo II (De lo que sucedió a Cándido con los búlgaros)",
+     "file": "candido_02_voltaire_64kb.mp3",
+     "seconds": 407
+    },
+    {
+     "title": "Capítulo III (Consigue Cándido escaparse de entre los búlgaros, y lo que después le sucedió)",
+     "file": "candido_03_voltaire_64kb.mp3",
+     "seconds": 404
+    },
+    {
+     "title": "Capítulo IV (Halla Cándido a su antiguo maestro de filosofía tan filósofo como siempre)",
+     "file": "candido_04_voltaire_64kb.mp3",
+     "seconds": 541
+    },
+    {
+     "title": "Capítulo V (Tempestad, naufragio, terremoto, desventuras del doctor Panglos: Cándido y el anabaptista)",
+     "file": "candido_05_voltaire_64kb.mp3",
+     "seconds": 477
+    },
+    {
+     "title": "Capítulo VI (Celébrase un auto de fe para que no haya terremotos, y Cándido hace en él unos de los principales papeles)",
+     "file": "candido_06_voltaire_64kb.mp3",
+     "seconds": 247
+    },
+    {
+     "title": "Capítulo VII (Una vieja caritativa cuida de Cándido, y este halla inopinadamente lo que más quería)",
+     "file": "candido_07_voltaire_64kb.mp3",
+     "seconds": 368
+    },
+    {
+     "title": "Capítulo VIII (Sucesos lastimosos de Cunegunda)",
+     "file": "candido_08_voltaire_64kb.mp3",
+     "seconds": 578
+    },
+    {
+     "title": "Capítulo IX ( Lo que les sucedió a Cunegunda, a Cándido, a la vieja , al inquisidor y al judío)",
+     "file": "candido_09_voltaire_64kb.mp3",
+     "seconds": 313
+    },
+    {
+     "title": "Capítulo X (Cándido, Cunegunda y la vieja llegan a Cádiz muy a la ligera y se embarcan)",
+     "file": "candido_10_voltaire_64kb.mp3",
+     "seconds": 352
+    },
+    {
+     "title": "Capítulo XI ( Historia de la vieja)",
+     "file": "candido_11_voltaire_64kb.mp3",
+     "seconds": 643
+    },
+    {
+     "title": "Capítulo XII (Prosigue la vieja contando sus desgracias)",
+     "file": "candido_12_voltaire_64kb.mp3",
+     "seconds": 761
+    },
+    {
+     "title": "Capítulo XIII (Sepárase Cándido de la hermosa Cunegunda y de la vieja)",
+     "file": "candido_13_voltaire_64kb.mp3",
+     "seconds": 455
+    },
+    {
+     "title": "Capítulo XIV ( Viaje de Cándido y su criado a los establecimientos jesuíticos del Paraguay)",
+     "file": "candido_14_voltaire_64kb.mp3",
+     "seconds": 603
+    },
+    {
+     "title": "Capítulo XV ( De lo que hizo Cándido en un momento de cólera)",
+     "file": "candido_15_voltaire_64kb.mp3",
+     "seconds": 384
+    },
+    {
+     "title": "capítulo XVI (De lo que sucedió a los dos viajeros en la tierra de los orejones)",
+     "file": "candido_16_voltaire_64kb.mp3",
+     "seconds": 510
+    },
+    {
+     "title": "Capítulo XVII (LLegan los fugitivos a la provincia del Dorado y ven maravillas)",
+     "file": "candido_17_voltaire_64kb.mp3",
+     "seconds": 712
+    },
+    {
+     "title": "Capítulo XVIII (Prosigue el aturdimiento de los dos viajeros)",
+     "file": "candido_18_voltaire_64kb.mp3",
+     "seconds": 1056
+    },
+    {
+     "title": "Capítulo XIX (Cándido y Cacambo llegan a Surimán, y de lo que allí les sucedió)",
+     "file": "candido_19_voltaire_64kb.mp3",
+     "seconds": 909
+    },
+    {
+     "title": "Capítulo XX (De lo que sucedió a Cándido y a Martin durante su navegación)",
+     "file": "candido_20_voltaire_64kb.mp3",
+     "seconds": 413
+    },
+    {
+     "title": "Capítulo XXI (Cándido y Martin se acercan a las costas de Francia y siguen hablando)",
+     "file": "candido_21_voltaire_64kb.mp3",
+     "seconds": 281
+    },
+    {
+     "title": "Capítulo XXII ( De lo que les pasó en Francia a Cándido y a Martin)",
+     "file": "candido_22_voltaire_64kb.mp3",
+     "seconds": 1810
+    },
+    {
+     "title": "Capítulo XXIII ( De lo que vieron Cándido y Martin al llegar a las costas de Inglaterra)",
+     "file": "candido_23_voltaire_64kb.mp3",
+     "seconds": 273
+    },
+    {
+     "title": "Capítulo XXIV (Vicisitudes de la Paulita)",
+     "file": "candido_24_voltaire_64kb.mp3",
+     "seconds": 892
+    },
+    {
+     "title": "Capítulo XXV (Visita de Cándido y Martin al senador Pococurante)",
+     "file": "candido_25_voltaire_64kb.mp3",
+     "seconds": 917
+    },
+    {
+     "title": "Capítulo XXVI (Trátase de una comida que tuvieron Cándido y Martin con tres extranjeros)",
+     "file": "candido_26_voltaire_64kb.mp3",
+     "seconds": 648
+    },
+    {
+     "title": "Capítulo XXVII (Viaje de Cándido a Constantinopla)",
+     "file": "candido_27_voltaire_64kb.mp3",
+     "seconds": 746
+    },
+    {
+     "title": "Capítulo XXVIII ( Trabajos del barón jesuita y del doctor Panglos)",
+     "file": "candido_28_voltaire_64kb.mp3",
+     "seconds": 593
+    },
+    {
+     "title": "Capítulo XXIX (Al fin y al cabo encuentra Cándido a Cunegunda y la vieja)",
+     "file": "candido_29_voltaire_64kb.mp3",
+     "seconds": 385
+    },
+    {
+     "title": "Capítulo XXX ( Se acaba el cuento)",
+     "file": "candido_30_voltaire_64kb.mp3",
+     "seconds": 838
+    }
+   ]
+  }
+ },
+ "doctor-jekyll": {
+  "words": 25593,
+  "bytes": 161195,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/62627",
+  "chapters": [
+   {
+    "title": "Historia de la puerta",
+    "chars": 13986
+   },
+   {
+    "title": "En busca del sr. Hyde",
+    "chars": 17515
+   },
+   {
+    "title": "El dr. Jekyll estaba tranquilo",
+    "chars": 4724
+   },
+   {
+    "title": "El caso del asesino de Carew",
+    "chars": 9331
+   },
+   {
+    "title": "Incidente de la carta",
+    "chars": 9867
+   },
+   {
+    "title": "Notable incidente del dr. Lanyón",
+    "chars": 8722
+   },
+   {
+    "title": "Incidente de la ventana",
+    "chars": 3246
+   },
+   {
+    "title": "La última noche",
+    "chars": 24911
+   },
+   {
+    "title": "Relación del doctor Lanyón",
+    "chars": 16111
+   },
+   {
+    "title": "Explicación completa del caso extraño del dr. Enrique Jekyll (1/2)",
+    "chars": 21455
+   },
+   {
+    "title": "Explicación completa del caso extraño del dr. Enrique Jekyll (2/2)",
+    "chars": 21138
+   }
+  ],
+  "audio": {
+   "archiveId": "extranocaso_doctorjekyll_senorhyde_1803_librivox",
+   "mirrors": [
+    "https://ia903100.us.archive.org/13/items/extranocaso_doctorjekyll_senorhyde_1803_librivox",
+    "https://ia803100.us.archive.org/13/items/extranocaso_doctorjekyll_senorhyde_1803_librivox"
+   ],
+   "tracks": [
+    {
+     "title": "Introducción: Sobre la presente obra.",
+     "file": "jekyllyhyde_00_stevenson_64kb.mp3",
+     "seconds": 172
+    },
+    {
+     "title": "Historia de la puerta.",
+     "file": "jekyllyhyde_01_stevenson_64kb.mp3",
+     "seconds": 1098
+    },
+    {
+     "title": "En busca del señor Hyde.",
+     "file": "jekyllyhyde_02_stevenson_64kb.mp3",
+     "seconds": 1401
+    },
+    {
+     "title": "El doctor Jekill estaba tranquilo.",
+     "file": "jekyllyhyde_03_stevenson_64kb.mp3",
+     "seconds": 407
+    },
+    {
+     "title": "El caso del asesino de Carew.",
+     "file": "jekyllyhyde_04_stevenson_64kb.mp3",
+     "seconds": 765
+    },
+    {
+     "title": "Incidente de la carta.",
+     "file": "jekyllyhyde_05_stevenson_64kb.mp3",
+     "seconds": 816
+    },
+    {
+     "title": "Notable incidente del Dr. Lanyón",
+     "file": "jekyllyhyde_06_stevenson_64kb.mp3",
+     "seconds": 702
+    },
+    {
+     "title": "Incidente de la ventana",
+     "file": "jekyllyhyde_07_stevenson_64kb.mp3",
+     "seconds": 280
+    },
+    {
+     "title": "La última noche.",
+     "file": "jekyllyhyde_08_stevenson_64kb.mp3",
+     "seconds": 2028
+    },
+    {
+     "title": "Relación del Dr. Lanyón.",
+     "file": "jekyllyhyde_09_stevenson_64kb.mp3",
+     "seconds": 1280
+    },
+    {
+     "title": "Explicación completa del caso extraño del Dr. Enrique Jekill.",
+     "file": "jekyllyhyde_10_stevenson_64kb.mp3",
+     "seconds": 3254
+    }
+   ]
+  }
+ },
+ "sub-terra": {
+  "words": 31190,
+  "bytes": 191108,
+  "sourceUrl": "https://es.wikisource.org/wiki/Sub%20terra%20(1904)",
+  "chapters": [
+   {
+    "title": "Los inválidos",
+    "chars": 15430
+   },
+   {
+    "title": "La compuerta número 12",
+    "chars": 14869
+   },
+   {
+    "title": "El grisú (1/2)",
+    "chars": 18902
+   },
+   {
+    "title": "El grisú (2/2)",
+    "chars": 18820
+   },
+   {
+    "title": "El pago",
+    "chars": 21607
+   },
+   {
+    "title": "El Chiflón del Diablo",
+    "chars": 23309
+   },
+   {
+    "title": "El pozo",
+    "chars": 34050
+   },
+   {
+    "title": "Juan Fariña",
+    "subtitle": "(Leyenda)",
+    "chars": 22459
+   },
+   {
+    "title": "Caza mayor",
+    "chars": 12742
+   }
+  ]
+ },
+ "utopia": {
+  "words": 37665,
+  "bytes": 220662,
+  "sourceUrl": "https://es.wikisource.org/wiki/Utop%C3%ADa",
+  "chapters": [
+   {
+    "title": "Libro primero (1/2)",
+    "chars": 35699
+   },
+   {
+    "title": "Libro primero (2/2)",
+    "chars": 34231
+   },
+   {
+    "title": "Libro segundo: Introducción",
+    "chars": 6619
+   },
+   {
+    "title": "Las ciudades y en particular Amaurota",
+    "chars": 4716
+   },
+   {
+    "title": "Los magistrados",
+    "chars": 2586
+   },
+   {
+    "title": "Las artes y los oficios",
+    "chars": 9967
+   },
+   {
+    "title": "Las relaciones públicas entre los utopianos",
+    "chars": 10626
+   },
+   {
+    "title": "Los viajes de los utopianos (1/2)",
+    "chars": 21628
+   },
+   {
+    "title": "Los viajes de los utopianos (2/2)",
+    "chars": 19269
+   },
+   {
+    "title": "Los esclavos",
+    "chars": 17334
+   },
+   {
+    "title": "El arte de la guerra",
+    "chars": 18281
+   },
+   {
+    "title": "Religiones de los utopianos",
+    "chars": 33377
+   }
+  ]
+ },
+ "ariel": {
+  "words": 25387,
+  "bytes": 159610,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/22899",
+  "chapters": [
+   {
+    "title": "Ariel (1/5)",
+    "chars": 32892
+   },
+   {
+    "title": "Ariel (2/5)",
+    "chars": 31680
+   },
+   {
+    "title": "Ariel (3/5)",
+    "chars": 31813
+   },
+   {
+    "title": "Ariel (4/5)",
+    "chars": 32727
+   },
+   {
+    "title": "Ariel (5/5)",
+    "chars": 25878
+   }
+  ]
+ },
+ "el-hombre-mediocre": {
+  "words": 73758,
+  "bytes": 478451,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/64974",
+  "chapters": [
+   {
+    "title": "I.—Las luces del camino",
+    "part": "La moral de los idealistas",
+    "chars": 17981
+   },
+   {
+    "title": "II.—Los visionarios de la perfección",
+    "chars": 9302
+   },
+   {
+    "title": "III.—Los idealistas románticos",
+    "chars": 6162
+   },
+   {
+    "title": "IV.—El idealismo experimental",
+    "chars": 12619
+   },
+   {
+    "title": "I. «¿Áurea mediocritas?»",
+    "part": "El hombre mediocre",
+    "chars": 14167
+   },
+   {
+    "title": "II.—Definición del hombre mediocre",
+    "chars": 12817
+   },
+   {
+    "title": "III.—Función social de la mediocridad",
+    "chars": 10868
+   },
+   {
+    "title": "IV.—La vulgaridad",
+    "chars": 10029
+   },
+   {
+    "title": "I.—El hombre rutinario: psicología de los Panza",
+    "part": "La mediocridad intelectual",
+    "chars": 16020
+   },
+   {
+    "title": "II.—Los estigmas mentales de la mediocridad",
+    "chars": 9284
+   },
+   {
+    "title": "III.—La maledicencia",
+    "chars": 10706
+   },
+   {
+    "title": "IV.—El éxito y la gloria",
+    "chars": 10257
+   },
+   {
+    "title": "I.—El hombre honesto",
+    "part": "La mediocridad moral",
+    "chars": 8882
+   },
+   {
+    "title": "II.—La moral de Tartufo",
+    "chars": 23518
+   },
+   {
+    "title": "III.—Los tránsfugas de la honestidad",
+    "chars": 12452
+   },
+   {
+    "title": "IV.—Los senderos de la virtud: el corazón y el cerebro",
+    "chars": 18713
+   },
+   {
+    "title": "V.—La santidad",
+    "chars": 8253
+   },
+   {
+    "title": "I.—Hombres y sombras",
+    "part": "Los caracteres mediocres",
+    "chars": 11028
+   },
+   {
+    "title": "II.—La domesticación de los mediocres",
+    "chars": 17452
+   },
+   {
+    "title": "III.—La vanidad y el orgullo",
+    "chars": 6203
+   },
+   {
+    "title": "IV.—La dignidad",
+    "chars": 10158
+   },
+   {
+    "title": "I.—La pasión de los mediocres",
+    "part": "La envidia",
+    "chars": 10922
+   },
+   {
+    "title": "II.—Los sacerdotes del mérito",
+    "chars": 9523
+   },
+   {
+    "title": "III.—Los roedores de la gloria: la crítica",
+    "chars": 8841
+   },
+   {
+    "title": "IV.—Una escena dantesca: su castigo",
+    "chars": 1915
+   },
+   {
+    "title": "I.—Las canas",
+    "part": "La vejez niveladora",
+    "chars": 4654
+   },
+   {
+    "title": "II.—Etapas de la decadencia",
+    "chars": 5171
+   },
+   {
+    "title": "III.—La bancarrota de los ingenios",
+    "chars": 3206
+   },
+   {
+    "title": "IV.—Psicología de la vejez",
+    "chars": 8665
+   },
+   {
+    "title": "V.—La virtud de la impotencia",
+    "chars": 5231
+   },
+   {
+    "title": "I.—El clima de la mediocridad",
+    "part": "La mediocracia",
+    "chars": 13316
+   },
+   {
+    "title": "II.—La política de las piaras",
+    "chars": 12705
+   },
+   {
+    "title": "III.—Demagogos y aristarcos",
+    "chars": 10156
+   },
+   {
+    "title": "IV.—La aristocracia del mérito",
+    "chars": 3792
+   },
+   {
+    "title": "I.—Las sombras del crepúsculo",
+    "part": "Los arquetipos de la mediocracia",
+    "chars": 14795
+   },
+   {
+    "title": "II.—El trinomio mental del arquetipo",
+    "chars": 9667
+   },
+   {
+    "title": "III.—La mortaja de la insignificancia",
+    "chars": 3899
+   },
+   {
+    "title": "I.—El clima del genio",
+    "part": "Los forjadores de ideales",
+    "chars": 9504
+   },
+   {
+    "title": "II.—El genio pragmático: Sarmiento",
+    "chars": 17229
+   },
+   {
+    "title": "III.—El genio revelador: Ameghino",
+    "chars": 20362
+   },
+   {
+    "title": "IV.—La moral del genio",
+    "chars": 27580
+   }
+  ]
+ },
+ "que-nada-se-sabe": {
+  "words": 38598,
+  "bytes": 236496,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/65937",
+  "chapters": [
+   {
+    "title": "Dedicatoria",
+    "chars": 1725
+   },
+   {
+    "title": "Francisco Sánchez · al lector",
+    "chars": 8663
+   },
+   {
+    "title": "Prólogo (1/2)",
+    "chars": 18525
+   },
+   {
+    "title": "Prólogo (2/2)",
+    "chars": 17640
+   },
+   {
+    "title": "Todo es cuestión de nombres. · No hay nombre acomodado",
+    "chars": 5602
+   },
+   {
+    "title": "La ciencia",
+    "chars": 4274
+   },
+   {
+    "title": "Juicios lógicos",
+    "chars": 1296
+   },
+   {
+    "title": "La demostración",
+    "chars": 2607
+   },
+   {
+    "title": "Poco valor de los silogismos",
+    "chars": 27415
+   },
+   {
+    "title": "¿Qué es saber?",
+    "chars": 5528
+   },
+   {
+    "title": "Elementos de la ciencia",
+    "chars": 4795
+   },
+   {
+    "title": "Casos prácticos",
+    "chars": 4417
+   },
+   {
+    "title": "Consecuencias",
+    "chars": 2880
+   },
+   {
+    "title": "Otra prueba · de la ignorancia",
+    "chars": 5744
+   },
+   {
+    "title": "Etimologías",
+    "chars": 5237
+   },
+   {
+    "title": "Variedades humanas",
+    "chars": 3587
+   },
+   {
+    "title": "Cuestiones indecisas",
+    "chars": 3139
+   },
+   {
+    "title": "Otra causa · de nuestra ignorancia",
+    "chars": 11736
+   },
+   {
+    "title": "Infortunio · del hombre de letras",
+    "chars": 2266
+   },
+   {
+    "title": "El conocimiento · y los sentidos",
+    "chars": 3170
+   },
+   {
+    "title": "Pobreza del sujeto cognoscente",
+    "chars": 2908
+   },
+   {
+    "title": "El conocimiento",
+    "chars": 18347
+   },
+   {
+    "title": "Medios internos del conocimiento",
+    "chars": 5437
+   },
+   {
+    "title": "De cómo la imperfección · humana excluye · un conocimiento perfecto",
+    "chars": 14591
+   },
+   {
+    "title": "Nuevas dificultades para · la investigación de la Verdad",
+    "chars": 19455
+   },
+   {
+    "title": "Conclusión. Los únicos criterios de la Ciencia: · el experimento y la crítica",
+    "chars": 14110
+   },
+   {
+    "title": "Resumen",
+    "chars": 3597
+   },
+   {
+    "title": "Notas",
+    "chars": 4012
+   }
+  ]
+ },
+ "naturaleza-de-las-cosas": {
+  "words": 71593,
+  "bytes": 435328,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/62711",
+  "chapters": [
+   {
+    "title": "Noticia biográfica",
+    "chars": 6782
+   },
+   {
+    "title": "Libro primero (1/2)",
+    "chars": 30998
+   },
+   {
+    "title": "Libro primero (2/2)",
+    "chars": 30448
+   },
+   {
+    "title": "Libro segundo (1/2)",
+    "chars": 33229
+   },
+   {
+    "title": "Libro segundo (2/2)",
+    "chars": 32732
+   },
+   {
+    "title": "Libro tercero (1/2)",
+    "chars": 33297
+   },
+   {
+    "title": "Libro tercero (2/2)",
+    "chars": 31483
+   },
+   {
+    "title": "Libro cuarto (1/2)",
+    "chars": 35135
+   },
+   {
+    "title": "Libro cuarto (2/2)",
+    "chars": 34529
+   },
+   {
+    "title": "Libro quinto (1/3)",
+    "chars": 28060
+   },
+   {
+    "title": "Libro quinto (2/3)",
+    "chars": 28844
+   },
+   {
+    "title": "Libro quinto (3/3)",
+    "chars": 25895
+   },
+   {
+    "title": "Libro sexto (1/2)",
+    "chars": 35237
+   },
+   {
+    "title": "Libro sexto (2/2)",
+    "chars": 34632
+   }
+  ]
+ },
+ "el-contrato-social": {
+  "words": 37084,
+  "bytes": 221957,
+  "sourceUrl": "https://es.wikisource.org/wiki/El%20contrato%20social%20(1819)",
+  "chapters": [
+   {
+    "title": "Libro I · Capítulo I",
+    "subtitle": "Objeto de este primer libro",
+    "chars": 1909
+   },
+   {
+    "title": "Libro I · Capítulo II",
+    "subtitle": "CAPITULO II. De las primeras Sociedades",
+    "chars": 3713
+   },
+   {
+    "title": "Libro I · Capítulo III",
+    "subtitle": "Del derecho del mas fuerte",
+    "chars": 1846
+   },
+   {
+    "title": "Libro I · Capítulo IV",
+    "subtitle": "De la Esclavitud",
+    "chars": 7483
+   },
+   {
+    "title": "Libro I · Capítulo V",
+    "subtitle": "Que es necesario subir á una primera convención",
+    "chars": 1631
+   },
+   {
+    "title": "Libro I · Capítulo VI",
+    "subtitle": "Del Pacto social",
+    "chars": 3988
+   },
+   {
+    "title": "Libro I · Capítulo VII",
+    "subtitle": "Del Soberano",
+    "chars": 3151
+   },
+   {
+    "title": "Libro I · Capítulo VIII",
+    "subtitle": "Del estado civil",
+    "chars": 1639
+   },
+   {
+    "title": "Libro I · Capítulo IX",
+    "subtitle": "Del Dominio Real",
+    "chars": 5380
+   },
+   {
+    "title": "Libro II · Capítulo I",
+    "subtitle": "Que la Soberanía es inagenable",
+    "chars": 1139
+   },
+   {
+    "title": "Libro II · Capítulo II",
+    "subtitle": "Que la Soberanía es indivisible",
+    "chars": 3455
+   },
+   {
+    "title": "Libro II · Capítulo III",
+    "subtitle": "Si la voluntad general puede errar",
+    "chars": 1232
+   },
+   {
+    "title": "Libro II · Capítulo IV",
+    "subtitle": "De los límites del Poder Soberano",
+    "chars": 7183
+   },
+   {
+    "title": "Libro II · Capítulo V",
+    "subtitle": "Del derecho de vida y de muerte",
+    "chars": 2558
+   },
+   {
+    "title": "Libro II · Capítulo VI",
+    "subtitle": "De la Ley",
+    "chars": 4095
+   },
+   {
+    "title": "Libro II · Capítulo VII",
+    "subtitle": "Del Legislador",
+    "chars": 7415
+   },
+   {
+    "title": "Libro II · Capítulo VIII",
+    "subtitle": "Del Pueblo",
+    "chars": 3667
+   },
+   {
+    "title": "Libro II · Capítulo IX",
+    "subtitle": "Sigue la misma materia",
+    "chars": 4435
+   },
+   {
+    "title": "Libro II · Capítulo X",
+    "subtitle": "Continuacion",
+    "chars": 4753
+   },
+   {
+    "title": "Libro II · Capítulo XI",
+    "subtitle": "De los diversas sistemas de Legislacion",
+    "chars": 3837
+   },
+   {
+    "title": "Libro II · Capítulo XII",
+    "subtitle": "Division de las leyes",
+    "chars": 2631
+   },
+   {
+    "title": "Libro III · Capítulo I",
+    "subtitle": "Del Gobierno en general",
+    "chars": 10559
+   },
+   {
+    "title": "Libro III · Capítulo II",
+    "subtitle": "Del Principio que constituye las diversas formas de Gobierno",
+    "chars": 3927
+   },
+   {
+    "title": "Libro III · Capítulo III",
+    "subtitle": "Division de Gobiernos",
+    "chars": 2445
+   },
+   {
+    "title": "Libro III · Capítulo IV",
+    "subtitle": "De la Democracia",
+    "chars": 3766
+   },
+   {
+    "title": "Libro III · Capítulo V",
+    "subtitle": "De la Aristocracia",
+    "chars": 3038
+   },
+   {
+    "title": "Libro III · Capítulo VI",
+    "subtitle": "De la Monarquía",
+    "chars": 11061
+   },
+   {
+    "title": "Libro III · Capítulo VII",
+    "subtitle": "De los Gobiernos mixtos",
+    "chars": 1374
+   },
+   {
+    "title": "Libro III · Capítulo VIII",
+    "subtitle": "Que toda forma de Gobierno no es propia para todo país",
+    "chars": 9634
+   },
+   {
+    "title": "Libro III · Capítulo IX",
+    "subtitle": "De los Señales de un buen Gobierno",
+    "chars": 1106
+   },
+   {
+    "title": "Libro III · Capítulo X",
+    "subtitle": "Del abuso del Gobierno y de su propension á degenerar",
+    "chars": 3155
+   },
+   {
+    "title": "Libro III · Capítulo XI",
+    "subtitle": "De la muerte del cuerpo político",
+    "chars": 1937
+   },
+   {
+    "title": "Libro III · Capítulo XII",
+    "subtitle": "Como se mantiene la autoridad soberana",
+    "chars": 1845
+   },
+   {
+    "title": "Libro III · Capítulo XIII",
+    "subtitle": "Continuacion",
+    "chars": 2946
+   },
+   {
+    "title": "Libro III · Capítulo XIV",
+    "subtitle": "Continuacion",
+    "chars": 1435
+   },
+   {
+    "title": "Libro III · Capítulo XV",
+    "subtitle": "De los Diputados ó Representantes",
+    "chars": 6344
+   },
+   {
+    "title": "Libro III · Capítulo XVI",
+    "subtitle": "Que la institucion del Gobierno no es un contrato",
+    "chars": 2339
+   },
+   {
+    "title": "Libro III · Capítulo XVII",
+    "subtitle": "De la institucion del Gobierno",
+    "chars": 2152
+   },
+   {
+    "title": "Libro III · Capítulo XVIII",
+    "subtitle": "Medios para prevenir las usurpaciones del Gobierno",
+    "chars": 3567
+   },
+   {
+    "title": "Libro IV · Capítulo I",
+    "subtitle": "Que la voluntad general es indestructible",
+    "chars": 3061
+   },
+   {
+    "title": "Libro IV · Capítulo II",
+    "subtitle": "De los Sufragios ó Votos",
+    "chars": 5501
+   },
+   {
+    "title": "Libro IV · Capítulo III",
+    "subtitle": "De las Elecciones",
+    "chars": 3663
+   },
+   {
+    "title": "Libro IV · Capítulo IV",
+    "subtitle": "De los Comicios Romanos",
+    "chars": 18127
+   },
+   {
+    "title": "Libro IV · Capítulo V",
+    "subtitle": "Del Tribunado",
+    "chars": 3432
+   },
+   {
+    "title": "Libro IV · Capítulo VI",
+    "subtitle": "De la Dictadura",
+    "chars": 5730
+   },
+   {
+    "title": "Libro IV · Capítulo VII",
+    "subtitle": "De la Censura",
+    "chars": 3186
+   },
+   {
+    "title": "Libro IV · Capítulo VIII",
+    "subtitle": "De la Religion civil",
+    "chars": 18979
+   },
+   {
+    "title": "Libro IV · Capítulo IX",
+    "subtitle": "Conclusion",
+    "chars": 466
+   }
+  ]
+ },
+ "igualdad-social-politica": {
+  "words": 49061,
+  "bytes": 299351,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/52502",
+  "chapters": [
+   {
+    "title": "Introducción",
+    "chars": 7238
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Nociones generales",
+    "part": "Parte primera",
+    "chars": 10525
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "De la igualdad, de la identidad, de la semejanza y de la equivalencia",
+    "chars": 18040
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Origen y progresos de la desigualdad",
+    "chars": 31517
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Cómo se perpetúa la desigualdad injusta",
+    "chars": 4230
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 16291
+   },
+   {
+    "title": "Capítulo VI",
+    "chars": 9882
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Límites de la igualdad",
+    "chars": 11605
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Influencia recíproca de los elementos físico, intelectual y moral, y de la semejanza necesaria y suficiente para establecer la igualdad",
+    "part": "Parte segunda",
+    "chars": 16806
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 17117
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Consecuencias de la desigualdad social del hombre y la mujer",
+    "chars": 25011
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "La igualdad ante la ley, ¿es la igualdad ante la justicia?",
+    "chars": 5812
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "De la equivalencia",
+    "chars": 8739
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Que los hombres no han menester ocupar en la sociedad posiciones iguales para ser igualmente dichosos",
+    "chars": 17918
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "La propiedad y la igualdad",
+    "chars": 17279
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "De la asociación y de la igualdad",
+    "chars": 7344
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "De la igualdad social y de la igualdad política",
+    "part": "Parte tercera",
+    "chars": 26849
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "De la igualdad y de la libertad",
+    "chars": 12326
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "La ley que emana de los privilegios, ¿será beneficiosa para todos?",
+    "chars": 4583
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 10116
+   },
+   {
+    "title": "Conclusión",
+    "chars": 7524
+   },
+   {
+    "title": "Notas",
+    "chars": 814
+   }
+  ]
+ },
+ "matematica-4-medio": {
+  "words": 2681,
+  "bytes": 15882,
+  "chapters": [
+   {
+    "title": "Cómo estudiar con este libro",
+    "subtitle": "Teoría breve, ejemplos resueltos y práctica al final de cada unidad",
+    "chars": 1040
+   },
+   {
+    "title": "Unidad 1. Matemática financiera",
+    "subtitle": "Porcentajes, interés simple y compuesto, créditos e inflación",
+    "chars": 3960
+   },
+   {
+    "title": "Unidad 2. Probabilidad: modelos binomial y normal",
+    "subtitle": "Tomar decisiones con datos cuando hay incerteza",
+    "chars": 3569
+   },
+   {
+    "title": "Unidad 3. Funciones potencia",
+    "subtitle": "Modelar fenómenos con f(x) = a · xⁿ",
+    "chars": 2418
+   },
+   {
+    "title": "Unidad 4. Funciones trigonométricas",
+    "subtitle": "Seno y coseno para modelar fenómenos periódicos",
+    "chars": 2509
+   }
+  ]
+ },
+ "lengua-4-medio": {
+  "words": 1139,
+  "bytes": 7973,
+  "chapters": [
+   {
+    "title": "Leer para pensar el mundo",
+    "subtitle": "Por qué la literatura cambia la forma en que miramos",
+    "chars": 1697
+   },
+   {
+    "title": "El narrador y la construcción del mundo",
+    "subtitle": "Quién cuenta, cómo lo cuenta y qué consecuencias tiene",
+    "chars": 1188
+   },
+   {
+    "title": "Utopías y distopías",
+    "subtitle": "Imaginar sociedades para criticar la propia",
+    "chars": 1313
+   },
+   {
+    "title": "Argumentar por escrito",
+    "subtitle": "Tesis, argumentos, contraargumentos y falacias",
+    "chars": 1444
+   },
+   {
+    "title": "Leer los medios con espíritu crítico",
+    "subtitle": "Información, opinión y desinformación",
+    "chars": 1186
+   }
+  ]
+ },
+ "filosofia-4-medio": {
+  "words": 1107,
+  "bytes": 7587,
+  "chapters": [
+   {
+    "title": "¿Qué es filosofar?",
+    "subtitle": "El asombro, la pregunta y el diálogo",
+    "chars": 1621
+   },
+   {
+    "title": "El problema del conocimiento",
+    "subtitle": "¿Qué podemos saber y cómo lo sabemos?",
+    "chars": 1557
+   },
+   {
+    "title": "Ética: ¿cómo debemos actuar?",
+    "subtitle": "Virtudes, deberes y consecuencias",
+    "chars": 1879
+   },
+   {
+    "title": "Filosofía política: el poder y la justicia",
+    "subtitle": "¿Por qué obedecemos y qué hace justa a una sociedad?",
+    "chars": 1582
+   }
+  ]
+ },
+ "educacion-ciudadana-4-medio": {
+  "words": 971,
+  "bytes": 6982,
+  "chapters": [
+   {
+    "title": "Democracia y ciudadanía",
+    "subtitle": "Qué significa vivir en una comunidad política",
+    "chars": 1472
+   },
+   {
+    "title": "El Estado de derecho",
+    "subtitle": "Las reglas que limitan el poder",
+    "chars": 1837
+   },
+   {
+    "title": "Los derechos humanos",
+    "subtitle": "Dignidad, universalidad y garantías",
+    "chars": 1358
+   },
+   {
+    "title": "Participación y bien común",
+    "subtitle": "De la queja a la acción colectiva",
+    "chars": 1428
+   }
+  ]
+ },
+ "ciencias-ciudadania-4-medio": {
+  "words": 1161,
+  "bytes": 8260,
+  "chapters": [
+   {
+    "title": "Ciencia para decidir",
+    "subtitle": "Por qué la ciencia es una herramienta ciudadana",
+    "chars": 1099
+   },
+   {
+    "title": "Bienestar y salud",
+    "subtitle": "Cuerpo, alimentación, vacunas y salud mental",
+    "chars": 1518
+   },
+   {
+    "title": "Seguridad, prevención y autocuidado",
+    "subtitle": "Vivir en un país sísmico y prevenir riesgos",
+    "chars": 1478
+   },
+   {
+    "title": "Ambiente y sostenibilidad",
+    "subtitle": "Cambio climático, energía y consumo",
+    "chars": 1592
+   },
+   {
+    "title": "Tecnología y sociedad",
+    "subtitle": "Datos, algoritmos e inteligencia artificial",
+    "chars": 1477
+   }
+  ]
+ },
+ "fahrenheit-451-guia": {
+  "words": 980,
+  "bytes": 6557,
+  "chapters": [
+   {
+    "title": "Antes de leer",
+    "subtitle": "Quién fue Ray Bradbury y cómo conseguir la novela",
+    "chars": 1326
+   },
+   {
+    "title": "El argumento",
+    "subtitle": "Las tres partes de la novela",
+    "chars": 2602
+   },
+   {
+    "title": "Personajes",
+    "subtitle": "Quiénes son y qué representan",
+    "chars": 699
+   },
+   {
+    "title": "Temas y símbolos",
+    "subtitle": "Claves para analizar la novela",
+    "chars": 1189
+   }
+  ]
+ },
+ "1984-guia": {
+  "words": 967,
+  "bytes": 6610,
+  "chapters": [
+   {
+    "title": "Antes de leer",
+    "subtitle": "Quién fue George Orwell y cómo conseguir la novela",
+    "chars": 1441
+   },
+   {
+    "title": "El argumento",
+    "subtitle": "Las tres partes de la novela",
+    "chars": 2136
+   },
+   {
+    "title": "Personajes",
+    "subtitle": "Quiénes son y qué representan",
+    "chars": 622
+   },
+   {
+    "title": "Temas y conceptos",
+    "subtitle": "Claves para analizar la novela",
+    "chars": 1619
+   }
+  ]
+ },
+ "moral-social": {
+  "words": 61780,
+  "bytes": 383488,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/73064",
+  "chapters": [
+   {
+    "title": "Prólogo de la primera edición",
+    "chars": 2509
+   },
+   {
+    "title": "I",
+    "part": "Introducción",
+    "chars": 17258
+   },
+   {
+    "title": "II",
+    "chars": 8145
+   },
+   {
+    "title": "Capítulo primero · la sociedad y sus órganos",
+    "subtitle": "Definición de sociedad.—Órganos del organismo social.—Descripción de los órganos sociales: El individuo. La familia. El municipio. La región. La nación. La familia de naciones",
+    "part": "Primera parte · relaciones y deberes",
+    "chars": 7355
+   },
+   {
+    "title": "Capítulo II · objeto de la moral social.—en qué se funda",
+    "chars": 4954
+   },
+   {
+    "title": "Capítulo III · exposición de las relaciones",
+    "chars": 4318
+   },
+   {
+    "title": "Capítulo IV · clasificación de relaciones",
+    "chars": 5984
+   },
+   {
+    "title": "Capítulo V · análisis de las relaciones del hombre con la sociedad: relación de necesidad",
+    "chars": 4291
+   },
+   {
+    "title": "Capítulo VI · segunda relación.—relación de gratitud",
+    "subtitle": "Á poco que se reflexione se verá que después de nuestras propias necesidades, lo que más nos liga á los demás hombres es la gratitud",
+    "chars": 2471
+   },
+   {
+    "title": "Capítulo VII · tercera relación.—relación de utilidad",
+    "chars": 2512
+   },
+   {
+    "title": "Capítulo VIII · cuarta relación.—relación de derecho",
+    "chars": 4455
+   },
+   {
+    "title": "Capítulo IX · quinta relación.—relación de deber",
+    "chars": 4691
+   },
+   {
+    "title": "Capítulo X · del deber y su función en la economía moral del mundo",
+    "chars": 5139
+   },
+   {
+    "title": "Capítulo XI · en qué se fundan los deberes sociales",
+    "chars": 7471
+   },
+   {
+    "title": "Capítulo XII · deberes derivados de nuestras relaciones con la sociedad",
+    "chars": 13855
+   },
+   {
+    "title": "Capítulo XIII · el deber del trabajo.—sus modificaciones en los diversos grupos sociales",
+    "chars": 8287
+   },
+   {
+    "title": "Capítulo XIV · deber de obediencia y sus modificaciones",
+    "chars": 2985
+   },
+   {
+    "title": "Capítulo XV · por qué no se da su nombre á los deberes derivados de la relación de utilidad",
+    "subtitle": "En la relación de utilidad prescindimos del nombre del deber genérico que de ella hemos derivado, para denominar con nombres particulares todos y cada uno de los deberes especiales que corresponden á cada grupo social",
+    "chars": 11816
+   },
+   {
+    "title": "CAPÍTULO XVI · (Continuación del anterior.) · COOPERACIÓN.—UNIÓN.—ABNEGACIÓN.—CONCILIACIÓN",
+    "subtitle": "Expliquemos ahora cómo es que el deber de ser útil á la sociedad municipal y el de utilizar los beneficios de la vida vecinal en su propio bien se convierte en deber de cooperación",
+    "chars": 5644
+   },
+   {
+    "title": "Capítulo XVII · deberes deducidos de la relación de derecho",
+    "chars": 7341
+   },
+   {
+    "title": "Capítulo XVIII · el derecho armado.—deberes que impone",
+    "chars": 8654
+   },
+   {
+    "title": "Capítulo XIX · el deber de los deberes",
+    "chars": 5466
+   },
+   {
+    "title": "Capítulo XX · los conflictos del deber.—la regla de los conflictos",
+    "chars": 10120
+   },
+   {
+    "title": "Capítulo XXI · deberes del hombre para con la humanidad",
+    "chars": 13854
+   },
+   {
+    "title": "Capítulo XXII · deberes complementarios",
+    "subtitle": "Sinopsis de los deberes sociales primarios y secundarios.—Sinopsis de las virtudes sociales, políticas y económicas",
+    "chars": 10323
+   },
+   {
+    "title": "Capítulo XXIII · deberes complementarios.—continuación",
+    "chars": 16787
+   },
+   {
+    "title": "Capítulo XXIV · enlace de la moral con el derecho positivo",
+    "subtitle": "Patentizados ya en la relación de derecho los deberes colectivos é individuales que se deducen espontáneamente de ella, quizás parecerá superabundante la materia de este capítulo. No lo es",
+    "part": "Segunda parte · la moral y las actividades de la vida",
+    "chars": 8399
+   },
+   {
+    "title": "Capítulo XXV · enlace de la moral con la política",
+    "chars": 7036
+   },
+   {
+    "title": "Capítulo XXVI · la moral social y las profesiones",
+    "subtitle": "Una vez, una madre de las que en la América latina pueden, por la ternura, servir de modelo á cualesquiera madres, decía, refiriéndose á uno de sus pequeñuelos",
+    "chars": 12053
+   },
+   {
+    "title": "Capítulo XXVII · la moral y la escuela",
+    "chars": 6886
+   },
+   {
+    "title": "Capítulo XXVIII · la moral y la Iglesia católica",
+    "chars": 13050
+   },
+   {
+    "title": "Capítulo XXIX · la moral y el protestantismo",
+    "subtitle": "Es natural que el protestantismo esté más adelantado en la evolución religiosa que el catolicismo",
+    "chars": 9517
+   },
+   {
+    "title": "Capítulo XXX · la moral y las religiones filosóficas",
+    "chars": 9946
+   },
+   {
+    "title": "Capítulo XXXI · la moral y la ciencia",
+    "subtitle": "Es la ciencia probablemente la actividad humana en que se despliega mayor fuerza conscia y en que los individuos viven de un modo más conforme al orden moral",
+    "chars": 12029
+   },
+   {
+    "title": "Capítulo XXXII · la moral y el arte",
+    "subtitle": "En el Arte, todos son principios para la Moral",
+    "chars": 9944
+   },
+   {
+    "title": "Capítulo XXXIII · la moral y la literatura.—la novela",
+    "chars": 14500
+   },
+   {
+    "title": "Capítulo XXXIV · la moral y la literatura.—la dramática",
+    "chars": 14817
+   },
+   {
+    "title": "Capítulo XXXV · la moral y la historia",
+    "chars": 9819
+   },
+   {
+    "title": "Capítulo XXXVI · la moral y el periodismo",
+    "subtitle": "I",
+    "chars": 15200
+   },
+   {
+    "title": "Capítulo XXXVII · la moral y la industria",
+    "chars": 15096
+   },
+   {
+    "title": "Capítulo XXXVIII · la moral y el tiempo",
+    "subtitle": "El tiempo, para el trabajo, es aire; para el ocio plomo",
+    "chars": 9781
+   }
+  ]
  }
 }

@@ -1,16 +1,18 @@
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { cn } from '../lib/format'
-import { MOBILE_NAV } from './nav'
+import { mobileNav } from './nav'
 
 /** Mobile (<768px) fixed tab bar. */
 export function BottomNavigation() {
+  const { user } = useAuth()
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
       aria-label="Navegación principal"
     >
       <ul className="mx-auto grid h-[68px] max-w-lg grid-cols-5">
-        {MOBILE_NAV.map(({ to, label, shortLabel, icon: Icon }) => (
+        {mobileNav(user?.role).map(({ to, label, shortLabel, icon: Icon }) => (
           <li key={to}>
             <NavLink
               to={to}

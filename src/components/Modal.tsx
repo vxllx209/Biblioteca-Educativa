@@ -8,7 +8,7 @@ interface ModalProps {
   onClose: () => void
   title: string
   description?: string
-  children: ReactNode
+  children?: ReactNode
   footer?: ReactNode
   size?: 'sm' | 'md' | 'lg'
 }
@@ -87,7 +87,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
             <X className="size-5" />
           </button>
         </div>
-        <div className="overflow-y-auto px-6 pb-6">{children}</div>
+        {children && <div className="overflow-y-auto px-6 pb-6">{children}</div>}
         {footer && (
           <div className="flex flex-col-reverse gap-3 border-t border-line px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:flex-row sm:justify-end">
             {footer}

@@ -23,6 +23,13 @@ export function RequireAuth() {
   return <Outlet />
 }
 
+/** Teacher-only screens; students land on their own tasks instead. */
+export function RequireTeacher() {
+  const { user } = useAuth()
+  if (user?.role !== 'Profesor') return <Navigate to="/tasks" replace />
+  return <Outlet />
+}
+
 export function PublicOnly() {
   const { isAuthenticated } = useAuth()
   if (isAuthenticated) return <Navigate to="/home" replace />

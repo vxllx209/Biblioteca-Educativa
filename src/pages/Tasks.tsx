@@ -1,8 +1,9 @@
 import { BookOpen, CalendarDays, CircleCheck, ClipboardCheck, ClipboardList, PenLine } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CourseAssignments } from '../components/CourseAssignments'
 import { Modal } from '../components/Modal'
-import { PageHeader } from '../components/PageHeader'
+import { PageHeader, SectionHeader } from '../components/PageHeader'
 import { ProgressBar } from '../components/ProgressBar'
 import { EmptyState, RowSkeleton } from '../components/States'
 import { PriorityTag, STATUS_LABEL, StatusBadge } from '../components/StatusBadge'
@@ -54,6 +55,9 @@ export default function Tasks() {
     <div className="animate-fade-in">
       <PageHeader title="Mis tareas" subtitle={`${counts.pendiente + counts['en-progreso']} pendientes · ${counts.completada} completadas`} />
 
+      <CourseAssignments />
+
+      <SectionHeader title="Mi plan de estudio" />
       <section className="card mb-6 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6" aria-label="Progreso general">
         <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-soft text-accent">
           <ClipboardCheck className="size-6" aria-hidden />

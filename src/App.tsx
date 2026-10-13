@@ -1,8 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { AppLayout, PublicOnly, RequireAuth, ScrollToTop } from './components/Layouts'
+import { AppLayout, PublicOnly, RequireAuth, RequireTeacher, ScrollToTop } from './components/Layouts'
 import { useAuth } from './context/AuthContext'
 import AudioPage from './pages/AudioPage'
+import AssignmentReview from './pages/AssignmentReview'
 import BookDetail from './pages/BookDetail'
+import CourseDetail from './pages/CourseDetail'
+import Courses from './pages/Courses'
 import Downloads from './pages/Downloads'
 import Explore from './pages/Explore'
 import Favorites from './pages/Favorites'
@@ -52,6 +55,11 @@ export default function App() {
             <Route path="/premium" element={<Premium />} />
             <Route path="/practice/:bookId" element={<PracticeHub />} />
             <Route path="/practice/:bookId/:setId" element={<PracticeRun />} />
+            <Route element={<RequireTeacher />}>
+              <Route path="/aula" element={<Courses />} />
+              <Route path="/aula/:courseId" element={<CourseDetail />} />
+              <Route path="/aula/:courseId/tarea/:assignmentId" element={<AssignmentReview />} />
+            </Route>
           </Route>
           {/* Full-screen experiences */}
           <Route path="/reader/:id" element={<Reader />} />

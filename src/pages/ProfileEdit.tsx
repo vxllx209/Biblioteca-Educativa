@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Avatar } from '../components/Avatar'
 import { isEmail, SubmitButton, TextField } from '../components/Form'
 import { PageHeader } from '../components/PageHeader'
+import { RoleFields } from '../components/RoleFields'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 
@@ -40,6 +41,7 @@ export default function ProfileEdit() {
     currentPassword: '',
     password: '',
   })
+  const [profile, setProfile] = useState({ role: user?.role ?? 'Estudiante', school: user?.school ?? '', subject: user?.subject ?? '' })
   const [avatar, setAvatar] = useState({ dataUrl: user?.avatarDataUrl, color: user?.avatarColor ?? AVATAR_COLORS[0] })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -52,6 +54,8 @@ export default function ProfileEdit() {
     email: !isEmail(form.email) ? 'Ingresa un correo válido.' : '',
     password: form.password && form.password.length < 8 ? 'Debe tener al menos 8 caracteres.' : '',
     currentPassword: form.password && !form.currentPassword ? 'Ingresa tu contraseña actual para cambiarla.' : '',
+    school: profile.role === 'Profesor' && profile.school.trim().length < 3 ? 'Ingresa el nombre de tu establecimiento.' : '',
+    subject: profile.role === 'Profesor' && !profile.subject ? 'Elige la asignatura que dictas.' : '',
   }
   const bind = (k: keyof typeof form) => ({
     value: form[k],
@@ -90,6 +94,9 @@ export default function ProfileEdit() {
       email: form.email,
       avatarDataUrl: avatar.dataUrl,
       avatarColor: avatar.color,
+      role: profile.role,
+      school: profile.role === 'Profesor' ? profile.school.trim() : '',
+      subject: profile.role === 'Profesor' ? profile.subject : '',
     })
     setLoading(false)
     if (!res.ok) return setError(res.error)
@@ -160,6 +167,14 @@ export default function ProfileEdit() {
             <TextField label="Contraseña actual" type="password" autoComplete="current-password" placeholder="••••••••" {...bind('currentPassword')} />
             <TextField label="Nueva contraseña" type="password" autoComplete="new-password" placeholder="Dejar vacío para no cambiar" hint="Mínimo 8 caracteres." {...bind('password')} />
           </div>
+        </section>
+
+        <section className="card p-6 sm:p-8">
+          <RoleFields
+            {...profile}
+            onChange={(patch) => setProfile((p) => ({ ...p, ...patch }))}
+            errors={submitted ? { school: errors.school, subject: errors.subject } : {}}
+          />
         </section>
 
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">

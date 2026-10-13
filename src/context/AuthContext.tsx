@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { DEMO_USER, USERS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
 import { supabase } from '../lib/supabase'
-import type { PlanId, User } from '../types'
+import type { PlanId, Role, User } from '../types'
 
 type Result = { ok: true; notice?: string } | { ok: false; error: string }
 
@@ -17,13 +17,23 @@ interface AuthValue {
   passwordRecovery: boolean
   login: (email: string, password: string) => Promise<Result>
   loginWithGoogle: () => Promise<Result>
-  register: (data: { fullName: string; email: string; password: string }) => Promise<Result>
+  register: (data: RegisterData) => Promise<Result>
   requestPasswordReset: (email: string) => Promise<Result>
   completePasswordReset: (next: string) => Promise<Result>
   logout: () => void
   updateUser: (patch: Partial<Omit<User, 'id' | 'password'>>) => Promise<Result>
   changePassword: (current: string, next: string) => Promise<Result>
   setPlan: (plan: PlanId) => void
+}
+
+/** Exactly what the sign-up form collects: the auth credentials plus the profile columns. */
+export interface RegisterData {
+  fullName: string
+  email: string
+  password: string
+  role: Role
+  school?: string
+  subject?: string
 }
 
 const AuthContext = createContext<AuthValue | null>(null)
@@ -64,7 +74,7 @@ function useLocalAuth(): AuthValue {
   }, [users, setUsers, setSessionId])
 
   const register = useCallback<AuthValue['register']>(
-    async ({ fullName, email, password }) => {
+    async ({ fullName, email, password, role, school, subject }) => {
       await wait()
       const normalized = email.trim().toLowerCase()
       if (users.some((u) => u.email.toLowerCase() === normalized))
@@ -76,7 +86,8 @@ function useLocalAuth(): AuthValue {
         lastName: rest.join(' '),
         email: normalized,
         password,
-        role: 'Estudiante',
+        role,
+        ...(role === 'Profesor' ? { school: school?.trim() ?? '', subject: subject ?? '' } : {}),
         avatarColor: AVATAR_COLORS[users.length % AVATAR_COLORS.length],
         plan: 'free',
         createdAt: new Date().toISOString(),
@@ -153,7 +164,9 @@ interface ProfileRow {
   id: string
   first_name: string
   last_name: string
-  role: string
+  role: Role
+  school?: string
+  subject?: string
   avatar_color: string
   avatar_url: string | null
   plan: PlanId
@@ -169,7 +182,9 @@ function profileFromAuth(u: AuthUser): ProfileRow {
     id: u.id,
     first_name: meta.first_name ?? first,
     last_name: meta.last_name ?? rest.join(' '),
-    role: 'Estudiante',
+    role: meta.role === 'Profesor' ? 'Profesor' : 'Estudiante',
+    school: meta.school ?? '',
+    subject: meta.subject ?? '',
     avatar_color: AVATAR_COLORS[0],
     avatar_url: meta.avatar_url ?? null,
     plan: 'free',
@@ -180,7 +195,17 @@ function profileFromAuth(u: AuthUser): ProfileRow {
 
 async function fetchProfile(client: SupabaseClient, u: AuthUser): Promise<ProfileRow> {
   const { data } = await client.from('profiles').select('*').eq('id', u.id).maybeSingle<ProfileRow>()
-  return data ?? profileFromAuth(u)
+  if (!data) return profileFromAuth(u)
+  // The role chosen at sign-up travels in the auth metadata; if the profile missed it (older trigger), repair it.
+  const meta = u.user_metadata ?? {}
+  if ((meta.role === 'Profesor' || meta.role === 'Estudiante') && data.role !== meta.role) {
+    const fix: Partial<ProfileRow> = { role: meta.role, school: meta.school ?? '', subject: meta.subject ?? '' }
+    const full = await client.from('profiles').update(fix).eq('id', u.id)
+    // Without the classroom migration the school/subject columns don't exist yet: save at least the role.
+    if (full.error) await client.from('profiles').update({ role: meta.role }).eq('id', u.id)
+    return { ...data, ...fix }
+  }
+  return data
 }
 
 function translateError(message: string): string {
@@ -241,7 +266,8 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
       lastName: profile.last_name,
       email: authUser.email ?? '',
       password: '',
-      role: profile.role,
+      role: profile.role === 'Profesor' ? 'Profesor' : 'Estudiante',
+      ...(profile.role === 'Profesor' ? { school: profile.school ?? '', subject: profile.subject ?? '' } : {}),
       avatarColor: profile.avatar_color,
       avatarDataUrl: profile.avatar_url ?? undefined,
       plan: profile.plan,
@@ -269,13 +295,20 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
   }, [client])
 
   const register = useCallback<AuthValue['register']>(
-    async ({ fullName, email, password }) => {
+    async ({ fullName, email, password, role, school, subject }) => {
       const [firstName, ...rest] = fullName.trim().split(/\s+/)
       const { data, error } = await client.auth.signUp({
         email: email.trim().toLowerCase(),
         password,
         options: {
-          data: { full_name: fullName.trim(), first_name: firstName, last_name: rest.join(' ') },
+          // The database trigger copies these into the profile (see the classroom migration).
+          data: {
+            full_name: fullName.trim(),
+            first_name: firstName,
+            last_name: rest.join(' '),
+            role,
+            ...(role === 'Profesor' ? { school: school?.trim() ?? '', subject: subject ?? '' } : {}),
+          },
           emailRedirectTo: appUrl('/home'),
         },
       })
@@ -320,12 +353,17 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
       if (patch.firstName !== undefined) row.first_name = patch.firstName
       if (patch.lastName !== undefined) row.last_name = patch.lastName
       if (patch.role !== undefined) row.role = patch.role
+      if (patch.school !== undefined) row.school = patch.school
+      if (patch.subject !== undefined) row.subject = patch.subject
       if (patch.avatarColor !== undefined) row.avatar_color = patch.avatarColor
       if ('avatarDataUrl' in patch) row.avatar_url = patch.avatarDataUrl ?? null
       if (patch.plan !== undefined) row.plan = patch.plan
       if (Object.keys(row).length) {
         const { error } = await client.from('profiles').update(row).eq('id', user.id)
         if (error) return fail(error)
+        // Keep the auth metadata in step so the repair in fetchProfile never undoes a role change.
+        if (patch.role !== undefined)
+          await client.auth.updateUser({ data: { role: patch.role, school: patch.school ?? '', subject: patch.subject ?? '' } })
         setProfile((p) => (p ? { ...p, ...row } : p))
       }
       const email = patch.email?.trim().toLowerCase()

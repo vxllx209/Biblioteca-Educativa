@@ -60,9 +60,17 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useSyncedState<Record<string, ReadingProgress>>(uid, 'progress.v2', () =>
     isDemo ? byBook(READING_PROGRESS) : {},
   )
-  const [tasks, setTasks] = useSyncedState<Task[]>(uid, 'tasks.v2', () => TASKS)
-  const [notifications, setNotifications] = useSyncedState<AppNotification[]>(uid, 'notifications.v2', () => NOTIFICATIONS)
+  const [tasks, setTasks] = useSyncedState<Task[]>(uid, 'tasks.v2', () => (isDemo ? TASKS : []))
+  const [notifications, setNotifications] = useSyncedState<AppNotification[]>(uid, 'notifications.v2', () => (isDemo ? NOTIFICATIONS : []))
   const [practice, setPractice] = useSyncedState<Record<string, PracticeResult>>(uid, 'practice.v1', () => ({}))
+  // Earlier versions seeded every account with the demo tasks and notifications; real accounts drop them.
+  useEffect(() => {
+    if (!uid || isDemo) return
+    const taskIds = new Set(TASKS.map((t) => t.id))
+    const noteIds = new Set(NOTIFICATIONS.map((n) => n.id))
+    setTasks((list) => (list.some((t) => taskIds.has(t.id)) ? list.filter((t) => !taskIds.has(t.id)) : list))
+    setNotifications((list) => (list.some((n) => noteIds.has(n.id)) ? list.filter((n) => !noteIds.has(n.id)) : list))
+  }, [uid, isDemo, tasks, notifications, setTasks, setNotifications])
   const [downloading, setDownloading] = useState<Record<string, number>>({})
   const controllers = useRef<Record<string, AbortController>>({})
 

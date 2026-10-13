@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, BookOpen, Check, CircleCheck, Crown, Download, ExternalLink, Headphones, LoaderCircle, PenLine, Share2, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Check, CircleCheck, Crown, Download, ExternalLink, FileDown, Headphones, Info, LoaderCircle, PenLine, Share2, Star, WifiOff } from 'lucide-react'
 import { useMemo, useState, type ReactNode } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
@@ -9,12 +9,15 @@ import { PremiumGate } from '../components/PremiumGate'
 import { ProgressBar } from '../components/ProgressBar'
 import { ErrorState } from '../components/States'
 import { useAudio } from '../context/AudioContext'
+import { useAuth } from '../context/AuthContext'
 import { useLibrary } from '../context/LibraryContext'
 import { useToast } from '../context/ToastContext'
 import { BOOKS, formatYear, getBook, totalAudioSeconds } from '../data/books'
 import { KIND_LABEL, setsForBook, SUBJECT_APPROACH } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { formatTime } from '../lib/format'
+import { loadBookContent } from '../lib/offline'
+import { buildBookPdf, pdfFileName, saveFile } from '../lib/pdf'
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -51,7 +54,9 @@ export default function BookDetail() {
   const toast = useToast()
   const audio = useAudio()
   const { progress, isDownloaded, downloading, startDownload, canAccess, practice } = useLibrary()
+  const { user } = useAuth()
   const [gate, setGate] = useState<string | null>(null)
+  const [pdf, setPdf] = useState<number | null>(null)
   const loading = useSimulatedLoading([id], 400)
 
   const related = useMemo(() => {
@@ -103,6 +108,24 @@ export default function BookDetail() {
     startDownload(book)
   }
 
+  // Only the Anual plan gets PDFs without the watermark.
+  const cleanPdf = user?.plan === 'annual'
+  const downloadPdf = async () => {
+    if (locked) return setGate('Descarga el PDF de este libro con un plan Premium.')
+    if (pdf !== null) return
+    setPdf(0)
+    try {
+      const content = await loadBookContent(book.id)
+      const bytes = await buildBookPdf(book, content, { watermark: !cleanPdf, owner: user?.email ?? 'lector', onProgress: setPdf })
+      saveFile(bytes, pdfFileName(book))
+      toast(cleanPdf ? 'PDF descargado' : 'PDF descargado con marca de agua')
+    } catch (e) {
+      toast((e as Error).message || 'No se pudo generar el PDF', 'error')
+    } finally {
+      setPdf(null)
+    }
+  }
+
   const info = [
     { label: 'Autor', value: book.author },
     { label: 'Categoría', value: book.category },
@@ -121,13 +144,15 @@ export default function BookDetail() {
     { label: 'Tamaño de descarga', value: book.sizeMB < 1 ? `${Math.round(book.sizeMB * 1024)} KB` : `${book.sizeMB.toFixed(1)} MB` },
     {
       label: 'Fuente del texto',
-      value: (
+      value: book.sourceUrl ? (
         <a href={book.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
           {book.sourceUrl.includes('wikisource') ? 'Wikisource' : 'Project Gutenberg'} <ExternalLink className="size-3" aria-hidden />
         </a>
+      ) : (
+        'Biblioteca Educativa'
       ),
     },
-    { label: 'Derechos', value: 'Dominio público' },
+    { label: 'Derechos', value: book.rights ?? (book.original ? 'Material original' : 'Dominio público') },
   ]
 
   return (
@@ -153,6 +178,11 @@ export default function BookDetail() {
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="badge bg-soft text-accent">{book.category}</span>
+                {book.levels?.map((l) => (
+                  <span key={l} className="badge bg-softer text-text">
+                    {l}
+                  </span>
+                ))}
                 {book.premium && (
                   <span className="badge border border-line-active text-accent">
                     <Crown className="size-3.5" aria-hidden /> Premium
@@ -172,6 +202,18 @@ export default function BookDetail() {
                 <span>({book.ratingsCount.toLocaleString('es-ES')} valoraciones)</span>
               </div>
               <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted">{book.description}</p>
+
+              {book.access && (
+                <div className="mt-5 flex max-w-2xl gap-3 rounded-[14px] border border-line bg-softer p-4">
+                  <Info className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
+                  <div className="min-w-0 text-sm">
+                    <p className="text-muted">{book.access.note}</p>
+                    <a href={book.access.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 font-semibold text-accent hover:underline">
+                      {book.access.label} <ExternalLink className="size-3.5" aria-hidden />
+                    </a>
+                  </div>
+                </div>
+              )}
 
               {p && (
                 <div className="mt-5 max-w-md rounded-[14px] bg-softer p-4">
@@ -193,23 +235,35 @@ export default function BookDetail() {
                     Escuchar
                   </button>
                 )}
-                <button
-                  onClick={download}
-                  disabled={downloaded || dl !== undefined}
-                  className="btn-secondary h-12 w-full disabled:opacity-100 sm:w-auto"
-                  aria-live="polite"
-                >
-                  {dl !== undefined ? (
+                <button onClick={downloadPdf} disabled={pdf !== null} className="btn-secondary h-12 flex-1 disabled:opacity-100 sm:flex-none" aria-live="polite">
+                  {pdf !== null ? (
                     <>
-                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> Descargando {Math.round(dl)}%
-                    </>
-                  ) : downloaded ? (
-                    <>
-                      <Check className="size-5" aria-hidden /> Descargado
+                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> Generando PDF {Math.round(pdf)}%
                     </>
                   ) : (
                     <>
-                      <Download className="size-5" aria-hidden /> Descargar
+                      <FileDown className="size-5" aria-hidden /> Descargar PDF
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={download}
+                  disabled={downloaded || dl !== undefined}
+                  className="btn-secondary h-12 flex-1 disabled:opacity-100 sm:flex-none"
+                  aria-live="polite"
+                  title="Guarda el texto en este dispositivo para leerlo en la app sin internet"
+                >
+                  {dl !== undefined ? (
+                    <>
+                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> Guardando {Math.round(dl)}%
+                    </>
+                  ) : downloaded ? (
+                    <>
+                      <Check className="size-5" aria-hidden /> Disponible sin conexión
+                    </>
+                  ) : (
+                    <>
+                      <WifiOff className="size-5" aria-hidden /> Leer sin conexión
                     </>
                   )}
                 </button>
@@ -220,6 +274,21 @@ export default function BookDetail() {
                   </button>
                 </div>
               </div>
+              {!locked && (
+                <p className="mt-3 flex items-center gap-2 text-xs text-muted">
+                  <Download className="size-3.5 shrink-0" aria-hidden />
+                  {cleanPdf ? (
+                    'Tu plan Anual descarga los PDF sin marca de agua.'
+                  ) : (
+                    <span>
+                      El PDF incluye una marca de agua.{' '}
+                      <Link to="/premium" className="font-semibold text-accent hover:underline">
+                        Quítala con el plan Anual
+                      </Link>
+                    </span>
+                  )}
+                </p>
+              )}
               {locked && (
                 <p className="mt-4 flex items-center gap-2 text-sm text-muted">
                   <Crown className="size-4 text-accent" aria-hidden />

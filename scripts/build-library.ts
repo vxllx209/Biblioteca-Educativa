@@ -9,7 +9,7 @@
  *
  * Downloads are cached in scripts/.cache so re-running is fast and offline-friendly.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseHTML } from 'linkedom'
 import { SOURCES, type Source } from './sources'
@@ -34,10 +34,17 @@ const MAX_CHAPTER_CHARS = 36_000
 const DEFAULT_DROP =
   /^(índice|indice|índice general|tabla de materias|contents|nota del transcriptor|notas del transcriptor|nota de transcripción|erratas|fe de erratas|colofón|obras del mismo autor|obras de|nota$)/i
 
-async function cached(name: string, url: string): Promise<string> {
+async function cached(name: string, url: string, delayMs = 0): Promise<string> {
   const file = join(CACHE, name)
   if (existsSync(file)) return readFileSync(file, 'utf8')
-  const res = await fetch(url, { headers: { 'User-Agent': 'BibliotecaEducativa/1.0 (educational build script)' } })
+  // Wikimedia rate-limits bursts of API calls.
+  if (delayMs) await new Promise((r) => setTimeout(r, delayMs))
+  let res = await fetch(url, { headers: { 'User-Agent': 'BibliotecaEducativa/1.0 (educational build script)' } })
+  for (let wait = 10_000; res.status === 429 && wait <= 80_000; wait *= 2) {
+    console.log(`  (límite de peticiones, reintento en ${wait / 1000} s)`)
+    await new Promise((r) => setTimeout(r, wait))
+    res = await fetch(url, { headers: { 'User-Agent': 'BibliotecaEducativa/1.0 (educational build script)' } })
+  }
   if (!res.ok) throw new Error(`${res.status} ${url}`)
   const text = await res.text()
   writeFileSync(file, text)
@@ -85,6 +92,7 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
 
   const chapterTag = sourceTag ?? src.chapter.tag
   const chapterRe = src.chapter.regex ? new RegExp(src.chapter.regex) : null
+  const headingRe = src.chapter.heading ? new RegExp(src.chapter.heading, 'i') : null
   const drop = src.dropSections ? new RegExp(src.dropSections, 'i') : DEFAULT_DROP
   const level = (tag: string) => Number(tag.slice(1))
 
@@ -127,7 +135,9 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
 
     const isHeading = /^h\d$/.test(tag)
     const startsChapter =
-      (chapterTag && tag === chapterTag) || (!!chapterRe && tag === 'p' && text.length < 90 && chapterRe.test(text))
+      (chapterTag && tag === chapterTag) ||
+      (!!chapterRe && tag === 'p' && text.length < 90 && chapterRe.test(text)) ||
+      (!!headingRe && isHeading && headingRe.test(text))
 
     if (startsChapter) {
       const title = text.replace(/\n+/g, ' · ')
@@ -142,7 +152,13 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
       // A higher-level heading (e.g. "Primera parte") labels the following chapters.
       dropping = drop.test(text)
       if (!dropping) pendingPart = text.replace(/\n+/g, ' · ')
+      if (src.introChapters) current = null
       continue
+    }
+    // Text between a part heading and its first chapter (an introduction) becomes its own chapter.
+    if (src.introChapters && !current && pendingPart && !dropping) {
+      current = { title: pendingPart, blocks: [] }
+      chapters.push(current)
     }
     if (dropping || !current) continue
     if (isHeading) current.blocks.push(['h', text.replace(/\n+/g, ' · ')])
@@ -164,8 +180,8 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
 }
 
 async function wikisource(page: string): Promise<string> {
-  const url = `https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&page=${encodeURIComponent(page)}`
-  const json = JSON.parse(await cached(`ws-${page.replace(/[^\w]+/g, '_')}.json`, url))
+  const url = `https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&redirects=1&page=${encodeURIComponent(page)}`
+  const json = JSON.parse(await cached(`ws-${page.replace(/[^\w]+/g, '_')}.json`, url, 1500))
   return `<html><body>${json.parse.text}</body></html>`
 }
 
@@ -184,10 +200,10 @@ const toSeconds = (v: string | number | undefined) => {
   return s.split(':').reduce((acc, x) => acc * 60 + Number(x), 0)
 }
 
-async function librivox(id: string): Promise<{ archiveId: string; mirrors: string[]; tracks: Track[] }> {
+async function librivox(id: string, only?: string): Promise<{ archiveId: string; mirrors: string[]; tracks: Track[] }> {
   const meta = JSON.parse(await cached(`ia-${id}.json`, `https://archive.org/metadata/${id}`))
   const tracks: Track[] = (meta.files as { name: string; title?: string; length?: string }[])
-    .filter((f) => f.name.endsWith('_64kb.mp3'))
+    .filter((f) => f.name.endsWith('_64kb.mp3') && (!only || new RegExp(only, 'i').test(f.title ?? f.name)))
     .sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }))
     .map((f) => ({
       title: decode(f.title ?? f.name).replace(/^\d+\s*-\s*/, ''),
@@ -328,6 +344,48 @@ function polish(chapters: Chapter[]): Chapter[] {
   return out
 }
 
+/**
+ * Original study material written for the app (content/<id>.md):
+ *   "# Title" starts a chapter, "> text" right after it is its subtitle,
+ *   "## Heading" is a section heading, blank lines separate paragraphs.
+ */
+function local(file: string): Chapter[] {
+  const chapters: Chapter[] = []
+  let current: Chapter | null = null
+  // A folder is read as one text: its .md files in name order (long works are written in parts).
+  const path = join(ROOT, file)
+  const text = statSync(path).isDirectory()
+    ? readdirSync(path)
+        .filter((f) => f.endsWith('.md'))
+        .sort()
+        .map((f) => readFileSync(join(path, f), 'utf8'))
+        .join('\n\n')
+    : readFileSync(path, 'utf8')
+  for (const raw of text.replace(/\r/g, '').split(/\n{2,}/)) {
+    const para = raw.trim()
+    if (!para || para.startsWith('<!--')) continue
+    const lines = raw.replace(/^\n+|\s+$/g, '').split('\n')
+    // Indented lines (slogans, inscriptions, verse) keep their line breaks.
+    if (current && lines.every((l) => /^ {2,}\S/.test(l))) {
+      current.blocks.push(['v', lines.map((l) => l.trim()).join('\n')])
+      continue
+    }
+    if (para.startsWith('# ')) {
+      current = { title: lines[0].slice(2).trim(), blocks: [] }
+      const sub = lines.slice(1).join(' ').trim()
+      if (sub.startsWith('> ')) current.subtitle = sub.slice(2).trim()
+      chapters.push(current)
+    } else if (!current) continue
+    else if (para.startsWith('> ') && !current.blocks.length && !current.subtitle) current.subtitle = para.slice(2).trim()
+    else if (para.startsWith('## ')) current.blocks.push(['h', para.slice(3).trim()])
+    // Lists and worked steps keep their line breaks.
+    else if (lines.length > 1 && lines.every((l) => /^\s*([-•]|\d+[.)]|→)\s/.test(l)))
+      current.blocks.push(['v', lines.map((l) => l.trim().replace(/^[-•]\s/, '• ')).join('\n')])
+    else current.blocks.push(['p', para.replace(/\s*\n\s*/g, ' ')])
+  }
+  return chapters
+}
+
 const meta: Record<string, unknown> = {}
 for (const src of SOURCES) {
   let chapters: Chapter[] = []
@@ -338,15 +396,18 @@ for (const src of SOURCES) {
       chapters.push(...extract(html, src))
     }
     sourceUrl = `https://www.gutenberg.org/ebooks/${src.gutenberg[0]}`
+  } else if (src.local) {
+    chapters = local(src.local)
+    sourceUrl = ''
   } else if (src.wikisource) {
-    for (const page of src.wikisource.pages) {
+    for (const [i, page] of src.wikisource.pages.entries()) {
       const html = await wikisource(page)
       const blocks = extract(`<html><body><h1>x</h1>${html}</body></html>`, src, 'h1')[0]?.blocks ?? []
       // Drop the repeated title lines of the printed page ("Elementos", "De Euclides", "Libro primero").
       while (blocks.length && /^(elementos|de euclides|libro \p{L}+|pr[oó]logo[\p{L} ]*)\.?$/iu.test(blocks[0][1])) blocks.shift()
-      chapters.push({ title: page.split('/').pop()!, blocks })
+      chapters.push({ title: src.wikisource.titles?.[i] ?? page.split('/').pop()!, blocks })
     }
-    sourceUrl = `https://es.wikisource.org/wiki/${encodeURIComponent(src.wikisource.pages[0].split('/')[0])}`
+    sourceUrl = `https://es.wikisource.org/wiki/${encodeURIComponent(src.wikisource.index ?? src.wikisource.pages[0].split('/')[0])}`
   }
   if (src.slice) chapters = chapters.slice(...src.slice)
   if (src.stopAtPart) {
@@ -354,7 +415,40 @@ for (const src of SOURCES) {
     if (stop > 0) chapters = chapters.slice(0, stop)
   }
   if (src.only) chapters = chapters.filter((c) => new RegExp(src.only!, 'i').test(c.title))
-  chapters = polish(chapters)
+  if (src.startAt && chapters[0]) {
+    // Skip the publisher's front matter printed before the text begins.
+    const start = chapters[0].blocks.findIndex(([, x]) => new RegExp(src.startAt!, 'i').test(x))
+    if (start > 0) chapters[0].blocks = chapters[0].blocks.slice(start)
+  }
+  if (src.endAt) {
+    // Everything from this paragraph on belongs to the edition, not the work (e.g. a table of contents).
+    const re = new RegExp(src.endAt, 'i')
+    const at = chapters.findIndex((c) => c.blocks.some(([, x]) => re.test(x)))
+    if (at >= 0) {
+      chapters[at].blocks = chapters[at].blocks.slice(0, chapters[at].blocks.findIndex(([, x]) => re.test(x)))
+      chapters = chapters.slice(0, at + 1)
+    }
+  }
+  if (src.subtitleAfter) {
+    // A printed heading inside the page: drop it and keep the line after it as the chapter's subtitle.
+    const re = new RegExp(src.subtitleAfter)
+    for (const c of chapters) {
+      const at = c.blocks.findIndex(([, x]) => re.test(x))
+      if (at < 0) continue
+      const next = c.blocks[at + 1]
+      if (next && next[1].length <= 160) c.subtitle = next[1].replace(/^cap[ií]tulo\s+[ivxlc]+\.\s*/i, '').replace(/\.$/, '')
+      c.blocks.splice(at, next && next[1].length <= 160 ? 2 : 1)
+    }
+  }
+  if (src.dropBlocks) {
+    const re = new RegExp(src.dropBlocks)
+    chapters.forEach((c) => (c.blocks = c.blocks.filter(([, x]) => !re.test(x))))
+  }
+  if (src.minChars) chapters = chapters.filter((c) => c.blocks.reduce((n, [, x]) => n + x.length, 0) >= src.minChars!)
+  chapters = src.local ? chapters : polish(chapters)
+  // A subtitle that only repeats the title (Wikisource page headers) adds nothing.
+  const bare = (t: string) => strip(t).toLowerCase().replace(/\W+/g, '')
+  chapters.forEach((c) => c.subtitle && bare(c.subtitle) === bare(c.title) && delete c.subtitle)
 
   const json = JSON.stringify({ id: src.id, chapters })
   writeFileSync(join(OUT_BOOKS, `${src.id}.json`), json)
@@ -363,14 +457,14 @@ for (const src of SOURCES) {
   meta[src.id] = {
     words,
     bytes: Buffer.byteLength(json),
-    sourceUrl,
+    ...(sourceUrl ? { sourceUrl } : {}),
     chapters: chapters.map((c, i) => ({
       title: c.title,
       ...(c.subtitle ? { subtitle: c.subtitle } : {}),
       ...(c.part ? { part: c.part } : {}),
       chars: chars[i],
     })),
-    ...(src.librivox ? { audio: await librivox(src.librivox) } : {}),
+    ...(src.librivox ? { audio: await librivox(src.librivox, src.librivoxTracks) } : {}),
   }
   console.log(
     `${src.id.padEnd(34)} ${String(chapters.length).padStart(4)} caps ${String(words).padStart(7)} palabras ${(Buffer.byteLength(json) / 1024).toFixed(0).padStart(5)} KB`,

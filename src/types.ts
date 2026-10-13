@@ -1,4 +1,15 @@
-export type Category = 'Ciencias' | 'Matemáticas' | 'Historia' | 'Literatura' | 'Tecnología' | 'Otros'
+export type Category =
+  | 'Ciencias'
+  | 'Matemáticas'
+  | 'Historia'
+  | 'Literatura'
+  | 'Filosofía'
+  | 'Ciudadanía'
+  | 'Tecnología'
+  | 'Otros'
+
+/** School level a book is recommended for (Chilean curriculum). */
+export type Level = '4° medio'
 
 export interface CoverStyle {
   bg: string
@@ -27,6 +38,17 @@ export interface BookInfo {
   premium: boolean
   cover: CoverStyle
   tags: string[]
+  /** Recommended for these school levels. */
+  levels?: Level[]
+  /** Rights note shown on the book page when it differs from plain public domain. */
+  rights?: string
+  /** Study material written for the app (not a public-domain text). */
+  original?: boolean
+  /**
+   * Reading guide for a work still under copyright: the guide is readable here and the
+   * work itself is borrowed legally elsewhere.
+   */
+  access?: { label: string; url: string; note: string }
 }
 
 export interface ChapterMeta {
@@ -46,7 +68,8 @@ export interface AudioTrack {
 export interface LibraryMeta {
   words: number
   bytes: number
-  sourceUrl: string
+  /** Where the public-domain text comes from (absent for original material). */
+  sourceUrl?: string
   chapters: ChapterMeta[]
   audio?: { archiveId: string; mirrors: string[]; tracks: AudioTrack[] }
 }
@@ -74,13 +97,19 @@ export interface BookContent {
 
 export type PlanId = 'free' | 'monthly' | 'annual'
 
+export type Role = 'Estudiante' | 'Profesor'
+
 export interface User {
   id: string
   firstName: string
   lastName: string
   email: string
   password: string
-  role: string
+  role: Role
+  /** Establecimiento donde enseña (solo profesores). */
+  school?: string
+  /** Asignatura que dicta (solo profesores). */
+  subject?: string
   avatarColor: string
   avatarDataUrl?: string
   plan: PlanId
