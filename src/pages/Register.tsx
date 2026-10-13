@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { cn } from '../lib/format'
 import type { Role } from '../types'
+import { t } from '../i18n'
 
 type Field = 'name' | 'email' | 'password' | 'confirm' | 'terms' | 'school' | 'subject'
 
@@ -33,13 +34,13 @@ export default function Register() {
   const [error, setError] = useState('')
 
   const errors: Record<Field, string> = {
-    name: form.name.trim().length < 3 ? 'Ingresa tu nombre completo.' : '',
-    email: !form.email.trim() ? 'Ingresa tu correo electrónico.' : !isEmail(form.email) ? 'Ingresa un correo válido.' : '',
-    password: form.password.length < 8 ? 'La contraseña debe tener al menos 8 caracteres.' : '',
-    confirm: !form.confirm ? 'Confirma tu contraseña.' : form.confirm !== form.password ? 'Las contraseñas no coinciden.' : '',
-    terms: terms ? '' : 'Debes aceptar los términos y condiciones.',
-    school: profile.role === 'Profesor' && profile.school.trim().length < 3 ? 'Ingresa el nombre de tu establecimiento.' : '',
-    subject: profile.role === 'Profesor' && !profile.subject ? 'Elige la asignatura que dictas.' : '',
+    name: form.name.trim().length < 3 ? t('Ingresa tu nombre completo.') : '',
+    email: !form.email.trim() ? t('Ingresa tu correo electrónico.') : !isEmail(form.email) ? t('Ingresa un correo válido.') : '',
+    password: form.password.length < 8 ? t('La contraseña debe tener al menos 8 caracteres.') : '',
+    confirm: !form.confirm ? t('Confirma tu contraseña.') : form.confirm !== form.password ? t('Las contraseñas no coinciden.') : '',
+    terms: terms ? '' : t('Debes aceptar los términos y condiciones.'),
+    school: profile.role === 'Profesor' && profile.school.trim().length < 3 ? t('Ingresa el nombre de tu establecimiento.') : '',
+    subject: profile.role === 'Profesor' && !profile.subject ? t('Elige la asignatura que dictas.') : '',
   }
   const visible = (f: Field) => touched[f] || submitted
   const show = (f: Field) => (visible(f) ? errors[f] : '')
@@ -47,7 +48,7 @@ export default function Register() {
   const bind = (f: 'name' | 'email' | 'password' | 'confirm') => ({
     value: form[f],
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => setForm((s) => ({ ...s, [f]: e.target.value })),
-    onBlur: () => setTouched((t) => ({ ...t, [f]: true })),
+    onBlur: () => setTouched((s) => ({ ...s, [f]: true })),
     error: show(f),
     valid: valid(f),
   })
@@ -63,18 +64,18 @@ export default function Register() {
     setLoading(null)
     if (!res.ok) setError(res.error)
     else if (res.notice) toast(res.notice, 'info')
-    else toast('¡Tu cuenta fue creada con éxito!')
+    else toast(t('¡Tu cuenta fue creada con éxito!'))
   }
 
   return (
     <AuthCard
-      title="Crea tu cuenta"
-      subtitle="Únete y accede a cientos de libros para aprender a tu ritmo."
+      title={t('Crea tu cuenta')}
+      subtitle={t('Únete y accede a cientos de libros para aprender a tu ritmo.')}
       footer={
         <>
-          ¿Ya tienes una cuenta?{' '}
+          {t('¿Ya tienes una cuenta?')}{' '}
           <Link to="/login" className="font-semibold text-accent hover:underline">
-            Inicia sesión
+            {t('Inicia sesión')}
           </Link>
         </>
       }
@@ -91,10 +92,10 @@ export default function Register() {
             {error}
           </div>
         )}
-        <TextField label="Nombre completo" autoComplete="name" placeholder="Ej. Javier Morales" {...bind('name')} />
-        <TextField label="Correo electrónico" type="email" autoComplete="email" placeholder="tu@correo.com" {...bind('email')} />
+        <TextField label={t('Nombre completo')} autoComplete="name" placeholder={t('Ej. Javier Morales')} {...bind('name')} />
+        <TextField label={t('Correo electrónico')} type="email" autoComplete="email" placeholder={t('tu@correo.com')} {...bind('email')} />
         <div>
-          <PasswordField label="Contraseña" autoComplete="new-password" placeholder="Mínimo 8 caracteres" {...bind('password')} valid={undefined} />
+          <PasswordField label={t('Contraseña')} autoComplete="new-password" placeholder={t('Mínimo 8 caracteres')} {...bind('password')} valid={undefined} />
           {form.password && (
             <div className="mt-2" aria-live="polite">
               <div className="flex gap-1.5" aria-hidden>
@@ -108,16 +109,16 @@ export default function Register() {
                   />
                 ))}
               </div>
-              <p className="mt-1 text-xs text-muted">Seguridad: {STRENGTH[strength]}</p>
+              <p className="mt-1 text-xs text-muted">{t('Seguridad: {level}', { level: t(STRENGTH[strength]) })}</p>
             </div>
           )}
         </div>
-        <PasswordField label="Confirmar contraseña" autoComplete="new-password" placeholder="Repite tu contraseña" {...bind('confirm')} valid={undefined} />
-        <Checkbox checked={terms} onChange={(v) => { setTerms(v); setTouched((t) => ({ ...t, terms: true })) }} error={show('terms')}>
-          Acepto los <span className="font-medium text-accent">términos y condiciones</span> y la{' '}
-          <span className="font-medium text-accent">política de privacidad</span>.
+        <PasswordField label={t('Confirmar contraseña')} autoComplete="new-password" placeholder={t('Repite tu contraseña')} {...bind('confirm')} valid={undefined} />
+        <Checkbox checked={terms} onChange={(v) => { setTerms(v); setTouched((s) => ({ ...s, terms: true })) }} error={show('terms')}>
+          {t('Acepto los')} <span className="font-medium text-accent">{t('términos y condiciones')}</span> {t('y la')}{' '}
+          <span className="font-medium text-accent">{t('política de privacidad')}</span>.
         </Checkbox>
-        <SubmitButton loading={loading === 'form'}>Crear cuenta</SubmitButton>
+        <SubmitButton loading={loading === 'form'}>{t('Crear cuenta')}</SubmitButton>
       </form>
       <Divider />
       <GoogleButton

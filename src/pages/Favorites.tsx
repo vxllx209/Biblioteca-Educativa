@@ -10,6 +10,7 @@ import { getBook } from '../data/books'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { normalize } from '../lib/format'
 import type { Book } from '../types'
+import { t, plural } from '../i18n'
 
 export default function Favorites() {
   const { favorites } = useLibrary()
@@ -20,15 +21,15 @@ export default function Favorites() {
   const filtered = useMemo(() => {
     const q = normalize(query.trim())
     if (!q) return books
-    return books.filter((b) => normalize(`${b.title} ${b.author} ${b.category} ${b.subject}`).includes(q))
+    return books.filter((b) => normalize(`${b.title} ${b.author} ${b.category} ${b.subject} ${t(b.category)}`).includes(q))
   }, [books, query])
 
   const count = books.length
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Mis favoritos" subtitle={count === 1 ? '1 libro guardado' : `${count} libros guardados`} />
+      <PageHeader title={t('Mis favoritos')} subtitle={plural(count, '{n} libro guardado', '{n} libros guardados')} />
       {count > 0 && (
-        <SearchBar value={query} onChange={setQuery} placeholder="Buscar en tus favoritos" label="Buscar en favoritos" className="mb-6 max-w-xl" />
+        <SearchBar value={query} onChange={setQuery} placeholder={t('Buscar en tus favoritos')} label={t('Buscar en favoritos')} className="mb-6 max-w-xl" />
       )}
       <BookGrid
         books={filtered}
@@ -38,11 +39,11 @@ export default function Favorites() {
           count === 0 ? (
             <EmptyState
               icon={Heart}
-              title="Aún no tienes favoritos"
-              description="Toca el corazón en cualquier libro para guardarlo aquí y encontrarlo rápidamente."
+              title={t('Aún no tienes favoritos')}
+              description={t('Toca el corazón en cualquier libro para guardarlo aquí y encontrarlo rápidamente.')}
               action={
                 <Link to="/explore" className="btn-primary">
-                  Explorar libros
+                  {t('Explorar libros')}
                 </Link>
               }
             />

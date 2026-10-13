@@ -15,6 +15,7 @@ import { KIND_LABEL, PRACTICE_SETS } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { relativeTime } from '../lib/format'
 import type { Book, ReadingProgress } from '../types'
+import { t, plural } from '../i18n'
 
 function QuickAction({ to, icon: Icon, title, description, cta }: { to: string; icon: LucideIcon; title: string; description: string; cta: string }) {
   return (
@@ -41,7 +42,7 @@ function QuickAction({ to, icon: Icon, title, description, cta }: { to: string; 
 function ContinueCard({ book, progress }: { book: Book; progress: ReadingProgress }) {
   return (
     <article className="card flex min-w-0 gap-4 p-4">
-      <Link to={`/book/${book.id}`} className="w-[72px] shrink-0 overflow-hidden rounded-[10px] shadow-card" aria-label={`Ver ${book.title}`}>
+      <Link to={`/book/${book.id}`} className="w-[72px] shrink-0 overflow-hidden rounded-[10px] shadow-card" aria-label={t('Ver {title}', { title: book.title })}>
         <BookCover book={book} showText={false} />
       </Link>
       <div className="flex min-w-0 flex-1 flex-col">
@@ -50,15 +51,15 @@ function ContinueCard({ book, progress }: { book: Book; progress: ReadingProgres
         <p className="mt-0.5 truncate text-xs text-disabled">
           {book.chapters[progress.chapter]?.title.split('·')[0].trim()} · {relativeTime(progress.updatedAt)}
         </p>
-        <ProgressBar value={progress.percent} showValue className="mt-auto pt-3" label={`Progreso de ${book.title}`} />
+        <ProgressBar value={progress.percent} showValue className="mt-auto pt-3" label={t('Progreso de {title}', { title: book.title })} />
       </div>
       <Link to={`/reader/${book.id}`} className="btn-primary hidden h-10 min-h-10 self-center px-4 text-sm sm:inline-flex">
-        Continuar
+        {t('Continuar')}
       </Link>
       <Link
         to={`/reader/${book.id}`}
         className="grid size-11 shrink-0 place-items-center self-center rounded-full bg-primary text-white sm:hidden"
-        aria-label={`Continuar leyendo ${book.title}`}
+        aria-label={t('Continuar leyendo {title}', { title: book.title })}
       >
         <ArrowRight className="size-5" />
       </Link>
@@ -90,7 +91,7 @@ export default function Home() {
         .slice(0, 12),
     [progress],
   )
-  const pendingTasks = tasks.filter((t) => t.status !== 'completada').length
+  const pendingTasks = tasks.filter((task) => task.status !== 'completada').length
   // Practices for chapters already read in the books in progress; otherwise, applied exercises to start with.
   const toPractice = useMemo(() => {
     const open = PRACTICE_SETS.filter((s) => !practice[s.id])
@@ -106,9 +107,9 @@ export default function Home() {
       <header className="flex flex-wrap items-center gap-x-6 gap-y-5">
         <div className="min-w-0 flex-1">
           <h1 className="text-[22px] leading-tight font-bold tracking-tight text-text sm:text-[26px] lg:text-[32px]">
-            Hola, {user?.firstName}
+            {t('Hola, {name}', { name: user?.firstName ?? '' })}
           </h1>
-          <p className="mt-1 text-[15px] text-muted">¿Qué quieres aprender hoy?</p>
+          <p className="mt-1 text-[15px] text-muted">{t('¿Qué quieres aprender hoy?')}</p>
         </div>
         <SearchBar
           value={query}
@@ -119,26 +120,26 @@ export default function Home() {
         <TopActions />
       </header>
 
-      <section aria-label="Accesos rápidos" className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+      <section aria-label={t('Accesos rápidos')} className="grid gap-3 sm:grid-cols-3 sm:gap-4">
         <QuickAction
           to="/tasks"
           icon={ClipboardList}
-          title="Mis tareas"
-          description={pendingTasks ? `${pendingTasks} tareas pendientes` : 'Todo al día'}
-          cta="Ver tareas"
+          title={t('Mis tareas')}
+          description={pendingTasks ? plural(pendingTasks, '{n} tarea pendiente', '{n} tareas pendientes') : t('Todo al día')}
+          cta={t('Ver tareas')}
         />
-        <QuickAction to="/explore" icon={Compass} title="Explorar" description="Descubre nuevos libros" cta="Explorar" />
-        <QuickAction to="/premium" icon={Crown} title="Premium" description="Audiolibros y contenido exclusivo" cta="Ver planes" />
+        <QuickAction to="/explore" icon={Compass} title={t('Explorar')} description={t('Descubre nuevos libros')} cta={t('Explorar')} />
+        <QuickAction to="/premium" icon={Crown} title="Premium" description={t('Audiolibros y contenido exclusivo')} cta={t('Ver planes')} />
       </section>
 
       <section aria-labelledby="continue-title">
         <SectionHeader
           id="continue-title"
-          title="Continúa leyendo"
+          title={t('Continúa leyendo')}
           action={
             reading.length > 0 && (
               <button onClick={() => setShowAll(true)} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
-                Ver todo
+                {t('Ver todo')}
               </button>
             )
           }
@@ -161,11 +162,11 @@ export default function Home() {
               <BookOpenText className="size-6" aria-hidden />
             </span>
             <div className="flex-1">
-              <p className="font-semibold text-text">Aún no comienzas ningún libro</p>
-              <p className="text-sm text-muted">Elige un libro y tu progreso aparecerá aquí.</p>
+              <p className="font-semibold text-text">{t('Aún no comienzas ningún libro')}</p>
+              <p className="text-sm text-muted">{t('Elige un libro y tu progreso aparecerá aquí.')}</p>
             </div>
             <Link to="/explore" className="btn-primary">
-              Explorar libros
+              {t('Explorar libros')}
             </Link>
           </div>
         )}
@@ -173,7 +174,7 @@ export default function Home() {
 
       {toPractice.length > 0 && (
         <section aria-labelledby="practice-title">
-          <SectionHeader id="practice-title" title="Practica lo que leíste" />
+          <SectionHeader id="practice-title" title={t('Practica lo que leíste')} />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {toPractice.map((s) => {
               const b = getBook(s.bookId)!
@@ -186,7 +187,7 @@ export default function Home() {
                     <span className="block truncate text-xs text-muted">{b.title}</span>
                     <span className="block font-semibold text-text">{s.title}</span>
                     <span className="mt-1 block text-xs text-muted">
-                      {KIND_LABEL[s.kind]} · {s.questions.length} preguntas
+                      {t(KIND_LABEL[s.kind])} · {plural(s.questions.length, '{n} pregunta', '{n} preguntas')}
                     </span>
                   </span>
                   <ArrowRight className="mt-1 size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -200,10 +201,10 @@ export default function Home() {
       <section aria-labelledby="reco-title">
         <SectionHeader
           id="reco-title"
-          title="Recomendados para ti"
+          title={t('Recomendados para ti')}
           action={
             <Link to="/explore" className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
-              Ver todo
+              {t('Ver todo')}
             </Link>
           }
         />
@@ -215,7 +216,7 @@ export default function Home() {
         />
       </section>
 
-      <Modal open={showAll} onClose={() => setShowAll(false)} title="Continúa leyendo" description={`${reading.length} libros en progreso`} size="lg">
+      <Modal open={showAll} onClose={() => setShowAll(false)} title={t('Continúa leyendo')} description={plural(reading.length, '{n} libro en progreso', '{n} libros en progreso')} size="lg">
         <div className="space-y-3">
           {reading.map(({ p, book }) => (
             <ContinueCard key={book.id} book={book} progress={p} />

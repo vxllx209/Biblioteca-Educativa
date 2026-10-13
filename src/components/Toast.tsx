@@ -1,5 +1,6 @@
 import { CircleAlert, CircleCheck, Info, X } from 'lucide-react'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 export type ToastVariant = 'success' | 'error' | 'info'
 export interface ToastItem {
@@ -28,7 +29,7 @@ export function Toast({ item, onClose }: { item: ToastItem; onClose: () => void 
       <button
         onClick={onClose}
         className="grid size-9 shrink-0 place-items-center rounded-lg opacity-70 transition-opacity hover:opacity-100"
-        aria-label="Cerrar notificación"
+        aria-label={t('Cerrar notificación')}
       >
         <X className="size-4" />
       </button>

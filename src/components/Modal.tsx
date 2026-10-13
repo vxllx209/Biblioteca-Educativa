@@ -2,6 +2,7 @@ import { X } from 'lucide-react'
 import { useEffect, useId, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 interface ModalProps {
   open: boolean
@@ -83,7 +84,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
             </h2>
             {description && <p className="mt-1 text-sm text-muted">{description}</p>}
           </div>
-          <button onClick={onClose} className="icon-btn -mt-1 -mr-2 border-transparent" aria-label="Cerrar">
+          <button onClick={onClose} className="icon-btn -mt-1 -mr-2 border-transparent" aria-label={t('Cerrar')}>
             <X className="size-5" />
           </button>
         </div>

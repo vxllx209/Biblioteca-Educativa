@@ -5,6 +5,7 @@ import { AudioPlayer } from '../components/AudioPlayer'
 import { ErrorState } from '../components/States'
 import { useAudio } from '../context/AudioContext'
 import { getBook } from '../data/books'
+import { t } from '../i18n'
 
 export default function AudioPage() {
   const { id } = useParams()
@@ -24,11 +25,11 @@ export default function AudioPage() {
     return (
       <div className="grid min-h-dvh place-items-center bg-bg p-6">
         <ErrorState
-          title="Audiolibro no disponible"
-          description="Este libro todavía no tiene versión en audio."
+          title={t('Audiolibro no disponible')}
+          description={t('Este libro todavía no tiene versión en audio.')}
           action={
             <Link to={book ? `/book/${book.id}` : '/explore'} className="btn-primary">
-              Volver
+              {t('Volver')}
             </Link>
           }
         />
@@ -39,13 +40,13 @@ export default function AudioPage() {
     <div className="min-h-dvh bg-bg">
       <header className="sticky top-0 z-10 border-b border-line bg-bg/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
-          <button onClick={minimize} className="icon-btn" aria-label="Minimizar reproductor">
+          <button onClick={minimize} className="icon-btn" aria-label={t('Minimizar reproductor')}>
             <ChevronDown className="size-5" />
           </button>
           <p className="flex flex-1 items-center justify-center gap-2 text-sm font-semibold text-muted">
-            <Headphones className="size-4 text-accent" aria-hidden /> Audiolibro
+            <Headphones className="size-4 text-accent" aria-hidden /> {t('Audiolibro')}
           </p>
-          <Link to={`/reader/${book.id}`} className="icon-btn" aria-label="Leer el libro">
+          <Link to={`/reader/${book.id}`} className="icon-btn" aria-label={t('Leer el libro')}>
             <BookOpen className="size-5" />
           </Link>
         </div>

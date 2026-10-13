@@ -5,6 +5,7 @@ import { GoogleButton } from '../components/Form'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { supabase } from '../lib/supabase'
+import { t } from '../i18n'
 
 export default function Welcome() {
   const { loginWithGoogle } = useAuth()
@@ -15,7 +16,7 @@ export default function Welcome() {
     setLoading(true)
     const res = await loginWithGoogle()
     setLoading(false)
-    if (res.ok) toast('¡Bienvenido de nuevo!')
+    if (res.ok) toast(t('¡Bienvenido de nuevo!'))
   }
 
   return (
@@ -36,23 +37,23 @@ export default function Welcome() {
           <BookOpen className="size-11 sm:size-12" strokeWidth={1.6} aria-hidden />
         </span>
         <h1 className="mt-8 text-[26px] font-bold tracking-tight text-text sm:text-4xl">Biblioteca Educativa</h1>
-        <p className="mt-3 text-base text-muted sm:text-lg">Tu biblioteca digital para aprender, descubrir y crecer.</p>
+        <p className="mt-3 text-base text-muted sm:text-lg">{t('Tu biblioteca digital para aprender, descubrir y crecer.')}</p>
 
         <div className="mt-12 flex w-full flex-col gap-3">
           <Link to="/login" className="btn-primary h-12">
-            Iniciar sesión
+            {t('Iniciar sesión')}
           </Link>
           <Link to="/register" className="btn-secondary h-12">
-            Crear cuenta
+            {t('Crear cuenta')}
           </Link>
           <div className="my-2 flex items-center gap-4 text-xs font-medium text-disabled" role="separator">
-            <span className="h-px flex-1 bg-line" />o<span className="h-px flex-1 bg-line" />
+            <span className="h-px flex-1 bg-line" />{t('o')}<span className="h-px flex-1 bg-line" />
           </div>
           <GoogleButton onClick={google} loading={loading} />
         </div>
         {!supabase && (
           <p className="mt-10 text-xs text-disabled">
-            Cuenta de demostración: javier@biblioteca.edu · demo1234
+            {t('Cuenta de demostración:')} javier@biblioteca.edu · demo1234
           </p>
         )}
       </div>

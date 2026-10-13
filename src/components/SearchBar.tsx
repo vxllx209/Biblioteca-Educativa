@@ -1,6 +1,7 @@
 import { Search, X } from 'lucide-react'
 import type { FormEvent } from 'react'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 interface Props {
   value: string
@@ -17,10 +18,10 @@ export function SearchBar({
   value,
   onChange,
   onSubmit,
-  placeholder = '¿Qué te gustaría aprender?',
+  placeholder = t('¿Qué te gustaría aprender?'),
   size = 'md',
   className,
-  label = 'Buscar libros',
+  label = t('Buscar libros'),
   autoFocus,
 }: Props) {
   const handleSubmit = (e: FormEvent) => {
@@ -54,7 +55,7 @@ export function SearchBar({
           type="button"
           onClick={() => onChange('')}
           className="absolute top-1/2 right-1.5 grid size-9 -translate-y-1/2 place-items-center rounded-lg text-muted transition-colors hover:bg-bg2 hover:text-text"
-          aria-label="Limpiar búsqueda"
+          aria-label={t('Limpiar búsqueda')}
         >
           <X className="size-4" />
         </button>

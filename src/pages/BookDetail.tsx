@@ -18,6 +18,7 @@ import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { formatTime } from '../lib/format'
 import { loadBookContent } from '../lib/offline'
 import { buildBookPdf, pdfFileName, saveFile } from '../lib/pdf'
+import { locale, plural, t } from '../i18n'
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -31,7 +32,7 @@ function Stars({ rating }: { rating: number }) {
 
 function DetailSkeleton() {
   return (
-    <div className="grid gap-8 md:grid-cols-[240px_1fr] lg:grid-cols-[320px_1fr] lg:gap-12" aria-busy="true" aria-label="Cargando libro">
+    <div className="grid gap-8 md:grid-cols-[240px_1fr] lg:grid-cols-[320px_1fr] lg:gap-12" aria-busy="true" aria-label={t('Cargando libro')}>
       <div className="skeleton mx-auto aspect-[2/3] w-52 rounded-[18px] md:w-full" />
       <div className="space-y-4">
         <div className="skeleton h-5 w-24 rounded-full" />
@@ -69,11 +70,11 @@ export default function BookDetail() {
   if (!book)
     return (
       <ErrorState
-        title="Libro no encontrado"
-        description="El libro que buscas no existe o ya no está disponible."
+        title={t('Libro no encontrado')}
+        description={t('El libro que buscas no existe o ya no está disponible.')}
         action={
           <Link to="/explore" className="btn-primary">
-            Ir a Explorar
+            {t('Ir a Explorar')}
           </Link>
         }
       />
@@ -91,10 +92,10 @@ export default function BookDetail() {
         await navigator.share({ title: book.title, text: `${book.title} — ${book.author}`, url })
       } else {
         await navigator.clipboard.writeText(url)
-        toast('Enlace copiado al portapapeles')
+        toast(t('Enlace copiado al portapapeles'))
       }
     } catch (e) {
-      if ((e as Error).name !== 'AbortError') toast('No se pudo compartir el enlace', 'error')
+      if ((e as Error).name !== 'AbortError') toast(t('No se pudo compartir el enlace'), 'error')
     }
   }
 
@@ -104,46 +105,49 @@ export default function BookDetail() {
   }
 
   const download = () => {
-    if (locked) return setGate('Descarga este libro y léelo sin conexión con un plan Premium.')
+    if (locked) return setGate(t('Descarga este libro y léelo sin conexión con un plan Premium.'))
     startDownload(book)
   }
 
   // Only the Anual plan gets PDFs without the watermark.
   const cleanPdf = user?.plan === 'annual'
   const downloadPdf = async () => {
-    if (locked) return setGate('Descarga el PDF de este libro con un plan Premium.')
+    if (locked) return setGate(t('Descarga el PDF de este libro con un plan Premium.'))
     if (pdf !== null) return
     setPdf(0)
     try {
       const content = await loadBookContent(book.id)
       const bytes = await buildBookPdf(book, content, { watermark: !cleanPdf, owner: user?.email ?? 'lector', onProgress: setPdf })
       saveFile(bytes, pdfFileName(book))
-      toast(cleanPdf ? 'PDF descargado' : 'PDF descargado con marca de agua')
+      toast(cleanPdf ? t('PDF descargado') : t('PDF descargado con marca de agua'))
     } catch (e) {
-      toast((e as Error).message || 'No se pudo generar el PDF', 'error')
+      toast((e as Error).message || t('No se pudo generar el PDF'), 'error')
     } finally {
       setPdf(null)
     }
   }
 
   const info = [
-    { label: 'Autor', value: book.author },
-    { label: 'Categoría', value: book.category },
-    { label: 'Páginas', value: `≈ ${book.pages.toLocaleString('es-ES')}` },
-    { label: 'Idioma', value: book.language },
-    { label: 'Fecha de publicación', value: formatYear(book.year) },
+    { label: t('Autor'), value: book.author },
+    { label: t('Categoría'), value: t(book.category) },
+    { label: t('Páginas'), value: `≈ ${book.pages.toLocaleString(locale())}` },
+    { label: t('Idioma'), value: t(book.language) },
+    { label: t('Fecha de publicación'), value: formatYear(book.year) },
   ]
   const extra: { label: string; value: ReactNode }[] = [
-    { label: 'Edición', value: book.edition },
-    { label: 'Materia', value: book.subject },
-    { label: 'Extensión', value: `${book.words.toLocaleString('es-ES')} palabras · ${book.chapters.length} secciones` },
+    { label: t('Edición'), value: book.edition },
+    { label: t('Materia'), value: t(book.subject) },
     {
-      label: 'Audiolibro',
-      value: book.hasAudio ? `${formatTime(totalAudioSeconds(book))} · ${book.audio!.tracks.length} pistas` : 'No disponible',
+      label: t('Extensión'),
+      value: `${plural(book.words, '{n} palabra', '{n} palabras').replace(String(book.words), book.words.toLocaleString(locale()))} · ${plural(book.chapters.length, '{n} sección', '{n} secciones')}`,
     },
-    { label: 'Tamaño de descarga', value: book.sizeMB < 1 ? `${Math.round(book.sizeMB * 1024)} KB` : `${book.sizeMB.toFixed(1)} MB` },
     {
-      label: 'Fuente del texto',
+      label: t('Audiolibro'),
+      value: book.hasAudio ? `${formatTime(totalAudioSeconds(book))} · ${plural(book.audio!.tracks.length, '{n} pista', '{n} pistas')}` : t('No disponible'),
+    },
+    { label: t('Tamaño de descarga'), value: book.sizeMB < 1 ? `${Math.round(book.sizeMB * 1024)} KB` : `${book.sizeMB.toFixed(1)} MB` },
+    {
+      label: t('Fuente del texto'),
       value: book.sourceUrl ? (
         <a href={book.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
           {book.sourceUrl.includes('wikisource') ? 'Wikisource' : 'Project Gutenberg'} <ExternalLink className="size-3" aria-hidden />
@@ -152,13 +156,13 @@ export default function BookDetail() {
         'Biblioteca Educativa'
       ),
     },
-    { label: 'Derechos', value: book.rights ?? (book.original ? 'Material original' : 'Dominio público') },
+    { label: t('Derechos'), value: book.rights ?? (book.original ? t('Material original') : t('Dominio público')) },
   ]
 
   return (
     <div className="animate-fade-in">
       <div className="mb-6 flex items-center justify-between gap-3 md:mb-8">
-        <button onClick={() => navigate(-1)} className="icon-btn" aria-label="Volver">
+        <button onClick={() => navigate(-1)} className="icon-btn" aria-label={t('Volver')}>
           <ArrowLeft className="size-5" />
         </button>
         <TopActions />
@@ -177,10 +181,10 @@ export default function BookDetail() {
 
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="badge bg-soft text-accent">{book.category}</span>
+                <span className="badge bg-soft text-accent">{t(book.category)}</span>
                 {book.levels?.map((l) => (
                   <span key={l} className="badge bg-softer text-text">
-                    {l}
+                    {t(l)}
                   </span>
                 ))}
                 {book.premium && (
@@ -190,7 +194,7 @@ export default function BookDetail() {
                 )}
                 {downloaded && (
                   <span className="badge bg-success-soft text-success">
-                    <Check className="size-3.5" aria-hidden /> Sin conexión
+                    <Check className="size-3.5" aria-hidden /> {t('Sin conexión')}
                   </span>
                 )}
               </div>
@@ -199,7 +203,7 @@ export default function BookDetail() {
               <div className="mt-3 flex items-center gap-2 text-sm text-muted">
                 <Stars rating={book.rating} />
                 <span className="font-semibold text-text">{book.rating.toFixed(1)}</span>
-                <span>({book.ratingsCount.toLocaleString('es-ES')} valoraciones)</span>
+                <span>({t('{n} valoraciones', { n: book.ratingsCount.toLocaleString(locale()) })})</span>
               </div>
               <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted">{book.description}</p>
 
@@ -218,31 +222,31 @@ export default function BookDetail() {
               {p && (
                 <div className="mt-5 max-w-md rounded-[14px] bg-softer p-4">
                   <p className="mb-2 text-sm font-medium text-text">
-                    Vas en «{book.chapters[p.chapter]?.title}» · {Math.round(p.percent)}% leído
+                    {t('Vas en «{chapter}» · {n}% leído', { chapter: book.chapters[p.chapter]?.title ?? '', n: Math.round(p.percent) })}
                   </p>
-                  <ProgressBar value={p.percent} showValue size="md" label="Progreso de lectura" />
+                  <ProgressBar value={p.percent} showValue size="md" label={t('Progreso de lectura')} />
                 </div>
               )}
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Link to={`/reader/${book.id}`} className="btn-primary h-12 flex-1 sm:flex-none">
                   <BookOpen className="size-5" aria-hidden />
-                  {p ? 'Continuar leyendo' : 'Leer ahora'}
+                  {p ? t('Continuar leyendo') : t('Leer ahora')}
                 </Link>
                 {book.hasAudio && (
                   <button onClick={listen} className="btn-outline h-12 flex-1 sm:flex-none">
                     <Headphones className="size-5" aria-hidden />
-                    Escuchar
+                    {t('Escuchar')}
                   </button>
                 )}
                 <button onClick={downloadPdf} disabled={pdf !== null} className="btn-secondary h-12 flex-1 disabled:opacity-100 sm:flex-none" aria-live="polite">
                   {pdf !== null ? (
                     <>
-                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> Generando PDF {Math.round(pdf)}%
+                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> {t('Generando PDF {n}%', { n: Math.round(pdf) })}
                     </>
                   ) : (
                     <>
-                      <FileDown className="size-5" aria-hidden /> Descargar PDF
+                      <FileDown className="size-5" aria-hidden /> {t('Descargar PDF')}
                     </>
                   )}
                 </button>
@@ -251,25 +255,25 @@ export default function BookDetail() {
                   disabled={downloaded || dl !== undefined}
                   className="btn-secondary h-12 flex-1 disabled:opacity-100 sm:flex-none"
                   aria-live="polite"
-                  title="Guarda el texto en este dispositivo para leerlo en la app sin internet"
+                  title={t('Guarda el texto en este dispositivo para leerlo en la app sin internet')}
                 >
                   {dl !== undefined ? (
                     <>
-                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> Guardando {Math.round(dl)}%
+                      <LoaderCircle className="size-5 animate-spin" aria-hidden /> {t('Guardando {n}%', { n: Math.round(dl) })}
                     </>
                   ) : downloaded ? (
                     <>
-                      <Check className="size-5" aria-hidden /> Disponible sin conexión
+                      <Check className="size-5" aria-hidden /> {t('Disponible sin conexión')}
                     </>
                   ) : (
                     <>
-                      <WifiOff className="size-5" aria-hidden /> Leer sin conexión
+                      <WifiOff className="size-5" aria-hidden /> {t('Leer sin conexión')}
                     </>
                   )}
                 </button>
                 <div className="flex gap-3">
                   <FavoriteButton book={book} className="size-12" />
-                  <button onClick={share} className="icon-btn size-12" aria-label="Compartir">
+                  <button onClick={share} className="icon-btn size-12" aria-label={t('Compartir')}>
                     <Share2 className="size-5" />
                   </button>
                 </div>
@@ -278,12 +282,12 @@ export default function BookDetail() {
                 <p className="mt-3 flex items-center gap-2 text-xs text-muted">
                   <Download className="size-3.5 shrink-0" aria-hidden />
                   {cleanPdf ? (
-                    'Tu plan Anual descarga los PDF sin marca de agua.'
+                    t('Tu plan Anual descarga los PDF sin marca de agua.')
                   ) : (
                     <span>
-                      El PDF incluye una marca de agua.{' '}
+                      {t('El PDF incluye una marca de agua.')}{' '}
                       <Link to="/premium" className="font-semibold text-accent hover:underline">
-                        Quítala con el plan Anual
+                        {t('Quítala con el plan Anual')}
                       </Link>
                     </span>
                   )}
@@ -292,9 +296,9 @@ export default function BookDetail() {
               {locked && (
                 <p className="mt-4 flex items-center gap-2 text-sm text-muted">
                   <Crown className="size-4 text-accent" aria-hidden />
-                  Puedes leer el primer capítulo gratis.{' '}
+                  {t('Puedes leer el primer capítulo gratis.')}{' '}
                   <Link to="/premium" className="font-semibold text-accent hover:underline">
-                    Hazte Premium
+                    {t('Hazte Premium')}
                   </Link>
                 </p>
               )}
@@ -314,20 +318,20 @@ export default function BookDetail() {
           <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_360px]">
             <section className="card p-6 sm:p-8" aria-labelledby="synopsis">
               <h2 id="synopsis" className="text-lg font-semibold text-text sm:text-xl">
-                Sinopsis
+                {t('Sinopsis')}
               </h2>
               <p className="mt-4 text-[15px] leading-[1.8] text-muted">{book.synopsis}</p>
               <div className="mt-5 flex flex-wrap gap-2">
-                {book.tags.map((t) => (
-                  <Link key={t} to={`/explore?q=${encodeURIComponent(t)}`} className="chip min-h-9 border-line text-xs text-muted hover:border-line-active hover:text-accent">
-                    #{t}
+                {book.tags.map((tag) => (
+                  <Link key={tag} to={`/explore?q=${encodeURIComponent(tag)}`} className="chip min-h-9 border-line text-xs text-muted hover:border-line-active hover:text-accent">
+                    #{tag}
                   </Link>
                 ))}
               </div>
             </section>
             <section className="card p-6 sm:p-8" aria-labelledby="extra-info">
               <h2 id="extra-info" className="text-lg font-semibold text-text sm:text-xl">
-                Información adicional
+                {t('Información adicional')}
               </h2>
               <dl className="mt-4 divide-y divide-line">
                 {extra.map((i) => (
@@ -343,13 +347,13 @@ export default function BookDetail() {
           <section className="mt-12" aria-labelledby="practice-title">
             <div className="mb-4 flex items-center justify-between gap-4">
               <h2 id="practice-title" className="text-lg font-semibold text-text sm:text-xl">
-                Practica lo que lees
+                {t('Practica lo que lees')}
               </h2>
               <Link to={`/practice/${book.id}`} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
-                Ver todo
+                {t('Ver todo')}
               </Link>
             </div>
-            <p className="mb-4 max-w-3xl text-sm text-muted">{SUBJECT_APPROACH[book.category]}</p>
+            <p className="mb-4 max-w-3xl text-sm text-muted">{t(SUBJECT_APPROACH[book.category])}</p>
             <ul className="grid gap-3 md:grid-cols-2">
               {setsForBook(book.id)
                 .slice(0, 4)
@@ -362,7 +366,7 @@ export default function BookDetail() {
                       <span className="min-w-0 flex-1">
                         <span className="block truncate font-medium text-text">{s.title}</span>
                         <span className="block truncate text-xs text-muted">
-                          {book.chapters[s.chapter]?.title} · {KIND_LABEL[s.kind]} · {s.questions.length} preguntas
+                          {book.chapters[s.chapter]?.title} · {t(KIND_LABEL[s.kind])} · {plural(s.questions.length, '{n} pregunta', '{n} preguntas')}
                         </span>
                       </span>
                       {practice[s.id] ? (
@@ -380,14 +384,14 @@ export default function BookDetail() {
                   <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-bg2">
                     <PenLine className="size-5" aria-hidden />
                   </span>
-                  Práctica libre de cualquier capítulo, con espacio de desarrollo y pizarra
+                  {t('Práctica libre de cualquier capítulo, con espacio de desarrollo y pizarra')}
                 </Link>
               </li>
             </ul>
           </section>
 
           <section className="mt-12" aria-labelledby="related">
-            <SectionHeader id="related" title="Libros relacionados" />
+            <SectionHeader id="related" title={t('Libros relacionados')} />
             <BookGrid books={related} className="lg:max-xl:[&>*:nth-child(n+5)]:hidden xl:max-2xl:[&>*:nth-child(n+6)]:hidden" />
           </section>
         </>

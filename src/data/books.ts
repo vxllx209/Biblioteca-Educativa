@@ -1,5 +1,6 @@
 import type { Book, BookInfo, Category, CoverStyle } from '../types'
 import { LIBRARY } from './library.generated'
+import { t } from '../i18n'
 
 export const CATEGORIES: Category[] = [
   'Ciencias',
@@ -888,7 +889,7 @@ export const trackUrls = (book: Book, index: number) => {
 }
 
 /** Human year: "1605", "c. 300 a. C." */
-export const formatYear = (year: number) => (year < 0 ? `c. ${-year} a. C.` : String(year))
+export const formatYear = (year: number) => (year < 0 ? t('c. {n} a. C.', { n: -year }) : String(year))
 
 /** Characters before each chapter, for layout-independent whole-book progress. */
 export function chapterOffsets(book: Book) {

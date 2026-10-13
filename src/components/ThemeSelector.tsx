@@ -2,6 +2,7 @@ import { Monitor, Moon, Sun } from 'lucide-react'
 import { usePreferences } from '../context/PreferencesContext'
 import { cn } from '../lib/format'
 import type { ThemeMode } from '../types'
+import { t } from '../i18n'
 
 const OPTIONS: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
   { value: 'light', label: 'Claro', icon: Sun },
@@ -12,7 +13,7 @@ const OPTIONS: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
 export function ThemeSelector() {
   const { prefs, setPref } = usePreferences()
   return (
-    <div role="radiogroup" aria-label="Tema de la aplicación" className="grid grid-cols-3 gap-3">
+    <div role="radiogroup" aria-label={t('Tema de la aplicación')} className="grid grid-cols-3 gap-3">
       {OPTIONS.map(({ value, label, icon: Icon }) => {
         const active = prefs.theme === value
         return (
@@ -27,7 +28,7 @@ export function ThemeSelector() {
             )}
           >
             <Icon className="size-5" aria-hidden />
-            {label}
+            {t(label)}
           </button>
         )
       })}

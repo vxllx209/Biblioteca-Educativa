@@ -1,6 +1,7 @@
 import { Crown } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Modal } from './Modal'
+import { t } from '../i18n'
 
 /** Shown when a free user tries to use premium-only content. */
 export function PremiumGate({ open, onClose, message }: { open: boolean; onClose: () => void; message: string }) {
@@ -9,12 +10,12 @@ export function PremiumGate({ open, onClose, message }: { open: boolean; onClose
     <Modal
       open={open}
       onClose={onClose}
-      title="Contenido Premium"
+      title={t('Contenido Premium')}
       size="sm"
       footer={
         <>
           <button className="btn-secondary" onClick={onClose}>
-            Ahora no
+            {t('Ahora no')}
           </button>
           <button
             className="btn-primary"
@@ -23,7 +24,7 @@ export function PremiumGate({ open, onClose, message }: { open: boolean; onClose
               navigate('/premium')
             }}
           >
-            Ver planes
+            {t('Ver planes')}
           </button>
         </>
       }

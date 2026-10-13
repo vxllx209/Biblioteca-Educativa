@@ -7,6 +7,7 @@ import { PageHeader } from '../components/PageHeader'
 import { RoleFields } from '../components/RoleFields'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
+import { t } from '../i18n'
 
 const AVATAR_COLORS = ['#4F806D', '#285B4A', '#9C6450', '#3F5560', '#6B7448', '#C18A45']
 
@@ -49,13 +50,13 @@ export default function ProfileEdit() {
   if (!user) return null
 
   const errors = {
-    firstName: !form.firstName.trim() ? 'Ingresa tu nombre.' : '',
+    firstName: !form.firstName.trim() ? t('Ingresa tu nombre.') : '',
     lastName: '',
-    email: !isEmail(form.email) ? 'Ingresa un correo válido.' : '',
-    password: form.password && form.password.length < 8 ? 'Debe tener al menos 8 caracteres.' : '',
-    currentPassword: form.password && !form.currentPassword ? 'Ingresa tu contraseña actual para cambiarla.' : '',
-    school: profile.role === 'Profesor' && profile.school.trim().length < 3 ? 'Ingresa el nombre de tu establecimiento.' : '',
-    subject: profile.role === 'Profesor' && !profile.subject ? 'Elige la asignatura que dictas.' : '',
+    email: !isEmail(form.email) ? t('Ingresa un correo válido.') : '',
+    password: form.password && form.password.length < 8 ? t('Debe tener al menos 8 caracteres.') : '',
+    currentPassword: form.password && !form.currentPassword ? t('Ingresa tu contraseña actual para cambiarla.') : '',
+    school: profile.role === 'Profesor' && profile.school.trim().length < 3 ? t('Ingresa el nombre de tu establecimiento.') : '',
+    subject: profile.role === 'Profesor' && !profile.subject ? t('Elige la asignatura que dictas.') : '',
   }
   const bind = (k: keyof typeof form) => ({
     value: form[k],
@@ -65,13 +66,13 @@ export default function ProfileEdit() {
 
   const pickFile = async (file?: File) => {
     if (!file) return
-    if (!file.type.startsWith('image/')) return toast('Selecciona una imagen válida', 'error')
+    if (!file.type.startsWith('image/')) return toast(t('Selecciona una imagen válida'), 'error')
     try {
       setAvatar((a) => ({ ...a, dataUrl: undefined }))
       const dataUrl = await toAvatarDataUrl(file)
       setAvatar((a) => ({ ...a, dataUrl }))
     } catch {
-      toast('No pudimos procesar la imagen', 'error')
+      toast(t('No pudimos procesar la imagen'), 'error')
     }
   }
 
@@ -100,7 +101,7 @@ export default function ProfileEdit() {
     })
     setLoading(false)
     if (!res.ok) return setError(res.error)
-    toast(res.notice ?? 'Cambios guardados correctamente', res.notice ? 'info' : 'success')
+    toast(res.notice ?? t('Cambios guardados correctamente'), res.notice ? 'info' : 'success')
     navigate('/profile')
   }
 
@@ -108,7 +109,7 @@ export default function ProfileEdit() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Editar perfil" subtitle="Actualiza tu información personal." back />
+      <PageHeader title={t('Editar perfil')} subtitle={t('Actualiza tu información personal.')} back />
       <form onSubmit={submit} noValidate className="mx-auto max-w-2xl space-y-6">
         <section className="card flex flex-col items-center gap-5 p-6 sm:flex-row sm:p-8">
           <div className="relative">
@@ -117,15 +118,15 @@ export default function ProfileEdit() {
               type="button"
               onClick={() => fileRef.current?.click()}
               className="absolute -right-1 -bottom-1 grid size-10 place-items-center rounded-full border-2 border-surface bg-primary text-white transition-colors hover:bg-primary-hover"
-              aria-label="Cambiar foto de perfil"
+              aria-label={t('Cambiar foto de perfil')}
             >
               <Camera className="size-4" />
             </button>
             <input ref={fileRef} type="file" accept="image/*" className="sr-only" tabIndex={-1} onChange={(e) => pickFile(e.target.files?.[0])} />
           </div>
           <div className="flex-1 text-center sm:text-left">
-            <p className="text-sm font-semibold text-text">Foto de perfil</p>
-            <p className="mt-0.5 text-[13px] text-muted">Sube una imagen o elige un color para tus iniciales.</p>
+            <p className="text-sm font-semibold text-text">{t('Foto de perfil')}</p>
+            <p className="mt-0.5 text-[13px] text-muted">{t('Sube una imagen o elige un color para tus iniciales.')}</p>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
               {AVATAR_COLORS.map((c) => (
                 <button
@@ -133,7 +134,7 @@ export default function ProfileEdit() {
                   type="button"
                   onClick={() => setAvatar({ dataUrl: undefined, color: c })}
                   className="grid size-11 place-items-center rounded-full"
-                  aria-label={`Usar color ${c}`}
+                  aria-label={t('Usar color {c}', { c })}
                   aria-pressed={!avatar.dataUrl && avatar.color === c}
                 >
                   <span
@@ -144,7 +145,7 @@ export default function ProfileEdit() {
               ))}
               {avatar.dataUrl && (
                 <button type="button" onClick={() => setAvatar((a) => ({ ...a, dataUrl: undefined }))} className="btn-ghost min-h-10 px-3 text-sm">
-                  <Trash2 className="size-4" aria-hidden /> Quitar foto
+                  <Trash2 className="size-4" aria-hidden /> {t('Quitar foto')}
                 </button>
               )}
             </div>
@@ -159,13 +160,13 @@ export default function ProfileEdit() {
             </div>
           )}
           <div className="grid gap-5 sm:grid-cols-2">
-            <TextField label="Nombre" autoComplete="given-name" {...bind('firstName')} />
-            <TextField label="Apellido" autoComplete="family-name" {...bind('lastName')} />
+            <TextField label={t('Nombre')} autoComplete="given-name" {...bind('firstName')} />
+            <TextField label={t('Apellido')} autoComplete="family-name" {...bind('lastName')} />
           </div>
-          <TextField label="Correo electrónico" type="email" autoComplete="email" {...bind('email')} />
+          <TextField label={t('Correo electrónico')} type="email" autoComplete="email" {...bind('email')} />
           <div className="grid gap-5 sm:grid-cols-2">
-            <TextField label="Contraseña actual" type="password" autoComplete="current-password" placeholder="••••••••" {...bind('currentPassword')} />
-            <TextField label="Nueva contraseña" type="password" autoComplete="new-password" placeholder="Dejar vacío para no cambiar" hint="Mínimo 8 caracteres." {...bind('password')} />
+            <TextField label={t('Contraseña actual')} type="password" autoComplete="current-password" placeholder="••••••••" {...bind('currentPassword')} />
+            <TextField label={t('Nueva contraseña')} type="password" autoComplete="new-password" placeholder={t('Dejar vacío para no cambiar')} hint={t('Mínimo 8 caracteres.')} {...bind('password')} />
           </div>
         </section>
 
@@ -179,10 +180,10 @@ export default function ProfileEdit() {
 
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <button type="button" className="btn-secondary h-12" onClick={() => navigate('/profile')}>
-            Cancelar
+            {t('Cancelar')}
           </button>
           <SubmitButton loading={loading} className="sm:w-auto sm:px-8">
-            Guardar cambios
+            {t('Guardar cambios')}
           </SubmitButton>
         </div>
       </form>

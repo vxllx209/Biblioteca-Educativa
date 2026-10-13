@@ -16,6 +16,7 @@ import { getPracticeSet } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { cn, dueLabel, formatDate } from '../lib/format'
 import type { TaskStatus } from '../types'
+import { t, plural } from '../i18n'
 
 type Filter = 'todas' | TaskStatus
 const FILTERS: { value: Filter; label: string }[] = [
@@ -53,23 +54,26 @@ export default function Tasks() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Mis tareas" subtitle={`${counts.pendiente + counts['en-progreso']} pendientes · ${counts.completada} completadas`} />
+      <PageHeader
+        title={t('Mis tareas')}
+        subtitle={`${plural(counts.pendiente + counts['en-progreso'], '{n} pendiente', '{n} pendientes')} · ${plural(counts.completada, '{n} completada', '{n} completadas')}`}
+      />
 
       <CourseAssignments />
 
-      <SectionHeader title="Mi plan de estudio" />
-      <section className="card mb-6 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6" aria-label="Progreso general">
+      <SectionHeader title={t('Mi plan de estudio')} />
+      <section className="card mb-6 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6" aria-label={t('Progreso general')}>
         <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-soft text-accent">
           <ClipboardCheck className="size-6" aria-hidden />
         </span>
         <div className="flex-1">
-          <p className="text-sm font-semibold text-text">Progreso general</p>
-          <ProgressBar value={overall} showValue size="md" className="mt-2" label="Progreso general de tareas" />
+          <p className="text-sm font-semibold text-text">{t('Progreso general')}</p>
+          <ProgressBar value={overall} showValue size="md" className="mt-2" label={t('Progreso general de tareas')} />
         </div>
       </section>
 
       <div className="-mx-4 mb-6 overflow-x-auto px-4 no-scrollbar sm:mx-0 sm:px-0">
-        <div role="group" aria-label="Filtrar por estado" className="flex w-max gap-2">
+        <div role="group" aria-label={t('Filtrar por estado')} className="flex w-max gap-2">
           {FILTERS.map((f) => (
             <button
               key={f.value}
@@ -80,7 +84,7 @@ export default function Tasks() {
                 filter === f.value ? 'border-primary bg-primary text-white' : 'border-line bg-surface text-muted hover:border-line-active hover:text-text',
               )}
             >
-              {f.label}
+              {t(f.label)}
               <span className={cn('rounded-full px-1.5 text-xs', filter === f.value ? 'bg-white/20' : 'bg-bg2')}>{counts[f.value]}</span>
             </button>
           ))}
@@ -95,19 +99,23 @@ export default function Tasks() {
         </div>
       ) : visible.length ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {visible.map((t) => (
-            <TaskCard key={t.id} task={t} onOpen={(task) => setOpenId(task.id)} />
+          {visible.map((task) => (
+            <TaskCard key={task.id} task={task} onOpen={(item) => setOpenId(item.id)} />
           ))}
         </div>
       ) : (
         <EmptyState
           icon={ClipboardList}
-          title={filter === 'completada' ? 'Aún no completas tareas' : 'No hay tareas aquí'}
-          description={filter === 'todas' ? 'Cuando tus profesores asignen tareas aparecerán en esta sección.' : `No tienes tareas con estado “${FILTERS.find((f) => f.value === filter)?.label}”.`}
+          title={filter === 'completada' ? t('Aún no completas tareas') : t('No hay tareas aquí')}
+          description={
+            filter === 'todas'
+              ? t('Cuando tus profesores asignen tareas aparecerán en esta sección.')
+              : t('No tienes tareas con estado “{status}”.', { status: t(FILTERS.find((f) => f.value === filter)?.label ?? '') })
+          }
           action={
             filter !== 'todas' && (
               <button className="btn-secondary" onClick={() => setFilter('todas')}>
-                Ver todas
+                {t('Ver todas')}
               </button>
             )
           }
@@ -117,27 +125,27 @@ export default function Tasks() {
       <Modal
         open={!!open}
         onClose={() => setOpenId(null)}
-        title={open?.title ?? ''}
-        description={open?.subject}
+        title={open ? t(open.title) : ''}
+        description={open ? t(open.subject) : undefined}
         footer={
           open && (
             <>
               <button className="btn-secondary" onClick={() => setOpenId(null)}>
-                Cerrar
+                {t('Cerrar')}
               </button>
               {open.status !== 'completada' ? (
                 <button
                   className="btn-primary"
                   onClick={() => {
                     updateTask(open.id, { status: 'completada' })
-                    toast('¡Tarea completada!')
+                    toast(t('¡Tarea completada!'))
                   }}
                 >
-                  <CircleCheck className="size-5" aria-hidden /> Marcar como completada
+                  <CircleCheck className="size-5" aria-hidden /> {t('Marcar como completada')}
                 </button>
               ) : (
                 <button className="btn-outline" onClick={() => updateTask(open.id, { status: 'en-progreso' })}>
-                  Reabrir tarea
+                  {t('Reabrir tarea')}
                 </button>
               )}
             </>
@@ -154,11 +162,11 @@ export default function Tasks() {
                 {formatDate(open.dueDate, { weekday: 'long', day: 'numeric', month: 'long' })} · {dueLabel(open.dueDate)}
               </span>
             </div>
-            <p className="text-[15px] leading-relaxed text-muted">{open.description}</p>
+            <p className="text-[15px] leading-relaxed text-muted">{t(open.description)}</p>
 
             <div>
               <label htmlFor="task-progress" className="label flex justify-between">
-                Progreso <span className="font-semibold text-accent tabular-nums">{open.progress}%</span>
+                {t('Progreso')} <span className="font-semibold text-accent tabular-nums">{open.progress}%</span>
               </label>
               <input
                 id="task-progress"
@@ -174,7 +182,7 @@ export default function Tasks() {
             </div>
 
             <fieldset>
-              <legend className="label">Estado</legend>
+              <legend className="label">{t('Estado')}</legend>
               <div className="grid grid-cols-3 gap-2">
                 {(Object.keys(STATUS_LABEL) as TaskStatus[]).map((s) => (
                   <button
@@ -186,7 +194,7 @@ export default function Tasks() {
                       open.status === s ? 'border-primary bg-softer text-accent dark:border-secondary' : 'border-line text-muted hover:border-line-active',
                     )}
                   >
-                    {STATUS_LABEL[s]}
+                    {t(STATUS_LABEL[s])}
                   </button>
                 ))}
               </div>
@@ -202,11 +210,12 @@ export default function Tasks() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-xs text-muted">
-                    Práctica de la tarea{practice[linkedSet.id] ? ` · mejor resultado ${Math.round(practice[linkedSet.id].best * 100)}%` : ''}
+                    {t('Práctica de la tarea')}
+                    {practice[linkedSet.id] ? ` · ${t('mejor resultado {n}%', { n: Math.round(practice[linkedSet.id].best * 100) })}` : ''}
                   </span>
                   <span className="block truncate text-sm font-semibold text-text">{linkedSet.title}</span>
                 </span>
-                <span className="text-sm font-semibold text-accent">Resolver</span>
+                <span className="text-sm font-semibold text-accent">{t('Resolver')}</span>
               </Link>
             )}
             {book && (
@@ -215,7 +224,7 @@ export default function Tasks() {
                   <BookOpen className="size-5" aria-hidden />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-xs text-muted">Material de apoyo</span>
+                  <span className="block text-xs text-muted">{t('Material de apoyo')}</span>
                   <span className="block truncate text-sm font-semibold text-text">{book.title}</span>
                 </span>
               </Link>

@@ -1,4 +1,5 @@
 import type { Book, BookContent } from '../types'
+import { t } from '../i18n'
 
 /**
  * Book texts live in /books/<id>.json. "Downloading" a book stores that file in Cache Storage,
@@ -27,7 +28,7 @@ export function loadBookContent(id: string): Promise<BookContent> {
   if (existing) return existing
   const promise = (async () => {
     const res = (await fromCache(id)) ?? (await fetch(bookUrl(id)))
-    if (!res.ok) throw new Error(`No se pudo cargar el libro (${res.status})`)
+    if (!res.ok) throw new Error(t('No se pudo cargar el libro ({status})', { status: res.status }))
     return (await res.json()) as BookContent
   })()
   memory.set(id, promise)
@@ -41,9 +42,9 @@ export async function isBookCached(id: string) {
 
 /** Downloads the book text with real progress and stores it for offline use. Returns the stored size in bytes. */
 export async function downloadBook(book: Book, onProgress: (pct: number) => void, signal?: AbortSignal) {
-  if (!hasCacheApi()) throw new Error('Tu navegador no permite guardar libros sin conexión.')
+  if (!hasCacheApi()) throw new Error(t('Tu navegador no permite guardar libros sin conexión.'))
   const res = await fetch(bookUrl(book.id), { cache: 'no-store', signal })
-  if (!res.ok || !res.body) throw new Error('No se pudo descargar el libro. Revisa tu conexión.')
+  if (!res.ok || !res.body) throw new Error(t('No se pudo descargar el libro. Revisa tu conexión.'))
   const reader = res.body.getReader()
   const chunks: Uint8Array[] = []
   let received = 0

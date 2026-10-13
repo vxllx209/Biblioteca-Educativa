@@ -1,6 +1,7 @@
 import { Check, Minus } from 'lucide-react'
 import { cn, formatPrice } from '../lib/format'
 import type { Plan } from '../types'
+import { t } from '../i18n'
 
 interface Props {
   plan: Plan
@@ -16,16 +17,16 @@ export function PremiumPlan({ plan, current, onChoose, loading }: Props) {
         'relative flex flex-col rounded-[18px] border bg-surface p-6 shadow-card transition-all duration-200 sm:p-7',
         plan.recommended ? 'border-2 border-primary dark:border-secondary' : 'border-line',
       )}
-      aria-label={`Plan ${plan.name}`}
+      aria-label={t('Plan {name}', { name: t(plan.name) })}
     >
       {plan.recommended && (
-        <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">Recomendado</span>
+        <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">{t('Recomendado')}</span>
       )}
-      <h3 className="text-lg font-semibold text-text">{plan.name}</h3>
-      <p className="mt-1 text-sm text-muted">{plan.description}</p>
+      <h3 className="text-lg font-semibold text-text">{t(plan.name)}</h3>
+      <p className="mt-1 text-sm text-muted">{t(plan.description)}</p>
       <p className="mt-6 flex items-baseline gap-1.5">
         <span className="text-4xl font-bold tracking-tight text-text">{formatPrice(plan.price)}</span>
-        {plan.period && <span className="text-sm font-medium text-muted">/ {plan.period}</span>}
+        {plan.period && <span className="text-sm font-medium text-muted">/ {t(plan.period)}</span>}
       </p>
       <ul className="mt-6 flex-1 space-y-3">
         {plan.features.map((f) => (
@@ -40,8 +41,8 @@ export function PremiumPlan({ plan, current, onChoose, loading }: Props) {
               {f.included ? <Check className="size-3" strokeWidth={3} /> : <Minus className="size-3" strokeWidth={3} />}
             </span>
             <span>
-              {f.label}
-              {!f.included && <span className="sr-only"> (no incluido)</span>}
+              {t(f.label)}
+              {!f.included && <span className="sr-only"> {t('(no incluido)')}</span>}
             </span>
           </li>
         ))}
@@ -51,7 +52,7 @@ export function PremiumPlan({ plan, current, onChoose, loading }: Props) {
         disabled={current || loading}
         className={cn('mt-8 w-full', current ? 'btn-secondary' : plan.recommended ? 'btn-primary' : 'btn-outline')}
       >
-        {current ? 'Plan actual' : loading ? 'Procesando…' : 'Elegir plan'}
+        {current ? t('Plan actual') : loading ? t('Procesando…') : t('Elegir plan')}
       </button>
     </article>
   )

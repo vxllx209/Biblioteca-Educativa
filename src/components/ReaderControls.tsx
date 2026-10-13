@@ -1,6 +1,7 @@
 import { AArrowDown, AArrowUp, Bookmark, ChevronLeft, ChevronRight, Search, Settings2, Type, Volume2, VolumeX } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 interface Props {
   /** Whole-book progress 0..100 */
@@ -51,8 +52,8 @@ export function ReaderControls(p: Props) {
   // Commit slider moves shortly after the user stops dragging.
   useEffect(() => {
     if (scrub === null) return
-    const t = setTimeout(() => p.onScrub(scrub / 1000), 180)
-    return () => clearTimeout(t)
+    const timer = setTimeout(() => p.onScrub(scrub / 1000), 180)
+    return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrub])
   useEffect(() => {
@@ -68,7 +69,7 @@ export function ReaderControls(p: Props) {
               onClick={() => p.onFontSize(Math.max(FONT_MIN, p.fontSize - 1))}
               disabled={p.fontSize <= FONT_MIN}
               className="grid size-11 place-items-center rounded-xl text-text hover:bg-bg2 disabled:opacity-40"
-              aria-label="Reducir tamaño de letra"
+              aria-label={t('Reducir tamaño de letra')}
             >
               <AArrowDown className="size-5" />
             </button>
@@ -79,7 +80,7 @@ export function ReaderControls(p: Props) {
               onClick={() => p.onFontSize(Math.min(FONT_MAX, p.fontSize + 1))}
               disabled={p.fontSize >= FONT_MAX}
               className="grid size-11 place-items-center rounded-xl text-text hover:bg-bg2 disabled:opacity-40"
-              aria-label="Aumentar tamaño de letra"
+              aria-label={t('Aumentar tamaño de letra')}
             >
               <AArrowUp className="size-5" />
             </button>
@@ -93,7 +94,7 @@ export function ReaderControls(p: Props) {
             </span>
           )}
           <label htmlFor="reader-progress" className="sr-only">
-            Posición en el libro
+            {t('Posición en el libro')}
           </label>
           <input
             id="reader-progress"
@@ -104,35 +105,35 @@ export function ReaderControls(p: Props) {
             onChange={(e) => setScrub(Number(e.target.value))}
             className="range flex-1"
             style={{ ['--fill' as string]: `${value / 10}%` }}
-            aria-valuetext={`${Math.round(value / 10)}% del libro`}
+            aria-valuetext={t('{n}% del libro', { n: Math.round(value / 10) })}
           />
           <span className="w-12 text-right text-xs font-semibold text-accent tabular-nums">{Math.round(p.percent)}%</span>
         </div>
 
         <div className="flex items-center justify-between gap-1">
-          <button onClick={p.onPrev} disabled={!p.canPrev} className="btn-ghost min-h-11 px-2.5 disabled:opacity-40 sm:px-3" aria-label="Página anterior">
+          <button onClick={p.onPrev} disabled={!p.canPrev} className="btn-ghost min-h-11 px-2.5 disabled:opacity-40 sm:px-3" aria-label={t('Página anterior')}>
             <ChevronLeft className="size-5" />
-            <span className="hidden sm:inline">Anterior</span>
+            <span className="hidden sm:inline">{t('Anterior')}</span>
           </button>
           <div className="flex items-center gap-0.5 sm:gap-1">
-            <Tool label={p.bookmarked ? 'Quitar marcador' : 'Agregar marcador'} onClick={p.onBookmark} active={p.bookmarked}>
+            <Tool label={p.bookmarked ? t('Quitar marcador') : t('Agregar marcador')} onClick={p.onBookmark} active={p.bookmarked}>
               <Bookmark className={cn('size-5', p.bookmarked && 'fill-current')} />
             </Tool>
-            <Tool label="Tamaño de letra" onClick={() => setFontOpen((o) => !o)} active={fontOpen}>
+            <Tool label={t('Tamaño de letra')} onClick={() => setFontOpen((o) => !o)} active={fontOpen}>
               <Type className="size-5" />
             </Tool>
-            <Tool label="Buscar en el libro" onClick={p.onSearch}>
+            <Tool label={t('Buscar en el libro')} onClick={p.onSearch}>
               <Search className="size-5" />
             </Tool>
-            <Tool label={p.speaking ? 'Detener lectura en voz alta' : 'Leer en voz alta'} onClick={p.onSpeak} active={p.speaking}>
+            <Tool label={p.speaking ? t('Detener lectura en voz alta') : t('Leer en voz alta')} onClick={p.onSpeak} active={p.speaking}>
               {p.speaking ? <VolumeX className="size-5" /> : <Volume2 className="size-5" />}
             </Tool>
-            <Tool label="Configuración de lectura" onClick={p.onSettings}>
+            <Tool label={t('Configuración de lectura')} onClick={p.onSettings}>
               <Settings2 className="size-5" />
             </Tool>
           </div>
-          <button onClick={p.onNext} disabled={!p.canNext} className="btn-ghost min-h-11 px-2.5 text-accent disabled:opacity-40 sm:px-3" aria-label="Página siguiente">
-            <span className="hidden sm:inline">Siguiente</span>
+          <button onClick={p.onNext} disabled={!p.canNext} className="btn-ghost min-h-11 px-2.5 text-accent disabled:opacity-40 sm:px-3" aria-label={t('Página siguiente')}>
+            <span className="hidden sm:inline">{t('Siguiente')}</span>
             <ChevronRight className="size-5" />
           </button>
         </div>

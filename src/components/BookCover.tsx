@@ -1,6 +1,7 @@
 import type { Book } from '../types'
 import { cn } from '../lib/format'
 import { CATEGORY_ICONS } from './icons'
+import { t } from '../i18n'
 
 function Pattern({ type, color }: { type: Book['cover']['pattern']; color: string }) {
   const common = { stroke: color, fill: 'none', strokeWidth: 1.2, opacity: 0.35 }
@@ -37,7 +38,7 @@ export function BookCover({ book, className, showText = true }: { book: Book; cl
       className={cn('@container relative aspect-[2/3] w-full overflow-hidden select-none', className)}
       style={{ backgroundColor: bg, color: fg }}
       role="img"
-      aria-label={`Portada de ${book.title}`}
+      aria-label={t('Portada de {title}', { title: book.title })}
     >
       <Pattern type={pattern} color={accent} />
       <div className="absolute inset-y-0 left-0 w-[4%] bg-black/10" aria-hidden />

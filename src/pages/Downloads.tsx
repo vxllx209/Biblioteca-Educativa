@@ -13,6 +13,7 @@ import { FREE_DOWNLOAD_LIMIT } from '../data/mock'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { formatDate } from '../lib/format'
 import type { Book, Download as DownloadItem } from '../types'
+import { t, plural } from '../i18n'
 
 export default function Downloads() {
   const { downloads, downloading, removeDownload, cancelDownload } = useLibrary()
@@ -30,24 +31,24 @@ export default function Downloads() {
   return (
     <div className="animate-fade-in">
       <PageHeader
-        title="Mis descargas"
-        subtitle={`${items.length} ${items.length === 1 ? 'libro descargado' : 'libros descargados'} · ${totalMB.toFixed(1)} MB`}
+        title={t('Mis descargas')}
+        subtitle={`${plural(items.length, '{n} libro descargado', '{n} libros descargados')} · ${totalMB.toFixed(1)} MB`}
       />
 
       {!isPremium && (
         <div className="mb-6 flex flex-wrap items-center gap-3 rounded-[14px] bg-softer px-4 py-3 text-sm text-muted">
           <HardDrive className="size-4 text-accent" aria-hidden />
           <span className="flex-1">
-            Plan Gratis: {items.length} de {FREE_DOWNLOAD_LIMIT} descargas usadas.
+            {t('Plan Gratis: {n} de {max} descargas usadas.', { n: items.length, max: FREE_DOWNLOAD_LIMIT })}
           </span>
           <Link to="/premium" className="font-semibold text-accent hover:underline">
-            Descargas ilimitadas
+            {t('Descargas ilimitadas')}
           </Link>
         </div>
       )}
 
       {inProgress.length > 0 && (
-        <ul className="mb-6 space-y-3" aria-label="Descargas en curso">
+        <ul className="mb-6 space-y-3" aria-label={t('Descargas en curso')}>
           {inProgress.map(([id, pct]) => {
             const b = BOOKS.find((x) => x.id === id)
             return (
@@ -55,10 +56,10 @@ export default function Downloads() {
                 <Download className="size-5 animate-pulse text-accent" aria-hidden />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-text">{b?.title}</p>
-                  <ProgressBar value={pct} showValue className="mt-2" label={`Descargando ${b?.title}`} />
+                  <ProgressBar value={pct} showValue className="mt-2" label={t('Descargando {title}', { title: b?.title ?? '' })} />
                 </div>
-                <button onClick={() => cancelDownload(id)} className="btn-ghost min-h-10 px-3 text-sm" aria-label={`Cancelar descarga de ${b?.title}`}>
-                  Cancelar
+                <button onClick={() => cancelDownload(id)} className="btn-ghost min-h-10 px-3 text-sm" aria-label={t('Cancelar descarga de {title}', { title: b?.title ?? '' })}>
+                  {t('Cancelar')}
                 </button>
               </li>
             )
@@ -75,11 +76,11 @@ export default function Downloads() {
       ) : items.length === 0 ? (
         <EmptyState
           icon={CloudOff}
-          title="No tienes descargas"
-          description="Descarga libros desde su página de detalle para leerlos sin conexión a internet."
+          title={t('No tienes descargas')}
+          description={t('Descarga libros desde su página de detalle para leerlos sin conexión a internet.')}
           action={
             <Link to="/explore" className="btn-primary">
-              Explorar libros
+              {t('Explorar libros')}
             </Link>
           }
         />
@@ -87,7 +88,7 @@ export default function Downloads() {
         <ul className="grid gap-4 xl:grid-cols-2">
           {items.map(({ d, book }) => (
             <li key={book.id} className="card flex min-w-0 gap-4 p-4 sm:p-5">
-              <Link to={`/book/${book.id}`} className="w-20 shrink-0 overflow-hidden rounded-[10px] shadow-card sm:w-24" aria-label={`Ver ${book.title}`}>
+              <Link to={`/book/${book.id}`} className="w-20 shrink-0 overflow-hidden rounded-[10px] shadow-card sm:w-24" aria-label={t('Ver {title}', { title: book.title })}>
                 <BookCover book={book} showText={false} />
               </Link>
               <div className="flex min-w-0 flex-1 flex-col">
@@ -100,20 +101,20 @@ export default function Downloads() {
                 <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                   <span>{d.bytes < 1_048_576 ? `${Math.round(d.bytes / 1024)} KB` : `${(d.bytes / 1_048_576).toFixed(1)} MB`}</span>
                   <span aria-hidden>·</span>
-                  <span>Descargado el {formatDate(d.downloadedAt)}</span>
+                  <span>{t('Descargado el {date}', { date: formatDate(d.downloadedAt) })}</span>
                 </p>
                 <span className="badge mt-2 w-fit bg-success-soft text-success">
-                  <WifiOff className="size-3.5" aria-hidden /> Disponible sin conexión
+                  <WifiOff className="size-3.5" aria-hidden /> {t('Disponible sin conexión')}
                 </span>
                 <div className="mt-auto flex flex-wrap gap-2 pt-4">
                   <Link to={`/reader/${book.id}`} className="btn-primary h-10 min-h-10 flex-1 px-4 text-sm sm:flex-none">
-                    <BookOpen className="size-4" aria-hidden /> Abrir
+                    <BookOpen className="size-4" aria-hidden /> {t('Abrir')}
                   </Link>
                   <button
                     onClick={() => setConfirm(book)}
                     className="btn h-10 min-h-10 flex-1 border border-line px-4 text-sm text-error hover:border-error/40 hover:bg-error-soft sm:flex-none"
                   >
-                    <Trash2 className="size-4" aria-hidden /> Eliminar descarga
+                    <Trash2 className="size-4" aria-hidden /> {t('Eliminar descarga')}
                   </button>
                 </div>
               </div>
@@ -125,13 +126,13 @@ export default function Downloads() {
       <Modal
         open={!!confirm}
         onClose={() => setConfirm(null)}
-        title="¿Eliminar descarga?"
-        description={confirm ? `“${confirm.title}” dejará de estar disponible sin conexión. Podrás descargarlo de nuevo cuando quieras.` : ''}
+        title={t('¿Eliminar descarga?')}
+        description={confirm ? t('“{title}” dejará de estar disponible sin conexión. Podrás descargarlo de nuevo cuando quieras.', { title: confirm.title }) : ''}
         size="sm"
         footer={
           <>
             <button className="btn-secondary" onClick={() => setConfirm(null)}>
-              Cancelar
+              {t('Cancelar')}
             </button>
             <button
               className="btn-danger"
@@ -140,12 +141,12 @@ export default function Downloads() {
                 setConfirm(null)
               }}
             >
-              Eliminar
+              {t('Eliminar')}
             </button>
           </>
         }
       >
-        <p className="text-sm text-muted">Tu progreso de lectura y tus marcadores se conservarán.</p>
+        <p className="text-sm text-muted">{t('Tu progreso de lectura y tus marcadores se conservarán.')}</p>
       </Modal>
     </div>
   )

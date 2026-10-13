@@ -5,6 +5,7 @@ import { PasswordField, SubmitButton } from '../components/Form'
 import { AuthCard } from '../components/Layouts'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
+import { t } from '../i18n'
 
 /** Landing page for the password-reset email link: the link signs the user in, here they pick a new password. */
 export default function ResetPassword() {
@@ -20,11 +21,11 @@ export default function ResetPassword() {
   if (!isAuthenticated)
     return (
       <AuthCard
-        title="Enlace no válido"
-        subtitle="El enlace para restablecer la contraseña expiró o ya fue usado."
+        title={t('Enlace no válido')}
+        subtitle={t('El enlace para restablecer la contraseña expiró o ya fue usado.')}
         footer={
           <Link to="/forgot-password" className="font-semibold text-accent hover:underline">
-            Solicitar un nuevo enlace
+            {t('Solicitar un nuevo enlace')}
           </Link>
         }
       >
@@ -33,8 +34,8 @@ export default function ResetPassword() {
     )
 
   const errors = {
-    next: f.next.length < 8 ? 'Debe tener al menos 8 caracteres.' : '',
-    confirm: f.confirm !== f.next || !f.confirm ? 'Las contraseñas no coinciden.' : '',
+    next: f.next.length < 8 ? t('Debe tener al menos 8 caracteres.') : '',
+    confirm: f.confirm !== f.next || !f.confirm ? t('Las contraseñas no coinciden.') : '',
   }
   const bind = (k: keyof typeof f) => ({
     value: f[k],
@@ -51,12 +52,12 @@ export default function ResetPassword() {
     const res = await completePasswordReset(f.next)
     setLoading(false)
     if (!res.ok) return setError(res.error)
-    toast('Contraseña actualizada')
+    toast(t('Contraseña actualizada'))
     navigate('/home', { replace: true })
   }
 
   return (
-    <AuthCard title="Crea una nueva contraseña" subtitle="Elige una contraseña que no hayas usado antes.">
+    <AuthCard title={t('Crea una nueva contraseña')} subtitle={t('Elige una contraseña que no hayas usado antes.')}>
       <form onSubmit={submit} noValidate className="space-y-5">
         {error && (
           <div role="alert" className="flex items-center gap-2 rounded-xl bg-error-soft px-4 py-3 text-sm font-medium text-error">
@@ -64,9 +65,9 @@ export default function ResetPassword() {
             {error}
           </div>
         )}
-        <PasswordField label="Nueva contraseña" autoComplete="new-password" hint="Mínimo 8 caracteres." {...bind('next')} />
-        <PasswordField label="Confirmar contraseña" autoComplete="new-password" {...bind('confirm')} />
-        <SubmitButton loading={loading}>Guardar contraseña</SubmitButton>
+        <PasswordField label={t('Nueva contraseña')} autoComplete="new-password" hint={t('Mínimo 8 caracteres.')} {...bind('next')} />
+        <PasswordField label={t('Confirmar contraseña')} autoComplete="new-password" {...bind('confirm')} />
+        <SubmitButton loading={loading}>{t('Guardar contraseña')}</SubmitButton>
       </form>
     </AuthCard>
   )

@@ -10,6 +10,7 @@ import { BOOKS, CATEGORIES } from '../data/books'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
 import { cn, normalize } from '../lib/format'
 import type { Book, Category, Level } from '../types'
+import { t } from '../i18n'
 
 const LEVEL: Level = '4° medio'
 
@@ -30,7 +31,7 @@ function score(book: Book, terms: string[]) {
     [normalize(book.title), 5],
     [normalize(book.author), 3],
     [normalize(book.subject), 3],
-    [normalize(book.category), 3],
+    [normalize(`${book.category} ${t(book.category)}`), 3],
     [normalize(book.tags.join(' ')), 2],
     [normalize((book.levels ?? []).join(' ')), 2],
     [normalize(book.description), 1],
@@ -82,7 +83,7 @@ export default function Explore() {
 
   const sortControl = (
     <label className="relative inline-flex items-center">
-      <span className="sr-only">Ordenar por</span>
+      <span className="sr-only">{t('Ordenar por')}</span>
       <ArrowDownUp className="pointer-events-none absolute left-3.5 size-4 text-muted" aria-hidden />
       <select
         value={sort}
@@ -91,7 +92,7 @@ export default function Explore() {
       >
         {SORTS.map((s) => (
           <option key={s.value} value={s.value}>
-            {s.label}
+            {t(s.label)}
           </option>
         ))}
       </select>
@@ -103,18 +104,18 @@ export default function Explore() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Explorar" subtitle="Encuentra libros para aprender algo nuevo" />
+      <PageHeader title={t('Explorar')} subtitle={t('Encuentra libros para aprender algo nuevo')} />
 
       <SearchBar
         value={query}
         onChange={(q) => update({ q: q || null })}
         size="lg"
-        placeholder="Busca por título, autor, materia o categoría"
-        label="Buscar en el catálogo"
+        placeholder={t('Busca por título, autor, materia o categoría')}
+        label={t('Buscar en el catálogo')}
       />
 
       <div className="-mx-4 mt-5 overflow-x-auto px-4 sm:mx-0 sm:px-0 no-scrollbar">
-        <div role="group" aria-label="Filtrar por categoría" className="flex w-max gap-2">
+        <div role="group" aria-label={t('Filtrar por categoría')} className="flex w-max gap-2">
           <button
             onClick={() => update({ nivel: level ? null : LEVEL })}
             aria-pressed={!!level}
@@ -123,7 +124,7 @@ export default function Explore() {
               level ? 'border-primary bg-primary text-white' : 'border-line-active bg-soft text-accent hover:border-primary',
             )}
           >
-            <GraduationCap className="size-4" aria-hidden /> {LEVEL}
+            <GraduationCap className="size-4" aria-hidden /> {t(LEVEL)}
           </button>
           {[null, ...CATEGORIES].map((c) => {
             const active = category === c
@@ -139,7 +140,7 @@ export default function Explore() {
                     : 'border-line bg-surface text-muted hover:border-line-active hover:text-text',
                 )}
               >
-                {c ?? 'Todos'}
+                {c ? t(c) : t('Todos')}
               </button>
             )
           })}
@@ -150,16 +151,16 @@ export default function Explore() {
         <section className="mt-8" aria-live="polite">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-muted">
-              {loading ? 'Buscando…' : (
+              {loading ? t('Buscando…') : (
                 <>
-                  <span className="font-semibold text-text">{results.length}</span> {results.length === 1 ? 'resultado' : 'resultados'}
+                  <span className="font-semibold text-text">{results.length}</span> {results.length === 1 ? t('resultado') : t('resultados')}
                   {query && (
                     <>
-                      {' '}para “<span className="font-medium text-text">{query}</span>”
+                      {' '}{t('para')} “<span className="font-medium text-text">{query}</span>”
                     </>
                   )}
-                  {category && <> en {category}</>}
-                  {level && <> · {level}</>}
+                  {category && <> {t('en {category}', { category: t(category) })}</>}
+                  {level && <> · {t(level)}</>}
                 </>
               )}
             </p>
@@ -171,11 +172,11 @@ export default function Explore() {
             empty={
               <EmptyState
                 icon={SearchX}
-                title="Sin resultados"
-                description="No encontramos libros que coincidan. Revisa la ortografía o prueba con otra materia."
+                title={t('Sin resultados')}
+                description={t('No encontramos libros que coincidan. Revisa la ortografía o prueba con otra materia.')}
                 action={
                   <button className="btn-secondary" onClick={() => update({ q: null, cat: null, nivel: null })}>
-                    Limpiar filtros
+                    {t('Limpiar filtros')}
                   </button>
                 }
               />
@@ -187,33 +188,33 @@ export default function Explore() {
           <section aria-labelledby="ex-level">
             <SectionHeader
               id="ex-level"
-              title="Para 4° medio"
+              title={t('Para 4° medio')}
               action={
                 <button onClick={() => update({ nivel: LEVEL })} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
-                  Ver todo
+                  {t('Ver todo')}
                 </button>
               }
             />
             <p className="-mt-2 mb-4 max-w-3xl text-sm text-muted">
-              Teoría y práctica de las asignaturas del plan común, y lecturas que enseñan a mirar el mundo de otra forma. Cada libro termina con 10 ejercicios.
+              {t('Teoría y práctica de las asignaturas del plan común, y lecturas que enseñan a mirar el mundo de otra forma. Cada libro termina con 10 ejercicios.')}
             </p>
             <BookGrid books={forLevel.slice(0, 6)} loading={loading} skeletonCount={6} className={ONE_ROW} />
           </section>
           <PremiumBanner />
           <section aria-labelledby="ex-reco">
-            <SectionHeader id="ex-reco" title="Recomendados para ti" />
+            <SectionHeader id="ex-reco" title={t('Recomendados para ti')} />
             <BookGrid books={recommended} loading={loading} skeletonCount={6} className={ONE_ROW} />
           </section>
           <section aria-labelledby="ex-pop">
-            <SectionHeader id="ex-pop" title="Más populares" />
+            <SectionHeader id="ex-pop" title={t('Más populares')} />
             <BookGrid books={popular} loading={loading} skeletonCount={6} className={ONE_ROW} />
           </section>
           <section aria-labelledby="ex-new">
-            <SectionHeader id="ex-new" title="Nuevos libros" />
+            <SectionHeader id="ex-new" title={t('Nuevos libros')} />
             <BookGrid books={newest} loading={loading} skeletonCount={6} className={ONE_ROW} />
           </section>
           <section aria-labelledby="ex-all">
-            <SectionHeader id="ex-all" title="Todo el catálogo" action={sortControl} />
+            <SectionHeader id="ex-all" title={t('Todo el catálogo')} action={sortControl} />
             <BookGrid books={results} loading={loading} skeletonCount={10} />
           </section>
         </div>

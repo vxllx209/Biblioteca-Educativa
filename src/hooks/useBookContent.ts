@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { loadBookContent } from '../lib/offline'
 import type { BookContent } from '../types'
+import { t } from '../i18n'
 
 export function useBookContent(id: string | undefined) {
   const [state, setState] = useState<{ id?: string; data?: BookContent; error?: string }>({})
@@ -11,7 +12,7 @@ export function useBookContent(id: string | undefined) {
     let cancelled = false
     loadBookContent(id)
       .then((data) => !cancelled && setState({ id, data }))
-      .catch((e: Error) => !cancelled && setState({ id, error: e.message || 'No se pudo cargar el libro.' }))
+      .catch((e: Error) => !cancelled && setState({ id, error: e.message || t('No se pudo cargar el libro.') }))
     return () => {
       cancelled = true
     }

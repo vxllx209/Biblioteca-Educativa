@@ -1,6 +1,7 @@
 import { storage } from '../lib/storage'
 import { supabase } from '../lib/supabase'
 import type { User } from '../types'
+import { t } from '../i18n'
 
 /**
  * Cursos, tareas y entregas. With Supabase configured everything goes through the
@@ -51,7 +52,7 @@ export type NewAssignment = Pick<Assignment, 'title' | 'instructions' | 'bookId'
 // Unambiguous characters only (no 0/O, 1/I/L) so codes are easy to dictate in class.
 const CODE_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'
 const newJoinCode = () => Array.from({ length: 6 }, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join('')
-const fullName = (first?: string | null, last?: string | null) => [first, last].filter(Boolean).join(' ').trim() || 'Sin nombre'
+const fullName = (first?: string | null, last?: string | null) => [first, last].filter(Boolean).join(' ').trim() || t('Sin nombre')
 
 // ---------- Supabase ----------
 
@@ -219,13 +220,13 @@ const remote = {
     if (res.error)
       throw new Error(
         res.error.message.includes('not found')
-          ? 'No existe un curso con ese código.'
+          ? t('No existe un curso con ese código.')
           : res.error.message.includes('teachers')
-            ? 'Las cuentas de profesor no pueden unirse a cursos.'
+            ? t('Las cuentas de profesor no pueden unirse a cursos.')
             : res.error.message,
       )
     const course = (await remote.studentCourses(_userId)).find((c) => c.id === res.data)
-    if (!course) throw new Error('No pudimos unirte al curso.')
+    if (!course) throw new Error(t('No pudimos unirte al curso.'))
     return course
   },
   async leaveCourse(userId: string, courseId: string) {
@@ -270,7 +271,7 @@ function write(fn: (s: LocalStore) => LocalStore) {
 const localUsers = () => storage.get<User[]>('users', [])
 const userName = (id: string) => {
   const u = localUsers().find((x) => x.id === id)
-  return u ? { name: fullName(u.firstName, u.lastName), avatarColor: u.avatarColor } : { name: 'Sin nombre', avatarColor: '#4F806D' }
+  return u ? { name: fullName(u.firstName, u.lastName), avatarColor: u.avatarColor } : { name: t('Sin nombre'), avatarColor: '#4F806D' }
 }
 const withTeacher = (c: Omit<Course, 'teacherName'>): Course => ({ ...c, teacherName: userName(c.teacherId).name })
 const tick = () => new Promise((r) => setTimeout(r, 150))
@@ -361,7 +362,7 @@ const local: typeof remote = {
   async joinCourse(userId, code) {
     await tick()
     const course = read().courses.find((c) => c.joinCode === code.trim().toUpperCase())
-    if (!course) throw new Error('No existe un curso con ese código.')
+    if (!course) throw new Error(t('No existe un curso con ese código.'))
     write((s) =>
       s.members.some((m) => m.courseId === course.id && m.studentId === userId)
         ? s
@@ -383,7 +384,7 @@ const local: typeof remote = {
     await tick()
     write((s) => {
       const existing = s.submissions.find((x) => x.assignmentId === assignmentId && x.studentId === userId)
-      if (existing?.reviewedAt) throw new Error('La entrega ya fue revisada.')
+      if (existing?.reviewedAt) throw new Error(t('La entrega ya fue revisada.'))
       const next: Submission = { assignmentId, studentId: userId, answer: answer.trim(), submittedAt: now() }
       return { ...s, submissions: [...s.submissions.filter((x) => x !== existing), next] }
     })

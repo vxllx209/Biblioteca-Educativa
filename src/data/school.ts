@@ -1,3 +1,4 @@
+import { getLang } from '../i18n'
 import type { Role } from '../types'
 
 /** Asignaturas de enseñanza media (Chile) que puede elegir un profesor o un curso. */
@@ -29,7 +30,7 @@ export const ROLES: { value: Role; title: string; description: string }[] = [
 export const MIN_GRADE = 1
 export const MAX_GRADE = 7
 export const PASSING_GRADE = 4
-export const formatGrade = (g: number) => g.toFixed(1).replace('.', ',')
+export const formatGrade = (g: number) => (getLang() === 'es' ? g.toFixed(1).replace('.', ',') : g.toFixed(1))
 
 /** A yyyy-mm-dd due date at local midnight (a bare date would be parsed as UTC). */
 export const localDay = (date: string) => `${date}T00:00:00`

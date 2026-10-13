@@ -1,6 +1,7 @@
 import { Circle, Eraser, Minus, Pencil, RotateCcw, Trash2, type LucideIcon } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react'
 import { cn } from '../../lib/format'
+import { t, plural } from '../../i18n'
 
 type Tool = 'pen' | 'line' | 'circle' | 'eraser'
 type Point = [number, number]
@@ -130,15 +131,15 @@ export function Whiteboard({ value, onChange, label }: { value?: string; onChang
 
   return (
     <div className="overflow-hidden rounded-[14px] border border-line bg-surface">
-      <div className="flex flex-wrap items-center gap-1 border-b border-line bg-bg2/60 p-1.5" role="toolbar" aria-label="Herramientas de la pizarra">
-        {TOOLS.map(({ id, label: l, icon: Icon }) => (
+      <div className="flex flex-wrap items-center gap-1 border-b border-line bg-bg2/60 p-1.5" role="toolbar" aria-label={t('Herramientas de la pizarra')}>
+        {TOOLS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             type="button"
             onClick={() => setTool(id)}
             aria-pressed={tool === id}
-            title={l}
-            aria-label={l}
+            title={t(label)}
+            aria-label={t(label)}
             className={cn('grid size-10 place-items-center rounded-lg transition-colors', tool === id ? 'bg-soft text-accent' : 'text-muted hover:bg-surface hover:text-text')}
           >
             <Icon className="size-[18px]" />
@@ -158,10 +159,10 @@ export function Whiteboard({ value, onChange, label }: { value?: string; onChang
           </button>
         ))}
         <span className="flex-1" />
-        <button type="button" onClick={() => commit(strokes.slice(0, -1))} disabled={!strokes.length} className="grid size-10 place-items-center rounded-lg text-muted hover:bg-surface hover:text-text disabled:opacity-40" aria-label="Deshacer" title="Deshacer">
+        <button type="button" onClick={() => commit(strokes.slice(0, -1))} disabled={!strokes.length} className="grid size-10 place-items-center rounded-lg text-muted hover:bg-surface hover:text-text disabled:opacity-40" aria-label={t('Deshacer')} title={t('Deshacer')}>
           <RotateCcw className="size-[18px]" />
         </button>
-        <button type="button" onClick={() => commit([])} disabled={!strokes.length} className="grid size-10 place-items-center rounded-lg text-muted hover:bg-surface hover:text-error disabled:opacity-40" aria-label="Borrar pizarra" title="Borrar todo">
+        <button type="button" onClick={() => commit([])} disabled={!strokes.length} className="grid size-10 place-items-center rounded-lg text-muted hover:bg-surface hover:text-error disabled:opacity-40" aria-label={t('Borrar pizarra')} title={t('Borrar todo')}>
           <Trash2 className="size-[18px]" />
         </button>
       </div>
@@ -179,11 +180,15 @@ export function Whiteboard({ value, onChange, label }: { value?: string; onChang
           onPointerUp={up}
           onPointerCancel={up}
           role="img"
-          aria-label={`${label}. ${strokes.length ? `${strokes.length} trazos dibujados` : 'Pizarra vacía'}`}
+          aria-label={`${label}. ${strokes.length ? plural(strokes.length, '{n} trazo dibujado', '{n} trazos dibujados') : t('Pizarra vacía')}`}
         />
       </div>
       <p className="px-3 py-2 text-xs text-muted">
-        {tool === 'circle' ? 'Compás: pulsa en el centro y arrastra hasta el radio.' : tool === 'line' ? 'Recta: arrastra de un punto a otro.' : 'Dibuja con el dedo, el lápiz o el ratón.'}
+        {tool === 'circle'
+          ? t('Compás: pulsa en el centro y arrastra hasta el radio.')
+          : tool === 'line'
+            ? t('Recta: arrastra de un punto a otro.')
+            : t('Dibuja con el dedo, el lápiz o el ratón.')}
       </p>
     </div>
   )

@@ -1,7 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, type ReactNode } from 'react'
+import { createContext, Fragment, useCallback, useContext, useEffect, useMemo, type ReactNode } from 'react'
 import { DEFAULT_PREFERENCES } from '../data/mock'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { usePersistentState } from '../hooks/usePersistentState'
+import { setLang } from '../i18n'
 import type { Preferences } from '../types'
 
 interface PreferencesValue {
@@ -18,6 +19,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const prefs = useMemo(() => ({ ...DEFAULT_PREFERENCES, ...stored }), [stored])
   const systemDark = useMediaQuery('(prefers-color-scheme: dark)')
   const isDark = prefs.theme === 'dark' || (prefs.theme === 'auto' && systemDark)
+  // Set while rendering (not in an effect) so everything rendered below already uses it.
+  setLang(prefs.language === 'en' ? 'en' : 'es')
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark)
@@ -36,6 +39,12 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(() => ({ prefs, setPref, resetPrefs, isDark }), [prefs, setPref, resetPrefs, isDark])
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>
+}
+
+/** Remounts the screens when the language changes, so every string is rendered again in the new language. */
+export function LanguageBoundary({ children }: { children: ReactNode }) {
+  const { prefs } = usePreferences()
+  return <Fragment key={prefs.language}>{children}</Fragment>
 }
 
 export function usePreferences() {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLibrary } from '../context/LibraryContext'
 import { cn, relativeTime } from '../lib/format'
 import type { AppNotification } from '../types'
+import { t } from '../i18n'
 
 const kindIcon: Record<AppNotification['kind'], typeof Bell> = {
   download: Download,
@@ -44,7 +45,7 @@ export function NotificationPanel() {
       <button
         onClick={() => setOpen((o) => !o)}
         className="icon-btn relative"
-        aria-label={unreadCount ? `Notificaciones, ${unreadCount} sin leer` : 'Notificaciones'}
+        aria-label={unreadCount ? t('Notificaciones, {n} sin leer', { n: unreadCount }) : t('Notificaciones')}
         aria-expanded={open}
         aria-haspopup="dialog"
       >
@@ -57,21 +58,21 @@ export function NotificationPanel() {
       {open && (
         <div
           role="dialog"
-          aria-label="Notificaciones"
+          aria-label={t('Notificaciones')}
           className="fixed inset-x-4 top-20 z-50 animate-rise overflow-hidden rounded-[18px] border border-line bg-surface shadow-pop sm:absolute sm:inset-x-auto sm:top-14 sm:right-0 sm:w-96"
         >
           <div className="flex items-center justify-between gap-2 border-b border-line px-5 py-4">
             <div>
-              <h2 className="font-semibold text-text">Notificaciones</h2>
-              <p className="text-xs text-muted">{unreadCount ? `${unreadCount} sin leer` : 'Estás al día'}</p>
+              <h2 className="font-semibold text-text">{t('Notificaciones')}</h2>
+              <p className="text-xs text-muted">{unreadCount ? t('{n} sin leer', { n: unreadCount }) : t('Estás al día')}</p>
             </div>
             <div className="flex gap-1">
               <button
                 onClick={markAllNotificationsRead}
                 disabled={!unreadCount}
                 className="grid size-10 place-items-center rounded-lg text-muted transition-colors hover:bg-bg2 hover:text-accent disabled:opacity-40"
-                aria-label="Marcar todas como leídas"
-                title="Marcar todas como leídas"
+                aria-label={t('Marcar todas como leídas')}
+                title={t('Marcar todas como leídas')}
               >
                 <CheckCheck className="size-[18px]" />
               </button>
@@ -79,8 +80,8 @@ export function NotificationPanel() {
                 onClick={clearNotifications}
                 disabled={!notifications.length}
                 className="grid size-10 place-items-center rounded-lg text-muted transition-colors hover:bg-bg2 hover:text-error disabled:opacity-40"
-                aria-label="Borrar todas las notificaciones"
-                title="Borrar todas"
+                aria-label={t('Borrar todas las notificaciones')}
+                title={t('Borrar todas')}
               >
                 <Trash2 className="size-[18px]" />
               </button>
@@ -91,8 +92,8 @@ export function NotificationPanel() {
               <span className="mb-3 grid size-12 place-items-center rounded-full bg-soft text-accent">
                 <BellOff className="size-5" aria-hidden />
               </span>
-              <p className="text-sm font-medium text-text">No tienes notificaciones</p>
-              <p className="mt-1 text-xs text-muted">Te avisaremos sobre tareas, descargas y novedades.</p>
+              <p className="text-sm font-medium text-text">{t('No tienes notificaciones')}</p>
+              <p className="mt-1 text-xs text-muted">{t('Te avisaremos sobre tareas, descargas y novedades.')}</p>
             </div>
           ) : (
             <ul className="max-h-[60dvh] divide-y divide-line overflow-y-auto sm:max-h-96">
@@ -112,10 +113,10 @@ export function NotificationPanel() {
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center gap-2">
-                          <span className="flex-1 text-sm font-semibold text-text">{n.title}</span>
-                          {!n.read && <span className="size-2 shrink-0 rounded-full bg-primary dark:bg-accent" aria-label="Sin leer" />}
+                          <span className="flex-1 text-sm font-semibold text-text">{t(n.title)}</span>
+                          {!n.read && <span className="size-2 shrink-0 rounded-full bg-primary dark:bg-accent" aria-label={t('Sin leer')} />}
                         </span>
-                        <span className="mt-0.5 block text-[13px] text-muted">{n.body}</span>
+                        <span className="mt-0.5 block text-[13px] text-muted">{t(n.body)}</span>
                         <span className="mt-1 block text-xs text-disabled">{relativeTime(n.createdAt)}</span>
                       </span>
                     </button>

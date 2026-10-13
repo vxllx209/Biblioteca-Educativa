@@ -22,6 +22,7 @@ import Reader from './pages/Reader'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
 import Tasks from './pages/Tasks'
+import Landing from './pages/Landing'
 import Welcome from './pages/Welcome'
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Navigate to={isAuthenticated ? '/home' : '/welcome'} replace />} />
+        <Route path="/" element={isAuthenticated ? <Navigate to="/home" replace /> : <Landing />} />
 
         <Route element={<PublicOnly />}>
           <Route path="/welcome" element={<Welcome />} />

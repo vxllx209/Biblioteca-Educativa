@@ -1,4 +1,5 @@
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 interface Props {
   value: number
@@ -19,7 +20,7 @@ export function ProgressBar({ value, label, showValue = false, size = 'sm', clas
         aria-valuenow={pct}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={label ?? 'Progreso'}
+        aria-label={label ?? t('Progreso')}
       >
         <div
           className={cn(

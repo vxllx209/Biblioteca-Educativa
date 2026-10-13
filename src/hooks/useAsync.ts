@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { t } from '../i18n'
 
 /** Loads data from an async source and reloads it on demand (after a mutation). */
 export function useAsync<T>(load: () => Promise<T>, deps: unknown[]) {
@@ -12,7 +13,7 @@ export function useAsync<T>(load: () => Promise<T>, deps: unknown[]) {
     setState((s) => ({ ...s, loading: true }))
     run().then(
       (data) => alive && setState({ data, loading: false }),
-      (e: unknown) => alive && setState({ error: e instanceof Error ? e.message : 'Error inesperado', loading: false }),
+      (e: unknown) => alive && setState({ error: e instanceof Error ? e.message : t('Error inesperado'), loading: false }),
     )
     return () => {
       alive = false

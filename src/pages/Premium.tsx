@@ -9,6 +9,7 @@ import { PLANS } from '../data/mock'
 import { formatPrice } from '../lib/format'
 import { PAYMENTS_BACKEND_URL, startCheckout } from '../services/payments'
 import type { Plan } from '../types'
+import { t } from '../i18n'
 
 const HIGHLIGHTS = [
   { icon: BookOpen, title: 'Lectura sin límites', text: 'Todo el catálogo, incluidos los títulos exclusivos.' },
@@ -30,11 +31,11 @@ export default function Premium() {
       const res = await startCheckout(selected, user.email)
       if (res.ok && res.reference !== 'redirect') {
         setPlan(selected.id)
-        toast(selected.id === 'free' ? 'Cambiaste al plan Gratis' : `¡Bienvenido a Premium! Plan ${selected.name} activo`)
+        toast(selected.id === 'free' ? t('Cambiaste al plan Gratis') : t('¡Bienvenido a Premium! Plan {name} activo', { name: t(selected.name) }))
         setSelected(null)
       }
     } catch (e) {
-      toast((e as Error).message || 'No se pudo completar el pago', 'error')
+      toast((e as Error).message || t('No se pudo completar el pago'), 'error')
     } finally {
       setProcessing(false)
     }
@@ -48,9 +49,9 @@ export default function Premium() {
         <span className="mx-auto grid size-16 place-items-center rounded-[18px] bg-soft text-accent">
           <Crown className="size-8" strokeWidth={1.75} aria-hidden />
         </span>
-        <h2 className="mt-6 text-[26px] leading-tight font-bold tracking-tight text-text sm:text-4xl">Desbloquea todo el potencial</h2>
+        <h2 className="mt-6 text-[26px] leading-tight font-bold tracking-tight text-text sm:text-4xl">{t('Desbloquea todo el potencial')}</h2>
         <p className="mt-3 text-base text-muted sm:text-lg">
-          Accede a contenido exclusivo, audiolibros y descargas ilimitadas. Aprende sin límites, a tu ritmo.
+          {t('Accede a contenido exclusivo, audiolibros y descargas ilimitadas. Aprende sin límites, a tu ritmo.')}
         </p>
       </section>
 
@@ -59,8 +60,8 @@ export default function Premium() {
           <li key={title} className="flex items-start gap-3 rounded-[14px] bg-softer p-4">
             <Icon className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
             <span>
-              <span className="block text-sm font-semibold text-text">{title}</span>
-              <span className="block text-[13px] text-muted">{text}</span>
+              <span className="block text-sm font-semibold text-text">{t(title)}</span>
+              <span className="block text-[13px] text-muted">{t(text)}</span>
             </span>
           </li>
         ))}
@@ -74,21 +75,21 @@ export default function Premium() {
 
       <p className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-2 text-center text-xs text-muted">
         <ShieldCheck className="size-4 shrink-0 text-accent" aria-hidden />
-        Pagos seguros. Cancela cuando quieras desde tu perfil.
+        {t('Pagos seguros. Cancela cuando quieras desde tu perfil.')}
       </p>
 
       <Modal
         open={!!selected}
         onClose={() => !processing && setSelected(null)}
-        title={selected?.id === 'free' ? 'Cambiar a plan Gratis' : `Confirmar plan ${selected?.name ?? ''}`}
+        title={selected?.id === 'free' ? t('Cambiar a plan Gratis') : t('Confirmar plan {name}', { name: t(selected?.name ?? '') })}
         size="sm"
         footer={
           <>
             <button className="btn-secondary" onClick={() => setSelected(null)} disabled={processing}>
-              Cancelar
+              {t('Cancelar')}
             </button>
             <button className="btn-primary" onClick={confirm} disabled={processing} aria-busy={processing}>
-              {processing ? 'Procesando…' : selected?.id === 'free' ? 'Cambiar plan' : 'Confirmar y pagar'}
+              {processing ? t('Procesando…') : selected?.id === 'free' ? t('Cambiar plan') : t('Confirmar y pagar')}
             </button>
           </>
         }
@@ -96,18 +97,18 @@ export default function Premium() {
         {selected && (
           <div className="space-y-4">
             <div className="flex items-center justify-between rounded-[14px] bg-softer p-4">
-              <span className="font-medium text-text">Plan {selected.name}</span>
+              <span className="font-medium text-text">{t('Plan {name}', { name: t(selected.name) })}</span>
               <span className="font-bold text-accent">
                 {formatPrice(selected.price)}
-                {selected.period && <span className="text-sm font-medium text-muted"> / {selected.period}</span>}
+                {selected.period && <span className="text-sm font-medium text-muted"> / {t(selected.period)}</span>}
               </span>
             </div>
             <p className="text-sm text-muted">
               {selected.id === 'free'
-                ? 'Perderás el acceso a audiolibros completos, contenido premium y descargas ilimitadas.'
+                ? t('Perderás el acceso a audiolibros completos, contenido premium y descargas ilimitadas.')
                 : PAYMENTS_BACKEND_URL
-                  ? 'Serás redirigido a la pasarela de pago segura para completar la compra.'
-                  : 'Modo demostración: no se realizará ningún cobro real. El plan se activará de inmediato.'}
+                  ? t('Serás redirigido a la pasarela de pago segura para completar la compra.')
+                  : t('Modo demostración: no se realizará ningún cobro real. El plan se activará de inmediato.')}
             </p>
           </div>
         )}

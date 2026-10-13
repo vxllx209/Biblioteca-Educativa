@@ -4,6 +4,7 @@ import { useAudio } from '../context/AudioContext'
 import type { Book } from '../types'
 import { BookCover } from './BookCover'
 import { FavoriteButton } from './FavoriteButton'
+import { t } from '../i18n'
 
 export function BookCard({ book }: { book: Book }) {
   const audio = useAudio()
@@ -20,13 +21,13 @@ export function BookCard({ book }: { book: Book }) {
           )}
         </div>
         <div className="flex flex-1 flex-col gap-1.5 p-3.5 pb-4">
-          <span className="badge w-fit bg-soft text-accent">{book.category}</span>
+          <span className="badge w-fit bg-soft text-accent">{t(book.category)}</span>
           <h3 className="line-clamp-2 text-[15px] leading-snug font-semibold text-text">{book.title}</h3>
           <p className="line-clamp-1 text-[13px] text-muted">{book.author}</p>
           <p className="mt-auto flex items-center gap-1 pt-1 text-xs font-medium text-muted">
             <Star className="size-3.5 fill-warning text-warning" aria-hidden />
             {book.rating.toFixed(1)}
-            <span className="sr-only">de 5 estrellas</span>
+            <span className="sr-only">{t('de 5 estrellas')}</span>
           </p>
         </div>
       </Link>
@@ -39,7 +40,7 @@ export function BookCard({ book }: { book: Book }) {
             navigate(`/audio/${book.id}`)
           }}
           className="absolute top-[calc(0.625rem+2.75rem)] right-2.5 grid size-9 place-items-center rounded-full border border-line bg-surface/90 text-muted backdrop-blur transition-all duration-200 hover:text-accent active:scale-90"
-          aria-label={`Escuchar ${book.title}`}
+          aria-label={t('Escuchar {title}', { title: book.title })}
         >
           <Headphones className="size-4" aria-hidden />
         </button>

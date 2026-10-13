@@ -12,6 +12,7 @@ import { usePersistentState } from '../hooks/usePersistentState'
 import { cn } from '../lib/format'
 import { userKey } from '../lib/storage'
 import type { AnswerValue, PracticeSet, Question } from '../types'
+import { locale, plural, t } from '../i18n'
 
 interface Session {
   index: number
@@ -58,11 +59,11 @@ export default function PracticeRun() {
   if (!book || !set)
     return (
       <ErrorState
-        title="Práctica no encontrada"
-        description="Esta práctica no existe o fue movida."
+        title={t('Práctica no encontrada')}
+        description={t('Esta práctica no existe o fue movida.')}
         action={
           <Link to={book ? `/practice/${book.id}` : '/explore'} className="btn-primary">
-            Ver prácticas
+            {t('Ver prácticas')}
           </Link>
         }
       />
@@ -117,17 +118,17 @@ function Runner({ set }: { set: PracticeSet }) {
         <span className="mx-auto grid size-14 place-items-center rounded-full bg-soft text-accent">
           <Crown className="size-6" aria-hidden />
         </span>
-        <h1 className="mt-4 text-xl font-semibold text-text">Práctica Premium</h1>
-        <p className="mt-2 text-sm text-muted">Esta práctica corresponde a un capítulo Premium de «{book.title}».</p>
+        <h1 className="mt-4 text-xl font-semibold text-text">{t('Práctica Premium')}</h1>
+        <p className="mt-2 text-sm text-muted">{t('Esta práctica corresponde a un capítulo Premium de «{title}».', { title: book.title })}</p>
         <Link to="/premium" className="btn-primary mt-6">
-          Ver planes
+          {t('Ver planes')}
         </Link>
       </div>
     )
 
   const header = (
     <header className="mb-6 flex items-start gap-3">
-      <button onClick={() => navigate(`/practice/${book.id}`)} className="icon-btn" aria-label="Volver a las prácticas">
+      <button onClick={() => navigate(`/practice/${book.id}`)} className="icon-btn" aria-label={t('Volver a las prácticas')}>
         <ArrowLeft className="size-5" />
       </button>
       <div className="min-w-0 flex-1">
@@ -135,7 +136,7 @@ function Runner({ set }: { set: PracticeSet }) {
           {book.title} · {book.chapters[set.chapter]?.title}
         </p>
         <h1 className="text-[22px] leading-tight font-bold tracking-tight text-text sm:text-[26px]">{set.title}</h1>
-        <span className="badge mt-2 bg-soft text-accent">{KIND_LABEL[set.kind]}</span>
+        <span className="badge mt-2 bg-soft text-accent">{t(KIND_LABEL[set.kind])}</span>
       </div>
     </header>
   )
@@ -150,13 +151,13 @@ function Runner({ set }: { set: PracticeSet }) {
             {pct >= 70 ? <Trophy className="size-7" aria-hidden /> : <ClipboardCheck className="size-7" aria-hidden />}
           </span>
           <h2 id="result-title" className="mt-4 text-2xl font-bold text-text">
-            {pct >= 90 ? '¡Excelente trabajo!' : pct >= 70 ? '¡Muy bien!' : pct >= 50 ? 'Vas por buen camino' : 'Sigue practicando'}
+            {pct >= 90 ? t('¡Excelente trabajo!') : pct >= 70 ? t('¡Muy bien!') : pct >= 50 ? t('Vas por buen camino') : t('Sigue practicando')}
           </h2>
           <p className="mt-1 text-muted">
-            Obtuviste <strong className="text-text">{total.toLocaleString('es-ES')}</strong> de {max} puntos ({pct}%)
-            {best !== undefined && ` · Mejor resultado: ${Math.round(best * 100)}%`}
+            {t('Obtuviste')} <strong className="text-text">{total.toLocaleString(locale())}</strong> {t('de {max} puntos ({pct}%)', { max, pct })}
+            {best !== undefined && ` · ${t('Mejor resultado: {n}%', { n: Math.round(best * 100) })}`}
           </p>
-          <ProgressBar value={pct} size="md" className="mx-auto mt-5 max-w-sm" tone={pct >= 70 ? 'success' : 'primary'} label="Resultado" />
+          <ProgressBar value={pct} size="md" className="mx-auto mt-5 max-w-sm" tone={pct >= 70 ? 'success' : 'primary'} label={t('Resultado')} />
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
             <button
               className="btn-secondary"
@@ -165,30 +166,30 @@ function Runner({ set }: { set: PracticeSet }) {
                 setSession(freshSession(set, { texts: session.texts, drawings: session.drawings }))
               }}
             >
-              <RotateCcw className="size-4" aria-hidden /> Reintentar
+              <RotateCcw className="size-4" aria-hidden /> {t('Reintentar')}
             </button>
             <Link to={`/reader/${book.id}?cap=${set.chapter}`} className="btn-secondary">
-              <BookOpen className="size-4" aria-hidden /> Releer el capítulo
+              <BookOpen className="size-4" aria-hidden /> {t('Releer el capítulo')}
             </Link>
             <Link to={`/practice/${book.id}`} className="btn-primary">
-              Más prácticas <ArrowRight className="size-4" aria-hidden />
+              {t('Más prácticas')} <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
         </section>
 
         <section className="mt-8" aria-labelledby="review-title">
           <h2 id="review-title" className="mb-3 text-lg font-semibold text-text">
-            Revisión
+            {t('Revisión')}
           </h2>
           <ol className="space-y-2">
             {results.map(({ q: qq, score }, i) => (
               <li key={qq.id} className="card flex items-start gap-3 p-4">
                 {qq.kind === 'open' ? (
-                  <span className="mt-0.5 rounded-full bg-soft px-2 py-0.5 text-xs font-semibold text-accent">{score === 1 ? 'Logrado' : score === 0.5 ? 'Parcial' : 'Repasar'}</span>
+                  <span className="mt-0.5 rounded-full bg-soft px-2 py-0.5 text-xs font-semibold text-accent">{score === 1 ? t('Logrado') : score === 0.5 ? t('Parcial') : t('Repasar')}</span>
                 ) : score ? (
-                  <CircleCheck className="mt-0.5 size-5 shrink-0 text-success" aria-label="Correcta" />
+                  <CircleCheck className="mt-0.5 size-5 shrink-0 text-success" aria-label={t('Correcta')} />
                 ) : (
-                  <CircleX className="mt-0.5 size-5 shrink-0 text-error" aria-label="Incorrecta" />
+                  <CircleX className="mt-0.5 size-5 shrink-0 text-error" aria-label={t('Incorrecta')} />
                 )}
                 <button onClick={() => patch({ finished: false, index: i })} className="flex-1 text-left text-sm text-text hover:underline">
                   {i + 1}. {qq.prompt}
@@ -207,12 +208,10 @@ function Runner({ set }: { set: PracticeSet }) {
 
       <div className="mb-5">
         <div className="mb-2 flex items-center justify-between text-xs font-medium text-muted">
-          <span>
-            Pregunta {session.index + 1} de {set.questions.length}
-          </span>
-          <span>{Object.keys(session.checked).length} respondidas</span>
+          <span>{t('Pregunta {n} de {total}', { n: session.index + 1, total: set.questions.length })}</span>
+          <span>{plural(Object.keys(session.checked).length, '{n} respondida', '{n} respondidas')}</span>
         </div>
-        <div className="flex gap-1.5" role="tablist" aria-label="Preguntas">
+        <div className="flex gap-1.5" role="tablist" aria-label={t('Preguntas')}>
           {set.questions.map((qq, i) => {
             const done = session.checked[qq.id]
             const s = done ? scoreAnswer(qq, session.answers[qq.id] ?? null) : null
@@ -221,7 +220,7 @@ function Runner({ set }: { set: PracticeSet }) {
                 key={qq.id}
                 role="tab"
                 aria-selected={i === session.index}
-                aria-label={`Ir a la pregunta ${i + 1}`}
+                aria-label={t('Ir a la pregunta {n}', { n: i + 1 })}
                 onClick={() => patch({ index: i })}
                 className={cn(
                   'h-2.5 flex-1 rounded-full transition-colors',
@@ -242,7 +241,7 @@ function Runner({ set }: { set: PracticeSet }) {
           onChange={setAnswer}
           checked={checked}
           text={text}
-          onText={(t) => setSession((s) => ({ ...s, texts: { ...s.texts, [q.id]: t } }))}
+          onText={(v) => setSession((s) => ({ ...s, texts: { ...s.texts, [q.id]: v } }))}
           drawing={drawing}
           onDrawing={(d) => setSession((s) => ({ ...s, drawings: { ...s.drawings, [q.id]: d } }))}
         />
@@ -251,7 +250,7 @@ function Runner({ set }: { set: PracticeSet }) {
 
       <div className="sticky bottom-[calc(68px+env(safe-area-inset-bottom)+8px)] z-20 mt-5 flex items-center gap-3 rounded-[14px] border border-line bg-surface/95 p-3 shadow-card backdrop-blur md:bottom-4">
         <button onClick={() => patch({ index: Math.max(0, session.index - 1) })} disabled={session.index === 0} className="btn-ghost px-3 disabled:opacity-40">
-          <ArrowLeft className="size-4" aria-hidden /> <span className="hidden sm:inline">Anterior</span>
+          <ArrowLeft className="size-4" aria-hidden /> <span className="hidden sm:inline">{t('Anterior')}</span>
         </button>
         <span className="flex-1" />
         {!checked ? (
@@ -260,7 +259,7 @@ function Runner({ set }: { set: PracticeSet }) {
             disabled={!ready(q, value, text, drawing)}
             className="btn-primary"
           >
-            {q.kind === 'open' ? 'Revisar mi respuesta' : 'Comprobar'}
+            {q.kind === 'open' ? t('Revisar mi respuesta') : t('Comprobar')}
           </button>
         ) : (
           <button
@@ -268,11 +267,11 @@ function Runner({ set }: { set: PracticeSet }) {
             disabled={!assessed}
             className="btn-primary"
           >
-            {isLast ? 'Ver resultado' : 'Siguiente'} <ArrowRight className="size-4" aria-hidden />
+            {isLast ? t('Ver resultado') : t('Siguiente')} <ArrowRight className="size-4" aria-hidden />
           </button>
         )}
       </div>
-      {checked && q.kind === 'open' && !assessed && <p className="mt-2 text-center text-xs text-muted">Autoevalúate para continuar.</p>}
+      {checked && q.kind === 'open' && !assessed && <p className="mt-2 text-center text-xs text-muted">{t('Autoevalúate para continuar.')}</p>}
     </div>
   )
 }

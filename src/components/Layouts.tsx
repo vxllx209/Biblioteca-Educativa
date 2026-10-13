@@ -7,6 +7,7 @@ import { BottomNavigation } from './BottomNavigation'
 import { Logo } from './Logo'
 import { MiniPlayer } from './MiniPlayer'
 import { Sidebar } from './Sidebar'
+import { t } from '../i18n'
 
 export function ScrollToTop() {
   const { pathname } = useLocation()
@@ -45,7 +46,7 @@ export function AppLayout() {
         href="#main"
         className="sr-only z-[80] rounded-lg bg-primary px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
-        Saltar al contenido
+        {t('Saltar al contenido')}
       </a>
       <Sidebar />
       <main
@@ -69,7 +70,7 @@ export function AppLayout() {
 export function AuthCard({ title, subtitle, children, footer }: { title: string; subtitle: string; children: ReactNode; footer?: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-bg px-4 py-10">
-      <Link to="/welcome" className="mb-8 rounded-xl" aria-label="Volver a la bienvenida">
+      <Link to="/welcome" className="mb-8 rounded-xl" aria-label={t('Volver a la bienvenida')}>
         <Logo />
       </Link>
       <div className="w-full max-w-[460px] animate-rise rounded-[18px] border border-line bg-surface p-6 shadow-card sm:p-10">

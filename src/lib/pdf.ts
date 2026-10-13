@@ -1,5 +1,6 @@
 import type { PDFFont, PDFPage } from 'pdf-lib'
 import type { Book, BookContent } from '../types'
+import { locale, t } from '../i18n'
 
 /**
  * Builds a real, printable PDF of a book in the browser (pdf-lib, loaded on demand).
@@ -28,7 +29,7 @@ const fontUrl = (name: string) => `${import.meta.env.BASE_URL}fonts/${name}`
 
 async function fetchBytes(url: string, signal?: AbortSignal) {
   const res = await fetch(url, { signal })
-  if (!res.ok) throw new Error('No se pudo preparar el PDF. Revisa tu conexión.')
+  if (!res.ok) throw new Error(t('No se pudo preparar el PDF. Revisa tu conexión.'))
   return new Uint8Array(await res.arrayBuffer())
 }
 
@@ -127,12 +128,13 @@ export async function buildBookPdf(book: Book, content: BookContent, opts: PdfOp
   y -= center(book.title, bold, 22, y) + 12
   y -= center(book.author, regular, 13, y, INK.muted) + 28
   y -= center(book.edition, regular, 10, y, INK.muted) + 4
-  center(`${book.category} · ${book.subject}`, regular, 10, y, INK.muted)
+  center(`${t(book.category)} · ${t(book.subject)}`, regular, 10, y, INK.muted)
   const origin = book.original
-    ? 'Material de estudio original de Biblioteca Educativa.'
-    : `Texto de dominio público${book.sourceUrl ? ` · ${book.sourceUrl.includes('wikisource') ? 'Wikisource' : 'Project Gutenberg'}` : ''}.`
+    ? t('Material de estudio original de Biblioteca Educativa.')
+    : `${t('Texto de dominio público')}${book.sourceUrl ? ` · ${book.sourceUrl.includes('wikisource') ? 'Wikisource' : 'Project Gutenberg'}` : ''}.`
   center(origin, regular, 8.5, MARGIN.bottom + 30, INK.muted)
-  center(`Descargado el ${new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' })}`, regular, 8.5, MARGIN.bottom + 16, INK.muted)
+  const today = new Date().toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric' })
+  center(t('Descargado el {date}', { date: today }), regular, 8.5, MARGIN.bottom + 16, INK.muted)
 
   // ——— Body
   const newPage = () => {
@@ -187,7 +189,7 @@ export async function buildBookPdf(book: Book, content: BookContent, opts: PdfOp
     y = PAGE.height - MARGIN.top
     if (p === 0) {
       y -= 18
-      page.drawText('Índice', { x: MARGIN.side, y, size: 16, font: bold, color: color(INK.text) })
+      page.drawText(t('Índice'), { x: MARGIN.side, y, size: 16, font: bold, color: color(INK.text) })
       y -= 16
     }
     for (const [j, ch] of content.chapters.slice(p * perPage, (p + 1) * perPage).entries()) {
@@ -221,7 +223,7 @@ export async function buildBookPdf(book: Book, content: BookContent, opts: PdfOp
       const cx = PAGE.width / 2 - (Math.cos(angle) * hw - Math.sin(angle) * hh)
       const cy = PAGE.height / 2 - (Math.sin(angle) * hw + Math.cos(angle) * hh)
       pg.drawText(mark, { x: cx, y: cy, size: markSize, font: bold, color: color(INK.accent), opacity: 0.09, rotate: degrees((angle * 180) / Math.PI) })
-      const note = `Copia personal de ${opts.owner} · Sin marca de agua con el plan Anual`
+      const note = t('Copia personal de {owner} · Sin marca de agua con el plan Anual', { owner: opts.owner })
       const noteSize = 6.5
       pg.drawText(note, { x: (PAGE.width - measure(regular, note, noteSize)) / 2, y: 16, size: noteSize, font: regular, color: color(INK.accent), opacity: 0.8 })
     }

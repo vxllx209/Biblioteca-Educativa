@@ -4,6 +4,7 @@ import { parseNumber, scoreAnswer } from '../../data/practice'
 import { cn } from '../../lib/format'
 import type { AnswerValue, Question } from '../../types'
 import { Whiteboard } from './Whiteboard'
+import { locale, plural, t } from '../../i18n'
 
 export const wordCount = (s: string) => s.trim().split(/\s+/).filter(Boolean).length
 
@@ -27,9 +28,9 @@ function correctAnswer(q: Question) {
     case 'choice':
       return `${LETTERS[q.answer]}. ${q.options[q.answer]}`
     case 'truefalse':
-      return q.answer ? 'Verdadero' : 'Falso'
+      return q.answer ? t('Verdadero') : t('Falso')
     case 'numeric':
-      return `${q.answer.toLocaleString('es-ES')}${q.unit ? ` ${q.unit}` : ''}`
+      return `${q.answer.toLocaleString(locale())}${q.unit ? ` ${q.unit}` : ''}`
     case 'short':
       return q.accepted[0]
     case 'order':
@@ -59,7 +60,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
 
   return (
     <div>
-      <p className="text-xs font-semibold tracking-wide text-secondary uppercase">Pregunta {index + 1}</p>
+      <p className="text-xs font-semibold tracking-wide text-secondary uppercase">{t('Pregunta {n}', { n: index + 1 })}</p>
       <h2 id={`${id}-prompt`} className="mt-2 text-lg leading-snug font-semibold text-text sm:text-xl">
         {q.prompt}
       </h2>
@@ -80,7 +81,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
                   {LETTERS[i]}
                 </span>
                 <span className="flex-1">{opt}</span>
-                {checked && i === q.answer && <Check className="size-5 text-success" aria-label="Correcta" />}
+                {checked && i === q.answer && <Check className="size-5 text-success" aria-label={t('Correcta')} />}
               </button>
             ))}
           </div>
@@ -90,7 +91,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
           <div role="radiogroup" aria-labelledby={`${id}-prompt`} className="grid grid-cols-2 gap-3">
             {[true, false].map((v) => (
               <button key={String(v)} role="radio" aria-checked={value === v} disabled={checked} onClick={() => onChange(v)} className={cn(choiceClass(value === v, checked && v === q.answer), 'justify-center font-medium')}>
-                {v ? 'Verdadero' : 'Falso'}
+                {v ? t('Verdadero') : t('Falso')}
               </button>
             ))}
           </div>
@@ -99,7 +100,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
         {q.kind === 'numeric' && (
           <div>
             <label htmlFor={`${id}-num`} className="label">
-              Tu resultado
+              {t('Tu resultado')}
             </label>
             <div className="flex max-w-xs items-center gap-3">
               <input
@@ -116,11 +117,11 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
               {q.unit && <span className="shrink-0 text-[15px] font-medium text-muted">{q.unit}</span>}
             </div>
             {typeof value === 'string' && value.trim() && parseNumber(value) === null && (
-              <p className="mt-1.5 text-[13px] text-error">Escribe solo un número (puedes usar coma decimal).</p>
+              <p className="mt-1.5 text-[13px] text-error">{t('Escribe solo un número (puedes usar coma decimal).')}</p>
             )}
             {q.hint && !checked && (
               <button type="button" onClick={() => setShowHint((s) => !s)} className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline">
-                <Lightbulb className="size-4" aria-hidden /> {showHint ? 'Ocultar pista' : 'Ver una pista'}
+                <Lightbulb className="size-4" aria-hidden /> {showHint ? t('Ocultar pista') : t('Ver una pista')}
               </button>
             )}
             {showHint && !checked && <p className="mt-2 rounded-xl bg-warning-soft px-4 py-3 text-sm text-text">{q.hint}</p>}
@@ -130,7 +131,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
         {q.kind === 'short' && (
           <div className="max-w-md">
             <label htmlFor={`${id}-short`} className="label">
-              Tu respuesta
+              {t('Tu respuesta')}
             </label>
             <input
               id={`${id}-short`}
@@ -144,7 +145,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
         )}
 
         {q.kind === 'order' && Array.isArray(value) && (
-          <ol className="space-y-2" aria-label="Elementos para ordenar">
+          <ol className="space-y-2" aria-label={t('Elementos para ordenar')}>
             {value.map((item, i) => {
               const right = checked && q.items[i] === item
               return (
@@ -168,7 +169,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
                           onChange(next)
                         }}
                         className="grid size-10 place-items-center rounded-lg text-muted hover:bg-bg2 hover:text-text disabled:opacity-30"
-                        aria-label={`Subir «${item}»`}
+                        aria-label={t('Subir «{item}»', { item })}
                       >
                         <ArrowUp className="size-4" />
                       </button>
@@ -181,7 +182,7 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
                           onChange(next)
                         }}
                         className="grid size-10 place-items-center rounded-lg text-muted hover:bg-bg2 hover:text-text disabled:opacity-30"
-                        aria-label={`Bajar «${item}»`}
+                        aria-label={t('Bajar «{item}»', { item })}
                       >
                         <ArrowDown className="size-4" />
                       </button>
@@ -199,12 +200,13 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
               <PenLine className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
               <span>{q.guidance}</span>
             </p>
-            {q.board && <Whiteboard value={drawing} onChange={onDrawing} label="Pizarra de desarrollo" />}
+            {q.board && <Whiteboard value={drawing} onChange={onDrawing} label={t('Pizarra de desarrollo')} />}
             <div>
               <label htmlFor={`${id}-open`} className="label flex justify-between">
-                Espacio de desarrollo
+                {t('Espacio de desarrollo')}
                 <span className={cn('text-xs font-normal', q.minWords && wordCount(text) < q.minWords ? 'text-muted' : 'text-success')}>
-                  {wordCount(text)} palabras{q.minWords ? ` · mínimo ${q.minWords}` : ''}
+                  {plural(wordCount(text), '{n} palabra', '{n} palabras')}
+                  {q.minWords ? ` · ${t('mínimo {n}', { n: q.minWords })}` : ''}
                 </span>
               </label>
               <textarea
@@ -212,10 +214,10 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
                 value={text}
                 onChange={(e) => onText(e.target.value)}
                 rows={7}
-                placeholder="Escribe aquí tu respuesta…"
+                placeholder={t('Escribe aquí tu respuesta…')}
                 className="field h-auto min-h-40 resize-y py-3 leading-relaxed"
               />
-              <p className="mt-1 text-xs text-muted">Se guarda automáticamente.</p>
+              <p className="mt-1 text-xs text-muted">{t('Se guarda automáticamente.')}</p>
             </div>
           </div>
         )}
@@ -228,9 +230,13 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
         >
           <p className={cn('flex items-center gap-2 font-semibold', score ? 'text-success' : 'text-error')}>
             {score ? <CircleCheck className="size-5" aria-hidden /> : <CircleX className="size-5" aria-hidden />}
-            {score ? '¡Correcto!' : 'No es correcto'}
+            {score ? t('¡Correcto!') : t('No es correcto')}
           </p>
-          {!score && <p className="mt-1 text-sm text-text">Respuesta correcta: <strong>{correctAnswer(q)}</strong></p>}
+          {!score && (
+            <p className="mt-1 text-sm text-text">
+              {t('Respuesta correcta:')} <strong>{correctAnswer(q)}</strong>
+            </p>
+          )}
           <p className="mt-2 text-sm leading-relaxed text-text">{q.explanation}</p>
         </div>
       )}
@@ -242,21 +248,21 @@ export function QuestionView({ question: q, index, value, onChange, checked, tex
 export function OpenReview({ question: q, value, onAssess }: { question: Extract<Question, { kind: 'open' }>; value: AnswerValue; onAssess: (v: number) => void }) {
   const [checks, setChecks] = useState<boolean[]>(() => (q.criteria ?? []).map(() => false))
   const options = [
-    { v: 1, label: 'Lo logré', cls: 'border-success bg-success-soft text-success' },
-    { v: 0.5, label: 'Parcialmente', cls: 'border-warning bg-warning-soft text-warning' },
-    { v: 0, label: 'Debo repasar', cls: 'border-error bg-error-soft text-error' },
+    { v: 1, label: t('Lo logré'), cls: 'border-success bg-success-soft text-success' },
+    { v: 0.5, label: t('Parcialmente'), cls: 'border-warning bg-warning-soft text-warning' },
+    { v: 0, label: t('Debo repasar'), cls: 'border-error bg-error-soft text-error' },
   ]
   return (
     <div className="mt-6 animate-rise space-y-4 rounded-[14px] border border-line-active bg-softer p-4 sm:p-5">
       {q.model && (
         <div>
-          <p className="text-xs font-semibold tracking-wide text-secondary uppercase">Respuesta modelo</p>
+          <p className="text-xs font-semibold tracking-wide text-secondary uppercase">{t('Respuesta modelo')}</p>
           <p className="mt-1.5 text-[15px] leading-relaxed text-text">{q.model}</p>
         </div>
       )}
       {!!q.criteria?.length && (
         <fieldset>
-          <legend className="text-xs font-semibold tracking-wide text-secondary uppercase">Revisa tu respuesta</legend>
+          <legend className="text-xs font-semibold tracking-wide text-secondary uppercase">{t('Revisa tu respuesta')}</legend>
           <ul className="mt-2 space-y-1.5">
             {q.criteria.map((c, i) => (
               <li key={c}>
@@ -275,8 +281,8 @@ export function OpenReview({ question: q, value, onAssess }: { question: Extract
         </fieldset>
       )}
       <div>
-        <p className="text-sm font-medium text-text">¿Cómo te fue?</p>
-        <div className="mt-2 grid grid-cols-3 gap-2" role="radiogroup" aria-label="Autoevaluación">
+        <p className="text-sm font-medium text-text">{t('¿Cómo te fue?')}</p>
+        <div className="mt-2 grid grid-cols-3 gap-2" role="radiogroup" aria-label={t('Autoevaluación')}>
           {options.map((o) => (
             <button
               key={o.v}
@@ -291,7 +297,7 @@ export function OpenReview({ question: q, value, onAssess }: { question: Extract
         </div>
         {checks.length > 0 && value === null && (
           <p className="mt-2 text-xs text-muted">
-            Cumpliste {checks.filter(Boolean).length} de {checks.length} criterios.
+            {t('Cumpliste {n} de {total} criterios.', { n: checks.filter(Boolean).length, total: checks.length })}
           </p>
         )}
       </div>

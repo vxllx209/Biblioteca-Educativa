@@ -4,6 +4,7 @@ import { cn } from '../lib/format'
 import type { Book } from '../types'
 import { BookCard } from './BookCard'
 import { BookCardSkeleton, EmptyState } from './States'
+import { t } from '../i18n'
 
 interface Props {
   books: Book[]
@@ -20,7 +21,7 @@ export function BookGrid({ books, loading = false, skeletonCount = 5, empty, cla
   )
   if (loading)
     return (
-      <div className={grid} aria-busy="true" aria-label="Cargando libros">
+      <div className={grid} aria-busy="true" aria-label={t('Cargando libros')}>
         {Array.from({ length: skeletonCount }, (_, i) => (
           <BookCardSkeleton key={i} />
         ))}
@@ -29,7 +30,7 @@ export function BookGrid({ books, loading = false, skeletonCount = 5, empty, cla
   if (!books.length)
     return (
       empty ?? (
-        <EmptyState icon={SearchX} title="No encontramos libros" description="Prueba con otra búsqueda o cambia los filtros." />
+        <EmptyState icon={SearchX} title={t('No encontramos libros')} description={t('Prueba con otra búsqueda o cambia los filtros.')} />
       )
     )
   return (

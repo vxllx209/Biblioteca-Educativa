@@ -4,6 +4,7 @@ import { ROLES, SUBJECTS } from '../data/school'
 import { cn } from '../lib/format'
 import type { Role } from '../types'
 import { TextField } from './Form'
+import { t } from '../i18n'
 
 const ICONS = { Estudiante: GraduationCap, Profesor: Presentation }
 
@@ -25,7 +26,7 @@ export function RoleFields({
   return (
     <div className="space-y-4">
       <fieldset>
-        <legend className="label">¿Cómo vas a usar la biblioteca?</legend>
+        <legend className="label">{t('¿Cómo vas a usar la biblioteca?')}</legend>
         <div role="radiogroup" className="grid gap-3 sm:grid-cols-2">
           {ROLES.map((r) => {
             const Icon = ICONS[r.value]
@@ -46,8 +47,8 @@ export function RoleFields({
                   <Icon className="size-5" aria-hidden />
                 </span>
                 <span className="min-w-0">
-                  <span className="block font-semibold text-text">{r.title}</span>
-                  <span className="block text-xs text-muted">{r.description}</span>
+                  <span className="block font-semibold text-text">{t(r.title)}</span>
+                  <span className="block text-xs text-muted">{t(r.description)}</span>
                 </span>
               </button>
             )
@@ -58,8 +59,8 @@ export function RoleFields({
       {role === 'Profesor' && (
         <div className="animate-fade-in space-y-4 rounded-xl border border-line bg-softer p-4">
           <TextField
-            label="Establecimiento"
-            placeholder="Ej. Liceo Bicentenario de Talca"
+            label={t('Establecimiento')}
+            placeholder={t('Ej. Liceo Bicentenario de Talca')}
             autoComplete="organization"
             value={school}
             onChange={(e) => onChange({ school: e.target.value })}
@@ -67,7 +68,7 @@ export function RoleFields({
           />
           <div>
             <label htmlFor={subjectId} className="label">
-              Asignatura que dictas
+              {t('Asignatura que dictas')}
             </label>
             <select
               id={subjectId}
@@ -76,10 +77,10 @@ export function RoleFields({
               aria-invalid={!!errors.subject}
               className={cn('field', errors.subject && 'border-error')}
             >
-              <option value="">Elige una asignatura</option>
+              <option value="">{t('Elige una asignatura')}</option>
               {SUBJECTS.map((s) => (
                 <option key={s} value={s}>
-                  {s}
+                  {t(s)}
                 </option>
               ))}
             </select>

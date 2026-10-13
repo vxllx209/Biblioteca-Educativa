@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { cn } from '../lib/format'
 import { mobileNav } from './nav'
+import { t } from '../i18n'
 
 /** Mobile (<768px) fixed tab bar. */
 export function BottomNavigation() {
@@ -9,7 +10,7 @@ export function BottomNavigation() {
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
-      aria-label="Navegación principal"
+      aria-label={t('Navegación principal')}
     >
       <ul className="mx-auto grid h-[68px] max-w-lg grid-cols-5">
         {mobileNav(user?.role).map(({ to, label, shortLabel, icon: Icon }) => (
@@ -33,7 +34,7 @@ export function BottomNavigation() {
                   >
                     <Icon className="size-[21px]" strokeWidth={isActive ? 2.1 : 1.8} aria-hidden />
                   </span>
-                  {shortLabel ?? label}
+                  {t(shortLabel ?? label)}
                 </>
               )}
             </NavLink>

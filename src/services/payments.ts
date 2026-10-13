@@ -1,4 +1,5 @@
 import type { Plan, PlanId } from '../types'
+import { t } from '../i18n'
 
 /**
  * Payment gateway abstraction, ready for a future Stripe integration.
@@ -22,7 +23,7 @@ export async function startCheckout(plan: Plan, userEmail: string): Promise<Chec
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ priceId: plan.stripePriceId, email: userEmail }),
     })
-    if (!res.ok) throw new Error('No se pudo iniciar el pago')
+    if (!res.ok) throw new Error(t('No se pudo iniciar el pago'))
     const { url } = (await res.json()) as { url: string }
     window.location.assign(url)
     return { ok: true, planId: plan.id, reference: 'redirect' }

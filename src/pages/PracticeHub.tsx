@@ -9,6 +9,7 @@ import { useLibrary } from '../context/LibraryContext'
 import { getBook, PREVIEW_CHAPTERS } from '../data/books'
 import { freeSetId, KIND_LABEL, setsForBook, SUBJECT_APPROACH } from '../data/practice'
 import { cn } from '../lib/format'
+import { t, plural } from '../i18n'
 
 export default function PracticeHub() {
   const { bookId } = useParams()
@@ -24,11 +25,11 @@ export default function PracticeHub() {
   if (!book)
     return (
       <ErrorState
-        title="Libro no encontrado"
-        description="No encontramos prácticas para este libro."
+        title={t('Libro no encontrado')}
+        description={t('No encontramos prácticas para este libro.')}
         action={
           <Link to="/explore" className="btn-primary">
-            Ir a Explorar
+            {t('Ir a Explorar')}
           </Link>
         }
       />
@@ -40,17 +41,17 @@ export default function PracticeHub() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Práctica" subtitle={`${book.title} · ${book.author}`} back />
+      <PageHeader title={t('Práctica')} subtitle={`${book.title} · ${book.author}`} back />
 
       <section className="card mb-8 flex flex-col gap-5 rounded-[18px] p-5 sm:flex-row sm:items-center sm:p-6">
         <div className="w-20 shrink-0 overflow-hidden rounded-[10px] shadow-card">
           <BookCover book={book} showText={false} />
         </div>
         <div className="flex-1">
-          <span className="badge bg-soft text-accent">{book.category}</span>
-          <p className="mt-2 text-[15px] text-text">{SUBJECT_APPROACH[book.category]}</p>
+          <span className="badge bg-soft text-accent">{t(book.category)}</span>
+          <p className="mt-2 text-[15px] text-text">{t(SUBJECT_APPROACH[book.category])}</p>
           <p className="mt-2 text-sm text-muted">
-            {sets.length ? `${done} de ${sets.length} prácticas completadas` : 'Este libro tiene práctica libre por capítulo.'}
+            {sets.length ? t('{done} de {total} prácticas completadas', { done, total: sets.length }) : t('Este libro tiene práctica libre por capítulo.')}
           </p>
         </div>
       </section>
@@ -58,7 +59,7 @@ export default function PracticeHub() {
       {sets.length > 0 && (
         <section aria-labelledby="guided" className="mb-10">
           <h2 id="guided" className="mb-4 text-lg font-semibold text-text sm:text-xl">
-            Prácticas guiadas
+            {t('Prácticas guiadas')}
           </h2>
           <ul className="grid gap-4 md:grid-cols-2">
             {sets.map((s) => {
@@ -93,10 +94,10 @@ export default function PracticeHub() {
                     <p className="text-sm text-muted">{s.description}</p>
                     <p className="mt-auto flex items-center justify-between pt-1 text-xs font-medium text-muted">
                       <span>
-                        {KIND_LABEL[s.kind]} · {s.questions.length} preguntas
+                        {t(KIND_LABEL[s.kind])} · {plural(s.questions.length, '{n} pregunta', '{n} preguntas')}
                       </span>
                       <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                        {r ? 'Repetir' : 'Empezar'} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                        {r ? t('Repetir') : t('Empezar')} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
                       </span>
                     </p>
                   </Link>
@@ -109,14 +110,16 @@ export default function PracticeHub() {
 
       <section aria-labelledby="free" className="card rounded-[18px] p-5 sm:p-6">
         <h2 id="free" className="text-lg font-semibold text-text">
-          Práctica libre por capítulo
+          {t('Práctica libre por capítulo')}
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Preguntas de desarrollo adaptadas a {book.category.toLowerCase()} para cualquier capítulo: escribe, dibuja en la pizarra y autoevalúate.
+          {t('Preguntas de desarrollo adaptadas a {category} para cualquier capítulo: escribe, dibuja en la pizarra y autoevalúate.', {
+            category: t(book.category).toLowerCase(),
+          })}
         </p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <label className="min-w-0 flex-1">
-            <span className="sr-only">Capítulo</span>
+            <span className="sr-only">{t('Capítulo')}</span>
             <select
               value={freeChapter}
               onChange={(e) => setFreeChapter(Number(e.target.value))}
@@ -131,14 +134,14 @@ export default function PracticeHub() {
             </select>
           </label>
           <button onClick={() => navigate(`/practice/${book.id}/${freeSetId(book.id, freeChapter)}`)} disabled={lockedChapter(freeChapter)} className="btn-primary h-12">
-            Practicar este capítulo
+            {t('Practicar este capítulo')}
           </button>
         </div>
       </section>
 
       <div className="mt-8 flex justify-center">
         <Link to={`/reader/${book.id}`} className="btn-secondary">
-          <BookOpen className="size-4" aria-hidden /> Volver a la lectura
+          <BookOpen className="size-4" aria-hidden /> {t('Volver a la lectura')}
         </Link>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { DEMO_USER, USERS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
 import { supabase } from '../lib/supabase'
 import type { PlanId, Role, User } from '../types'
+import { t } from '../i18n'
 
 type Result = { ok: true; notice?: string } | { ok: false; error: string }
 
@@ -57,7 +58,7 @@ function useLocalAuth(): AuthValue {
     async (email, password) => {
       await wait()
       const found = users.find((u) => u.email.toLowerCase() === email.trim().toLowerCase())
-      if (!found || found.password !== password) return { ok: false, error: 'Correo o contraseña incorrectos.' }
+      if (!found || found.password !== password) return { ok: false, error: t('Correo o contraseña incorrectos.') }
       setSessionId(found.id)
       return { ok: true }
     },
@@ -78,7 +79,7 @@ function useLocalAuth(): AuthValue {
       await wait()
       const normalized = email.trim().toLowerCase()
       if (users.some((u) => u.email.toLowerCase() === normalized))
-        return { ok: false, error: 'Ya existe una cuenta con este correo.' }
+        return { ok: false, error: t('Ya existe una cuenta con este correo.') }
       const [firstName, ...rest] = fullName.trim().split(/\s+/)
       const newUser: User = {
         id: `u-${Date.now().toString(36)}`,
@@ -110,12 +111,12 @@ function useLocalAuth(): AuthValue {
 
   const updateUser = useCallback<AuthValue['updateUser']>(
     async (patch) => {
-      if (!user) return { ok: false, error: 'No hay sesión activa.' }
+      if (!user) return { ok: false, error: t('No hay sesión activa.') }
       await wait(500)
       if (patch.email) {
         const normalized = patch.email.trim().toLowerCase()
         if (users.some((u) => u.id !== user.id && u.email.toLowerCase() === normalized))
-          return { ok: false, error: 'Ese correo ya está en uso.' }
+          return { ok: false, error: t('Ese correo ya está en uso.') }
         patch = { ...patch, email: normalized }
       }
       patchUser(user.id, patch)
@@ -126,9 +127,9 @@ function useLocalAuth(): AuthValue {
 
   const changePassword = useCallback<AuthValue['changePassword']>(
     async (current, next) => {
-      if (!user) return { ok: false, error: 'No hay sesión activa.' }
+      if (!user) return { ok: false, error: t('No hay sesión activa.') }
       await wait(500)
-      if (user.password !== current) return { ok: false, error: 'La contraseña actual no es correcta.' }
+      if (user.password !== current) return { ok: false, error: t('La contraseña actual no es correcta.') }
       patchUser(user.id, { password: next })
       return { ok: true }
     },
@@ -141,7 +142,7 @@ function useLocalAuth(): AuthValue {
     () => ({
       ready: true,
       passwordRecovery: false,
-      completePasswordReset: async () => ({ ok: false, error: 'No disponible sin conexión al servidor.' }),
+      completePasswordReset: async () => ({ ok: false, error: t('No disponible sin conexión al servidor.') }),
       user,
       isAuthenticated: !!user,
       isPremium: !!user && user.plan !== 'free',
@@ -210,12 +211,12 @@ async function fetchProfile(client: SupabaseClient, u: AuthUser): Promise<Profil
 
 function translateError(message: string): string {
   const m = message.toLowerCase()
-  if (m.includes('invalid login credentials')) return 'Correo o contraseña incorrectos.'
-  if (m.includes('email not confirmed')) return 'Confirma tu correo antes de iniciar sesión (revisa tu bandeja de entrada).'
-  if (m.includes('already registered') || m.includes('already been registered')) return 'Ya existe una cuenta con este correo.'
-  if (m.includes('password should be') || m.includes('weak password')) return 'La contraseña es demasiado débil.'
-  if (m.includes('rate limit') || m.includes('security purposes')) return 'Demasiados intentos. Espera un momento e inténtalo de nuevo.'
-  if (m.includes('fetch')) return 'No pudimos conectar con el servidor. Revisa tu conexión.'
+  if (m.includes('invalid login credentials')) return t('Correo o contraseña incorrectos.')
+  if (m.includes('email not confirmed')) return t('Confirma tu correo antes de iniciar sesión (revisa tu bandeja de entrada).')
+  if (m.includes('already registered') || m.includes('already been registered')) return t('Ya existe una cuenta con este correo.')
+  if (m.includes('password should be') || m.includes('weak password')) return t('La contraseña es demasiado débil.')
+  if (m.includes('rate limit') || m.includes('security purposes')) return t('Demasiados intentos. Espera un momento e inténtalo de nuevo.')
+  if (m.includes('fetch')) return t('No pudimos conectar con el servidor. Revisa tu conexión.')
   return message
 }
 
@@ -314,8 +315,8 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
       })
       if (error) return fail(error)
       // With email confirmation on, an existing address returns a user without identities.
-      if (data.user && data.user.identities?.length === 0) return { ok: false, error: 'Ya existe una cuenta con este correo.' }
-      if (!data.session) return { ok: true, notice: 'Te enviamos un correo para confirmar tu cuenta. Ábrelo para empezar.' }
+      if (data.user && data.user.identities?.length === 0) return { ok: false, error: t('Ya existe una cuenta con este correo.') }
+      if (!data.session) return { ok: true, notice: t('Te enviamos un correo para confirmar tu cuenta. Ábrelo para empezar.') }
       setProfile(await fetchProfile(client, data.session.user))
       return { ok: true }
     },
@@ -348,7 +349,7 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
 
   const updateUser = useCallback<AuthValue['updateUser']>(
     async (patch) => {
-      if (!user) return { ok: false, error: 'No hay sesión activa.' }
+      if (!user) return { ok: false, error: t('No hay sesión activa.') }
       const row: Partial<ProfileRow> = {}
       if (patch.firstName !== undefined) row.first_name = patch.firstName
       if (patch.lastName !== undefined) row.last_name = patch.lastName
@@ -370,7 +371,7 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
       if (email && email !== user.email) {
         const { error } = await client.auth.updateUser({ email }, { emailRedirectTo: appUrl('/profile') })
         if (error) return fail(error)
-        return { ok: true, notice: `Te enviamos un enlace a ${email} para confirmar el cambio de correo.` }
+        return { ok: true, notice: t('Te enviamos un enlace a {email} para confirmar el cambio de correo.', { email }) }
       }
       return { ok: true }
     },
@@ -379,10 +380,10 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
 
   const changePassword = useCallback<AuthValue['changePassword']>(
     async (current, next) => {
-      if (!user) return { ok: false, error: 'No hay sesión activa.' }
+      if (!user) return { ok: false, error: t('No hay sesión activa.') }
       // Re-authenticate to confirm the current password before changing it.
       const check = await client.auth.signInWithPassword({ email: user.email, password: current })
-      if (check.error) return { ok: false, error: 'La contraseña actual no es correcta.' }
+      if (check.error) return { ok: false, error: t('La contraseña actual no es correcta.') }
       const { error } = await client.auth.updateUser({ password: next })
       return error ? fail(error) : { ok: true }
     },

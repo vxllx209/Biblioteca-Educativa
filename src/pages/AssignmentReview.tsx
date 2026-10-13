@@ -11,6 +11,7 @@ import { formatGrade, localDay, MAX_GRADE, MIN_GRADE, PASSING_GRADE, parseGrade 
 import { useAsync } from '../hooks/useAsync'
 import { cn, dueLabel, formatDate, relativeTime } from '../lib/format'
 import { classroom, type Member, type Submission } from '../services/classroom'
+import { t } from '../i18n'
 
 type Filter = 'todas' | 'por-revisar' | 'revisadas' | 'sin-entrega'
 
@@ -36,16 +37,27 @@ export default function AssignmentReview() {
         ))}
       </div>
     )
-  if (data.error) return <ErrorState title="No pudimos cargar las entregas" description={data.error} action={<button className="btn-secondary" onClick={data.reload}>Reintentar</button>} />
+  if (data.error)
+    return (
+      <ErrorState
+        title={t('No pudimos cargar las entregas')}
+        description={data.error}
+        action={
+          <button className="btn-secondary" onClick={data.reload}>
+            {t('Reintentar')}
+          </button>
+        }
+      />
+    )
   if (!data.data)
     return (
       <EmptyState
         icon={PenLine}
-        title="Tarea no encontrada"
-        description="Puede que se haya eliminado."
+        title={t('Tarea no encontrada')}
+        description={t('Puede que se haya eliminado.')}
         action={
           <Link to={`/aula/${courseId}`} className="btn-secondary">
-            Volver al curso
+            {t('Volver al curso')}
           </Link>
         }
       />
@@ -66,7 +78,7 @@ export default function AssignmentReview() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title={assignment.title} subtitle={`${course.name} · ${course.subject}`} back />
+      <PageHeader title={assignment.title} subtitle={`${course.name} · ${t(course.subject)}`} back />
 
       <section className="card mb-6 space-y-4 p-5">
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
@@ -87,13 +99,13 @@ export default function AssignmentReview() {
         </div>
         {assignment.instructions && <p className="text-[15px] leading-relaxed whitespace-pre-line text-text">{assignment.instructions}</p>}
         <dl className="grid grid-cols-3 gap-3 border-t border-line pt-4 text-center">
-          <Stat label="Entregas" value={`${submissions.length}/${members.length}`} />
-          <Stat label="Por revisar" value={String(count('por-revisar'))} />
-          <Stat label="Promedio" value={average === null ? '—' : formatGrade(average)} />
+          <Stat label={t('Entregas')} value={`${submissions.length}/${members.length}`} />
+          <Stat label={t('Por revisar')} value={String(count('por-revisar'))} />
+          <Stat label={t('Promedio')} value={average === null ? '—' : formatGrade(average)} />
         </dl>
       </section>
 
-      <div role="group" aria-label="Filtrar entregas" className="-mx-4 mb-6 flex gap-2 overflow-x-auto px-4 no-scrollbar sm:mx-0 sm:px-0">
+      <div role="group" aria-label={t('Filtrar entregas')} className="-mx-4 mb-6 flex gap-2 overflow-x-auto px-4 no-scrollbar sm:mx-0 sm:px-0">
         {(
           [
             ['todas', 'Todas'],
@@ -108,14 +120,14 @@ export default function AssignmentReview() {
             onClick={() => setFilter(value)}
             className={cn('chip gap-2', filter === value ? 'border-primary bg-primary text-white' : 'border-line bg-surface text-muted hover:text-text')}
           >
-            {label}
+            {t(label)}
             <span className={cn('rounded-full px-1.5 text-xs', filter === value ? 'bg-white/20' : 'bg-bg2')}>{count(value)}</span>
           </button>
         ))}
       </div>
 
       {members.length === 0 ? (
-        <EmptyState icon={PenLine} title="El curso no tiene estudiantes" description={`Comparte el código ${course.joinCode} para que se unan.`} />
+        <EmptyState icon={PenLine} title={t('El curso no tiene estudiantes')} description={t('Comparte el código {code} para que se unan.', { code: course.joinCode })} />
       ) : visible.length ? (
         <ul className="space-y-4">
           {visible.map(({ member, submission }) => (
@@ -123,7 +135,7 @@ export default function AssignmentReview() {
           ))}
         </ul>
       ) : (
-        <p className="py-10 text-center text-sm text-muted">No hay entregas en este filtro.</p>
+        <p className="py-10 text-center text-sm text-muted">{t('No hay entregas en este filtro.')}</p>
       )}
     </div>
   )
@@ -147,7 +159,7 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
   const [saving, setSaving] = useState(false)
   const [touched, setTouched] = useState(false)
   const parsed = parseGrade(grade)
-  const gradeError = touched && parsed === null ? `Nota entre ${formatGrade(MIN_GRADE)} y ${formatGrade(MAX_GRADE)}.` : ''
+  const gradeError = touched && parsed === null ? t('Nota entre {min} y {max}.', { min: formatGrade(MIN_GRADE), max: formatGrade(MAX_GRADE) }) : ''
 
   const save = async () => {
     setTouched(true)
@@ -155,10 +167,10 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
     setSaving(true)
     try {
       await classroom.review(assignmentId, member.studentId, parsed, feedback)
-      toast(`Nota ${formatGrade(parsed)} guardada para ${member.name}`)
+      toast(t('Nota {grade} guardada para {name}', { grade: formatGrade(parsed), name: member.name }))
       onSaved()
     } catch (err) {
-      toast(err instanceof Error ? err.message : 'No se pudo guardar la revisión', 'error')
+      toast(err instanceof Error ? err.message : t('No se pudo guardar la revisión'), 'error')
     } finally {
       setSaving(false)
     }
@@ -172,7 +184,9 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
         </span>
         <span className="min-w-0 flex-1">
           <span className="block truncate font-semibold text-text">{member.name}</span>
-          <span className="block text-xs text-muted">{submission ? `Entregó ${relativeTime(submission.submittedAt)}` : 'Aún no entrega'}</span>
+          <span className="block text-xs text-muted">
+            {submission ? t('Entregó {when}', { when: relativeTime(submission.submittedAt).toLowerCase() }) : t('Aún no entrega')}
+          </span>
         </span>
         {submission?.reviewedAt ? (
           <span className={cn('inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold', submission.grade! >= PASSING_GRADE ? 'bg-soft text-accent' : 'bg-error-soft text-error')}>
@@ -180,7 +194,7 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
           </span>
         ) : submission ? (
           <span className="inline-flex items-center gap-1 rounded-full bg-bg2 px-2.5 py-1 text-xs font-semibold text-muted">
-            <Clock className="size-3.5" aria-hidden /> Por revisar
+            <Clock className="size-3.5" aria-hidden /> {t('Por revisar')}
           </span>
         ) : null}
       </div>
@@ -191,12 +205,12 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
           <div className="mt-4 grid gap-4 sm:grid-cols-[8rem_1fr_auto] sm:items-end">
             <div>
               <label htmlFor={`grade-${member.studentId}`} className="label">
-                Nota
+                {t('Nota')}
               </label>
               <input
                 id={`grade-${member.studentId}`}
                 inputMode="decimal"
-                placeholder="6,5"
+                placeholder={formatGrade(6.5)}
                 value={grade}
                 onChange={(e) => setGrade(e.target.value)}
                 onBlur={() => setTouched(true)}
@@ -206,18 +220,18 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
             </div>
             <div>
               <label htmlFor={`feedback-${member.studentId}`} className="label">
-                Retroalimentación
+                {t('Retroalimentación')}
               </label>
               <input
                 id={`feedback-${member.studentId}`}
-                placeholder="Qué hizo bien y qué puede mejorar"
+                placeholder={t('Qué hizo bien y qué puede mejorar')}
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
                 className="field"
               />
             </div>
             <button className="btn-primary h-12" onClick={save} disabled={saving}>
-              {saving ? 'Guardando…' : submission.reviewedAt ? 'Actualizar' : 'Guardar nota'}
+              {saving ? t('Guardando…') : submission.reviewedAt ? t('Actualizar') : t('Guardar nota')}
             </button>
           </div>
           {gradeError && <p className="mt-1.5 text-[13px] text-error">{gradeError}</p>}

@@ -8,6 +8,7 @@ import type { AppNotification, Book, Bookmark, Download, PracticeResult, Practic
 import { useAuth } from './AuthContext'
 import { usePreferences } from './PreferencesContext'
 import { useToast } from './ToastContext'
+import { t } from '../i18n'
 
 interface LibraryValue {
   favorites: string[]
@@ -103,7 +104,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     (id: string) => {
       const adding = !favorites.includes(id)
       setFavorites((list) => (adding ? [id, ...list] : list.filter((x) => x !== id)))
-      toast(adding ? 'Agregado a favoritos' : 'Eliminado de favoritos', adding ? 'success' : 'info')
+      toast(adding ? t('Agregado a favoritos') : t('Eliminado de favoritos'), adding ? 'success' : 'info')
     },
     [favorites, setFavorites, toast],
   )
@@ -129,11 +130,11 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     async (book: Book) => {
       if (isDownloaded(book.id) || controllers.current[book.id]) return
       if (!canAccess(book)) {
-        toast('Este libro requiere Premium para descargarse.', 'error')
+        toast(t('Este libro requiere Premium para descargarse.'), 'error')
         return
       }
       if (!isPremium && downloads.length >= FREE_DOWNLOAD_LIMIT) {
-        toast(`El plan Gratis permite ${FREE_DOWNLOAD_LIMIT} descargas. Elimina una o mejora tu plan.`, 'error')
+        toast(t('El plan Gratis permite {n} descargas. Elimina una o mejora tu plan.', { n: FREE_DOWNLOAD_LIMIT }), 'error')
         return
       }
       const controller = new AbortController()
@@ -146,16 +147,16 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
             ? list
             : [{ bookId: book.id, downloadedAt: new Date().toISOString(), bytes }, ...list],
         )
-        toast(`«${book.title}» ya está disponible sin conexión`)
+        toast(t('«{title}» ya está disponible sin conexión', { title: book.title }))
         if (notifyDownloadsRef.current)
           addNotification({
-            title: 'Tu descarga terminó',
-            body: `«${book.title}» está disponible sin conexión.`,
+            title: t('Tu descarga terminó'),
+            body: t('«{title}» está disponible sin conexión.', { title: book.title }),
             kind: 'download',
             link: '/downloads',
           })
       } catch (e) {
-        if ((e as Error).name !== 'AbortError') toast((e as Error).message || 'No se pudo descargar el libro', 'error')
+        if ((e as Error).name !== 'AbortError') toast((e as Error).message || t('No se pudo descargar el libro'), 'error')
       } finally {
         delete controllers.current[book.id]
         setDownloading(({ [book.id]: _done, ...rest }) => rest)
@@ -170,7 +171,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     async (id: string) => {
       await removeBookDownload(id).catch(() => undefined)
       setDownloads((list) => list.filter((d) => d.bookId !== id))
-      toast('Descarga eliminada', 'info')
+      toast(t('Descarga eliminada'), 'info')
     },
     [setDownloads, toast],
   )

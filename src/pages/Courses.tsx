@@ -12,6 +12,7 @@ import { useAsync } from '../hooks/useAsync'
 import { copyCode } from '../lib/clipboard'
 import { cn } from '../lib/format'
 import { classroom } from '../services/classroom'
+import { t } from '../i18n'
 
 export default function Courses() {
   const { user } = useAuth()
@@ -24,8 +25,8 @@ export default function Courses() {
   const [saving, setSaving] = useState(false)
 
   const errors = {
-    name: form.name.trim() ? '' : 'Ponle un nombre al curso, por ejemplo «4° medio A».',
-    subject: form.subject ? '' : 'Elige la asignatura.',
+    name: form.name.trim() ? '' : t('Ponle un nombre al curso, por ejemplo «4° medio A».'),
+    subject: form.subject ? '' : t('Elige la asignatura.'),
   }
 
   const create = async (e: FormEvent) => {
@@ -35,10 +36,10 @@ export default function Courses() {
     setSaving(true)
     try {
       const course = await classroom.createCourse(user!.id, form)
-      toast('Curso creado. Comparte el código con tus estudiantes.')
+      toast(t('Curso creado. Comparte el código con tus estudiantes.'))
       navigate(`/aula/${course.id}`)
     } catch (err) {
-      toast(err instanceof Error ? err.message : 'No se pudo crear el curso', 'error')
+      toast(err instanceof Error ? err.message : t('No se pudo crear el curso'), 'error')
       setSaving(false)
     }
   }
@@ -46,11 +47,11 @@ export default function Courses() {
   return (
     <div className="animate-fade-in">
       <PageHeader
-        title="Mis cursos"
-        subtitle={user?.school ? `${user.school} · ${user.subject}` : 'Crea cursos, publica tareas y revisa entregas.'}
+        title={t('Mis cursos')}
+        subtitle={user?.school ? `${user.school} · ${t(user.subject ?? '')}` : t('Crea cursos, publica tareas y revisa entregas.')}
         actions={
           <button className="btn-primary" onClick={() => setCreating(true)}>
-            <Plus className="size-5" aria-hidden /> Nuevo curso
+            <Plus className="size-5" aria-hidden /> {t('Nuevo curso')}
           </button>
         }
       />
@@ -63,11 +64,11 @@ export default function Courses() {
         </div>
       ) : courses.error ? (
         <ErrorState
-          title="No pudimos cargar tus cursos"
+          title={t('No pudimos cargar tus cursos')}
           description={courses.error}
           action={
             <button className="btn-secondary" onClick={courses.reload}>
-              Reintentar
+              {t('Reintentar')}
             </button>
           }
         />
@@ -81,17 +82,17 @@ export default function Courses() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-semibold text-text group-hover:text-accent">{c.name}</span>
-                  <span className="block truncate text-sm text-muted">{c.subject}</span>
+                  <span className="block truncate text-sm text-muted">{t(c.subject)}</span>
                 </span>
                 <ChevronRight className="size-5 text-muted" aria-hidden />
               </Link>
               <button
                 onClick={() => copyCode(c.joinCode, toast)}
                 className="flex items-center justify-between rounded-xl border border-dashed border-line-active px-4 py-2 text-left hover:bg-softer"
-                aria-label={`Copiar código ${c.joinCode}`}
+                aria-label={t('Copiar código {code}', { code: c.joinCode })}
               >
                 <span>
-                  <span className="block text-xs text-muted">Código para unirse</span>
+                  <span className="block text-xs text-muted">{t('Código para unirse')}</span>
                   <span className="font-mono text-lg font-semibold tracking-[0.2em] text-text">{c.joinCode}</span>
                 </span>
                 <Copy className="size-4 text-muted" aria-hidden />
@@ -102,11 +103,11 @@ export default function Courses() {
       ) : (
         <EmptyState
           icon={Presentation}
-          title="Aún no tienes cursos"
-          description="Crea un curso, comparte su código con tus estudiantes y empieza a publicar tareas."
+          title={t('Aún no tienes cursos')}
+          description={t('Crea un curso, comparte su código con tus estudiantes y empieza a publicar tareas.')}
           action={
             <button className="btn-primary" onClick={() => setCreating(true)}>
-              <Plus className="size-5" aria-hidden /> Crear mi primer curso
+              <Plus className="size-5" aria-hidden /> {t('Crear mi primer curso')}
             </button>
           }
         />
@@ -115,23 +116,23 @@ export default function Courses() {
       <Modal
         open={creating}
         onClose={() => setCreating(false)}
-        title="Nuevo curso"
-        description="Tus estudiantes se unirán con un código que generamos para el curso."
+        title={t('Nuevo curso')}
+        description={t('Tus estudiantes se unirán con un código que generamos para el curso.')}
         footer={
           <>
             <button className="btn-secondary" onClick={() => setCreating(false)}>
-              Cancelar
+              {t('Cancelar')}
             </button>
             <button className="btn-primary" type="submit" form="new-course" disabled={saving}>
-              {saving ? 'Creando…' : 'Crear curso'}
+              {saving ? t('Creando…') : t('Crear curso')}
             </button>
           </>
         }
       >
         <form id="new-course" onSubmit={create} noValidate className="space-y-5">
           <TextField
-            label="Nombre del curso"
-            placeholder="4° medio A"
+            label={t('Nombre del curso')}
+            placeholder={t('4° medio A')}
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             error={submitted ? errors.name : ''}
@@ -139,7 +140,7 @@ export default function Courses() {
           />
           <div>
             <label htmlFor="course-subject" className="label">
-              Asignatura
+              {t('Asignatura')}
             </label>
             <select
               id="course-subject"
@@ -147,9 +148,11 @@ export default function Courses() {
               onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
               className={cn('field', submitted && errors.subject && 'border-error')}
             >
-              <option value="">Elige una asignatura</option>
+              <option value="">{t('Elige una asignatura')}</option>
               {SUBJECTS.map((s) => (
-                <option key={s}>{s}</option>
+                <option key={s} value={s}>
+                  {t(s)}
+                </option>
               ))}
             </select>
             {submitted && errors.subject && <p className="mt-1.5 text-[13px] text-error">{errors.subject}</p>}

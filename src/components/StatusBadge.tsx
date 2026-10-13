@@ -1,5 +1,6 @@
 import type { TaskPriority, TaskStatus } from '../types'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 export const STATUS_LABEL: Record<TaskStatus, string> = {
   pendiente: 'Pendiente',
@@ -14,10 +15,10 @@ const statusClass: Record<TaskStatus, string> = {
 }
 
 export function StatusBadge({ status }: { status: TaskStatus }) {
-  return <span className={cn('badge', statusClass[status])}>{STATUS_LABEL[status]}</span>
+  return <span className={cn('badge', statusClass[status])}>{t(STATUS_LABEL[status])}</span>
 }
 
-export const PRIORITY_LABEL: Record<TaskPriority, string> = { alta: 'Alta', media: 'Media', baja: 'Baja' }
+const PRIORITY_LABEL: Record<TaskPriority, string> = { alta: 'Prioridad alta', media: 'Prioridad media', baja: 'Prioridad baja' }
 
 const priorityDot: Record<TaskPriority, string> = { alta: 'bg-error', media: 'bg-warning', baja: 'bg-secondary' }
 
@@ -25,7 +26,7 @@ export function PriorityTag({ priority }: { priority: TaskPriority }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted">
       <span className={cn('size-2 rounded-full', priorityDot[priority])} aria-hidden />
-      Prioridad {PRIORITY_LABEL[priority].toLowerCase()}
+      {t(PRIORITY_LABEL[priority])}
     </span>
   )
 }

@@ -1,5 +1,6 @@
 import { Crown } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { t } from '../i18n'
 
 export function PremiumBanner() {
   return (
@@ -15,14 +16,14 @@ export function PremiumBanner() {
         </span>
         <div className="flex-1">
           <h2 id="premium-banner-title" className="text-lg font-semibold text-text sm:text-xl">
-            Desbloquea todo el potencial
+            {t('Desbloquea todo el potencial')}
           </h2>
           <p className="mt-1 max-w-xl text-sm text-muted sm:text-[15px]">
-            Accede a contenido exclusivo y disfruta de una experiencia sin límites.
+            {t('Accede a contenido exclusivo y disfruta de una experiencia sin límites.')}
           </p>
         </div>
         <Link to="/premium" className="btn-primary w-full sm:w-auto">
-          Ver planes
+          {t('Ver planes')}
         </Link>
       </div>
     </section>

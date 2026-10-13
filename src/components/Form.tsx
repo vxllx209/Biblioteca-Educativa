@@ -1,6 +1,7 @@
 import { Check, CircleAlert, Eye, EyeOff, LoaderCircle } from 'lucide-react'
 import { useId, useState, type InputHTMLAttributes, type ReactNode } from 'react'
 import { cn } from '../lib/format'
+import { t } from '../i18n'
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -64,7 +65,7 @@ export function PasswordField(props: Omit<FieldProps, 'type' | 'trailing'>) {
           type="button"
           onClick={() => setVisible((v) => !v)}
           className="absolute top-1/2 right-1.5 grid size-10 -translate-y-1/2 place-items-center rounded-lg text-muted transition-colors hover:text-accent"
-          aria-label={visible ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+          aria-label={visible ? t('Ocultar contraseña') : t('Mostrar contraseña')}
           aria-pressed={visible}
         >
           {visible ? <EyeOff className="size-[18px]" /> : <Eye className="size-[18px]" />}
@@ -150,7 +151,7 @@ export function SubmitButton({ loading, children, className }: { loading: boolea
   )
 }
 
-export function Divider({ label = 'o' }: { label?: string }) {
+export function Divider({ label = t('o') }: { label?: string }) {
   return (
     <div className="my-6 flex items-center gap-4 text-xs font-medium text-disabled" role="separator">
       <span className="h-px flex-1 bg-line" />
@@ -175,7 +176,7 @@ export function GoogleButton({ onClick, loading }: { onClick: () => void; loadin
   return (
     <button type="button" onClick={onClick} disabled={loading} className="btn h-12 w-full border border-line bg-surface text-text hover:border-line-active hover:bg-softer">
       {loading ? <LoaderCircle className="size-5 animate-spin" aria-hidden /> : <GoogleMark />}
-      Continuar con Google
+      {t('Continuar con Google')}
     </button>
   )
 }

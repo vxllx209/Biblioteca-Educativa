@@ -5,6 +5,7 @@ import { Divider, GoogleButton, isEmail, PasswordField, SubmitButton, TextField 
 import { AuthCard } from '../components/Layouts'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
+import { t } from '../i18n'
 
 export default function Login() {
   const { login, loginWithGoogle } = useAuth()
@@ -17,8 +18,8 @@ export default function Login() {
   const [error, setError] = useState('')
 
   const errors = {
-    email: !email.trim() ? 'Ingresa tu correo electrónico.' : !isEmail(email) ? 'Ingresa un correo válido.' : '',
-    password: !password ? 'Ingresa tu contraseña.' : '',
+    email: !email.trim() ? t('Ingresa tu correo electrónico.') : !isEmail(email) ? t('Ingresa un correo válido.') : '',
+    password: !password ? t('Ingresa tu contraseña.') : '',
   }
   const show = (f: keyof typeof errors) => (touched[f] || submitted ? errors[f] : '')
 
@@ -31,7 +32,7 @@ export default function Login() {
     const res = await login(email, password)
     setLoading(null)
     if (!res.ok) setError(res.error)
-    else toast(`¡Hola de nuevo!`)
+    else toast(t('¡Hola de nuevo!'))
   }
 
   const google = async () => {
@@ -42,13 +43,13 @@ export default function Login() {
 
   return (
     <AuthCard
-      title="Bienvenido de nuevo"
-      subtitle="Inicia sesión para continuar aprendiendo."
+      title={t('Bienvenido de nuevo')}
+      subtitle={t('Inicia sesión para continuar aprendiendo.')}
       footer={
         <>
-          ¿No tienes una cuenta?{' '}
+          {t('¿No tienes una cuenta?')}{' '}
           <Link to="/register" className="font-semibold text-accent hover:underline">
-            Crear cuenta
+            {t('Crear cuenta')}
           </Link>
         </>
       }
@@ -61,32 +62,32 @@ export default function Login() {
           </div>
         )}
         <TextField
-          label="Correo electrónico"
+          label={t('Correo electrónico')}
           type="email"
           autoComplete="email"
-          placeholder="tu@correo.com"
+          placeholder={t('tu@correo.com')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+          onBlur={() => setTouched((s) => ({ ...s, email: true }))}
           error={show('email')}
         />
         <div>
           <PasswordField
-            label="Contraseña"
+            label={t('Contraseña')}
             autoComplete="current-password"
-            placeholder="Tu contraseña"
+            placeholder={t('Tu contraseña')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onBlur={() => setTouched((t) => ({ ...t, password: true }))}
+            onBlur={() => setTouched((s) => ({ ...s, password: true }))}
             error={show('password')}
           />
           <div className="mt-2 flex justify-end">
             <Link to="/forgot-password" className="py-1 text-sm font-medium text-accent hover:underline">
-              ¿Olvidaste tu contraseña?
+              {t('¿Olvidaste tu contraseña?')}
             </Link>
           </div>
         </div>
-        <SubmitButton loading={loading === 'form'}>Iniciar sesión</SubmitButton>
+        <SubmitButton loading={loading === 'form'}>{t('Iniciar sesión')}</SubmitButton>
       </form>
       <Divider />
       <GoogleButton onClick={google} loading={loading === 'google'} />

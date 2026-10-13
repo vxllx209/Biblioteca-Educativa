@@ -1,4 +1,5 @@
 import { CURRENCY } from '../data/mock'
+import { locale, plural, t } from '../i18n'
 
 export const formatPrice = (value: number) =>
   new Intl.NumberFormat(CURRENCY.locale, {
@@ -8,7 +9,7 @@ export const formatPrice = (value: number) =>
   }).format(value)
 
 export const formatDate = (iso: string, opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' }) =>
-  new Date(iso).toLocaleDateString('es-ES', opts)
+  new Date(iso).toLocaleDateString(locale(), opts)
 
 export const formatTime = (seconds: number) => {
   const s = Math.max(0, Math.floor(seconds))
@@ -28,22 +29,22 @@ export const daysUntil = (iso: string) => {
 
 export const dueLabel = (iso: string) => {
   const d = daysUntil(iso)
-  if (d < -1) return `Venció hace ${-d} días`
-  if (d === -1) return 'Venció ayer'
-  if (d === 0) return 'Vence hoy'
-  if (d === 1) return 'Vence mañana'
-  return `Vence en ${d} días`
+  if (d < -1) return t('Venció hace {n} días', { n: -d })
+  if (d === -1) return t('Venció ayer')
+  if (d === 0) return t('Vence hoy')
+  if (d === 1) return t('Vence mañana')
+  return t('Vence en {n} días', { n: d })
 }
 
 export const relativeTime = (iso: string) => {
   const diff = Date.now() - new Date(iso).getTime()
   const min = Math.round(diff / 60_000)
-  if (min < 1) return 'Ahora'
-  if (min < 60) return `Hace ${min} min`
+  if (min < 1) return t('Ahora')
+  if (min < 60) return t('Hace {n} min', { n: min })
   const h = Math.round(min / 60)
-  if (h < 24) return `Hace ${h} h`
+  if (h < 24) return t('Hace {n} h', { n: h })
   const d = Math.round(h / 24)
-  return d === 1 ? 'Ayer' : `Hace ${d} días`
+  return d === 1 ? t('Ayer') : plural(d, 'Hace {n} día', 'Hace {n} días')
 }
 
 export const normalize = (text: string) =>

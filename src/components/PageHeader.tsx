@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Avatar } from './Avatar'
 import { NotificationPanel } from './NotificationPanel'
+import { t } from '../i18n'
 
 /** Notifications + avatar, shown at the top-right of every main page. */
 export function TopActions() {
@@ -12,7 +13,7 @@ export function TopActions() {
     <div className="flex shrink-0 items-center gap-2 sm:gap-3">
       <NotificationPanel />
       {user && (
-        <Link to="/profile" className="rounded-full" aria-label="Ir a mi perfil">
+        <Link to="/profile" className="rounded-full" aria-label={t('Ir a mi perfil')}>
           <Avatar user={user} />
         </Link>
       )}
@@ -35,7 +36,7 @@ export function PageHeader({
   return (
     <header className="mb-6 flex items-start gap-3 md:mb-8">
       {back && (
-        <button onClick={() => navigate(-1)} className="icon-btn" aria-label="Volver">
+        <button onClick={() => navigate(-1)} className="icon-btn" aria-label={t('Volver')}>
           <ArrowLeft className="size-5" />
         </button>
       )}

@@ -5,6 +5,7 @@ import type { AudioProgress, Book } from '../types'
 import { useAuth } from './AuthContext'
 import { usePreferences } from './PreferencesContext'
 import { useToast } from './ToastContext'
+import { t } from '../i18n'
 
 /**
  * Audiobook playback shared by the full-screen AudioPlayer and the persistent MiniPlayer.
@@ -151,7 +152,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   }, [el, startTrack, persist])
 
   useEffect(() => {
-    if (status === 'error') toast('No se pudo reproducir el audio. Revisa tu conexión a internet.', 'error')
+    if (status === 'error') toast(t('No se pudo reproducir el audio. Revisa tu conexión a internet.'), 'error')
   }, [status, toast])
 
   useEffect(() => {

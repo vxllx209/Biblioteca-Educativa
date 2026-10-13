@@ -32,6 +32,7 @@ import { useBookContent } from '../hooks/useBookContent'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { cn, normalize } from '../lib/format'
 import type { Book, BookContent } from '../types'
+import { t, plural } from '../i18n'
 
 const LINE_HEIGHTS = [
   { value: 1.7, label: 'Compacto' },
@@ -56,11 +57,11 @@ export default function ReaderPage() {
     return (
       <div className="grid min-h-dvh place-items-center bg-bg p-6">
         <ErrorState
-          title="No encontramos este libro"
-          description="El libro no existe o ya no está disponible."
+          title={t('No encontramos este libro')}
+          description={t('El libro no existe o ya no está disponible.')}
           action={
             <Link to="/explore" className="btn-primary">
-              Volver a Explorar
+              {t('Volver a Explorar')}
             </Link>
           }
         />
@@ -342,11 +343,11 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
     if (!pages || !chapter) return
     if (bookmarkIndex >= 0) {
       removeBookmark(book.id, bookmarkIndex)
-      return toast('Marcador eliminado', 'info')
+      return toast(t('Marcador eliminado'), 'info')
     }
     const text = chapter.blocks[firstBlockOnPage()]?.[1] ?? chapter.title
     addBookmark(book.id, { chapter: pos.chapter, position: pos.page / pages, excerpt: text.slice(0, 110) })
-    toast('Página marcada')
+    toast(t('Página marcada'))
   }
 
   // ——— Read aloud (Web Speech API), turning pages as it goes
@@ -413,7 +414,7 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
   useEffect(() => () => void window.speechSynthesis?.cancel(), [])
 
   const toggleSpeak = () => {
-    if (!('speechSynthesis' in window)) return toast('Tu navegador no admite la lectura en voz alta.', 'error')
+    if (!('speechSynthesis' in window)) return toast(t('Tu navegador no admite la lectura en voz alta.'), 'error')
     if (speaking) return stopSpeaking()
     audio.pause()
     setSpeaking(true)
@@ -440,17 +441,18 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
   const chapterTitle = chapter?.title ?? book.chapters[pos.chapter]?.title ?? ''
   const minutesLeft = pages && chapter ? Math.max(1, Math.round(((1 - (pos.page + 1) / pages) * book.chapters[pos.chapter].chars) / CHARS_PER_MINUTE)) : null
   const pageLabel = pages
-    ? `Cap. ${pos.chapter + 1} de ${chapterCount} · Pág. ${pos.page + 1} de ${pages}${minutesLeft && pos.page < pages - 1 ? ` · ${minutesLeft} min restantes` : ''}`
-    : 'Preparando páginas…'
+    ? t('Cap. {c} de {cs} · Pág. {p} de {ps}', { c: pos.chapter + 1, cs: chapterCount, p: pos.page + 1, ps: pages }) +
+      (minutesLeft && pos.page < pages - 1 ? ` · ${t('{n} min restantes', { n: minutesLeft })}` : '')
+    : t('Preparando páginas…')
 
   const menuItems = [
-    { label: 'Índice', icon: List, onClick: () => setPanel('toc') },
-    { label: 'Marcadores', icon: Bookmark, onClick: () => setPanel('bookmarks') },
-    { label: 'Buscar en el libro', icon: Search, onClick: () => setPanel('search') },
+    { label: t('Índice'), icon: List, onClick: () => setPanel('toc') },
+    { label: t('Marcadores'), icon: Bookmark, onClick: () => setPanel('bookmarks') },
+    { label: t('Buscar en el libro'), icon: Search, onClick: () => setPanel('search') },
     ...(book.hasAudio
       ? [
           {
-            label: 'Escuchar audiolibro',
+            label: t('Escuchar audiolibro'),
             icon: Headphones,
             onClick: () => {
               stopSpeaking()
@@ -460,8 +462,8 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
           },
         ]
       : []),
-    { label: dark ? 'Modo claro' : 'Modo oscuro', icon: dark ? Sun : Moon, onClick: () => setPref('readerDark', !dark) },
-    { label: 'Detalles del libro', icon: BookOpen, onClick: () => navigate(`/book/${book.id}`) },
+    { label: dark ? t('Modo claro') : t('Modo oscuro'), icon: dark ? Sun : Moon, onClick: () => setPref('readerDark', !dark) },
+    { label: t('Detalles del libro'), icon: BookOpen, onClick: () => navigate(`/book/${book.id}`) },
   ]
 
   const pageBg = 'bg-surface dark:bg-bg'
@@ -490,7 +492,7 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
       {/* Header */}
       <header className="relative z-20 border-b border-line bg-surface/95 backdrop-blur dark:bg-bg/95">
         <div className="mx-auto flex h-16 max-w-5xl items-center gap-2 px-2 sm:px-4">
-          <button onClick={() => navigate(-1)} className="grid size-11 place-items-center rounded-xl text-text hover:bg-bg2" aria-label="Volver">
+          <button onClick={() => navigate(-1)} className="grid size-11 place-items-center rounded-xl text-text hover:bg-bg2" aria-label={t('Volver')}>
             <ArrowLeft className="size-5" />
           </button>
           <div className="min-w-0 flex-1 text-center">
@@ -500,17 +502,17 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
           <Link
             to={`/practice/${book.id}?cap=${pos.chapter}`}
             className="flex h-11 items-center gap-2 rounded-xl px-3 text-sm font-semibold text-accent hover:bg-bg2"
-            aria-label="Practicar este capítulo"
-            title="Practicar este capítulo"
+            aria-label={t('Practicar este capítulo')}
+            title={t('Practicar este capítulo')}
           >
             <PenLine className="size-5" aria-hidden />
-            <span className="hidden sm:inline">Practicar</span>
+            <span className="hidden sm:inline">{t('Practicar')}</span>
           </Link>
           <div ref={menuRef} className="relative">
             <button
               onClick={() => setMenuOpen((o) => !o)}
               className="grid size-11 place-items-center rounded-xl text-text hover:bg-bg2"
-              aria-label="Opciones de lectura"
+              aria-label={t('Opciones de lectura')}
               aria-expanded={menuOpen}
               aria-haspopup="menu"
             >
@@ -540,9 +542,9 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
       </header>
 
       {/* Page area */}
-      <main className="relative min-h-0 flex-1" aria-label="Contenido del libro">
+      <main className="relative min-h-0 flex-1" aria-label={t('Contenido del libro')}>
         {loading && (
-          <div className="mx-auto max-w-[660px] space-y-4 px-6 py-12" aria-busy="true" aria-label="Cargando libro">
+          <div className="mx-auto max-w-[660px] space-y-4 px-6 py-12" aria-busy="true" aria-label={t('Cargando libro')}>
             <div className="skeleton h-4 w-24" />
             <div className="skeleton h-8 w-2/3" />
             {Array.from({ length: 9 }, (_, i) => (
@@ -553,11 +555,11 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
         {error && (
           <div className="grid h-full place-items-center p-6">
             <ErrorState
-              title="No pudimos abrir el libro"
-              description={`${error} Si no tienes conexión, descarga el libro la próxima vez para leerlo sin internet.`}
+              title={t('No pudimos abrir el libro')}
+              description={`${error} ${t('Si no tienes conexión, descarga el libro la próxima vez para leerlo sin internet.')}`}
               action={
                 <button className="btn-primary" onClick={retry}>
-                  <RotateCcw className="size-4" aria-hidden /> Reintentar
+                  <RotateCcw className="size-4" aria-hidden /> {t('Reintentar')}
                 </button>
               }
             />
@@ -605,8 +607,8 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
                       <span className="grid size-16 place-items-center rounded-full bg-soft text-accent">
                         <PenLine className="size-7" aria-hidden />
                       </span>
-                      <h2 className="mt-5 text-xl font-semibold text-text">Terminaste «{chapterTitle}»</h2>
-                      <p className="mt-2 text-[15px] text-muted">Antes de seguir, pon en práctica lo que acabas de leer.</p>
+                      <h2 className="mt-5 text-xl font-semibold text-text">{t('Terminaste «{title}»', { title: chapterTitle })}</h2>
+                      <p className="mt-2 text-[15px] text-muted">{t('Antes de seguir, pon en práctica lo que acabas de leer.')}</p>
                       <ul className="mt-5 w-full space-y-2 text-left">
                         {setsForChapter(book.id, pos.chapter).map((s) => (
                           <li key={s.id}>
@@ -614,10 +616,11 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
                               <span className="min-w-0 flex-1">
                                 <span className="block font-medium text-text">{s.title}</span>
                                 <span className="block text-xs text-muted">
-                                  {KIND_LABEL[s.kind]} · {s.questions.length} preguntas{practice[s.id] ? ` · ${Math.round(practice[s.id].best * 100)}%` : ''}
+                                  {t(KIND_LABEL[s.kind])} · {plural(s.questions.length, '{n} pregunta', '{n} preguntas')}
+                                  {practice[s.id] ? ` · ${Math.round(practice[s.id].best * 100)}%` : ''}
                                 </span>
                               </span>
-                              <span className="text-sm font-semibold text-accent">Practicar</span>
+                              <span className="text-sm font-semibold text-accent">{t('Practicar')}</span>
                             </Link>
                           </li>
                         ))}
@@ -631,7 +634,7 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
                         }}
                         className="btn-ghost mt-4"
                       >
-                        Seguir leyendo
+                        {t('Seguir leyendo')}
                       </button>
                     </div>
                   ) : overlay === 'locked' ? (
@@ -639,15 +642,15 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
                       <span className="grid size-16 place-items-center rounded-full bg-soft text-accent">
                         <Lock className="size-7" aria-hidden />
                       </span>
-                      <h2 className="mt-5 text-xl font-semibold text-text">Terminaste la vista previa</h2>
+                      <h2 className="mt-5 text-xl font-semibold text-text">{t('Terminaste la vista previa')}</h2>
                       <p className="mt-2 text-[15px] text-muted">
-                        «{book.title}» es un libro Premium. Mejora tu plan para seguir leyendo sin límites.
+                        {t('«{title}» es un libro Premium. Mejora tu plan para seguir leyendo sin límites.', { title: book.title })}
                       </p>
                       <Link to="/premium" className="btn-primary mt-6">
-                        <Crown className="size-5" aria-hidden /> Ver planes
+                        <Crown className="size-5" aria-hidden /> {t('Ver planes')}
                       </Link>
                       <button onClick={() => setOverlay(null)} className="btn-ghost mt-2">
-                        Volver a la página anterior
+                        {t('Volver a la página anterior')}
                       </button>
                     </div>
                   ) : (
@@ -655,15 +658,15 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
                       <span className="grid size-16 place-items-center rounded-full bg-success-soft text-success">
                         <PartyPopper className="size-7" aria-hidden />
                       </span>
-                      <h2 className="mt-5 text-xl font-semibold text-text">¡Terminaste el libro!</h2>
+                      <h2 className="mt-5 text-xl font-semibold text-text">{t('¡Terminaste el libro!')}</h2>
                       <p className="mt-2 text-[15px] text-muted">
-                        Leíste «{book.title}» de {book.author}. Tu progreso quedó guardado.
+                        {t('Leíste «{title}» de {author}. Tu progreso quedó guardado.', { title: book.title, author: book.author })}
                       </p>
                       <Link to="/explore" className="btn-primary mt-6">
-                        Descubrir más libros
+                        {t('Descubrir más libros')}
                       </Link>
                       <button onClick={() => setOverlay(null)} className="btn-ghost mt-2">
-                        Volver a la última página
+                        {t('Volver a la última página')}
                       </button>
                     </div>
                   )}
@@ -676,7 +679,7 @@ function Reader({ book, startChapter }: { book: Book; startChapter?: number }) {
 
       <ReaderControls
         percent={percent}
-        pageLabel={overlay === 'finished' ? 'Libro terminado' : pageLabel}
+        pageLabel={overlay === 'finished' ? t('Libro terminado') : pageLabel}
         onPrev={prev}
         onNext={next}
         canPrev={!!overlay || (!!pages && (pos.page > 0 || pos.chapter > 0))}
@@ -751,7 +754,7 @@ function ReaderPanels(p: {
 
   return (
     <>
-      <Modal open={p.panel === 'toc'} onClose={close} title="Índice" description={`${chapters.length} secciones`} size="lg">
+      <Modal open={p.panel === 'toc'} onClose={close} title={t('Índice')} description={plural(chapters.length, '{n} sección', '{n} secciones')} size="lg">
         <ol className="space-y-2">
           {chapters.map((c, ci) => (
             <li key={ci}>
@@ -777,9 +780,9 @@ function ReaderPanels(p: {
         </ol>
       </Modal>
 
-      <Modal open={p.panel === 'bookmarks'} onClose={close} title="Marcadores">
+      <Modal open={p.panel === 'bookmarks'} onClose={close} title={t('Marcadores')}>
         {p.bookmarks.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted">Aún no tienes marcadores. Toca el ícono de marcador para guardar la página actual.</p>
+          <p className="py-6 text-center text-sm text-muted">{t('Aún no tienes marcadores. Toca el ícono de marcador para guardar la página actual.')}</p>
         ) : (
           <ul className="space-y-2">
             {p.bookmarks.map((b, i) => (
@@ -794,7 +797,7 @@ function ReaderPanels(p: {
                     <span className="line-clamp-2 text-xs text-muted">«{b.excerpt}…»</span>
                   </span>
                 </button>
-                <button onClick={() => p.onRemoveBookmark(i)} className="icon-btn h-auto rounded-xl" aria-label="Eliminar marcador">
+                <button onClick={() => p.onRemoveBookmark(i)} className="icon-btn h-auto rounded-xl" aria-label={t('Eliminar marcador')}>
                   <Trash2 className="size-4" />
                 </button>
               </li>
@@ -806,12 +809,12 @@ function ReaderPanels(p: {
       <Modal
         open={p.panel === 'search'}
         onClose={close}
-        title="Buscar en el libro"
+        title={t('Buscar en el libro')}
         size="lg"
         footer={
           p.highlight ? (
             <button className="btn-secondary" onClick={p.clearHighlight}>
-              Quitar resaltado
+              {t('Quitar resaltado')}
             </button>
           ) : undefined
         }
@@ -822,17 +825,19 @@ function ReaderPanels(p: {
             type="search"
             value={p.searchTerm}
             onChange={(e) => p.setSearchTerm(e.target.value)}
-            placeholder="Escribe una palabra o frase"
+            placeholder={t('Escribe una palabra o frase')}
             className="field pl-11"
-            aria-label="Buscar texto"
+            aria-label={t('Buscar texto')}
           />
         </div>
         <p className="mt-3 text-xs text-muted" aria-live="polite">
           {!p.data
-            ? 'Cargando el texto…'
+            ? t('Cargando el texto…')
             : p.searchTerm.trim().length < 3
-              ? 'Escribe al menos 3 caracteres.'
-              : `${p.results.length}${p.results.length >= 150 ? '+' : ''} coincidencias`}
+              ? t('Escribe al menos 3 caracteres.')
+              : p.results.length === 1
+                ? t('1 coincidencia')
+                : t('{n} coincidencias', { n: `${p.results.length}${p.results.length >= 150 ? '+' : ''}` })}
         </p>
         <ul className="mt-3 space-y-2">
           {p.results.map((r, i) => (
@@ -849,21 +854,21 @@ function ReaderPanels(p: {
         </ul>
       </Modal>
 
-      <Modal open={p.panel === 'settings'} onClose={close} title="Configuración de lectura" size="sm">
+      <Modal open={p.panel === 'settings'} onClose={close} title={t('Configuración de lectura')} size="sm">
         <div className="space-y-6">
           <div>
-            <p className="label">Tema</p>
+            <p className="label">{t('Tema')}</p>
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => setPref('readerDark', false)} aria-pressed={!p.dark} className={option(!p.dark)}>
-                <Sun className="size-4" aria-hidden /> Claro
+                <Sun className="size-4" aria-hidden /> {t('Claro')}
               </button>
               <button onClick={() => setPref('readerDark', true)} aria-pressed={p.dark} className={option(p.dark)}>
-                <Moon className="size-4" aria-hidden /> Oscuro
+                <Moon className="size-4" aria-hidden /> {t('Oscuro')}
               </button>
             </div>
           </div>
           <div>
-            <p className="label">Tipografía</p>
+            <p className="label">{t('Tipografía')}</p>
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => setPref('readerFont', 'serif')} aria-pressed={prefs.readerFont === 'serif'} className={cn(option(prefs.readerFont === 'serif'), 'reader-font-serif text-[15px]')}>
                 Serif
@@ -874,7 +879,9 @@ function ReaderPanels(p: {
             </div>
           </div>
           <div>
-            <p className="label">Tamaño de letra · {prefs.readerFontSize}px</p>
+            <p className="label">
+              {t('Tamaño de letra')} · {prefs.readerFontSize}px
+            </p>
             <input
               type="range"
               min={FONT_MIN}
@@ -883,29 +890,29 @@ function ReaderPanels(p: {
               onChange={(e) => setPref('readerFontSize', Number(e.target.value))}
               className="range"
               style={{ ['--fill' as string]: `${((prefs.readerFontSize - FONT_MIN) / (FONT_MAX - FONT_MIN)) * 100}%` }}
-              aria-label="Tamaño de letra"
+              aria-label={t('Tamaño de letra')}
             />
           </div>
           <div>
-            <p className="label">Interlineado</p>
+            <p className="label">{t('Interlineado')}</p>
             <div className="grid grid-cols-3 gap-3">
               {LINE_HEIGHTS.map((lh) => (
                 <button key={lh.value} onClick={() => setPref('readerLineHeight', lh.value)} aria-pressed={prefs.readerLineHeight === lh.value} className={option(prefs.readerLineHeight === lh.value)}>
-                  {lh.label}
+                  {t(lh.label)}
                 </button>
               ))}
             </div>
           </div>
           <div className="border-t border-line pt-2">
             <Switch
-              label="Animación al pasar página"
-              description="Efecto de hoja que se da vuelta"
+              label={t('Animación al pasar página')}
+              description={t('Efecto de hoja que se da vuelta')}
               checked={prefs.readerAnimations !== false}
               onChange={(v) => setPref('readerAnimations', v)}
             />
           </div>
           <p className="rounded-xl bg-softer p-3 text-xs text-muted">
-            Tu posición se guarda automáticamente. Pasa de página con las flechas del teclado, deslizando el dedo o tocando los bordes de la página.
+            {t('Tu posición se guarda automáticamente. Pasa de página con las flechas del teclado, deslizando el dedo o tocando los bordes de la página.')}
           </p>
         </div>
       </Modal>

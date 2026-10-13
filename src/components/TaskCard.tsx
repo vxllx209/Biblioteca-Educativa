@@ -3,6 +3,7 @@ import { cn, daysUntil, dueLabel, formatDate } from '../lib/format'
 import type { Task } from '../types'
 import { ProgressBar } from './ProgressBar'
 import { PriorityTag, StatusBadge } from './StatusBadge'
+import { t } from '../i18n'
 
 export function TaskCard({ task, onOpen }: { task: Task; onOpen: (task: Task) => void }) {
   const overdue = task.status !== 'completada' && daysUntil(task.dueDate) < 0
@@ -11,13 +12,13 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (task: Task) =>
     <button
       onClick={() => onOpen(task)}
       className="card group flex w-full flex-col gap-4 p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-line-active"
-      aria-label={`Abrir tarea: ${task.title}`}
+      aria-label={t('Abrir tarea: {title}', { title: t(task.title) })}
     >
       <div className="flex w-full items-start gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium tracking-wide text-secondary uppercase">{task.subject}</p>
+          <p className="text-xs font-medium tracking-wide text-secondary uppercase">{t(task.subject)}</p>
           <h3 className={cn('mt-1 text-base font-semibold text-text', task.status === 'completada' && 'text-muted line-through decoration-1')}>
-            {task.title}
+            {t(task.title)}
           </h3>
         </div>
         <StatusBadge status={task.status} />
@@ -40,7 +41,7 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (task: Task) =>
           value={task.progress}
           showValue
           className="flex-1"
-          label={`Progreso de ${task.title}`}
+          label={t('Progreso de {title}', { title: t(task.title) })}
           tone={task.status === 'completada' ? 'success' : 'primary'}
         />
         <ChevronRight className="size-4 text-disabled transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
