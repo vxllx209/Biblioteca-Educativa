@@ -11,7 +11,7 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (task: Task) =>
   return (
     <button
       onClick={() => onOpen(task)}
-      className="card group flex w-full flex-col gap-4 p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-line-active"
+      className="card group flex w-full flex-col gap-4 p-5 text-left card-hover"
       aria-label={t('Abrir tarea: {title}', { title: t(task.title) })}
     >
       <div className="flex w-full items-start gap-3">

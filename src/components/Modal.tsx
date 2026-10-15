@@ -64,14 +64,14 @@ export function Modal({ open, onClose, title, description, children, footer, siz
   if (!open) return null
   return createPortal(
     <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-6">
-      <div className="absolute inset-0 animate-fade-in bg-ink/40 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
+      <div className="absolute inset-0 animate-fade-in bg-ink/45 backdrop-blur-sm" onClick={onClose} aria-hidden />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         className={cn(
-          'relative flex max-h-[92dvh] w-full animate-rise flex-col rounded-t-[18px] border border-line bg-surface shadow-pop sm:rounded-[18px]',
+          'relative flex max-h-[92dvh] w-full animate-rise flex-col rounded-t-[26px] border border-line bg-surface shadow-pop sm:rounded-[24px]',
           size === 'sm' && 'sm:max-w-md',
           size === 'md' && 'sm:max-w-lg',
           size === 'lg' && 'sm:max-w-2xl',
@@ -79,7 +79,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
       >
         <div className="flex items-start gap-4 px-6 pt-6 pb-4">
           <div className="flex-1">
-            <h2 id={titleId} className="text-lg font-semibold text-text">
+            <h2 id={titleId} className="font-display text-xl text-text">
               {title}
             </h2>
             {description && <p className="mt-1 text-sm text-muted">{description}</p>}

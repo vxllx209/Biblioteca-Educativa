@@ -58,7 +58,7 @@ export default function PracticeHub() {
 
       {sets.length > 0 && (
         <section aria-labelledby="guided" className="mb-10">
-          <h2 id="guided" className="mb-4 text-lg font-semibold text-text sm:text-xl">
+          <h2 id="guided" className="mb-4 font-display text-xl text-text sm:text-[22px]">
             {t('Prácticas guiadas')}
           </h2>
           <ul className="grid gap-4 md:grid-cols-2">
@@ -71,7 +71,7 @@ export default function PracticeHub() {
                   <Link
                     to={locked ? '/premium' : `/practice/${book.id}/${s.id}`}
                     className={cn(
-                      'card group flex h-full flex-col gap-3 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-line-active',
+                      'card group flex h-full flex-col gap-3 p-5 card-hover',
                       hi && 'border-line-active ring-2 ring-soft',
                     )}
                   >

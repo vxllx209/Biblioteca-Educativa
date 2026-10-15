@@ -53,7 +53,7 @@ export function AudioPlayer() {
   return (
     <div className="mx-auto grid w-full max-w-5xl gap-8 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-14">
       <div className="mx-auto w-full max-w-[240px] sm:max-w-[280px] lg:max-w-none">
-        <div className={cn('overflow-hidden rounded-[18px] shadow-pop transition-transform duration-500', a.playing && 'scale-[1.02]')}>
+        <div className={cn('overflow-hidden rounded-[14px] shadow-lift ring-1 ring-black/5 transition-transform duration-500', a.playing && 'scale-[1.02]')}>
           <BookCover book={book} />
         </div>
       </div>
@@ -63,7 +63,7 @@ export function AudioPlayer() {
           <p className="text-sm font-medium text-secondary">
             {t('Pista {n} de {total}', { n: track + 1, total: tracks.length })} · {current?.title}
           </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-text sm:text-[28px]">{book.title}</h1>
+          <h1 className="mt-1 font-display text-2xl text-text sm:text-[30px]">{book.title}</h1>
           <p className="mt-1 text-[15px] text-muted">{book.author}</p>
         </div>
 

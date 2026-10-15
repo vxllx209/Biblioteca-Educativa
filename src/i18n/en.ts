@@ -912,4 +912,15 @@ export const en: Record<string, string> = {
   'La página que buscas no existe o fue movida.': "The page you're looking for doesn't exist or was moved.",
   'Volver al inicio': 'Back to home',
   'Error inesperado': 'Unexpected error',
+
+  // ——— Brand panel, welcome and home hero
+  'Menú': 'Menu',
+  'Cada página te acerca a quien quieres ser.': 'Every page brings you closer to who you want to be.',
+  'Práctica guiada al final de cada libro': 'Guided practice at the end of every book',
+  'Audiolibros para escuchar donde estés': 'Audiobooks to listen to wherever you are',
+  'Lectura sin conexión': 'Offline reading',
+  'Bienvenido': 'Welcome',
+  'Empieza a leer hoy': 'Start reading today',
+  'Libros, audiolibros y práctica guiada en un solo lugar.': 'Books, audiobooks and guided practice in one place.',
+  'En curso': 'In progress',
 }

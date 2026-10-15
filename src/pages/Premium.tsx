@@ -46,10 +46,10 @@ export default function Premium() {
       <PageHeader title="Premium" back />
 
       <section className="mx-auto max-w-2xl text-center">
-        <span className="mx-auto grid size-16 place-items-center rounded-[18px] bg-soft text-accent">
+        <span className="mx-auto grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-gold to-[#a8732f] text-[#1f1607] shadow-[0_14px_30px_-10px_rgba(193,138,69,0.9)]">
           <Crown className="size-8" strokeWidth={1.75} aria-hidden />
         </span>
-        <h2 className="mt-6 text-[26px] leading-tight font-bold tracking-tight text-text sm:text-4xl">{t('Desbloquea todo el potencial')}</h2>
+        <h2 className="mt-6 font-display text-[30px] leading-[1.1] text-text sm:text-[44px]">{t('Desbloquea todo el potencial')}</h2>
         <p className="mt-3 text-base text-muted sm:text-lg">
           {t('Accede a contenido exclusivo, audiolibros y descargas ilimitadas. Aprende sin límites, a tu ritmo.')}
         </p>
@@ -57,8 +57,10 @@ export default function Premium() {
 
       <ul className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
         {HIGHLIGHTS.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="flex items-start gap-3 rounded-[14px] bg-softer p-4">
-            <Icon className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
+          <li key={title} className="card flex items-start gap-3 p-4">
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-soft text-accent">
+              <Icon className="size-[18px]" aria-hidden />
+            </span>
             <span>
               <span className="block text-sm font-semibold text-text">{t(title)}</span>
               <span className="block text-[13px] text-muted">{t(text)}</span>

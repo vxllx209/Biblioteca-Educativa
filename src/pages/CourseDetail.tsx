@@ -170,7 +170,7 @@ export default function CourseDetail() {
               role="tab"
               aria-selected={tab === value}
               onClick={() => setTab(value)}
-              className={cn('chip', tab === value ? 'border-primary bg-primary text-white' : 'border-line bg-surface text-muted hover:text-text')}
+              className={cn('chip', tab === value ? 'chip-active' : 'border-line bg-surface text-muted hover:text-text')}
             >
               {label}
             </button>

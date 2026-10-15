@@ -18,10 +18,11 @@ export function EmptyState({
 }) {
   return (
     <div className={cn('flex animate-fade-in flex-col items-center px-6 py-14 text-center', className)}>
-      <span className="mb-4 grid size-16 place-items-center rounded-full bg-soft text-accent">
-        <Icon className="size-7" strokeWidth={1.75} aria-hidden />
+      <span className="relative mb-6 grid size-20 place-items-center rounded-full bg-soft text-accent ring-8 ring-softer">
+        <span className="absolute -inset-4 rounded-full border border-dashed border-line-active/60" aria-hidden />
+        <Icon className="size-8" strokeWidth={1.6} aria-hidden />
       </span>
-      <h3 className="text-lg font-semibold text-text">{title}</h3>
+      <h3 className="font-display text-xl text-text">{title}</h3>
       <p className="mt-1.5 max-w-sm text-sm text-muted">{description}</p>
       {action && <div className="mt-6">{action}</div>}
     </div>
@@ -34,7 +35,7 @@ export function ErrorState({ title, description, action }: { title: string; desc
       <span className="mb-4 grid size-16 place-items-center rounded-full bg-error-soft text-error">
         <CircleAlert className="size-7" strokeWidth={1.75} aria-hidden />
       </span>
-      <h3 className="text-lg font-semibold text-text">{title}</h3>
+      <h3 className="font-display text-xl text-text">{title}</h3>
       <p className="mt-1.5 max-w-sm text-sm text-muted">{description}</p>
       {action && <div className="mt-6">{action}</div>}
     </div>
@@ -43,10 +44,10 @@ export function ErrorState({ title, description, action }: { title: string; desc
 
 export function BookCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-card border border-line bg-surface" aria-hidden>
-      <div className="skeleton aspect-[2/3] rounded-none" />
-      <div className="space-y-2 p-3.5 pb-4">
-        <div className="skeleton h-4 w-16 rounded-full" />
+    <div aria-hidden>
+      <div className="skeleton aspect-[2/3] rounded-[14px]" />
+      <div className="space-y-2 px-0.5 pt-3.5">
+        <div className="skeleton h-3 w-16 rounded-full" />
         <div className="skeleton h-4 w-11/12" />
         <div className="skeleton h-3 w-2/3" />
       </div>

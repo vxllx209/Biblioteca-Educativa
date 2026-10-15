@@ -25,7 +25,7 @@ export function FavoriteButton({ book, className, size = 'md' }: { book: Book; c
         size === 'sm' ? 'size-9' : 'size-11',
         active
           ? 'border-transparent bg-surface text-accent shadow-card'
-          : 'border-line bg-surface/90 text-muted backdrop-blur hover:text-accent',
+          : 'border-white/40 bg-surface/90 text-muted shadow-card backdrop-blur hover:text-accent',
         className,
       )}
     >

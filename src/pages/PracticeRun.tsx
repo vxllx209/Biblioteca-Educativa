@@ -150,7 +150,7 @@ function Runner({ set }: { set: PracticeSet }) {
           <span className={cn('mx-auto grid size-16 place-items-center rounded-full', pct >= 70 ? 'bg-success-soft text-success' : 'bg-warning-soft text-warning')}>
             {pct >= 70 ? <Trophy className="size-7" aria-hidden /> : <ClipboardCheck className="size-7" aria-hidden />}
           </span>
-          <h2 id="result-title" className="mt-4 text-2xl font-bold text-text">
+          <h2 id="result-title" className="mt-4 font-display text-[28px] text-text">
             {pct >= 90 ? t('¡Excelente trabajo!') : pct >= 70 ? t('¡Muy bien!') : pct >= 50 ? t('Vas por buen camino') : t('Sigue practicando')}
           </h2>
           <p className="mt-1 text-muted">

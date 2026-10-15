@@ -118,7 +118,7 @@ export default function AssignmentReview() {
             key={value}
             aria-pressed={filter === value}
             onClick={() => setFilter(value)}
-            className={cn('chip gap-2', filter === value ? 'border-primary bg-primary text-white' : 'border-line bg-surface text-muted hover:text-text')}
+            className={cn('chip gap-2', filter === value ? 'chip-active' : 'border-line bg-surface text-muted hover:text-text')}
           >
             {t(label)}
             <span className={cn('rounded-full px-1.5 text-xs', filter === value ? 'bg-white/20' : 'bg-bg2')}>{count(value)}</span>

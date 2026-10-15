@@ -15,9 +15,10 @@ import {
   Users,
   X,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode, type Ref, type RefObject } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode, type Ref } from 'react'
 import { Link } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
+import { PhysicsBook } from '../components/PhysicsBook'
 import { CATEGORY_ICONS } from '../components/icons'
 import { BOOKS, CATEGORIES, formatYear, getBook, totalAudioSeconds } from '../data/books'
 import { KIND_LABEL, PRACTICE_SETS } from '../data/practice'
@@ -275,87 +276,6 @@ function LetterField({ active, reduced }: { active: boolean; reduced: boolean })
   return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 size-full" aria-hidden />
 }
 
-/* -------------------------------------------------------------- 3D book */
-
-const LEAVES = [
-  { z: 0.3, open: -177.4, delay: '0.25s' },
-  { z: 0.7, open: -176.6, delay: '0.42s' },
-  { z: 1.1, open: -175.8, delay: '0.59s' },
-  { z: 1.5, open: -175, delay: '0.76s' },
-]
-
-function PageLines({ n = 14 }: { n?: number }) {
-  return (
-    <div className="flex h-full flex-col justify-center gap-[7%] px-[12%] opacity-30" aria-hidden>
-      {Array.from({ length: n }, (_, i) => (
-        <span key={i} className="h-[2px] rounded bg-[var(--lp-ink)]" style={{ width: `${70 + ((i * 37) % 30)}%` }} />
-      ))}
-    </div>
-  )
-}
-
-function HeroBook({ open, onToggle, bookRef }: { open: boolean; onToggle: () => void; bookRef: RefObject<HTMLDivElement | null> }) {
-  return (
-    <div className="lp-scene relative">
-      <div className={cn('lp-book-shift', open && 'is-open')}>
-        <div
-          ref={bookRef}
-          className={cn('lp-book', open && 'is-open')}
-          onClick={onToggle}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onToggle())}
-          aria-label={open ? t('Cerrar el libro') : t('Abrir el libro')}
-          aria-pressed={open}
-        >
-          <div className="lp-back" />
-          <div className="lp-spine" />
-          <div className="lp-edge" />
-          <div className="lp-page lp-serif flex flex-col p-[10%] pl-[11%]">
-            <p className="text-center text-[calc(var(--bw)*0.032)] tracking-[0.2em] text-[var(--lp-forest)] uppercase">{t('Capítulo primero')}</p>
-            <p className="lp-page-text mt-[6%] flex-1">{OPENING}</p>
-            <p className="text-center text-[calc(var(--bw)*0.035)] opacity-60">— 1 —</p>
-          </div>
-          {LEAVES.map((l, i) => (
-            <div key={i} className="lp-leaf" style={{ '--z': l.z, '--open': `${l.open}deg`, '--delay': open ? l.delay : `${0.5 - i * 0.12}s` } as CSSProperties}>
-              <div className="lp-face">
-                <PageLines />
-              </div>
-              <div className="lp-face is-back lp-serif">
-                {i === LEAVES.length - 1 ? (
-                  <div className="flex h-full flex-col items-center justify-center p-[12%] text-center">
-                    <span className="text-[calc(var(--bw)*0.035)] tracking-[0.25em] text-[var(--lp-forest)] uppercase">Miguel de Cervantes</span>
-                    <span className="my-[8%] h-px w-1/3 bg-[var(--lp-forest)]/40" />
-                    <span className="text-[calc(var(--bw)*0.085)] leading-tight font-bold">El ingenioso hidalgo don Quijote de la Mancha</span>
-                    <span className="mt-[8%] text-[calc(var(--bw)*0.09)] text-[var(--lp-gold)]">❦</span>
-                    <span className="mt-[8%] text-[calc(var(--bw)*0.034)] opacity-60">{t('Que trata de la condición y ejercicio del famoso hidalgo')}</span>
-                  </div>
-                ) : (
-                  <PageLines />
-                )}
-              </div>
-            </div>
-          ))}
-          <div className="lp-cover">
-            <div className="lp-face">
-              <BookCover book={QUIJOTE} className="h-full" />
-              <div className="lp-cover-gloss" />
-            </div>
-            <div className="lp-face is-back grid place-items-center">
-              <span className="lp-serif text-center text-[calc(var(--bw)*0.05)] leading-snug text-[var(--lp-mint)]/50">
-                Ex libris
-                <br />
-                <span className="text-[calc(var(--bw)*0.07)] text-[var(--lp-gold)]/70">Biblioteca Educativa</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="lp-shadow" aria-hidden />
-    </div>
-  )
-}
-
 /* ------------------------------------------------------------------ hero */
 
 const CYCLE = ['pensar', 'descubrir', 'preguntar', 'crecer', 'imaginar']
@@ -398,11 +318,6 @@ function Hero({ reduced }: { reduced: boolean }) {
     openRef.current = open
     applyTilt()
   }, [open])
-
-  useEffect(() => {
-    const id = setTimeout(() => setOpen(true), reduced ? 0 : 1700)
-    return () => clearTimeout(id)
-  }, [reduced])
 
   const onMove = (e: ReactPointerEvent<HTMLElement>) => {
     if (e.pointerType !== 'mouse' || reduced) return
@@ -449,10 +364,10 @@ function Hero({ reduced }: { reduced: boolean }) {
         </div>
 
         <div className="lp-reveal flex flex-col items-center" style={{ '--d': '250ms' } as CSSProperties}>
-          <HeroBook open={open} onToggle={() => setOpen((o) => !o)} bookRef={bookRef} />
-          <p className="mt-12 inline-flex items-center gap-2 text-xs tracking-wider text-[var(--lp-muted)] uppercase">
+          <PhysicsBook tiltRef={bookRef} reduced={reduced} onOpenChange={setOpen} />
+          <p className="mt-6 inline-flex items-center gap-2 text-xs tracking-wider text-[var(--lp-muted)] uppercase">
             <MousePointerClick className="size-4 text-[var(--lp-gold)]" aria-hidden />
-            {open ? t('Toca para cerrarlo') : t('Toca el libro para abrirlo')}
+            {open ? t('Arrastra las páginas para hojearlo') : t('Toca el libro para abrirlo')}
           </p>
         </div>
       </div>
@@ -1281,7 +1196,7 @@ function Footer() {
         <p className="flex items-center gap-2">
           <BookOpen className="size-4 text-[var(--lp-sage)]" aria-hidden /> Biblioteca Educativa · {new Date().getFullYear()}
         </p>
-        <p>{t('Obras de dominio público vía Project Gutenberg, Wikisource y LibriVox.')}</p>
+        <p>{t('Hecho por Benjamín Villagrán')}</p>
       </div>
     </footer>
   )

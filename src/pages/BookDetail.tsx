@@ -174,7 +174,7 @@ export default function BookDetail() {
         <>
           <div className="grid gap-8 md:grid-cols-[240px_1fr] lg:grid-cols-[320px_1fr] lg:gap-12">
             <div className="mx-auto w-52 sm:w-60 md:w-full">
-              <div className="overflow-hidden rounded-[18px] shadow-pop md:sticky md:top-8">
+              <div className="overflow-hidden rounded-[14px] shadow-lift ring-1 ring-black/5 md:sticky md:top-8">
                 <BookCover book={book} />
               </div>
             </div>
@@ -198,7 +198,7 @@ export default function BookDetail() {
                   </span>
                 )}
               </div>
-              <h1 className="mt-3 text-[26px] leading-tight font-bold tracking-tight text-text sm:text-[30px] lg:text-4xl">{book.title}</h1>
+              <h1 className="mt-4 font-display text-[30px] leading-[1.08] text-text sm:text-[38px] lg:text-[46px]">{book.title}</h1>
               <p className="mt-2 text-base text-muted">{book.author}</p>
               <div className="mt-3 flex items-center gap-2 text-sm text-muted">
                 <Stars rating={book.rating} />
@@ -317,7 +317,7 @@ export default function BookDetail() {
 
           <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_360px]">
             <section className="card p-6 sm:p-8" aria-labelledby="synopsis">
-              <h2 id="synopsis" className="text-lg font-semibold text-text sm:text-xl">
+              <h2 id="synopsis" className="font-display text-xl text-text sm:text-[22px]">
                 {t('Sinopsis')}
               </h2>
               <p className="mt-4 text-[15px] leading-[1.8] text-muted">{book.synopsis}</p>
@@ -330,7 +330,7 @@ export default function BookDetail() {
               </div>
             </section>
             <section className="card p-6 sm:p-8" aria-labelledby="extra-info">
-              <h2 id="extra-info" className="text-lg font-semibold text-text sm:text-xl">
+              <h2 id="extra-info" className="font-display text-xl text-text sm:text-[22px]">
                 {t('Información adicional')}
               </h2>
               <dl className="mt-4 divide-y divide-line">
@@ -346,10 +346,10 @@ export default function BookDetail() {
 
           <section className="mt-12" aria-labelledby="practice-title">
             <div className="mb-4 flex items-center justify-between gap-4">
-              <h2 id="practice-title" className="text-lg font-semibold text-text sm:text-xl">
+              <h2 id="practice-title" className="font-display text-xl text-text sm:text-[22px]">
                 {t('Practica lo que lees')}
               </h2>
-              <Link to={`/practice/${book.id}`} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
+              <Link to={`/practice/${book.id}`} className="link-more">
                 {t('Ver todo')}
               </Link>
             </div>

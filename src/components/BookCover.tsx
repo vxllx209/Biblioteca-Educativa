@@ -41,7 +41,18 @@ export function BookCover({ book, className, showText = true }: { book: Book; cl
       aria-label={t('Portada de {title}', { title: book.title })}
     >
       <Pattern type={pattern} color={accent} />
-      <div className="absolute inset-y-0 left-0 w-[4%] bg-black/10" aria-hidden />
+      {/* Spine crease and a soft gloss, so flat covers read as printed books. */}
+      <div
+        className="absolute inset-y-0 left-0 w-[7%]"
+        style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.28), rgba(255,255,255,0.14) 45%, rgba(0,0,0,0.12) 70%, transparent)' }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'linear-gradient(120deg, rgba(255,255,255,0.16) 0%, transparent 38%, transparent 70%, rgba(0,0,0,0.14) 100%)' }}
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" aria-hidden />
       {showText && (
         <div className="absolute inset-0 flex flex-col justify-between p-[9cqw] pl-[12cqw]">
           <span
@@ -53,7 +64,7 @@ export function BookCover({ book, className, showText = true }: { book: Book; cl
           </span>
           <div>
             <p className="mb-[3cqw] h-[1.5cqw] w-[18cqw] rounded-full" style={{ backgroundColor: accent }} aria-hidden />
-            <p className="text-[10.5cqw] leading-[1.12] font-bold tracking-tight [overflow-wrap:anywhere]">{book.title}</p>
+            <p className="font-display text-[10.5cqw] leading-[1.12] [overflow-wrap:anywhere]">{book.title}</p>
             <p className="mt-[3cqw] text-[6.2cqw] leading-tight font-medium opacity-80">{book.author}</p>
           </div>
         </div>

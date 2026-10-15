@@ -81,7 +81,7 @@ export default function Tasks() {
               aria-pressed={filter === f.value}
               className={cn(
                 'chip gap-2',
-                filter === f.value ? 'border-primary bg-primary text-white' : 'border-line bg-surface text-muted hover:border-line-active hover:text-text',
+                filter === f.value ? 'chip-active' : 'border-line bg-surface text-muted hover:border-line-active hover:text-text',
               )}
             >
               {t(f.label)}

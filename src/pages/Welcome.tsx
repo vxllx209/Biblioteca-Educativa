@@ -1,7 +1,9 @@
-import { BookOpen } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CoverFan } from '../components/BrandPanel'
 import { GoogleButton } from '../components/Form'
+import { Logo } from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { supabase } from '../lib/supabase'
@@ -20,43 +22,45 @@ export default function Welcome() {
   }
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-bg px-6 py-12">
-      <svg className="pointer-events-none absolute -top-40 -right-40 size-[520px] text-soft" viewBox="0 0 100 100" aria-hidden>
-        {[18, 30, 42].map((r) => (
-          <circle key={r} cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="0.6" />
-        ))}
-      </svg>
-      <svg className="pointer-events-none absolute -bottom-48 -left-48 size-[560px] text-soft" viewBox="0 0 100 100" aria-hidden>
-        {[22, 34, 46].map((r) => (
-          <circle key={r} cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="0.6" />
-        ))}
-      </svg>
-
-      <div className="relative flex w-full max-w-sm animate-rise flex-col items-center text-center">
-        <span className="grid size-24 place-items-center rounded-full bg-soft text-accent sm:size-28">
-          <BookOpen className="size-11 sm:size-12" strokeWidth={1.6} aria-hidden />
-        </span>
-        <h1 className="mt-8 text-[26px] font-bold tracking-tight text-text sm:text-4xl">Biblioteca Educativa</h1>
-        <p className="mt-3 text-base text-muted sm:text-lg">{t('Tu biblioteca digital para aprender, descubrir y crecer.')}</p>
-
-        <div className="mt-12 flex w-full flex-col gap-3">
-          <Link to="/login" className="btn-primary h-12">
-            {t('Iniciar sesión')}
-          </Link>
-          <Link to="/register" className="btn-secondary h-12">
-            {t('Crear cuenta')}
-          </Link>
-          <div className="my-2 flex items-center gap-4 text-xs font-medium text-disabled" role="separator">
-            <span className="h-px flex-1 bg-line" />{t('o')}<span className="h-px flex-1 bg-line" />
-          </div>
-          <GoogleButton onClick={google} loading={loading} />
+    <main className="grid min-h-dvh lg:grid-cols-2 lg:gap-4 lg:p-4">
+      {/* Brand stage: full-bleed on mobile, rounded panel on desktop. */}
+      <section className="forest-panel flex flex-col px-6 pt-8 pb-14 sm:px-10 lg:rounded-[28px] lg:p-12">
+        <Logo onDark />
+        <CoverFan className="mx-auto mt-10 h-[230px] w-full max-w-[380px] animate-float sm:h-[260px] lg:my-auto lg:h-[340px] lg:max-w-[460px]" size="md" />
+        <div className="mt-10 lg:mt-0">
+          <span className="gold-rule" aria-hidden />
+          <h1 className="mt-5 max-w-lg font-display text-[34px] leading-[1.08] text-white sm:text-5xl">
+            {t('Tu biblioteca digital para aprender, descubrir y crecer.')}
+          </h1>
         </div>
-        {!supabase && (
-          <p className="mt-10 text-xs text-disabled">
-            {t('Cuenta de demostración:')} javier@biblioteca.edu · demo1234
-          </p>
-        )}
-      </div>
+      </section>
+
+      <section className="relative -mt-6 flex items-center justify-center rounded-t-[28px] bg-bg px-6 pt-10 pb-12 lg:mt-0 lg:rounded-none lg:bg-transparent">
+        <div className="w-full max-w-sm animate-rise">
+          <p className="eyebrow">{t('Bienvenido')}</p>
+          <h2 className="mt-2 font-display text-[28px] leading-tight text-text sm:text-[32px]">{t('Empieza a leer hoy')}</h2>
+          <p className="mt-2 text-[15px] text-muted">{t('Libros, audiolibros y práctica guiada en un solo lugar.')}</p>
+
+          <div className="mt-9 flex w-full flex-col gap-3">
+            <Link to="/login" className="btn-primary group h-12">
+              {t('Iniciar sesión')}
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+            </Link>
+            <Link to="/register" className="btn-secondary h-12">
+              {t('Crear cuenta')}
+            </Link>
+            <div className="my-2 flex items-center gap-4 text-xs font-medium text-disabled" role="separator">
+              <span className="h-px flex-1 bg-line" />{t('o')}<span className="h-px flex-1 bg-line" />
+            </div>
+            <GoogleButton onClick={google} loading={loading} />
+          </div>
+          {!supabase && (
+            <p className="mt-10 rounded-xl border border-dashed border-line px-4 py-3 text-center text-xs text-muted">
+              {t('Cuenta de demostración:')} javier@biblioteca.edu · demo1234
+            </p>
+          )}
+        </div>
+      </section>
     </main>
   )
 }

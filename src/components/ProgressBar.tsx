@@ -25,7 +25,7 @@ export function ProgressBar({ value, label, showValue = false, size = 'sm', clas
         <div
           className={cn(
             'h-full rounded-full transition-[width] duration-300 ease-out',
-            tone === 'success' ? 'bg-success' : 'bg-primary dark:bg-secondary',
+            tone === 'success' ? 'bg-gradient-to-r from-success/70 to-success' : 'bg-gradient-to-r from-secondary to-primary dark:from-secondary dark:to-mint',
           )}
           style={{ width: `${pct}%` }}
         />

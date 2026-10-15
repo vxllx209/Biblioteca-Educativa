@@ -11,14 +11,14 @@ export function MiniPlayer() {
   const pct = duration ? (position / duration) * 100 : 0
   return (
     <div
-      className="fixed inset-x-3 bottom-[calc(68px+env(safe-area-inset-bottom)+8px)] z-40 animate-rise md:right-6 md:bottom-6 md:left-[calc(80px+24px)] lg:left-[calc(256px+32px)]"
+      className="fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+84px)] z-40 animate-rise md:right-6 md:bottom-6 md:left-[calc(80px+24px)] lg:left-[calc(256px+40px)]"
       role="region"
       aria-label={t('Reproductor de audiolibro')}
     >
-      <div className="mx-auto max-w-[1280px] overflow-hidden rounded-[18px] border border-line bg-surface shadow-pop">
+      <div className="glass mx-auto max-w-[1240px] overflow-hidden rounded-[22px] shadow-pop">
         <div className="flex items-center gap-3 p-2.5 pr-3">
           <Link to={`/audio/${book.id}`} className="flex min-w-0 flex-1 items-center gap-3 rounded-xl" aria-label={t('Abrir reproductor: {title}', { title: book.title })}>
-            <span className="w-10 shrink-0 overflow-hidden rounded-lg">
+            <span className="w-11 shrink-0 overflow-hidden rounded-lg shadow-book">
               <BookCover book={book} showText={false} />
             </span>
             <span className="min-w-0">
@@ -28,7 +28,7 @@ export function MiniPlayer() {
           </Link>
           <button
             onClick={toggle}
-            className="grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition-all duration-200 hover:bg-primary-hover active:scale-95"
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white shadow-glow transition-all duration-200 hover:scale-105 hover:bg-primary-hover active:scale-95"
             aria-label={playing ? t('Pausar') : t('Reproducir')}
           >
             {playing && status === 'loading' ? (
@@ -48,7 +48,7 @@ export function MiniPlayer() {
           </button>
         </div>
         <div className="h-1 bg-soft" aria-hidden>
-          <div className="h-full bg-primary transition-[width] duration-200 dark:bg-secondary" style={{ width: `${pct}%` }} />
+          <div className="h-full rounded-r-full bg-gradient-to-r from-secondary to-primary transition-[width] duration-200 dark:to-gold" style={{ width: `${pct}%` }} />
         </div>
       </div>
     </div>

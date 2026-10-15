@@ -20,7 +20,7 @@ export function Toast({ item, onClose }: { item: ToastItem; onClose: () => void 
   return (
     <div
       className={cn(
-        'pointer-events-auto flex w-full max-w-sm animate-rise items-center gap-3 rounded-xl border py-2 pr-2 pl-4 text-sm font-medium shadow-pop',
+        'pointer-events-auto flex w-full max-w-sm animate-rise items-center gap-3 rounded-2xl border py-2 pr-2 pl-4 text-sm font-medium shadow-pop backdrop-blur',
         className,
       )}
     >

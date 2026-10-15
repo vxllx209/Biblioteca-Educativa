@@ -121,7 +121,7 @@ export default function Explore() {
             aria-pressed={!!level}
             className={cn(
               'chip',
-              level ? 'border-primary bg-primary text-white' : 'border-line-active bg-soft text-accent hover:border-primary',
+              level ? 'chip-active' : 'border-line-active bg-soft text-accent hover:border-primary',
             )}
           >
             <GraduationCap className="size-4" aria-hidden /> {t(LEVEL)}
@@ -136,7 +136,7 @@ export default function Explore() {
                 className={cn(
                   'chip',
                   active
-                    ? 'border-primary bg-primary text-white'
+                    ? 'chip-active'
                     : 'border-line bg-surface text-muted hover:border-line-active hover:text-text',
                 )}
               >
@@ -190,7 +190,7 @@ export default function Explore() {
               id="ex-level"
               title={t('Para 4° medio')}
               action={
-                <button onClick={() => update({ nivel: LEVEL })} className="rounded-lg px-2 py-2 text-sm font-semibold text-accent hover:underline">
+                <button onClick={() => update({ nivel: LEVEL })} className="link-more">
                   {t('Ver todo')}
                 </button>
               }

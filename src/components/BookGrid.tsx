@@ -16,7 +16,7 @@ interface Props {
 
 export function BookGrid({ books, loading = false, skeletonCount = 5, empty, className }: Props) {
   const grid = cn(
-    'grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6',
+    'grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-9 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6',
     className,
   )
   if (loading)
