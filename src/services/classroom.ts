@@ -1,4 +1,5 @@
-import { storage } from '../lib/storage'
+import { emptyStudentData, type StudentData } from '../data/insights'
+import { storage, userKey } from '../lib/storage'
 import { supabase } from '../lib/supabase'
 import type { User } from '../types'
 import { t } from '../i18n'
@@ -46,6 +47,9 @@ export interface Submission {
   feedback?: string
   reviewedAt?: string
 }
+
+/** user_state keys a teacher may read, mapped to the StudentData fields they fill. */
+const STUDY_KEYS = { 'progress.v2': 'progress', 'practice.v1': 'practice', 'paes.v1': 'paes', 'activity.v1': 'activity' } as const
 
 export type NewAssignment = Pick<Assignment, 'title' | 'instructions' | 'bookId' | 'practiceSetId' | 'dueDate'>
 
@@ -252,13 +256,24 @@ const remote = {
         .upsert({ assignment_id: assignmentId, student_id: userId, answer: answer.trim(), submitted_at: new Date().toISOString() }),
     )
   },
+  /** Study progress of the given students; RLS only returns the students of the teacher's courses. */
+  async studentData(studentIds: string[]): Promise<Record<string, StudentData>> {
+    const out: Record<string, StudentData> = Object.fromEntries(studentIds.map((id) => [id, emptyStudentData()]))
+    if (!studentIds.length) return out
+    const rows = check(
+      await db().from('user_state').select('user_id, key, value').in('user_id', studentIds).in('key', Object.keys(STUDY_KEYS)),
+    ) as { user_id: string; key: keyof typeof STUDY_KEYS; value: never }[]
+    for (const r of rows) if (out[r.user_id]) out[r.user_id] = { ...out[r.user_id], [STUDY_KEYS[r.key]]: r.value }
+    return out
+  },
 }
 
 // ---------- Local (localStorage) ----------
 
 interface LocalStore {
   courses: Omit<Course, 'teacherName'>[]
-  members: { courseId: string; studentId: string; joinedAt: string }[]
+  /** name and avatarColor are set for the demo course's students, who have no local account. */
+  members: { courseId: string; studentId: string; joinedAt: string; name?: string; avatarColor?: string }[]
   assignments: Assignment[]
   submissions: Submission[]
 }
@@ -310,7 +325,7 @@ const local: typeof remote = {
     await tick()
     return read()
       .members.filter((m) => m.courseId === courseId)
-      .map((m) => ({ studentId: m.studentId, joinedAt: m.joinedAt, ...userName(m.studentId) }))
+      .map((m) => ({ studentId: m.studentId, joinedAt: m.joinedAt, ...(m.name ? { name: m.name, avatarColor: m.avatarColor ?? '#4F806D' } : userName(m.studentId)) }))
       .sort((a, b) => a.name.localeCompare(b.name, 'es'))
   },
   async removeMember(courseId, studentId) {
@@ -388,6 +403,19 @@ const local: typeof remote = {
       const next: Submission = { assignmentId, studentId: userId, answer: answer.trim(), submittedAt: now() }
       return { ...s, submissions: [...s.submissions.filter((x) => x !== existing), next] }
     })
+  },
+  async studentData(studentIds) {
+    await tick()
+    return Object.fromEntries(
+      studentIds.map((id) => {
+        const d = emptyStudentData()
+        for (const [key, field] of Object.entries(STUDY_KEYS)) {
+          const value = storage.get<unknown>(userKey(id, key), null)
+          if (value) Object.assign(d, { [field]: value })
+        }
+        return [id, d]
+      }),
+    )
   },
 }
 

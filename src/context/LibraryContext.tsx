@@ -5,8 +5,10 @@ import { useSyncedState } from '../hooks/useSyncedState'
 import { downloadBook, isBookCached, removeBookDownload } from '../lib/offline'
 import { userKey } from '../lib/storage'
 import type { AppNotification, Book, Bookmark, Download, PracticeResult, PracticeSet, ReadingProgress, Task } from '../types'
+import { POINTS } from '../data/motivation'
 import { useAuth } from './AuthContext'
 import { usePreferences } from './PreferencesContext'
+import { useStudy } from './StudyContext'
 import { useToast } from './ToastContext'
 import { t } from '../i18n'
 
@@ -50,6 +52,7 @@ const byBook = (list: ReadingProgress[]) => Object.fromEntries(list.map((p) => [
 export function LibraryProvider({ children }: { children: ReactNode }) {
   const { user, isPremium } = useAuth()
   const { prefs } = usePreferences()
+  const { logActivity } = useStudy()
   const toast = useToast()
   const uid = user?.id ?? null
   const isDemo = uid === DEMO_USER.id
@@ -176,13 +179,21 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     [setDownloads, toast],
   )
 
+  // Reading keeps the streak alive; reaching a new chapter earns points.
+  const progressRef = useRef(progress)
+  useEffect(() => {
+    progressRef.current = progress
+  }, [progress])
   const saveProgress = useCallback<LibraryValue['saveProgress']>(
-    (p) =>
+    (p) => {
+      const prev = progressRef.current[p.bookId]
+      logActivity(prev && p.chapter > prev.chapter ? POINTS.newChapter : 0)
       setProgress((all) => ({
         ...all,
         [p.bookId]: { ...p, bookmarks: all[p.bookId]?.bookmarks ?? [], updatedAt: new Date().toISOString() },
-      })),
-    [setProgress],
+      }))
+    },
+    [setProgress, logActivity],
   )
 
   const addBookmark = useCallback<LibraryValue['addBookmark']>(
@@ -230,6 +241,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
 
   const savePracticeResult = useCallback<LibraryValue['savePracticeResult']>(
     (set, score, max) => {
+      logActivity(POINTS.practiceDone)
       setPractice((all) => {
         const prev = all[set.id]
         const pct = max ? score / max : 0
@@ -257,7 +269,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
         }),
       )
     },
-    [setPractice, setTasks],
+    [setPractice, setTasks, logActivity],
   )
 
   const markNotificationRead = useCallback(

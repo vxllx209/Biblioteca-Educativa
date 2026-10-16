@@ -1,37 +1,73 @@
+import { supabase } from '../lib/supabase'
 import type { Plan, PlanId } from '../types'
 import { t } from '../i18n'
 
 /**
- * Payment gateway abstraction, ready for a future Stripe integration.
- *
- * To go live: create a backend endpoint that calls `stripe.checkout.sessions.create`
- * with `plan.stripePriceId`, return the session URL and redirect to it here.
- * Until a backend exists, `simulateCheckout` activates the plan locally.
+ * Premium payments.
+ * - With Supabase: Stripe Checkout through the `payments` Edge Function. The plan is only
+ *   activated on the server, after Stripe confirms the payment (thank-you page or webhook).
+ * - Local mode: a simulated purchase, so the whole flow can be tried without a backend.
  */
-export interface CheckoutResult {
-  ok: boolean
-  planId: PlanId
+export const paymentsMode: 'stripe' | 'demo' = supabase ? 'stripe' : 'demo'
+
+/** Stripe's test card: any future expiry date and any CVC. */
+export const TEST_CARD = '4242 4242 4242 4242'
+
+export interface Receipt {
+  plan: PlanId
+  /** In the currency's smallest unit (cents). */
+  amount: number
+  currency: string
+  email: string
   reference: string
+  createdAt: string
+  testMode: boolean
 }
 
-export const PAYMENTS_BACKEND_URL: string | null = import.meta.env.VITE_PAYMENTS_URL ?? null
-
-export async function startCheckout(plan: Plan, userEmail: string): Promise<CheckoutResult> {
-  if (PAYMENTS_BACKEND_URL && plan.stripePriceId) {
-    const res = await fetch(`${PAYMENTS_BACKEND_URL}/checkout`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ priceId: plan.stripePriceId, email: userEmail }),
-    })
-    if (!res.ok) throw new Error(t('No se pudo iniciar el pago'))
-    const { url } = (await res.json()) as { url: string }
-    window.location.assign(url)
-    return { ok: true, planId: plan.id, reference: 'redirect' }
+async function call<T>(body: Record<string, unknown>): Promise<T> {
+  const { data, error } = await supabase!.functions.invoke<T>('payments', { body })
+  if (error) {
+    const res = await (error as { context?: Response }).context?.json?.().catch(() => null)
+    throw new Error(
+      res?.code === 'NOT_FOUND' || res?.code === 'not_configured'
+        ? t('Los pagos aún no están activados en el servidor.')
+        : res?.code === 'pending'
+        ? t('Stripe todavía está procesando el pago. Espera unos segundos e inténtalo de nuevo.')
+        : res?.code === 'auth'
+          ? t('Tu sesión expiró. Inicia sesión de nuevo.')
+          : t('No pudimos conectar con la pasarela de pago. Inténtalo de nuevo.'),
+    )
   }
-  return simulateCheckout(plan)
+  if (!data) throw new Error(t('No pudimos conectar con la pasarela de pago. Inténtalo de nuevo.'))
+  return data
 }
 
-async function simulateCheckout(plan: Plan): Promise<CheckoutResult> {
-  await new Promise((r) => setTimeout(r, 900))
-  return { ok: true, planId: plan.id, reference: `sim_${Date.now().toString(36)}` }
+/** Stripe mode: redirects to Stripe Checkout (never returns). Demo mode: returns the simulated receipt. */
+export async function startCheckout(plan: Plan, email: string): Promise<Receipt | null> {
+  if (paymentsMode === 'stripe') {
+    const { url } = await call<{ url: string }>({ action: 'checkout', planId: plan.id, origin: window.location.origin })
+    window.location.assign(url)
+    return null
+  }
+  await new Promise((r) => setTimeout(r, 1200))
+  return {
+    plan: plan.id,
+    amount: Math.round(plan.price * 100),
+    currency: 'usd',
+    email,
+    reference: `DEMO-${Date.now().toString(36).toUpperCase()}`,
+    createdAt: new Date().toISOString(),
+    testMode: true,
+  }
 }
+
+/** Verifies a finished Checkout Session with Stripe and activates the plan on the server. */
+export const confirmCheckout = (sessionId: string) => call<Receipt>({ action: 'confirm', sessionId })
+
+/** Back to the free plan: cancels the Stripe subscription. */
+export async function cancelSubscription() {
+  if (paymentsMode === 'stripe') await call<{ plan: 'free' }>({ action: 'cancel' })
+}
+
+export const formatAmount = (amount: number, currency: string) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.toUpperCase() }).format(amount / 100)

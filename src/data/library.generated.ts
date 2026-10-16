@@ -8251,5 +8251,6432 @@ export const LIBRARY: Record<string, LibraryMeta> = {
     "chars": 9781
    }
   ]
+ },
+ "tradiciones-peruanas": {
+  "words": 85437,
+  "bytes": 523903,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/77298",
+  "chapters": [
+   {
+    "title": "Autobiografía",
+    "chars": 2337
+   },
+   {
+    "title": "Un predicador de lujo",
+    "chars": 4563
+   },
+   {
+    "title": "Las orejas del alcalde",
+    "chars": 12291
+   },
+   {
+    "title": "Una vida por una honra",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL DÉCIMOQUINTO VIRREY DEL PERÚ",
+    "chars": 16970
+   },
+   {
+    "title": "¡Beba, padre, que le da la vida!",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DE MANDO DE UNA VIRREINA",
+    "chars": 7573
+   },
+   {
+    "title": "La emplazada",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL VIRREY ARZOBISPO",
+    "chars": 13945
+   },
+   {
+    "title": "Muerta en vida",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL VIGÉSIMO SEXTO Y VIGÉSIMO SÉPTIMO VIRREYES",
+    "chars": 7940
+   },
+   {
+    "title": "Rudamente, pulidamente, mañosamente",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL VIRREY AMAT",
+    "chars": 14980
+   },
+   {
+    "title": "La gatita de Mari-Ramos que halaga con la cola y araña con las manos",
+    "chars": 21256
+   },
+   {
+    "title": "¡A iglesia me llamo!",
+    "subtitle": "I",
+    "chars": 10228
+   },
+   {
+    "title": "El caballero de la Virgen",
+    "subtitle": "I",
+    "chars": 7445
+   },
+   {
+    "title": "Capricho de Limeña",
+    "chars": 11846
+   },
+   {
+    "title": "La niña del antojo",
+    "chars": 6531
+   },
+   {
+    "title": "La llorona del Viernes Santo",
+    "subtitle": "CUADRO TRADICIONAL DE COSTUMBRES ANTIGUAS",
+    "chars": 22257
+   },
+   {
+    "title": "La conspiración de la saya y manto",
+    "subtitle": "I",
+    "chars": 13751
+   },
+   {
+    "title": "Monja y cartujo",
+    "subtitle": "TRADICIÓN EN QUE SE PRUEBA QUE DEL ODIO AL AMOR HAY POCO TRECHO",
+    "chars": 13396
+   },
+   {
+    "title": "El alcalde de Paucarcolla",
+    "subtitle": "DE CÓMO EL DIABLO, CANSADO DE GOBERNAR EN LOS INFIERNOS, VINO A SER ALCALDE EN EL PERÚ",
+    "chars": 9350
+   },
+   {
+    "title": "Genialidades de la «Perricholi»",
+    "subtitle": "(Al Sr. Enrique de Borges, ministro de Francia en el Perú y traductor de mis Tradiciones)",
+    "chars": 15083
+   },
+   {
+    "title": "Mosquita muerta",
+    "chars": 2973
+   },
+   {
+    "title": "La misa negra",
+    "subtitle": "CUENTO DE LA ABUELITA",
+    "chars": 6348
+   },
+   {
+    "title": "Las clarisas de Trujillo",
+    "subtitle": "I",
+    "chars": 11824
+   },
+   {
+    "title": "La camisa de Margarita",
+    "chars": 6201
+   },
+   {
+    "title": "El príncipe del Líbano",
+    "chars": 4381
+   },
+   {
+    "title": "Creo que hay infierno",
+    "chars": 5266
+   },
+   {
+    "title": "Un drama íntimo",
+    "chars": 11669
+   },
+   {
+    "title": "La viudita",
+    "chars": 4738
+   },
+   {
+    "title": "El Obispo de los Retruécanos",
+    "chars": 4193
+   },
+   {
+    "title": "Los escrúpulos de Halicarnaso",
+    "subtitle": "I",
+    "chars": 6594
+   },
+   {
+    "title": "Los mosquitos de Santa Rosa",
+    "chars": 4188
+   },
+   {
+    "title": "Motín de limeñas",
+    "chars": 6052
+   },
+   {
+    "title": "La gran querella de los barberos",
+    "chars": 11143
+   },
+   {
+    "title": "La proeza de Benites",
+    "chars": 9466
+   },
+   {
+    "title": "Cosas tiene el rey cristiano que parecen de pagano",
+    "subtitle": "I",
+    "chars": 24491
+   },
+   {
+    "title": "La venganza de un cura",
+    "subtitle": "I",
+    "chars": 8385
+   },
+   {
+    "title": "Los panecitos de San Nicolás",
+    "chars": 8093
+   },
+   {
+    "title": "Un zapato acusador",
+    "chars": 5851
+   },
+   {
+    "title": "Dos palomitas sin hiel",
+    "subtitle": "I",
+    "chars": 7945
+   },
+   {
+    "title": "Una aventura amorosa del padre Chuecas",
+    "subtitle": "I",
+    "chars": 8464
+   },
+   {
+    "title": "Un tenorio americano",
+    "subtitle": "I",
+    "chars": 13523
+   },
+   {
+    "title": "El divorcio de la condesita",
+    "subtitle": "I",
+    "chars": 10027
+   },
+   {
+    "title": "El cigarrero de Huacho",
+    "subtitle": "(CUENTO TRADICIONAL SOBRE UNOS AMORES QUE TUVO EL DIABLO)",
+    "chars": 11874
+   },
+   {
+    "title": "Zurrón-curriche",
+    "subtitle": "CONSEJA POPULAR",
+    "chars": 10528
+   },
+   {
+    "title": "Altivez de limeña",
+    "subtitle": "I",
+    "chars": 5175
+   },
+   {
+    "title": "¡Pues bonita soy yo, la Castellanos!",
+    "chars": 5689
+   },
+   {
+    "title": "El latín de una limeña",
+    "chars": 8033
+   },
+   {
+    "title": "Conversión de un libertino",
+    "chars": 5338
+   },
+   {
+    "title": "Un virrey hereje y un campanero bellaco",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL DECIMOSEPTIMO VIRREY DEL PERÚ",
+    "chars": 16670
+   },
+   {
+    "title": "¡¡Buena laya de fraile!!",
+    "subtitle": "CRÓNICA DE LA ÉPOCA DEL VIRREY MARQUÉS DE VILUMA",
+    "chars": 16120
+   },
+   {
+    "title": "Traslado a Judas",
+    "subtitle": "CUENTO DISPARATADO DE LA TÍA CATITA",
+    "chars": 8271
+   },
+   {
+    "title": "Gethsemaní",
+    "chars": 5184
+   },
+   {
+    "title": "Virreyes y Gobernantes del Perú",
+    "subtitle": "(1588-1871)",
+    "chars": 1679
+   },
+   {
+    "title": "Notas",
+    "chars": 561
+   }
+  ]
+ },
+ "historia-de-las-indias": {
+  "words": 173018,
+  "bytes": 1004221,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/49298",
+  "chapters": [
+   {
+    "title": "Advertencia preliminar",
+    "chars": 7574
+   },
+   {
+    "title": "Prólogo de la historia (1/2)",
+    "chars": 47126
+   },
+   {
+    "title": "Prólogo de la historia (2/2)",
+    "chars": 10741
+   },
+   {
+    "title": "Capítulo primero",
+    "chars": 10826
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 9799
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 9855
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 8056
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "En el cual se ponen cinco razones que movieron á Cristóbal Colon para intentar su descubrimiento destas Indias, las cuales asignó D. Hernando Colon, hijo del mismo don Cristóbal Colon",
+    "chars": 5630
+   },
+   {
+    "title": "Capítulo VI",
+    "chars": 18235
+   },
+   {
+    "title": "Capítulo VII",
+    "chars": 11160
+   },
+   {
+    "title": "Capítulo VIII",
+    "chars": 13157
+   },
+   {
+    "title": "Capítulo IX",
+    "chars": 9550
+   },
+   {
+    "title": "Capítulo X",
+    "chars": 6940
+   },
+   {
+    "title": "Capítulo XI",
+    "chars": 6064
+   },
+   {
+    "title": "Capítulo XII",
+    "chars": 10183
+   },
+   {
+    "title": "Capítulo XIII",
+    "chars": 10877
+   },
+   {
+    "title": "Capítulo XIV",
+    "chars": 7813
+   },
+   {
+    "title": "Capítulo XV",
+    "chars": 22608
+   },
+   {
+    "title": "Capítulo XVI",
+    "chars": 26765
+   },
+   {
+    "title": "Capítulo XVII",
+    "chars": 10599
+   },
+   {
+    "title": "Capítulo XVIII",
+    "chars": 30734
+   },
+   {
+    "title": "Capítulo XIX",
+    "chars": 16867
+   },
+   {
+    "title": "Capítulo XX",
+    "chars": 15532
+   },
+   {
+    "title": "Capítulo XXI",
+    "chars": 5945
+   },
+   {
+    "title": "Capítulo XXII",
+    "chars": 15384
+   },
+   {
+    "title": "Capítulo XXIII",
+    "chars": 9063
+   },
+   {
+    "title": "Capítulo XXIV",
+    "chars": 19227
+   },
+   {
+    "title": "Capítulo XXV",
+    "chars": 11993
+   },
+   {
+    "title": "Capítulo XXVI",
+    "chars": 10906
+   },
+   {
+    "title": "Capítulo XXVII",
+    "chars": 19421
+   },
+   {
+    "title": "Capítulo XXVIII",
+    "chars": 13547
+   },
+   {
+    "title": "Capítulo XXIX",
+    "chars": 22890
+   },
+   {
+    "title": "Capítulo XXX",
+    "chars": 8442
+   },
+   {
+    "title": "Capítulo XXXI",
+    "chars": 9306
+   },
+   {
+    "title": "Capítulo XXXII",
+    "chars": 12134
+   },
+   {
+    "title": "Capítulo XXXIII",
+    "chars": 7779
+   },
+   {
+    "title": "Capítulo XXXIV",
+    "chars": 11619
+   },
+   {
+    "title": "Capítulo XXXV",
+    "chars": 8709
+   },
+   {
+    "title": "Capítulo XXXVI",
+    "chars": 11725
+   },
+   {
+    "title": "Capítulo XXXVII",
+    "chars": 10825
+   },
+   {
+    "title": "Capítulo XXXVIII",
+    "chars": 12127
+   },
+   {
+    "title": "Capítulo XXXIX",
+    "chars": 14003
+   },
+   {
+    "title": "Capítulo XL",
+    "chars": 16416
+   },
+   {
+    "title": "Capítulo XLI",
+    "chars": 13308
+   },
+   {
+    "title": "Capítulo XLII",
+    "chars": 12732
+   },
+   {
+    "title": "Capítulo XLIII",
+    "chars": 12922
+   },
+   {
+    "title": "Capítulo XLIV",
+    "chars": 14882
+   },
+   {
+    "title": "Capítulo XLV",
+    "chars": 11996
+   },
+   {
+    "title": "Capítulo XLVI",
+    "chars": 16761
+   },
+   {
+    "title": "Capítulo XLVII",
+    "chars": 17094
+   },
+   {
+    "title": "Capítulo XLVIII",
+    "chars": 14954
+   },
+   {
+    "title": "Capítulo XLIX",
+    "chars": 5998
+   },
+   {
+    "title": "Capítulo L",
+    "chars": 7026
+   },
+   {
+    "title": "Capítulo LI",
+    "chars": 5680
+   },
+   {
+    "title": "Capítulo LII",
+    "chars": 7376
+   },
+   {
+    "title": "Capítulo LIII",
+    "chars": 10458
+   },
+   {
+    "title": "Capítulo LIV",
+    "chars": 8194
+   },
+   {
+    "title": "Capítulo LV",
+    "chars": 9709
+   },
+   {
+    "title": "Capítulo LVI",
+    "chars": 11311
+   },
+   {
+    "title": "Capítulo LVII",
+    "chars": 5466
+   },
+   {
+    "title": "Capítulo LVIII",
+    "chars": 8255
+   },
+   {
+    "title": "Capítulo LIX",
+    "chars": 7711
+   },
+   {
+    "title": "Capítulo LX",
+    "chars": 10583
+   },
+   {
+    "title": "Capítulo LXI",
+    "chars": 7607
+   },
+   {
+    "title": "Capítulo LXII",
+    "chars": 7628
+   },
+   {
+    "title": "Capítulo LXIII",
+    "chars": 9438
+   },
+   {
+    "title": "Capítulo LXIV",
+    "chars": 9350
+   },
+   {
+    "title": "Capítulo LXV",
+    "chars": 10422
+   },
+   {
+    "title": "Capítulo LXVI",
+    "chars": 6487
+   },
+   {
+    "title": "Capítulo LXVII",
+    "chars": 14834
+   },
+   {
+    "title": "Capítulo LXVIII",
+    "chars": 7772
+   },
+   {
+    "title": "Capítulo LXIX",
+    "chars": 12209
+   },
+   {
+    "title": "Capítulo LXX",
+    "chars": 3613
+   },
+   {
+    "title": "Capítulo LXXI",
+    "chars": 6977
+   },
+   {
+    "title": "Capítulo LXXII",
+    "chars": 5964
+   },
+   {
+    "title": "Capítulo LXXIII",
+    "chars": 7363
+   },
+   {
+    "title": "Capítulo LXXIV",
+    "chars": 10522
+   },
+   {
+    "title": "Capítulo LXXV",
+    "chars": 2703
+   },
+   {
+    "title": "Capítulo LXXVI",
+    "chars": 9230
+   },
+   {
+    "title": "Capítulo LXXVII",
+    "chars": 3160
+   },
+   {
+    "title": "Capítulo LXXVIII",
+    "chars": 10108
+   },
+   {
+    "title": "Capítulo LXXIX",
+    "chars": 10440
+   },
+   {
+    "title": "Capítulo LXXX",
+    "chars": 10157
+   },
+   {
+    "title": "Capítulo LXXXI",
+    "chars": 8287
+   },
+   {
+    "title": "Capítulo LXXXII",
+    "chars": 10970
+   },
+   {
+    "title": "Notas",
+    "chars": 2987
+   }
+  ]
+ },
+ "las-helenicas": {
+  "words": 94942,
+  "bytes": 585424,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/66949",
+  "chapters": [
+   {
+    "title": "Prólogo",
+    "chars": 27484
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro primero",
+    "chars": 11604
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 5355
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 5683
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 6442
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 5655
+   },
+   {
+    "title": "Capítulo VI",
+    "chars": 12583
+   },
+   {
+    "title": "Capítulo VII",
+    "chars": 11871
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro segundo",
+    "chars": 10169
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 7377
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 23075
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 20339
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro tercero",
+    "chars": 13555
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 15847
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 7026
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 14840
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 12579
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro cuarto",
+    "chars": 11882
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 8952
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 8555
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 12127
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 11231
+   },
+   {
+    "title": "Capítulo VI",
+    "chars": 6257
+   },
+   {
+    "title": "Capítulo VII",
+    "chars": 4106
+   },
+   {
+    "title": "Capítulo VIII",
+    "chars": 21111
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro quinto",
+    "chars": 16958
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 20758
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 12639
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 29585
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro sexto",
+    "chars": 10755
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 14636
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 10530
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 18736
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 27588
+   },
+   {
+    "title": "Capítulo primero",
+    "part": "Libro séptimo",
+    "chars": 25601
+   },
+   {
+    "title": "Capítulo II",
+    "chars": 12797
+   },
+   {
+    "title": "Capítulo III",
+    "chars": 7483
+   },
+   {
+    "title": "Capítulo IV",
+    "chars": 22594
+   },
+   {
+    "title": "Capítulo V",
+    "chars": 13187
+   },
+   {
+    "title": "Notas",
+    "chars": 24795
+   }
+  ]
+ },
+ "suma-narracion-incas": {
+  "words": 35212,
+  "bytes": 202650,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/25705",
+  "chapters": [
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Que trata del Con Tici Viracocha[4], que ellos tienen que fué el Hacedor, é de cómo hizo el cielo é tierra é las gentes indios destas provincias del Perú",
+    "chars": 2919
+   },
+   {
+    "title": "Cap. II",
+    "subtitle": "En que se trata cómo salieron las gentes desta tierra por mandado de Viracocha é asímesmo de aquellos sus viracochas que para ello enviaba; y como el Con Tici Viracocha ansimesmo se partió, é los dos que le quedaron, á hacer la mesma obra, y cómo se juntó, al fin de haber esto acabado, con los suyos, y se metió por la mar, adonde nunca más le vieron",
+    "chars": 6758
+   },
+   {
+    "title": "Cap. III",
+    "subtitle": "En que trata del sitio y manera en (así) que tenia el lugar do ora dicen y llaman la gran ciudad del Cuzco, y del producimiento de los Orejones y segun que ellos tienen que producieron y salieron de cierta cueva",
+    "chars": 4900
+   },
+   {
+    "title": "Cap. IV",
+    "subtitle": "En que trata cómo Ayar Mango se descendió de los altos de Guanacaure á vivir á otra quebrada, donde, despues de cierto tiempo, de allí se pasó á vivir á la ciudad del Cuzco, en compañía de Alcaviza, dejando en el cerro Guanacaure á su compañero Ayar Oche hecho ídolo, como por la historia más largo lo contará",
+    "chars": 4315
+   },
+   {
+    "title": "Cap. V",
+    "subtitle": "En que trata cómo murió Ayar Auca, compañero de Mango Capac, y cómo hubo un hijo Mango Capac, el cual se llamó Sinchi Roca[8]; é cómo murió Mango Capac, y cómo murió despues de esto Alcaviza despues; y de los Señores que deste Sinchi Roca sucedieron hasta Viracocha Inca, y de los casos y cosas que acaecieron en los tiempos destos hasta Viracocha Inca",
+    "chars": 3468
+   },
+   {
+    "title": "Cap. VI",
+    "subtitle": "En que trata de cómo habia muchos Señores en la redondez del Cuzco, que se intitulaban reyes y Señores en las provincias donde estaban; é de cómo se levantó de entre estos un Señor Chanca que llamaron Uscovilca, é cómo hizo guerra él y sus capitanes á los demás Señores, é los sujetó, é cómo vino sobre el Cuzco, tiniendo noticia de Viracocha Inca, é de cómo Viracocha Inca le invió á dar obediencia, é despues se salió Viracocha Inca á cierto peñol, llevando consigo todos los de la ciudad",
+    "chars": 8568
+   },
+   {
+    "title": "Cap. VII",
+    "subtitle": "En que trata cómo despues de quedado Inca Yupanqui en la ciudad, Uscovilca invió sus mensajeros á Viracocha Inca como supo que se habia retraido al peñol; y cómo ansimismo, sabido que Inca Yupanqui se quedaba en la ciudad y al fin que se quedaba, y cómo le invió sus mensajeros ansímismo al Inca Yupanqui; y cómo Inca Yupanqui envió á pedir socorro á su padre y á las demás provincias en torno de la ciudad, y lo que entre ellos pasó",
+    "chars": 8947
+   },
+   {
+    "title": "Cap. VIII",
+    "subtitle": "En que trata del ser y virtudes de Inca Yupanqui, é de cómo, apartado que fué de sus compañeros, se puso en oracion; é cómo tuvo, segun dicen los autores, revelacion del cielo; é cómo fué favorescido y dió batalla á Uscovilca y le prendió y mató en ella, y de otros casos y cosas que acaecieron",
+    "chars": 7720
+   },
+   {
+    "title": "Cap. IX",
+    "subtitle": "En que trata cómo Inca Yupanqui, despues de haber desbaratado y muerto á Uscovilca, tomó sus vestidos y ensinias de Señor que traia, é los demás capitanes prisioneros que habia traido, y las llevó á su padre Viracocha Inca, y las cosas que pasó con su padre, é cómo ordenó el padre de lo matar, y cómo se volvió Inca Yupanqui á la ciudad del Cuzco; é cómo desde cierto tiempo murió Viracocha Inca, y de las cosas que entre ellos pasaron en este medio tiempo; é de una costumbre que estos Señores tenian en honrar los capitanes que de la guerra venian victoriosos",
+    "chars": 19837
+   },
+   {
+    "title": "Cap. X",
+    "subtitle": "En que trata de cómo Inca Yupanqui hizo juntar su gente y les repartió el despojo; y lo que se hizo de la gente que el Viracocha le diera por la oracion que á él hiciera; y cómo tuvo nueva de la gente que hacian los capitanes de Uscovilca, y de cómo fué sobre ellos y los venció, y cómo, despues de esto, tornó otra vez á partir el despojo que en esta batalla hubieron; y de las cosas que en este tiempo pasaron",
+    "chars": 13862
+   },
+   {
+    "title": "Cap. XI",
+    "subtitle": "En que trata de cómo Inca Yupanqui hizo la Casa del Sol y el bulto del sol, y de los grandes ayunos, idolatrias y ofrecimientos que en ello hizo",
+    "chars": 13243
+   },
+   {
+    "title": "Cap. XII",
+    "subtitle": "En que trata cómo Inca Yupanqui hizo juntar los señores de toda la tierra que hasta allí á él eran subjetos, y cómo fortaleció é hizo repartir las tierras en torno de la ciudad del Cuzco; y cómo hizo hacer los primeros depósitos de comidas é otros proveimientos que para el bien de la república en el Cuzco eran necesarios",
+    "chars": 9279
+   },
+   {
+    "title": "Cap. XIII",
+    "subtitle": "En que trata de cómo se juntaron, despues de un año pasado, los señores caciques, y cómo Inca Yupanqui hizo reparar los dos arroyos que por la ciudad del Cuzco pasan; y cómo casó los mancebos solteros que habia, y cómo dió órden en el proveimiento de comidas que en la ciudad del Cuzco eran necesarias y república dél",
+    "chars": 14070
+   },
+   {
+    "title": "Cap. XIV",
+    "subtitle": "En que trata cómo Inca Yupanqui constituyó y ordenó la órden que se habia de tener en el hacer de los orejones, y los ayunos, cerimonias é sacrificios que en el tal ordenar se habian de hacer, constituyendo en este tiempo que esto se hiciese, una fiesta al sol, la cual fiesta y ordenamiento de orejones llamó y nombró Raymi",
+    "chars": 16391
+   },
+   {
+    "title": "Cap. XV",
+    "subtitle": "En que trata de cómo Inca Yupanqui señaló el año y los meses y los puso nombre, y de las grandes idolatrías que constituyó en las fiestas que ansí ordenó que se hiciesen en los tales meses; é de cómo hizo relojes de sol por los cuales viesen los de la ciudad del Cuzco cuando era tiempo de sembrar sus sementeras",
+    "chars": 6107
+   },
+   {
+    "title": "Cap. XVI",
+    "subtitle": "En que trata cómo Inca Yupanqui reedificó la ciudad del Cuzco, é cómo la repartió entre los suyos",
+    "chars": 14488
+   },
+   {
+    "title": "Cap. XVII",
+    "subtitle": "En que trata de cómo los señores del Cuzco quisieron que Inca Yupanqui tomase la borla del Estado, viendo su gran saber é valerosidad, y él no la quiso rescebir, porque su padre Viracocha Inca era vivo, é si no fuese por su mano, que no la pensaba rescebir; é cómo vino su padre Viracocha Inca y se la dió; é de cierta afrenta que despues desto hizo á su padre Viracocha Inca, é de la fin é muerte de Viracocha Inca",
+    "chars": 18527
+   },
+   {
+    "title": "Cap. XVIII",
+    "subtitle": "En el cual se contiene cómo Inca Yupanqui Pachacuti juntó los suyos, en la cual junta les mandó que todos se aderezasen con sus armas para cierto dia, porque queria ir á buscar tierras é gentes que ganar é conquistar é sujetar al dominio é servidumbre de la ciudad del Cuzco; é cómo salió con toda su gente é amigos, é ganó é conquistó muchos pueblos y provincias, é de lo que en la tal jornada le acaeció á él y á sus capitanes",
+    "chars": 15473
+   }
+  ]
+ },
+ "cronica-del-peru": {
+  "words": 66873,
+  "bytes": 395439,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/25255",
+  "chapters": [
+   {
+    "title": "Cap. IV",
+    "subtitle": "Que trata lo que dicen los indios deste reino que habia antes que los Incas fuesen conocidos, y de cómo habia fortalezas por los collados, de donde salian á se dar guerra los unos á los otros",
+    "chars": 3794
+   },
+   {
+    "title": "Cap. V",
+    "subtitle": "De lo que dicen estos naturales de Ticiviracocha, y de la opinion que algunos tienen que atravesó un Apóstol por esta tierra, y del templo que hay en Cáchan y de lo que allí pasó",
+    "chars": 8815
+   },
+   {
+    "title": "Cap. VI",
+    "subtitle": "De cómo remanecieron en Pacarec Tampu ciertos hombres y mugeres, y de lo que cuentan que hicieron despues que de allí salieron",
+    "chars": 5851
+   },
+   {
+    "title": "Cap. VII",
+    "subtitle": "Cómo estando los dos hermanos en Tampu Quiru, vieron salir con alas de pluma al que habian con engaño metido en la cueva, el cual les dijo que fuesen á fundar la gran ciudad del Cuzco; y como partieron de Tampu Quiru",
+    "chars": 9663
+   },
+   {
+    "title": "Cap. VIII",
+    "subtitle": "Cómo despues que Manco Capac vió que sus hermanos se habian convertido en piedras, vino á un valle donde encontró algunas gentes, y por él fué fundada y edificada la antigua y muy riquísima ciudad del Cuzco, cabeza principal que fué de todo el imperio de los Incas",
+    "chars": 2602
+   },
+   {
+    "title": "Cap. IX",
+    "subtitle": "En que se da aviso al lector de la causa porquel autor, dejando de proseguir con la sucesion de los reyes, quiso contar el gobierno que tuvieron, y sus leyes, costumbres qué tales fueron",
+    "chars": 2903
+   },
+   {
+    "title": "Cap. X",
+    "subtitle": "De cómo el Señor, despues de tomada la borla del reino, se casaba con su hermana la Coya, ques nombre de reyna; y cómo era permitido tener muchas mugeres, salvo que, entre todas, sólo la Coya era la legítima y más principal",
+    "chars": 2945
+   },
+   {
+    "title": "Cap. XI",
+    "subtitle": "Cómo se usó entre los Incas que del Inca que hobiese sido valeroso, que hobiese ensanchado el reyno ó hecho otra cosa digna de memoria, la hobiese dél en sus cantares y en los bultos; y no siendo sino remisio y cobarde, se mandaba que se tratase poco dél",
+    "chars": 5621
+   },
+   {
+    "title": "Cap. XII",
+    "subtitle": "De cómo tenian coronistas para saber sus hechos, y la órden de los quipos como fué, y lo que dello vemos agora",
+    "chars": 7054
+   },
+   {
+    "title": "Cap. XIII",
+    "subtitle": "Cómo los Señores del Perú eran muy amados por una parte y temidos por otra de todos sus súbditos, y cómo ninguno de ellos, aunque fuese gran señor muy antiguo en su linage, podia entrar en su presencia, si no era con una carga en señal de grande obediencia",
+    "chars": 4546
+   },
+   {
+    "title": "Cap. XIV",
+    "subtitle": "De cómo fué muy grande la riqueza que tuvieron y poseyeron los reyes del Perú y cómo mandaban asistir siempre hijos de los señores en su Córte",
+    "chars": 4429
+   },
+   {
+    "title": "Cap. XV",
+    "subtitle": "De cómo se hacian los edificios para los Señores, y los caminos reales para andar por el reino",
+    "chars": 5560
+   },
+   {
+    "title": "Cap. XVI",
+    "subtitle": "Cómo y de qué manera se hacian las cazas reales por los Señores del Perú",
+    "chars": 3589
+   },
+   {
+    "title": "Cap. XVII",
+    "subtitle": "Que trata la órden que tenian los Incas, y cómo en muchos lugares hacian de las tierras estériles fértiles, con el proveimiento que para ello daban",
+    "chars": 6970
+   },
+   {
+    "title": "Cap. XVIII",
+    "subtitle": "Que trata la órden que habia en el tributar las provincias á los reyes, y del concierto que en ello se tenia",
+    "chars": 9283
+   },
+   {
+    "title": "Cap. XIX",
+    "subtitle": "De cómo los reyes del Cuzco mandaban que se tuviese cuenta en cada año con todas las personas que morian y nacian en todo su reino, y cómo todos trabajaban y ninguno podia ser pobre con los depósitos",
+    "chars": 3423
+   },
+   {
+    "title": "Cap. XX",
+    "subtitle": "De cómo habia gobernadores puestos en las provincias, y de la manera que tenian los reyes, cuando salian á visitarlas, y cómo tenian por armas unas culebras ondadas con unos bastones",
+    "chars": 6902
+   },
+   {
+    "title": "Cap. XXI",
+    "subtitle": "Cómo fueron puestas las postas en este reino",
+    "chars": 4672
+   },
+   {
+    "title": "Cap. XXII",
+    "subtitle": "Cómo se ponian los mitimaes, y cuántas suertes dellos habia, y cómo eran estimados por los Incas",
+    "chars": 8749
+   },
+   {
+    "title": "Cap. XXIII",
+    "subtitle": "Del gran concierto que se tenia cuando salian del Cuzco para la guerra los Señores, y cómo castigaban los ladrones",
+    "chars": 5535
+   },
+   {
+    "title": "Cap. XXIV",
+    "subtitle": "Cómo los Incas mandaron hacer á los naturales pueblos concertados, repartiendo los campos en donde sobrello podrian haber debates, y cómo se mandó que todos generalmente hablasen la lengua del Cuzco",
+    "chars": 4329
+   },
+   {
+    "title": "Cap. XXV",
+    "subtitle": "Cómo los Incas fueron limpios del pecado nefando y de otras fealdades que se han visto en otros príncipes del mundo",
+    "chars": 4787
+   },
+   {
+    "title": "Cap. XXVI",
+    "subtitle": "De cómo tenian los Incas consejeros y ejecutores de la justicia, y la cuenta que tenian en el tiempo",
+    "chars": 2528
+   },
+   {
+    "title": "Cap. XXVII",
+    "subtitle": "Que trata la riqueza del templo de Curicancha y de la veneracion que los Incas le tenian",
+    "chars": 6362
+   },
+   {
+    "title": "Cap. XXVIII",
+    "subtitle": "Que trata los templos que sin este se tenian por más principales, y los nombres que tenian",
+    "chars": 7338
+   },
+   {
+    "title": "Cap. XXIX",
+    "subtitle": "De cómo se hacia la Capaccocha y cuánto se usó entre los Incas, lo cual se entiende dones y ofrendas que hacian á sus ídolos",
+    "chars": 4977
+   },
+   {
+    "title": "Cap. XXX",
+    "subtitle": "De cómo se hacían grandes fiestas y sacrificios á la grande y solene fiesta llamada Hátun Raimi",
+    "chars": 7358
+   },
+   {
+    "title": "Cap. XXXI",
+    "subtitle": "Del segundo rey ó Inca que hobo en el Cuzco, llamado Sinchi Roca. [101]",
+    "chars": 4468
+   },
+   {
+    "title": "Cap. XXXII",
+    "subtitle": "Del tercero rey que hubo en el Cuzco, llamado Lloque Yupanqui",
+    "chars": 4058
+   },
+   {
+    "title": "Cap. XXXIII",
+    "subtitle": "Del cuarto Inca que hobo en el Cuzco, llamado Mayta Capac y de lo que pasó en el tiempo de su reinado",
+    "chars": 2374
+   },
+   {
+    "title": "Cap. XXXIV",
+    "subtitle": "Del quinto rey que hobo en el Cuzco, llamado Capac Yupanqui",
+    "chars": 5649
+   },
+   {
+    "title": "Cap. XXXV",
+    "subtitle": "Del sexto rey que hubo en el Cuzco y lo que pasó en su tiempo, y de la fábula ó historia que cuentan del rio que pasa por medio de la ciudad del Cuzco",
+    "chars": 4589
+   },
+   {
+    "title": "Cap. XXXVI",
+    "subtitle": "Del séptimo rey ó Inca que en el Cuzco hobo, llamado Inca Yupanqui",
+    "chars": 2106
+   },
+   {
+    "title": "Cap. XXXVII",
+    "subtitle": "Cómo, queriendo salir este Inca á hacer guerra por la provincia del Collao, se levantó cierto alboroto en el Cuzco, y de cómo los Chancas vencieron á los Quichuas, y les ganaron su señorío",
+    "chars": 3469
+   },
+   {
+    "title": "Cap. XXXVIII",
+    "subtitle": "Cómo los orejones trataron sobre quien seria Inca, y lo que pasó hasta que salió con la borla Viracocha Inga, que fué el octavo rey que reinó",
+    "chars": 5844
+   },
+   {
+    "title": "Cap. XXXIX",
+    "subtitle": "De cómo Viracocha Inga tiró una piedra de fuego con su honda á Caitomarca, y cómo le hicieron reverencia",
+    "chars": 3735
+   },
+   {
+    "title": "Cap. XL",
+    "subtitle": "De cómo en el Cuzco se levantó un tirano, y del alboroto que hobo, y de cómo fueron castigadas ciertas mamaconas, porque, contra su religion, usaban de sus cuerpos feamente, y de cómo Viracocha Inga volvió al Cuzco",
+    "chars": 4503
+   },
+   {
+    "title": "Cap. XLI",
+    "subtitle": "De cómo vinieron al Cuzco embajadores de los tiranos del Collao, nombrados Sinchi Cari[128] y Zapana, y de la salida de Viracocha Inga al Callao.[129]",
+    "chars": 4873
+   },
+   {
+    "title": "Cap. XLII",
+    "subtitle": "De cómo Viracocha Inga pasó por las provincias de los Canches y Canas, y anduvo hasta que entró en la comarca de los Collas [136] y lo que sucedió entre Cari y Zapana",
+    "chars": 4740
+   },
+   {
+    "title": "Cap. XLIII",
+    "subtitle": "De cómo Cari volvió á Chucuito, y de la llegada de Viracocha Inga, y de la paz que entre ellos trataron",
+    "chars": 3610
+   },
+   {
+    "title": "Cap. XLIV",
+    "subtitle": "De cómo Inca Urco fué recebido por gobernador general de todo el imperio y tomó la corona en el Cuzco, y de cómo los Chancas determinaban de salir á dar guerra á los del Cuzco",
+    "chars": 4151
+   },
+   {
+    "title": "Cap. XLV",
+    "subtitle": "De cómo los Chancas allegaron á la ciudad del Cuzco y pusieron su real en ella, y del temor que mostraron los que estaban en ella, y del gran valor de Inca Yupanqui",
+    "chars": 4588
+   },
+   {
+    "title": "Cap. XLVI",
+    "subtitle": "De cómo Inca Yupanqui fué rescebido por rey y quitado el nombre de Inca á Inca Urco, y de la paz que hizo con Hastu Guaraca",
+    "chars": 3189
+   },
+   {
+    "title": "Cap. XLVII",
+    "subtitle": "De cómo Inca Yupanqui salió del Cuzco, dejando por gobernador á Lloque Yupanqui, y de lo que sucedió",
+    "chars": 3955
+   },
+   {
+    "title": "Cap. XLVIII",
+    "subtitle": "De cómo el Inca revolvió sobre Vilcas y puso cerco en el peñol donde estaban hechos fuertes los enemigos",
+    "chars": 4064
+   },
+   {
+    "title": "Cap. XLIX",
+    "subtitle": "De cómo Inca Yupanqui mandó á Lloque Yupanqui que fuese al valle de Xauxa á procurar de atraer á su señorío á los Guancas y á los Yauyos[160], sus vecinos, con otras naciones que caen en aquella parte",
+    "chars": 3461
+   },
+   {
+    "title": "Cap. L",
+    "subtitle": "De cómo salieron de Xauxa los capitanes del Inca y lo que les sucedió, y cómo se salió de entre ellos Ancoallo",
+    "chars": 5904
+   },
+   {
+    "title": "Cap. LI",
+    "subtitle": "De cómo fundó la casa real del sol en un collado que por encima del Cuzco está, á la parte del Norte, que los españoles comunmente llaman la Fortaleza, y de su admirable edificio y grandeza de piedras que en él se ven",
+    "chars": 5232
+   },
+   {
+    "title": "Cap. LII",
+    "subtitle": "De cómo Inca Yupanqui salió del Cuzco hácia el Collao y lo que le sucedió",
+    "chars": 4251
+   },
+   {
+    "title": "Cap. LIII",
+    "subtitle": "De cómo Inca Yupanqui salió del Cuzco, y lo que hizo",
+    "chars": 4773
+   },
+   {
+    "title": "Cap. LIV",
+    "subtitle": "De cómo hallándose muy viejo Inca Yupanqui, dejó la gobernacion del reino á Tupac Inca, su hijo",
+    "chars": 3655
+   },
+   {
+    "title": "Cap. LV",
+    "subtitle": "De cómo los Collas pidieron paz, y de cómo el Inca se la otorgó y se volvió al Cuzco",
+    "chars": 3557
+   },
+   {
+    "title": "Cap. LVI",
+    "subtitle": "De cómo Tupac Inca Yupanqui salió del Cuzco, y cómo sojuzgó toda la tierra que hay hasta el Quito, y de sus grandes hechos",
+    "chars": 8330
+   },
+   {
+    "title": "Cap. LVII",
+    "subtitle": "Cómo el rey Tupac Inca envió á saber desde Quito cómo se cumplia su mandamiento, y cómo, dejando en órden aquella comarca, salió para ir por los valles de los Yuncas",
+    "chars": 4287
+   },
+   {
+    "title": "Cap. LVIII",
+    "subtitle": "De cómo Tupac Inca Yupanqui anduvo por Los Llanos, y cómo todos los más de los Yuncas vinieron á su señorío",
+    "chars": 5190
+   },
+   {
+    "title": "Cap. LIX",
+    "subtitle": "Cómo Tupac Inca tornó á salir del Cuzco, y de la recia guerra que tuvo con los del Guarco, y cómo despues de los haber vencido, dió la vuelta al Cuzco",
+    "chars": 8183
+   },
+   {
+    "title": "Cap. LX",
+    "subtitle": "De cómo Tupac Inca tornó á salir del Cuzco y cómo fué al Collao y de allí á Chile, y ganó y señoreó las naciones que hay en aquellas tierras, y de su muerte",
+    "chars": 4930
+   },
+   {
+    "title": "Cap. LXI",
+    "subtitle": "De cómo reinó en el Cuzco Guayna Capac que fué el dozeno rey Inca",
+    "chars": 3390
+   },
+   {
+    "title": "Cap. LXII",
+    "subtitle": "Cómo Guayna Capac salió del Cuzco y lo que hizo",
+    "chars": 6612
+   },
+   {
+    "title": "Cap. LXIII",
+    "subtitle": "De cómo el rey Guayna Capac tornó á mandar hacer llamamiento de gente, y cómo salió para lo de Quito",
+    "chars": 6567
+   },
+   {
+    "title": "Cap. LXIV",
+    "subtitle": "Cómo Guayna Capac entró por Bracamoros y volvió huyendo, y lo que más le sucedió hasta que llegó á Quito",
+    "chars": 5140
+   },
+   {
+    "title": "Cap. LXV",
+    "subtitle": "De cómo Guayna Capac anduvo por los valles de Los Llanos, y lo que hizo",
+    "chars": 3861
+   },
+   {
+    "title": "Cap. LXVI",
+    "subtitle": "De cómo saliendo Guayna Capac de Quito, envió delante ciertos capitanes suyos, los cuales volvieron huyendo de los enemigos, y lo que sobre ello hizo",
+    "chars": 4963
+   },
+   {
+    "title": "Cap. LXVII",
+    "subtitle": "Cómo, juntando todo el poder de Guayna Capac, dió batalla á los enemigos y los venció y de la grand crueldad que usó con ellos",
+    "chars": 3939
+   },
+   {
+    "title": "Cap. LXVIII",
+    "subtitle": "De cómo el rey Guayna Capac volvió á Quito, y de cómo supo de los españoles que andaban por la costa, y de su muerte",
+    "chars": 5097
+   },
+   {
+    "title": "Cap. LXIX",
+    "subtitle": "Del linaje y condiciones de Guascar y de Atahuallpa",
+    "chars": 2869
+   },
+   {
+    "title": "Cap. LXX",
+    "subtitle": "De cómo Guascar fué alzado por rey en el Cuzco, despues de muerto su padre",
+    "chars": 4063
+   },
+   {
+    "title": "Cap. LXXI",
+    "subtitle": "De cómo se comenzaron las diferencias entre Guascar y Atahuallpa, y se dieron entre unos y otros grandes batallas",
+    "chars": 3556
+   },
+   {
+    "title": "Cap. LXXII",
+    "subtitle": "De cómo Atahuallpa salió del Quito con su gente y capitanes, y de cómo dió batalla á Atoco en los pueblos de Ambato",
+    "chars": 3450
+   },
+   {
+    "title": "Cap. LXXIII",
+    "subtitle": "De cómo Guascar envió de nuevo capitanes y gente contra su enemigo, y de cómo Atahuallpa llegó á Tomebamba, y la gran crueldad que allí usó, y lo que pasó entre él y los capitanes de Guascar",
+    "chars": 5446
+   },
+   {
+    "title": "Notas",
+    "chars": 26249
+   }
+  ]
+ },
+ "trafalgar": {
+  "words": 51080,
+  "bytes": 309437,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/16961",
+  "chapters": [
+   {
+    "title": "I.",
+    "chars": 14499
+   },
+   {
+    "title": "II.",
+    "chars": 7898
+   },
+   {
+    "title": "III.",
+    "chars": 7561
+   },
+   {
+    "title": "IV.",
+    "chars": 24124
+   },
+   {
+    "title": "V.",
+    "chars": 14888
+   },
+   {
+    "title": "VI.",
+    "chars": 15671
+   },
+   {
+    "title": "VII.",
+    "chars": 11483
+   },
+   {
+    "title": "VIII.",
+    "chars": 26352
+   },
+   {
+    "title": "IX.",
+    "chars": 17839
+   },
+   {
+    "title": "X.",
+    "chars": 12181
+   },
+   {
+    "title": "XI.",
+    "chars": 20314
+   },
+   {
+    "title": "XII.",
+    "chars": 24142
+   },
+   {
+    "title": "XIII.",
+    "chars": 22507
+   },
+   {
+    "title": "XIV.",
+    "chars": 18189
+   },
+   {
+    "title": "XV.",
+    "chars": 28051
+   },
+   {
+    "title": "XVI.",
+    "chars": 15638
+   },
+   {
+    "title": "XVII.",
+    "chars": 13432
+   }
+  ]
+ },
+ "hombres-glorias-america": {
+  "words": 75021,
+  "bytes": 473607,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/44918",
+  "chapters": [
+   {
+    "title": "Capítulo I",
+    "subtitle": "Tentativas de conciliación antes de 1850",
+    "chars": 20728
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "El sucesor de Webster en el Senado.—Ley sobre los esclavos huídos.—Cuestión de Kansas.—Discurso de Sumner y sus consecuencias",
+    "chars": 33349
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "\"La cabaña del tío Tomás\"",
+    "chars": 9026
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Formación del partido republicano.—Convenciones nacionales.—Frémont, Douglas, Buchanan.—Elecciones de 1856",
+    "chars": 19885
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "El negro Dred Scott ante el Tribunal supremo",
+    "chars": 16193
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Desacuerdo entre ambas ramas del Congreso sobre la admisión de Kansas",
+    "chars": 5697
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Campaña electoral en Illinois. Lincoln y Douglas",
+    "chars": 12628
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "Duelo de oradores",
+    "chars": 10876
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Proyectos de anexar la isla de Cuba",
+    "chars": 28136
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "John Brown",
+    "chars": 13649
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Campaña de 1860 Lincoln presidente de los Estados Unidos",
+    "chars": 26334
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "La Víspera de la guerra civil",
+    "chars": 9104
+   },
+   {
+    "title": "José de la Luz y Caballero (1/3)",
+    "subtitle": "I",
+    "chars": 33157
+   },
+   {
+    "title": "José de la Luz y Caballero (2/3)",
+    "chars": 32982
+   },
+   {
+    "title": "José de la Luz y Caballero (3/3)",
+    "chars": 32515
+   },
+   {
+    "title": "La vida de San Martín, por Mitre",
+    "chars": 20773
+   },
+   {
+    "title": "J. L. Motley",
+    "chars": 20788
+   },
+   {
+    "title": "Andrés Bello",
+    "chars": 26895
+   },
+   {
+    "title": "Un \"reporter\" de cosas de América",
+    "subtitle": "en el siglo XV Pedro Mártir de Anglería",
+    "chars": 15685
+   },
+   {
+    "title": "José María Heredia",
+    "subtitle": "y la antología de poetas hispano-americanos de la real Academia española",
+    "chars": 24876
+   },
+   {
+    "title": "Abraham Lincoln",
+    "chars": 20950
+   },
+   {
+    "title": "El \"Centón Epistolario\"",
+    "subtitle": "y la crítica americana",
+    "chars": 21321
+   }
+  ]
+ },
+ "ciudad-de-los-cesares": {
+  "words": 31477,
+  "bytes": 185238,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/13458",
+  "chapters": [
+   {
+    "title": "Discurso preliminar",
+    "subtitle": "A las",
+    "chars": 12269
+   },
+   {
+    "title": "Derrotero",
+    "part": "Discurso preliminar",
+    "chars": 17048
+   },
+   {
+    "title": "Carta",
+    "chars": 19307
+   },
+   {
+    "title": "Capitulo",
+    "subtitle": "De una carta del P. Pedro Lozano al P. Juan Alzola, sobre los Césares, que dicen están poblados en el estrecho de Magallanes",
+    "chars": 5881
+   },
+   {
+    "title": "Derrotero",
+    "chars": 10620
+   },
+   {
+    "title": "Relacion",
+    "chars": 26549
+   },
+   {
+    "title": "Copia",
+    "chars": 4589
+   },
+   {
+    "title": "Nuevo",
+    "chars": 7571
+   },
+   {
+    "title": "Informe (1/3)",
+    "chars": 27150
+   },
+   {
+    "title": "Informe (2/3)",
+    "chars": 25805
+   },
+   {
+    "title": "Informe (3/3)",
+    "chars": 23325
+   }
+  ]
+ },
+ "guerra-del-peloponeso": {
+  "words": 126482,
+  "bytes": 755130,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/66866",
+  "chapters": [
+   {
+    "title": "I",
+    "part": "Libro I",
+    "chars": 30393
+   },
+   {
+    "title": "II",
+    "chars": 11332
+   },
+   {
+    "title": "III",
+    "chars": 8673
+   },
+   {
+    "title": "IV",
+    "chars": 9631
+   },
+   {
+    "title": "V",
+    "chars": 13865
+   },
+   {
+    "title": "VI",
+    "chars": 13353
+   },
+   {
+    "title": "VII",
+    "chars": 9812
+   },
+   {
+    "title": "VIII",
+    "chars": 12316
+   },
+   {
+    "title": "IX",
+    "chars": 9591
+   },
+   {
+    "title": "X",
+    "chars": 4233
+   },
+   {
+    "title": "XI",
+    "chars": 11650
+   },
+   {
+    "title": "XII",
+    "chars": 27826
+   },
+   {
+    "title": "XIII",
+    "chars": 9139
+   },
+   {
+    "title": "XIV",
+    "chars": 15428
+   },
+   {
+    "title": "XV",
+    "chars": 6647
+   },
+   {
+    "title": "XVI",
+    "chars": 1709
+   },
+   {
+    "title": "XVII",
+    "chars": 14794
+   },
+   {
+    "title": "I",
+    "part": "Libro II",
+    "chars": 8236
+   },
+   {
+    "title": "II",
+    "chars": 4693
+   },
+   {
+    "title": "III",
+    "chars": 4384
+   },
+   {
+    "title": "IV",
+    "chars": 8810
+   },
+   {
+    "title": "V",
+    "chars": 7119
+   },
+   {
+    "title": "VI",
+    "chars": 12249
+   },
+   {
+    "title": "VII",
+    "chars": 17344
+   },
+   {
+    "title": "VIII",
+    "chars": 14750
+   },
+   {
+    "title": "IX",
+    "chars": 10162
+   },
+   {
+    "title": "X",
+    "chars": 4655
+   },
+   {
+    "title": "XI",
+    "chars": 6974
+   },
+   {
+    "title": "XII",
+    "chars": 13303
+   },
+   {
+    "title": "XIII",
+    "chars": 8946
+   },
+   {
+    "title": "XIV",
+    "chars": 7525
+   },
+   {
+    "title": "XV",
+    "chars": 3392
+   },
+   {
+    "title": "XVI",
+    "chars": 3949
+   },
+   {
+    "title": "XVII",
+    "chars": 4876
+   },
+   {
+    "title": "XVIII",
+    "chars": 3359
+   },
+   {
+    "title": "XIX",
+    "chars": 11606
+   },
+   {
+    "title": "XX",
+    "chars": 5641
+   },
+   {
+    "title": "I",
+    "part": "Libro III",
+    "chars": 9609
+   },
+   {
+    "title": "II",
+    "chars": 9967
+   },
+   {
+    "title": "III",
+    "chars": 4772
+   },
+   {
+    "title": "IV",
+    "chars": 7236
+   },
+   {
+    "title": "V",
+    "chars": 12947
+   },
+   {
+    "title": "VI",
+    "chars": 12342
+   },
+   {
+    "title": "VII",
+    "chars": 12053
+   },
+   {
+    "title": "VIII",
+    "chars": 5199
+   },
+   {
+    "title": "IX",
+    "chars": 12692
+   },
+   {
+    "title": "X",
+    "chars": 14733
+   },
+   {
+    "title": "XI",
+    "chars": 13993
+   },
+   {
+    "title": "XII",
+    "chars": 8264
+   },
+   {
+    "title": "XIII",
+    "chars": 9196
+   },
+   {
+    "title": "XIV",
+    "chars": 8091
+   },
+   {
+    "title": "XV",
+    "chars": 7023
+   },
+   {
+    "title": "XVI",
+    "chars": 18864
+   },
+   {
+    "title": "I",
+    "part": "Libro IV",
+    "chars": 19977
+   },
+   {
+    "title": "II",
+    "chars": 9357
+   },
+   {
+    "title": "III",
+    "chars": 4754
+   },
+   {
+    "title": "IV",
+    "chars": 20378
+   },
+   {
+    "title": "V",
+    "chars": 4931
+   },
+   {
+    "title": "VI",
+    "chars": 4083
+   },
+   {
+    "title": "VII",
+    "chars": 8693
+   },
+   {
+    "title": "VIII",
+    "chars": 10049
+   },
+   {
+    "title": "IX",
+    "chars": 13955
+   },
+   {
+    "title": "X",
+    "chars": 11989
+   },
+   {
+    "title": "XI",
+    "chars": 7494
+   },
+   {
+    "title": "XII",
+    "chars": 18607
+   },
+   {
+    "title": "XIII",
+    "chars": 9859
+   },
+   {
+    "title": "XIV",
+    "chars": 8250
+   },
+   {
+    "title": "XV",
+    "chars": 5793
+   },
+   {
+    "title": "XVI",
+    "chars": 5960
+   },
+   {
+    "title": "XVII",
+    "chars": 9415
+   },
+   {
+    "title": "XVIII",
+    "chars": 19561
+   }
+  ]
+ },
+ "sentimiento-tragico": {
+  "words": 99490,
+  "bytes": 580652,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/59852",
+  "chapters": [
+   {
+    "title": "I",
+    "subtitle": "El hombre de carne y hueso",
+    "chars": 31141
+   },
+   {
+    "title": "II",
+    "subtitle": "El punto de partida",
+    "chars": 31918
+   },
+   {
+    "title": "III",
+    "subtitle": "El hambre de inmortalidad",
+    "chars": 33543
+   },
+   {
+    "title": "IV (1/2)",
+    "subtitle": "La esencia del catolicismo",
+    "chars": 20013
+   },
+   {
+    "title": "IV (2/2)",
+    "chars": 15984
+   },
+   {
+    "title": "V (1/2)",
+    "subtitle": "La disolución racional",
+    "chars": 24840
+   },
+   {
+    "title": "V (2/2)",
+    "chars": 22329
+   },
+   {
+    "title": "VI (1/2)",
+    "subtitle": "En el fondo del abismo",
+    "chars": 23014
+   },
+   {
+    "title": "VI (2/2)",
+    "chars": 21322
+   },
+   {
+    "title": "VII (1/2)",
+    "subtitle": "Amor, dolor, compasión y personalidad",
+    "chars": 20494
+   },
+   {
+    "title": "VII (2/2)",
+    "chars": 19559
+   },
+   {
+    "title": "VIII (1/2)",
+    "subtitle": "De Dios a Dios",
+    "chars": 26800
+   },
+   {
+    "title": "VIII (2/2)",
+    "chars": 23535
+   },
+   {
+    "title": "IX (1/2)",
+    "subtitle": "Fe, esperanza y caridad",
+    "chars": 25336
+   },
+   {
+    "title": "IX (2/2)",
+    "chars": 24444
+   },
+   {
+    "title": "X (1/3)",
+    "subtitle": "Religión, mitología de ultratumba y apocatástasis",
+    "chars": 24449
+   },
+   {
+    "title": "X (2/3)",
+    "chars": 25109
+   },
+   {
+    "title": "X (3/3)",
+    "chars": 23709
+   },
+   {
+    "title": "XI (1/2)",
+    "subtitle": "El problema práctico",
+    "chars": 31058
+   },
+   {
+    "title": "XI (2/2)",
+    "chars": 30887
+   },
+   {
+    "title": "Conclusión (1/2)",
+    "subtitle": "Don Quijote en la tragi-comedia europea contemporánea",
+    "chars": 28981
+   },
+   {
+    "title": "Conclusión (2/2)",
+    "chars": 28740
+   }
+  ]
+ },
+ "moral-sin-dogmas": {
+  "words": 47536,
+  "bytes": 311344,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/56301",
+  "chapters": [
+   {
+    "title": "1.—Un Moralista",
+    "part": "Emerson y Sarmiento",
+    "chars": 5836
+   },
+   {
+    "title": "2.—El Ambiente Puritano",
+    "chars": 12182
+   },
+   {
+    "title": "3.—Channing y Emerson",
+    "chars": 11020
+   },
+   {
+    "title": "4.—Decepción de la Moda Filosófica",
+    "chars": 5941
+   },
+   {
+    "title": "5.—El Trascendentalismo",
+    "chars": 9379
+   },
+   {
+    "title": "6.—Geografía Moral de los Estados Unidos",
+    "chars": 10028
+   },
+   {
+    "title": "7.—Sarmiento y Horacio Mann",
+    "chars": 6407
+   },
+   {
+    "title": "8.—La Vida en Concord",
+    "chars": 7380
+   },
+   {
+    "title": "9.—Emerson y Sarmiento",
+    "chars": 10835
+   },
+   {
+    "title": "1.—Una Ética sin Metafísica",
+    "part": "Orientaciones morales",
+    "chars": 5808
+   },
+   {
+    "title": "2.—La Crítica de las Costumbres",
+    "chars": 12976
+   },
+   {
+    "title": "3.—Necesidad de Caracteres Firmes",
+    "chars": 6271
+   },
+   {
+    "title": "4.—No Conformismo y Obediencia",
+    "chars": 7368
+   },
+   {
+    "title": "5.—Panteísmo",
+    "chars": 5212
+   },
+   {
+    "title": "6.—Ética Naturalista",
+    "chars": 6367
+   },
+   {
+    "title": "7.—El Optimismo y la Perfectibilidad",
+    "chars": 13065
+   },
+   {
+    "title": "8.—La Confianza en Sí Mismo",
+    "chars": 8459
+   },
+   {
+    "title": "9.—La Bella Necesidad",
+    "chars": 8125
+   },
+   {
+    "title": "10.—Función Social Del no-Conformismo",
+    "chars": 2018
+   },
+   {
+    "title": "1.—Integración del Pensamiento Emersoniano",
+    "part": "La ética social",
+    "chars": 9274
+   },
+   {
+    "title": "2.—La Autonomía de la Experiencia Moral",
+    "chars": 3828
+   },
+   {
+    "title": "3.—Idealismo y Perfectibilidad",
+    "chars": 11239
+   },
+   {
+    "title": "4.—El Dogmatismo Teológico Excluye la Perfectibilidad",
+    "chars": 7529
+   },
+   {
+    "title": "5.—Valor Social de la Herejía",
+    "chars": 9403
+   },
+   {
+    "title": "6.—Las Morales Independientes",
+    "chars": 6174
+   },
+   {
+    "title": "7.—Insuficiencia de los Dogmas Racionales",
+    "chars": 3261
+   },
+   {
+    "title": "8.—La Ética Social de las Iglesias Norteamericanas",
+    "chars": 6904
+   },
+   {
+    "title": "9.—Su Influencia Sobre las Iglesias Inmigradas",
+    "chars": 8937
+   },
+   {
+    "title": "10.—Ciencias Morales Sin Dogmatismo",
+    "chars": 8409
+   },
+   {
+    "title": "11.—El Solidarismo",
+    "chars": 1767
+   },
+   {
+    "title": "1.—Independencia de la Moralidad",
+    "part": "Hacia una moral sin dogmas",
+    "chars": 4778
+   },
+   {
+    "title": "2.—Una Asociación Religiosa Libre",
+    "chars": 3923
+   },
+   {
+    "title": "3.—Sociedades de Cultura Moral en Estados Unidos",
+    "chars": 8437
+   },
+   {
+    "title": "4.—Algunos Antecedentes del Eticismo Inglés",
+    "chars": 9071
+   },
+   {
+    "title": "5.—Las Iglesias Éticas",
+    "chars": 10321
+   },
+   {
+    "title": "6.—El Culto Religioso de la Moralidad",
+    "chars": 12736
+   },
+   {
+    "title": "7.—Espontaneidad y Evolución de la Moralidad",
+    "chars": 7927
+   },
+   {
+    "title": "8.—Síntesis del Pensamiento Eticista",
+    "chars": 2718
+   },
+   {
+    "title": "9.—El Porvenir del Eticismo",
+    "chars": 7725
+   }
+  ]
+ },
+ "meditaciones-del-quijote": {
+  "words": 32100,
+  "bytes": 199728,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/57448",
+  "chapters": [
+   {
+    "title": "Lector (1/2)",
+    "chars": 21049
+   },
+   {
+    "title": "Lector (2/2)",
+    "chars": 19289
+   },
+   {
+    "title": "Meditación preliminar (1/3)",
+    "chars": 25324
+   },
+   {
+    "title": "Meditación preliminar (2/3)",
+    "chars": 25393
+   },
+   {
+    "title": "Meditación preliminar (3/3)",
+    "chars": 24993
+   },
+   {
+    "title": "Meditación primera (1/3)",
+    "chars": 25234
+   },
+   {
+    "title": "Meditación primera (2/3)",
+    "chars": 25149
+   },
+   {
+    "title": "Meditación primera (3/3)",
+    "chars": 24540
+   }
+  ]
+ },
+ "espana-invertebrada": {
+  "words": 21657,
+  "bytes": 137785,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/57982",
+  "chapters": [
+   {
+    "title": "Incorporación y desintegración",
+    "chars": 8487
+   },
+   {
+    "title": "Potencia de nacionalización",
+    "chars": 4513
+   },
+   {
+    "title": "¿Por qué hay separatismo?",
+    "chars": 3339
+   },
+   {
+    "title": "Tanto monta",
+    "chars": 7620
+   },
+   {
+    "title": "Particularismo",
+    "chars": 13837
+   },
+   {
+    "title": "Compartimentos estancos",
+    "chars": 7373
+   },
+   {
+    "title": "El caso del grupo militar",
+    "chars": 5613
+   },
+   {
+    "title": "Acción directa",
+    "chars": 5614
+   },
+   {
+    "title": "«Pronunciamientos»",
+    "chars": 8199
+   },
+   {
+    "title": "¿No hay hombres, o no hay masas?",
+    "chars": 9638
+   },
+   {
+    "title": "Imperio de las masas",
+    "chars": 8624
+   },
+   {
+    "title": "Épocas «Kitra» y épocas «Kali»",
+    "chars": 5703
+   },
+   {
+    "title": "La magia del «debe ser»",
+    "chars": 3408
+   },
+   {
+    "title": "Ejemplaridad y docilidad",
+    "chars": 12016
+   },
+   {
+    "title": "La ausencia de los «mejores»",
+    "chars": 26999
+   },
+   {
+    "title": "Imperativo de selección",
+    "chars": 1030
+   }
+  ]
+ },
+ "el-criticon": {
+  "words": 96892,
+  "bytes": 581942,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/62691",
+  "chapters": [
+   {
+    "title": "Crisi primera",
+    "part": "Primera parte",
+    "chars": 14500
+   },
+   {
+    "title": "Crisi II",
+    "chars": 16858
+   },
+   {
+    "title": "Crisi III",
+    "chars": 23447
+   },
+   {
+    "title": "Crisi IV",
+    "chars": 27764
+   },
+   {
+    "title": "Crisi V",
+    "chars": 24143
+   },
+   {
+    "title": "Crisi VI",
+    "chars": 31719
+   },
+   {
+    "title": "Crisi VII",
+    "chars": 34086
+   },
+   {
+    "title": "Crisi VIII",
+    "chars": 25944
+   },
+   {
+    "title": "Crisi IX",
+    "chars": 30565
+   },
+   {
+    "title": "Crisi X",
+    "chars": 28470
+   },
+   {
+    "title": "Crisi XI",
+    "chars": 34523
+   },
+   {
+    "title": "Crisi XII",
+    "chars": 28335
+   },
+   {
+    "title": "Crisi XIII",
+    "chars": 29944
+   },
+   {
+    "title": "Crisi primera",
+    "part": "Segunda parte",
+    "chars": 32321
+   },
+   {
+    "title": "Crisi II",
+    "chars": 32399
+   },
+   {
+    "title": "Crisi III (1/2)",
+    "chars": 18380
+   },
+   {
+    "title": "Crisi III (2/2)",
+    "chars": 17653
+   },
+   {
+    "title": "Crisi IV (1/2)",
+    "chars": 18224
+   },
+   {
+    "title": "Crisi IV (2/2)",
+    "chars": 17932
+   },
+   {
+    "title": "Crisi V",
+    "chars": 27542
+   },
+   {
+    "title": "Crisi VI",
+    "chars": 30737
+   }
+  ]
+ },
+ "filosofia-fundamental": {
+  "words": 85277,
+  "bytes": 517950,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/13608",
+  "chapters": [
+   {
+    "title": "Prólogo",
+    "chars": 1090
+   },
+   {
+    "title": "Capítulo I",
+    "subtitle": "Importancia y utilidad de las cuestiones sobre la certeza",
+    "part": "Libro primero",
+    "chars": 6847
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Verdadero estado de la cuestion",
+    "chars": 13949
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Dos certezas: la del género humano y la filosofía",
+    "chars": 18100
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Si existe la ciencia trascendental en el órden intelectual absoluto",
+    "chars": 15902
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "No existe la ciencia trascendental en el órden intelectual humano no puede dimanar de los sentidos",
+    "chars": 9026
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Continúa la discusion sobre la ciencia trascendental. insuficiencia de las verdades reales",
+    "chars": 7174
+   },
+   {
+    "title": "Capítulo VII (1/2)",
+    "chars": 21564
+   },
+   {
+    "title": "Capítulo VII (2/2)",
+    "chars": 21370
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Continúa el exámen del sistema de la identidad universal",
+    "part": "Capítulo VIII",
+    "chars": 5305
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "El problema de la representacion. mónadas de Leibnitz",
+    "chars": 7591
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Exámen del problema de la representacion",
+    "chars": 8299
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "Inteligibilidad inmediata",
+    "chars": 11975
+   },
+   {
+    "title": "Capítulo XIII",
+    "subtitle": "Representacion de causalidad y de idealidad",
+    "chars": 11106
+   },
+   {
+    "title": "Capítulo XIV",
+    "subtitle": "Imposibilidad de hallar el primer principio en el órden ideal",
+    "chars": 5677
+   },
+   {
+    "title": "Capítulo XV",
+    "subtitle": "La condicion indispensable de todo conocimiento humano",
+    "chars": 18995
+   },
+   {
+    "title": "Capítulo XVI",
+    "subtitle": "Confusion de ideas en las disputas sobre el principio fundamental",
+    "chars": 5813
+   },
+   {
+    "title": "Capítulo XVII",
+    "subtitle": "La existencia y el pensamiento. principio de Descartes",
+    "chars": 9832
+   },
+   {
+    "title": "Capítulo XVIII",
+    "subtitle": "Mas sobre el principio de Descartes. su método",
+    "chars": 14201
+   },
+   {
+    "title": "Capítulo XIX",
+    "subtitle": "Lo que vale el principio: yo pienso",
+    "chars": 14212
+   },
+   {
+    "title": "Capítulo XX",
+    "subtitle": "Verdadero sentido del principio de contradiccion",
+    "chars": 25431
+   },
+   {
+    "title": "Capítulo XXI",
+    "subtitle": "Si el principio de contradiccion merece el título de fundamental; y en qué sentido",
+    "chars": 10344
+   },
+   {
+    "title": "Capítulo XXII",
+    "subtitle": "El principio de la evidencia",
+    "chars": 9074
+   },
+   {
+    "title": "Capítulo XXIII",
+    "subtitle": "Criterio de la conciencia",
+    "chars": 11438
+   },
+   {
+    "title": "Capítulo XXIV",
+    "subtitle": "Criterio de la evidencia",
+    "chars": 9962
+   },
+   {
+    "title": "Capítulo XXV",
+    "subtitle": "Valor objetivo de las ideas",
+    "chars": 15737
+   },
+   {
+    "title": "Capítulo XXVI",
+    "subtitle": "Si todos los conocimientos se reducen á la percepcion de la identidad",
+    "chars": 9432
+   },
+   {
+    "title": "Capítulo XXVII",
+    "subtitle": "Continuacion",
+    "chars": 21414
+   },
+   {
+    "title": "Capítulo XXIX",
+    "part": "Capítulo XXVIII",
+    "chars": 21770
+   },
+   {
+    "title": "Capítulo XXX",
+    "subtitle": "Criterio de Vico",
+    "chars": 23211
+   },
+   {
+    "title": "Capítulo XXXI",
+    "subtitle": "Continuacion",
+    "chars": 13390
+   },
+   {
+    "title": "Capítulo XXXII",
+    "subtitle": "Criterio del sentido comun",
+    "chars": 19609
+   },
+   {
+    "title": "Capítulo XXXIII",
+    "subtitle": "Error de la-mennais sobre el consentimiento comun",
+    "chars": 10211
+   },
+   {
+    "title": "Capítulo XXXIV",
+    "subtitle": "Resúmen y conclusion",
+    "chars": 20361
+   },
+   {
+    "title": "Notas (1/2)",
+    "subtitle": "(Sobre el capítulo I.)",
+    "chars": 25431
+   },
+   {
+    "title": "Notas (2/2)",
+    "chars": 23524
+   }
+  ]
+ },
+ "apologia-criton": {
+  "words": 18551,
+  "bytes": 110126,
+  "sourceUrl": "https://es.wikisource.org/wiki/Obras%20completas%20de%20Plat%C3%B3n",
+  "chapters": [
+   {
+    "title": "Apología de Sócrates (1/3)",
+    "subtitle": "Argumento",
+    "chars": 24433
+   },
+   {
+    "title": "Apología de Sócrates (2/3)",
+    "chars": 24020
+   },
+   {
+    "title": "Apología de Sócrates (3/3)",
+    "chars": 23571
+   },
+   {
+    "title": "Critón",
+    "subtitle": "Argumento",
+    "chars": 32159
+   }
+  ]
+ },
+ "figaro-articulos": {
+  "words": 88709,
+  "bytes": 534771,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/31541",
+  "chapters": [
+   {
+    "title": "Mi nombre y mis propósitos",
+    "chars": 8481
+   },
+   {
+    "title": "Una primera representación",
+    "chars": 17432
+   },
+   {
+    "title": "Yo quiero ser cómico",
+    "chars": 10171
+   },
+   {
+    "title": "El castellano viejo",
+    "chars": 20774
+   },
+   {
+    "title": "¿Entre que gentes estamos?",
+    "chars": 13197
+   },
+   {
+    "title": "Las casas nuevas",
+    "chars": 13146
+   },
+   {
+    "title": "El duelo",
+    "chars": 14191
+   },
+   {
+    "title": "El álbum",
+    "chars": 11999
+   },
+   {
+    "title": "Los calaveras",
+    "chars": 27120
+   },
+   {
+    "title": "Modos de vivir que no dan de vivir",
+    "chars": 19475
+   },
+   {
+    "title": "La fonda nueva",
+    "chars": 10591
+   },
+   {
+    "title": "La vida de Madrid",
+    "chars": 8434
+   },
+   {
+    "title": "La diligencia",
+    "chars": 15022
+   },
+   {
+    "title": "Varios caracteres",
+    "chars": 8191
+   },
+   {
+    "title": "La nochebuena de 1836",
+    "subtitle": "yo y MI criado",
+    "chars": 16822
+   },
+   {
+    "title": "El mundo todo es máscaras",
+    "subtitle": "todo el año es carnaval",
+    "chars": 23040
+   },
+   {
+    "title": "Empeños y desempeños",
+    "chars": 15905
+   },
+   {
+    "title": "Cartas a Andrés niporesas",
+    "chars": 33452
+   },
+   {
+    "title": "Ya soy redactor",
+    "chars": 8904
+   },
+   {
+    "title": "Don Timoteo o el literato",
+    "chars": 15060
+   },
+   {
+    "title": "La polémica literaria",
+    "chars": 10787
+   },
+   {
+    "title": "Don Cándido buenafé o el camino de la gloria",
+    "chars": 12437
+   },
+   {
+    "title": "El hombre pone y Dios dispone",
+    "subtitle": "o LO QUE HA DE SER EL PERIODISTA",
+    "chars": 4630
+   },
+   {
+    "title": "El siglo en blanco",
+    "chars": 7532
+   },
+   {
+    "title": "Un periódico nuevo",
+    "chars": 14366
+   },
+   {
+    "title": "El hombre-globo",
+    "chars": 14100
+   },
+   {
+    "title": "Vuelva usted mañana",
+    "chars": 19121
+   },
+   {
+    "title": "Cuasi",
+    "subtitle": "pesadilla política",
+    "chars": 9869
+   },
+   {
+    "title": "La sociedad",
+    "chars": 14123
+   },
+   {
+    "title": "Las palabras",
+    "chars": 5894
+   },
+   {
+    "title": "Por ahora",
+    "chars": 6711
+   },
+   {
+    "title": "El ministérial",
+    "chars": 9421
+   },
+   {
+    "title": "En este país",
+    "chars": 12847
+   },
+   {
+    "title": "La alabanza",
+    "subtitle": "o QUE ME PROHIBAN ESTE",
+    "chars": 11167
+   },
+   {
+    "title": "Las circunstancias",
+    "chars": 9035
+   },
+   {
+    "title": "La Junta del Castel-o-branco",
+    "chars": 16354
+   },
+   {
+    "title": "Nadie pase sin hablar al portero",
+    "subtitle": "o Los viajeros en Vitoria",
+    "chars": 11358
+   }
+  ]
+ },
+ "educacion-comun": {
+  "words": 23715,
+  "bytes": 147377,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/61917",
+  "chapters": [
+   {
+    "title": "Aspecto físico",
+    "chars": 9266
+   },
+   {
+    "title": "Pastoreo",
+    "chars": 8120
+   },
+   {
+    "title": "Agricultura",
+    "chars": 11762
+   },
+   {
+    "title": "Educacion",
+    "chars": 3684
+   },
+   {
+    "title": "Base de la lei",
+    "chars": 5436
+   },
+   {
+    "title": "Leyes agrarias",
+    "chars": 15400
+   },
+   {
+    "title": "Productos rurales",
+    "chars": 19062
+   },
+   {
+    "title": "Organizacion (1/2)",
+    "chars": 22815
+   },
+   {
+    "title": "Organizacion (2/2)",
+    "chars": 19323
+   },
+   {
+    "title": "Principios jenerales",
+    "chars": 22170
+   },
+   {
+    "title": "Notas",
+    "chars": 6294
+   }
+  ]
+ },
+ "derecho-publico-romano": {
+  "words": 166381,
+  "bytes": 1045838,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/68220",
+  "chapters": [
+   {
+    "title": "Capítulo primero",
+    "subtitle": "La familia y el primitivo derecho de ciudadano",
+    "part": "Libro primero",
+    "chars": 20529
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Organización de la comunidad patricia",
+    "chars": 10922
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "La clientela",
+    "chars": 20070
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "LA CUALIDAD DE CIUDADANO (Civität)",
+    "chars": 14555
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "Organización de la comunidad patricio-plebeya",
+    "chars": 27030
+   },
+   {
+    "title": "Capítulo VI (1/2)",
+    "subtitle": "Las clases privilegiadas de ciudadanos",
+    "chars": 19853
+   },
+   {
+    "title": "Capítulo VI (2/2)",
+    "chars": 16327
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Las clases inferiores de ciudadanos",
+    "chars": 16471
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "La nación latina y la confederación itálica",
+    "chars": 29663
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Territorios de la soberanía fuera de Italia",
+    "chars": 19760
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "El régimen de ciudad del Estado unitario",
+    "chars": 12951
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Concepto del cargo público",
+    "part": "Libro II",
+    "chars": 20450
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "El régimen sacral",
+    "chars": 23542
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "El régimen de la ciudad y el de la guerra",
+    "chars": 16778
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Nombramiento de los magistrados",
+    "chars": 24793
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "Condiciones necesarias para el desempeño de las magistraturas",
+    "chars": 16401
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Colegialidad y colisión entre los magistrados",
+    "chars": 33295
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Ingreso en el cargo y cesación en el mismo",
+    "chars": 25832
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "Derechos honoríficos y emolumentos de los magistrados",
+    "chars": 15688
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Lugartenientes, auxiliares y consejeros",
+    "chars": 35581
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "La Monarquía",
+    "part": "Libro III",
+    "chars": 2037
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "El consulado y el tribunado consular",
+    "chars": 11474
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "La dictadura",
+    "chars": 5154
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "La pretura",
+    "chars": 12869
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "El tribunado de la plebe",
+    "chars": 8186
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "La censura",
+    "chars": 14642
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "La edilidad",
+    "chars": 8472
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "La cuestura",
+    "chars": 10018
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Los demás magistrados ordinarios de la República",
+    "chars": 4137
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "Los magistrados extraordinarios de la República",
+    "chars": 10135
+   },
+   {
+    "title": "Capítulo XI (1/2)",
+    "subtitle": "El principado",
+    "chars": 21494
+   },
+   {
+    "title": "Capítulo XI (2/2)",
+    "chars": 21315
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "Magistrados subalternos del emperador y administradores de la casa imperial",
+    "chars": 28951
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Asuntos religiosos propios de los magistrados",
+    "part": "Libro IV",
+    "chars": 15748
+   },
+   {
+    "title": "Capítulo II (1/2)",
+    "subtitle": "El derecho de coacción y penal",
+    "chars": 23523
+   },
+   {
+    "title": "Capítulo II (2/2)",
+    "chars": 23512
+   },
+   {
+    "title": "Capítulo III (1/2)",
+    "subtitle": "La administración de justicia",
+    "chars": 31023
+   },
+   {
+    "title": "Capítulo III (2/2)",
+    "chars": 30468
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "El ejército",
+    "chars": 27549
+   },
+   {
+    "title": "Capítulo V (1/2)",
+    "subtitle": "El patrimonio de la comunidad",
+    "chars": 24364
+   },
+   {
+    "title": "Capítulo V (2/2)",
+    "chars": 21099
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "La administración de Italia y de las provincias",
+    "chars": 32411
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Las relaciones con el extranjero",
+    "chars": 12004
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Interrogación a la ciudadanía",
+    "part": "Libro V",
+    "chars": 19891
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "El Senado y la interrogación al mismo",
+    "chars": 35442
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Competencia de los Comicios",
+    "chars": 22472
+   },
+   {
+    "title": "Capítulo IV (1/2)",
+    "subtitle": "Competencia del Senado",
+    "chars": 26891
+   },
+   {
+    "title": "Capítulo IV (2/2)",
+    "chars": 21572
+   },
+   {
+    "title": "Capítulo V (1/2)",
+    "subtitle": "La diarquía del principado",
+    "chars": 39420
+   },
+   {
+    "title": "Capítulo V (2/2)",
+    "chars": 30968
+   }
+  ]
+ },
+ "la-america-lastarria": {
+  "words": 58332,
+  "bytes": 363869,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/71275",
+  "chapters": [
+   {
+    "title": "Advertencia",
+    "chars": 1223
+   },
+   {
+    "title": "I",
+    "chars": 17122
+   },
+   {
+    "title": "II",
+    "chars": 17151
+   },
+   {
+    "title": "III",
+    "chars": 4184
+   },
+   {
+    "title": "IV",
+    "chars": 13714
+   },
+   {
+    "title": "V",
+    "chars": 4662
+   },
+   {
+    "title": "VI",
+    "chars": 28506
+   },
+   {
+    "title": "VII",
+    "chars": 19356
+   },
+   {
+    "title": "VIII (1/2)",
+    "chars": 19828
+   },
+   {
+    "title": "VIII (2/2)",
+    "chars": 19088
+   },
+   {
+    "title": "IX",
+    "chars": 9683
+   },
+   {
+    "title": "X",
+    "chars": 28789
+   },
+   {
+    "title": "XI",
+    "chars": 22478
+   },
+   {
+    "title": "XII",
+    "chars": 31669
+   },
+   {
+    "title": "XIII",
+    "chars": 12947
+   },
+   {
+    "title": "XIV",
+    "chars": 26220
+   },
+   {
+    "title": "XV",
+    "chars": 19534
+   },
+   {
+    "title": "XVI (1/2)",
+    "chars": 26332
+   },
+   {
+    "title": "XVI (2/2)",
+    "chars": 25352
+   }
+  ]
+ },
+ "constitucion-estados-unidos": {
+  "words": 128563,
+  "bytes": 799625,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/46771",
+  "chapters": [
+   {
+    "title": "Prologo",
+    "chars": 2000
+   },
+   {
+    "title": "Capítulo I",
+    "subtitle": "Historia de la Union Americana (1/2)",
+    "chars": 19561
+   },
+   {
+    "title": "Capítulo I",
+    "subtitle": "Historia de la Union Americana (2/2)",
+    "chars": 16594
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Del Congreso (1/2)",
+    "chars": 22684
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Del Congreso (2/2)",
+    "chars": 21696
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "De las declaraciones judiciales sobre las facultades del Congreso (1/2)",
+    "chars": 26444
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "De las declaraciones judiciales sobre las facultades del Congreso (2/2)",
+    "chars": 24915
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Del Presidente (1/2)",
+    "chars": 19374
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Del Presidente (2/2)",
+    "chars": 18772
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "Del Poder Judicial (1/2)",
+    "chars": 25101
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "Del Poder Judicial (2/2)",
+    "chars": 21820
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "De la jurisdiccion que tiene la Suprema Corte tanto originariamente como en apelacion (1/2)",
+    "chars": 19220
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "De la jurisdiccion que tiene la Suprema Corte tanto originariamente como en apelacion (2/2)",
+    "chars": 18800
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "De la jurisdiccion de los tribunales federales con relacion al derecho comun y á las partes (1/2)",
+    "chars": 23876
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "De la jurisdiccion de los tribunales federales con relacion al derecho comun y á las partes (2/2)",
+    "chars": 21040
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "De los tribunales de Distrito y de Los tribunales territoriales de la federacion (1/2)",
+    "chars": 34166
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "De los tribunales de Distrito y de Los tribunales territoriales de la federacion (2/2)",
+    "chars": 33985
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "De las facultades que conservan los Estados en concurrencia con el gobierno general (1/2)",
+    "chars": 19793
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "De las facultades que conservan los Estados en concurrencia con el gobierno general (2/2)",
+    "chars": 17600
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "De las restricciones constitucionales que tienen los Estados (1/3)",
+    "chars": 28437
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "De las restricciones constitucionales que tienen los Estados (2/3)",
+    "chars": 30302
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "De las restricciones constitucionales que tienen los Estados (3/3)",
+    "chars": 26268
+   },
+   {
+    "title": "Apéndice (1/2)",
+    "subtitle": "Acta de la declaracion de independencia · hecha el 4 de Julio de 1776",
+    "chars": 32827
+   },
+   {
+    "title": "Apéndice (2/2)",
+    "chars": 32382
+   },
+   {
+    "title": "Notas al calce (1/7)",
+    "chars": 32238
+   },
+   {
+    "title": "Notas al calce (2/7)",
+    "chars": 35547
+   },
+   {
+    "title": "Notas al calce (3/7)",
+    "chars": 32140
+   },
+   {
+    "title": "Notas al calce (4/7)",
+    "chars": 31600
+   },
+   {
+    "title": "Notas al calce (5/7)",
+    "chars": 32028
+   },
+   {
+    "title": "Notas al calce (6/7)",
+    "chars": 31442
+   },
+   {
+    "title": "Notas al calce (7/7)",
+    "chars": 24597
+   }
+  ]
+ },
+ "filipinas-cien-anos": {
+  "words": 10955,
+  "bytes": 67485,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/14839",
+  "chapters": [
+   {
+    "title": "I",
+    "chars": 5402
+   },
+   {
+    "title": "II",
+    "chars": 20732
+   },
+   {
+    "title": "III",
+    "chars": 21188
+   },
+   {
+    "title": "IV",
+    "chars": 17570
+   }
+  ]
+ },
+ "estados-unidos-sarmiento": {
+  "words": 67267,
+  "bytes": 410010,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/67348",
+  "chapters": [
+   {
+    "title": "Domingo F. Sarmiento",
+    "chars": 2779
+   },
+   {
+    "title": "Estados Unidos (1/4)",
+    "chars": 35891
+   },
+   {
+    "title": "Estados Unidos (2/4)",
+    "chars": 35659
+   },
+   {
+    "title": "Estados Unidos (3/4)",
+    "chars": 34843
+   },
+   {
+    "title": "Estados Unidos (4/4)",
+    "chars": 30210
+   },
+   {
+    "title": "Avaricia y mala fe",
+    "chars": 11493
+   },
+   {
+    "title": "Geografía moral (1/2)",
+    "chars": 19938
+   },
+   {
+    "title": "Geografía moral (2/2)",
+    "chars": 16134
+   },
+   {
+    "title": "Elecciones (1/2)",
+    "chars": 20099
+   },
+   {
+    "title": "Elecciones (2/2)",
+    "chars": 18654
+   },
+   {
+    "title": "Incidentes de viaje (1/5)",
+    "subtitle": "Nueva York",
+    "chars": 34914
+   },
+   {
+    "title": "Incidentes de viaje (2/5)",
+    "chars": 35057
+   },
+   {
+    "title": "Incidentes de viaje (3/5)",
+    "chars": 35757
+   },
+   {
+    "title": "Incidentes de viaje (4/5)",
+    "chars": 35796
+   },
+   {
+    "title": "Incidentes de viaje (5/5)",
+    "chars": 31375
+   }
+  ]
+ },
+ "carta-de-jamaica": {
+  "words": 8149,
+  "bytes": 51401,
+  "sourceUrl": "https://es.wikisource.org/wiki/Carta%20de%20Jamaica",
+  "chapters": [
+   {
+    "title": "Carta de Jamaica (1/2)",
+    "chars": 25056
+   },
+   {
+    "title": "Carta de Jamaica (2/2)",
+    "chars": 24659
+   }
+  ]
+ },
+ "el-mar": {
+  "words": 82461,
+  "bytes": 514168,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/26284",
+  "chapters": [
+   {
+    "title": "I",
+    "part": "Libro primero",
+    "chars": 12284
+   },
+   {
+    "title": "II",
+    "chars": 8893
+   },
+   {
+    "title": "III",
+    "chars": 10259
+   },
+   {
+    "title": "IV",
+    "chars": 14734
+   },
+   {
+    "title": "V",
+    "chars": 15130
+   },
+   {
+    "title": "VI",
+    "chars": 10031
+   },
+   {
+    "title": "VII",
+    "chars": 22658
+   },
+   {
+    "title": "VIII",
+    "chars": 12815
+   },
+   {
+    "title": "I",
+    "part": "Libro segundo",
+    "chars": 11320
+   },
+   {
+    "title": "II",
+    "chars": 15762
+   },
+   {
+    "title": "III",
+    "chars": 14063
+   },
+   {
+    "title": "IV",
+    "chars": 13204
+   },
+   {
+    "title": "V",
+    "chars": 14755
+   },
+   {
+    "title": "VI",
+    "chars": 17249
+   },
+   {
+    "title": "VII",
+    "chars": 11019
+   },
+   {
+    "title": "VIII",
+    "chars": 15883
+   },
+   {
+    "title": "IX",
+    "chars": 9723
+   },
+   {
+    "title": "X",
+    "chars": 13040
+   },
+   {
+    "title": "XI",
+    "chars": 18896
+   },
+   {
+    "title": "XII",
+    "chars": 14253
+   },
+   {
+    "title": "XIII",
+    "chars": 16646
+   },
+   {
+    "title": "I",
+    "part": "Libro tercero",
+    "chars": 11057
+   },
+   {
+    "title": "II",
+    "chars": 17867
+   },
+   {
+    "title": "III",
+    "chars": 17179
+   },
+   {
+    "title": "IV",
+    "chars": 21672
+   },
+   {
+    "title": "V",
+    "chars": 15456
+   },
+   {
+    "title": "VI",
+    "chars": 12791
+   },
+   {
+    "title": "I",
+    "part": "Libro cuarto",
+    "chars": 15581
+   },
+   {
+    "title": "II",
+    "chars": 12349
+   },
+   {
+    "title": "III",
+    "chars": 15169
+   },
+   {
+    "title": "IV",
+    "chars": 11423
+   },
+   {
+    "title": "V",
+    "chars": 9869
+   },
+   {
+    "title": "VI",
+    "chars": 13086
+   },
+   {
+    "title": "VII",
+    "chars": 12708
+   },
+   {
+    "title": "Notas",
+    "chars": 13688
+   }
+  ]
+ },
+ "historia-natural-indias": {
+  "words": 98575,
+  "bytes": 562553,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/70219",
+  "chapters": [
+   {
+    "title": "Capítulo primero",
+    "subtitle": "De la opinión que algunos autores tuvieron, que el Cielo no se extendía al nuevo mundo",
+    "chars": 5001
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Que el cielo es redondo por todas partes, y se mueve en torno de sí mismo",
+    "chars": 7637
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Que la Sagrada Escritura nos da á entender, que la tierra está en medio del mundo",
+    "chars": 8462
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "En que se responde á lo que se alega de la Escritura contra la redondez del Cielo",
+    "chars": 2731
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "De la hechura y gesto del Cielo del nuevo Mundo",
+    "chars": 2520
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Que el mundo hácia ambos polos tiene tierra y mar",
+    "chars": 6773
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "En que se reprueba la opinión de Lactancio, que dijo no haber Antípodas",
+    "chars": 5595
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "Del motivo que tuvo San Agustín para negar los Antípodas",
+    "chars": 4911
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "De la opinion que tuvo Aristóteles cerca del nuevo Mundo; y qué es lo que le engañó para negarle",
+    "chars": 8680
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "Que Plinio y los mas de los Antiguos sintieron lo mismo que Aristóteles",
+    "chars": 3428
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Que se halla en los Antiguos alguna noticia de este nuevo Mundo",
+    "chars": 7041
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "Qué sintió Platon de esta India occidental",
+    "chars": 1766
+   },
+   {
+    "title": "Capítulo XIII",
+    "subtitle": "Que algunos han creido, que en las divinas Escrituras Ofir signifique este nuestro Perú",
+    "chars": 5077
+   },
+   {
+    "title": "Capítulo XIV",
+    "subtitle": "Qué significan en la Escritura Tharsis y Ofir",
+    "chars": 5210
+   },
+   {
+    "title": "Capítulo XV",
+    "subtitle": "De la Profecía de Abdías que algunos declaran de estas Indias",
+    "chars": 4191
+   },
+   {
+    "title": "Capítulo XVI",
+    "subtitle": "De qué modo pudieron venir á Indias los primeros hombres, y que no navegaron de propósito á estas partes",
+    "chars": 9167
+   },
+   {
+    "title": "Capítulo XVII",
+    "subtitle": "De la propiedad y virtud admirable de la piedra imán para navegar; y que los Antiguos no la conocieron",
+    "chars": 6429
+   },
+   {
+    "title": "Capítulo XVIII",
+    "subtitle": "En que se responde á los que sienten haberse navegado antiguamente el Océano, como ahora",
+    "chars": 1258
+   },
+   {
+    "title": "Capítulo XIX",
+    "subtitle": "Que se puede pensar, que los primeros pobladores de Indias aportaron á ellas echados de tormenta, y contra su voluntad",
+    "chars": 4938
+   },
+   {
+    "title": "Capítulo XX",
+    "subtitle": "Que con todo eso es mas conforme á buena razon pensar que vinieron por tierra los primeros pobladores de Indias",
+    "chars": 7202
+   },
+   {
+    "title": "Capítulo XXI",
+    "subtitle": "En qué manera pasaron bestias y ganados á las tierras de Indias",
+    "chars": 5482
+   },
+   {
+    "title": "Capítulo XXII",
+    "subtitle": "Que no pasó el linage de Indios por la Isla Atlántida, como algunos imaginan",
+    "chars": 5191
+   },
+   {
+    "title": "Capítulo XXIII",
+    "subtitle": "Que es falsa la opinion de muchos, que afirman venir los Indios de el linage de los Judíos",
+    "chars": 4337
+   },
+   {
+    "title": "Capítulo XXIV",
+    "subtitle": "Porqué aazon no se puede averiguar bien el origen de los Indios",
+    "chars": 2341
+   },
+   {
+    "title": "Capítulo XXV",
+    "subtitle": "Qué es lo que los Indios suelen contar de su origen",
+    "chars": 4031
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Qué se ha de tratar de la naturaleza de la equinoccial",
+    "chars": 1182
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "Qué les movió á los Antiguos á tener por cosa sin duda que la Tórrida era inhabitable",
+    "chars": 2598
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "Que la Tórridazona es humedísima; y que en esto se engañaron mucho los Antiguos",
+    "chars": 3796
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Que fuera de los Trópicos es al revés que en la Tórrida, y así hay mas aguas cuando el Sol se aparta mas",
+    "chars": 2429
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "Que dentro de los Trópicos los aguas son en el estío ó tiempo de calor; y de la cuenta del verano é invierno",
+    "chars": 3187
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Que la Tórrida tiene gran abundancia de aguas y pastos, por mas que Aristóteles lo niegue",
+    "chars": 5744
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Trátase la razon, porqué el Sol fuera de los Trópicos, cuando mas dista, levanta aguas, y dentro de ellos al revés, cuando está mas cerca",
+    "chars": 7123
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "En qué manera se haya de entender lo que se dice de la Tórridazona",
+    "chars": 2313
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Que la Tórrida no es en exceso caliente, sino moderadamente caliente",
+    "chars": 2722
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "Que el calor de la Tórrida se templa con la muchedumbre de lluvias, y con la brevedad de los dias",
+    "chars": 4636
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Que fuera de las dichas hay otras causas de ser la Tórrida templada, y especialmente la vecindad del mar Océano",
+    "chars": 3230
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "Que las tierras mas altas son mas frias; y qué sea la razon de esto",
+    "chars": 4661
+   },
+   {
+    "title": "Capítulo XIII",
+    "subtitle": "Que la principal causa de ser la Tórrida templada son los vientos frescos",
+    "chars": 5188
+   },
+   {
+    "title": "Capítulo XIV",
+    "subtitle": "Que en la region de la equinoccial se vive vida muy apacible",
+    "chars": 3295
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "Que la historia natural de cosas de las Indias es apacible y deleitoso",
+    "chars": 2069
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "De los vientos, y sus diferencias, y propiedades, y causas en general",
+    "chars": 8630
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "De algunas propiedades de vientos que corren en el nuevo orbe",
+    "chars": 4548
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Que en la Tórridazona corren siempre brisas, y fuera de ella vendavales y brisas",
+    "chars": 6979
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "De las diferencias de brisas y vendavales con los demás vientos",
+    "chars": 7150
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Qué sea la causa de hallarse siempre viento de oriente en la Tórrida para navegar",
+    "chars": 6965
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "Porqué causa se hallan mas ordinarios vendavales saliendo de la Tórrida á mas altura",
+    "chars": 1537
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "De las excepciones que se hallan en la regla ya dicha, y de los vientos y calmas que hay en mar y tierra",
+    "chars": 4132
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "De algunos efectos maravillosos de vientos en partes de Indias",
+    "chars": 11480
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "Del Océano, que rodea las Indias, y de la mar del norte, y del sur",
+    "chars": 5351
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Del Estrecho de Magallanes, como se pasó por la banda del sur",
+    "chars": 5121
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "Del Estrecho que algunos afirman haber en la Florida",
+    "chars": 2329
+   },
+   {
+    "title": "Capítulo XIII",
+    "subtitle": "De las propiedades del Estrecho de Magallanes",
+    "chars": 3228
+   },
+   {
+    "title": "Capítulo XIV",
+    "subtitle": "Del flujo y reflujo del mar Océano en Indias",
+    "chars": 4111
+   },
+   {
+    "title": "Capítulo XV",
+    "subtitle": "De diversos pescados, y modos de pescar de los Indios",
+    "chars": 9094
+   },
+   {
+    "title": "Capítulo XVI",
+    "subtitle": "De las lagunas y lagos que se hallan en Indias",
+    "chars": 5771
+   },
+   {
+    "title": "Capítulo XVII",
+    "subtitle": "De diversas fuentes y manantiales",
+    "chars": 3816
+   },
+   {
+    "title": "Capítulo XVIII",
+    "subtitle": "De Rios",
+    "chars": 4813
+   },
+   {
+    "title": "Capítulo XIX",
+    "subtitle": "De la cualidad de la tierra de Indias en general",
+    "chars": 6692
+   },
+   {
+    "title": "Capítulo XX",
+    "subtitle": "De las propiedades de la tierra del Perú",
+    "chars": 5156
+   },
+   {
+    "title": "Capítulo XXI",
+    "subtitle": "De las causas que dan de no llover en los llanos",
+    "chars": 3259
+   },
+   {
+    "title": "Capítulo XXII",
+    "subtitle": "De la propiedad de Nueva-España y Islas, y las demás tierras",
+    "chars": 3599
+   },
+   {
+    "title": "Capítulo XXIII",
+    "subtitle": "De la tierra que se ignora, y de la diversidad de un dia entero entre orientales y occidentales",
+    "chars": 6208
+   },
+   {
+    "title": "Capítulo XXIV",
+    "subtitle": "De los volcanes ó bocas de fuego",
+    "chars": 3848
+   },
+   {
+    "title": "Capítulo XXV",
+    "subtitle": "Qué sea la causa de durar tanto tiempo el fuego y humo de estos volcanes",
+    "chars": 3207
+   },
+   {
+    "title": "Capítulo XXVI",
+    "subtitle": "De los Temblores de tierra",
+    "chars": 5466
+   },
+   {
+    "title": "Capítulo XXVII",
+    "subtitle": "Cómo se abrazan la tierra y la mar",
+    "chars": 2323
+   },
+   {
+    "title": "Capítulo primero",
+    "subtitle": "De tres géneros de mixtos que se han de tratar en esta Historia",
+    "chars": 3328
+   },
+   {
+    "title": "Capítulo II",
+    "subtitle": "De la abundancia de metales que hay en las Indias occidentales",
+    "chars": 4928
+   },
+   {
+    "title": "Capítulo III",
+    "subtitle": "De la cualidad de la tierra donde se hallan metales; y que no se labran todos en Indias; y de cómo usaban los Indios de los metales",
+    "chars": 3907
+   },
+   {
+    "title": "Capítulo IV",
+    "subtitle": "Del oro que se labra en Indias",
+    "chars": 7321
+   },
+   {
+    "title": "Capítulo V",
+    "subtitle": "De la Plata de Indias",
+    "chars": 4409
+   },
+   {
+    "title": "Capítulo VI",
+    "subtitle": "Del cerro de Potosí y de su descubrimiento",
+    "chars": 7341
+   },
+   {
+    "title": "Capítulo VII",
+    "subtitle": "De la riqueza que se ha sacado, y cada dia se va sacando de el cerro de Potosí",
+    "chars": 6966
+   },
+   {
+    "title": "Capítulo VIII",
+    "subtitle": "Del modo de labrar las minas de Potosí",
+    "chars": 6931
+   },
+   {
+    "title": "Capítulo IX",
+    "subtitle": "Cómo se beneficia el metal de Plata",
+    "chars": 3132
+   },
+   {
+    "title": "Capítulo X",
+    "subtitle": "De las propiedades maravillosas del azogue",
+    "chars": 5566
+   },
+   {
+    "title": "Capítulo XI",
+    "subtitle": "Dónde se halla el Azogue, y cómo se descubrieron sus minas riquísimas en Guancavelica",
+    "chars": 5334
+   },
+   {
+    "title": "Capítulo XII",
+    "subtitle": "De el modo y arte que se saca el Azogue, y se beneficia con él la plata",
+    "chars": 7885
+   },
+   {
+    "title": "Capítulo XIII",
+    "subtitle": "De los ingenios para moler metales, y del ensaye de la plata",
+    "chars": 3879
+   },
+   {
+    "title": "Capítulo XIV",
+    "subtitle": "De las esmeraldas",
+    "chars": 3973
+   },
+   {
+    "title": "Capítulo XV",
+    "subtitle": "De las perlas",
+    "chars": 3450
+   },
+   {
+    "title": "Capítulo XVI",
+    "subtitle": "Del pan de Indias y del maiz",
+    "chars": 6276
+   },
+   {
+    "title": "Capítulo XVII",
+    "subtitle": "De las yucas, cazabe, papas, chuño y arroz",
+    "chars": 4685
+   },
+   {
+    "title": "Capítulo XVIII",
+    "subtitle": "De diversas raíces que se dan en Indias",
+    "chars": 2138
+   },
+   {
+    "title": "Capítulo XIX",
+    "subtitle": "De diversos géneros de verduras y legumbres; y de los que llaman pepinos, piñas, frutilla de Chile, y ciruelas",
+    "chars": 5394
+   },
+   {
+    "title": "Capítulo XX",
+    "subtitle": "Del aji ó pimienta de las Indias",
+    "chars": 2798
+   },
+   {
+    "title": "Capítulo XXI",
+    "subtitle": "Del plátano",
+    "chars": 5661
+   },
+   {
+    "title": "Capítulo XXII",
+    "subtitle": "Del cacao y de la coca",
+    "chars": 4786
+   },
+   {
+    "title": "Capítulo XXIII",
+    "subtitle": "Del maguey, del tunal, de la grana, del añil y algodón",
+    "chars": 4712
+   },
+   {
+    "title": "Capítulo XXIV",
+    "subtitle": "De los mameyes, guayavos y paltos",
+    "chars": 2501
+   },
+   {
+    "title": "Capítulo XXV",
+    "subtitle": "Del chicozapote, de las anonas y de los capolíes",
+    "chars": 1503
+   },
+   {
+    "title": "Capítulo XXVI",
+    "subtitle": "De diversos géneros de frutales; y de los cocos, almendras de Andes y almendras de Chachapoyas",
+    "chars": 4776
+   },
+   {
+    "title": "Capítulo XXVII",
+    "subtitle": "De diversas flores, y de algunos árboles que solamente dan flores; y como los Indios las usan",
+    "chars": 3733
+   },
+   {
+    "title": "Capítulo XXVIII",
+    "subtitle": "Del bálsamo",
+    "chars": 4229
+   },
+   {
+    "title": "Capítulo XXIX",
+    "subtitle": "Del liquidambar, y otros aceites, gomas y drogas, que se traen de Indias",
+    "chars": 4197
+   },
+   {
+    "title": "Capítulo XXX",
+    "subtitle": "De las grandes arboledas de Indias, y de los cedros, ceyvas y otros árboles grandes",
+    "chars": 5239
+   },
+   {
+    "title": "Capítulo XXXI",
+    "subtitle": "De las plantas y frutales que se han llevado de España á las Indias",
+    "chars": 3127
+   },
+   {
+    "title": "Capítulo XXXII",
+    "subtitle": "De las uvas, viñas, olívas, moreras y cañas de azucar",
+    "chars": 4825
+   },
+   {
+    "title": "Capítulo XXXIII",
+    "subtitle": "De los ganados ovejuno y vacuno",
+    "chars": 5036
+   },
+   {
+    "title": "Capítulo XXXIV",
+    "subtitle": "De algunos animales de Europa que hallaron los Españoles en Indias, y cómo hayan pasado",
+    "chars": 3791
+   },
+   {
+    "title": "Capítulo XXXV",
+    "subtitle": "De las aves que hay de acá, y cómo pasaron á Indias",
+    "chars": 3312
+   },
+   {
+    "title": "Capítulo XXXVI",
+    "subtitle": "Cómo sea posible haber en Indias animales, que no hay en otra parte del mundo",
+    "chars": 3397
+   },
+   {
+    "title": "Capítulo XXXVII",
+    "subtitle": "De las aves propias de Indias",
+    "chars": 5351
+   },
+   {
+    "title": "Capítulo XXXVIII",
+    "subtitle": "De los animales de monte",
+    "chars": 3999
+   },
+   {
+    "title": "Capítulo XXXIX",
+    "subtitle": "De los micos ó monos de Indias",
+    "chars": 2650
+   },
+   {
+    "title": "Capítulo XL",
+    "subtitle": "De las vicuñas y tarugas del Perú",
+    "chars": 4429
+   },
+   {
+    "title": "Capítulo XLI",
+    "subtitle": "De los pacos, guanacos y carneros del Perú",
+    "chars": 5898
+   },
+   {
+    "title": "Capítulo XLII",
+    "subtitle": "De las piedras bezaares",
+    "chars": 30456
+   }
+  ]
+ },
+ "colon-descubrimiento": {
+  "words": 113142,
+  "bytes": 694410,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/61831",
+  "chapters": [
+   {
+    "title": "Prólogo",
+    "chars": 15085
+   },
+   {
+    "title": "Introducción",
+    "chars": 8629
+   },
+   {
+    "title": "I",
+    "chars": 12752
+   },
+   {
+    "title": "II",
+    "chars": 24061
+   },
+   {
+    "title": "III",
+    "chars": 24968
+   },
+   {
+    "title": "IV",
+    "chars": 11540
+   },
+   {
+    "title": "V",
+    "chars": 31870
+   },
+   {
+    "title": "VI",
+    "chars": 26244
+   },
+   {
+    "title": "VII",
+    "chars": 8028
+   },
+   {
+    "title": "VIII",
+    "chars": 12169
+   },
+   {
+    "title": "IX",
+    "chars": 22087
+   },
+   {
+    "title": "X",
+    "chars": 22955
+   },
+   {
+    "title": "XI",
+    "chars": 16452
+   },
+   {
+    "title": "XII",
+    "chars": 28246
+   },
+   {
+    "title": "XIII",
+    "chars": 16673
+   },
+   {
+    "title": "XIV",
+    "chars": 15766
+   },
+   {
+    "title": "XV",
+    "chars": 9289
+   },
+   {
+    "title": "XVI",
+    "chars": 15610
+   },
+   {
+    "title": "XVII",
+    "chars": 6439
+   },
+   {
+    "title": "XVIII",
+    "chars": 7552
+   },
+   {
+    "title": "XIX",
+    "chars": 27959
+   },
+   {
+    "title": "XX",
+    "chars": 20630
+   },
+   {
+    "title": "XXI",
+    "chars": 19087
+   },
+   {
+    "title": "Notas (1/8)",
+    "chars": 33037
+   },
+   {
+    "title": "Notas (2/8)",
+    "chars": 33113
+   },
+   {
+    "title": "Notas (3/8)",
+    "chars": 33196
+   },
+   {
+    "title": "Notas (4/8)",
+    "chars": 32736
+   },
+   {
+    "title": "Notas (5/8)",
+    "chars": 35649
+   },
+   {
+    "title": "Notas (6/8)",
+    "chars": 33111
+   },
+   {
+    "title": "Notas (7/8)",
+    "chars": 33404
+   },
+   {
+    "title": "Notas (8/8)",
+    "chars": 27345
+   }
+  ]
+ },
+ "conde-lucanor": {
+  "words": 78135,
+  "bytes": 442109,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/65738",
+  "chapters": [
+   {
+    "title": "Enxemplo I",
+    "chars": 11206
+   },
+   {
+    "title": "Ejemplo II",
+    "chars": 8126
+   },
+   {
+    "title": "Ejemplo III",
+    "chars": 11736
+   },
+   {
+    "title": "Exemplo IV",
+    "chars": 4309
+   },
+   {
+    "title": "Enxemplo V",
+    "chars": 5182
+   },
+   {
+    "title": "Exemplo VI",
+    "chars": 3160
+   },
+   {
+    "title": "Enxemplo VII",
+    "chars": 3257
+   },
+   {
+    "title": "Enxemplo VIII",
+    "chars": 2082
+   },
+   {
+    "title": "Enxemplo IX",
+    "chars": 5982
+   },
+   {
+    "title": "Ejemplo X",
+    "chars": 3300
+   },
+   {
+    "title": "Ejemplo XI",
+    "chars": 11209
+   },
+   {
+    "title": "Ejemplo XII",
+    "chars": 6495
+   },
+   {
+    "title": "Ejemplo XIII",
+    "chars": 2737
+   },
+   {
+    "title": "Ejemplo XIV",
+    "chars": 3811
+   },
+   {
+    "title": "Enjemplo XV",
+    "chars": 8356
+   },
+   {
+    "title": "Ejemplo XVI",
+    "chars": 2752
+   },
+   {
+    "title": "Ejemplo XVII",
+    "chars": 2694
+   },
+   {
+    "title": "Ejemplo XVIII",
+    "chars": 5106
+   },
+   {
+    "title": "Ejemplo XIX",
+    "chars": 4693
+   },
+   {
+    "title": "Ejemplo XX",
+    "chars": 6895
+   },
+   {
+    "title": "Ejemplo XXI",
+    "chars": 6879
+   },
+   {
+    "title": "Ejemplo XXII",
+    "chars": 7106
+   },
+   {
+    "title": "Ejemplo XXIII",
+    "chars": 3780
+   },
+   {
+    "title": "Ejemplo XXIV",
+    "chars": 8254
+   },
+   {
+    "title": "Ejemplo XXV",
+    "chars": 15230
+   },
+   {
+    "title": "Ejemplo XXVI",
+    "chars": 8065
+   },
+   {
+    "title": "Ejemplo XXVII",
+    "chars": 22292
+   },
+   {
+    "title": "Ejemplo XXVIII",
+    "chars": 5466
+   },
+   {
+    "title": "Ejemplo XXIX",
+    "chars": 3973
+   },
+   {
+    "title": "Ejemplo XXX",
+    "chars": 4235
+   },
+   {
+    "title": "Ejemplo XXXI",
+    "chars": 2318
+   },
+   {
+    "title": "Ejemplo XXXII",
+    "chars": 7565
+   },
+   {
+    "title": "Ejemplo XXXIII",
+    "chars": 4587
+   },
+   {
+    "title": "Ejemplo XXXIV",
+    "chars": 2073
+   },
+   {
+    "title": "Ejemplo XXXV",
+    "chars": 9517
+   },
+   {
+    "title": "Ejemplo XXXVI",
+    "chars": 5010
+   },
+   {
+    "title": "Ejemplo XXXVII",
+    "chars": 2392
+   },
+   {
+    "title": "Ejemplo XXXVIII",
+    "chars": 2858
+   },
+   {
+    "title": "Ejemplo XXXIX",
+    "chars": 1770
+   },
+   {
+    "title": "Ejemplo XL",
+    "chars": 5542
+   },
+   {
+    "title": "Ejemplo XLI",
+    "chars": 5574
+   },
+   {
+    "title": "Ejemplo XLII",
+    "chars": 9355
+   },
+   {
+    "title": "Ejemplo XLIII",
+    "chars": 7783
+   },
+   {
+    "title": "Ejemplo XLIV",
+    "chars": 9080
+   },
+   {
+    "title": "Ejemplo XLV",
+    "chars": 8060
+   },
+   {
+    "title": "Ejemplo XLVI",
+    "chars": 7941
+   },
+   {
+    "title": "Ejemplo XLVII",
+    "chars": 4903
+   },
+   {
+    "title": "Ejemplo XLVIII",
+    "chars": 9472
+   },
+   {
+    "title": "Ejemplo XLIX",
+    "chars": 4927
+   },
+   {
+    "title": "Ejemplo L",
+    "chars": 19719
+   },
+   {
+    "title": "Ejemplo LI (1/3)",
+    "chars": 29541
+   },
+   {
+    "title": "Ejemplo LI (2/3)",
+    "chars": 30310
+   },
+   {
+    "title": "Ejemplo LI (3/3)",
+    "chars": 28558
+   }
+  ]
+ },
+ "cuentos-populares-chile": {
+  "words": 88958,
+  "bytes": 538269,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/63424",
+  "chapters": [
+   {
+    "title": "1. El Soldadillo",
+    "chars": 11268
+   },
+   {
+    "title": "2. El Pescadito encantado",
+    "subtitle": "(Referido en 1911 por Samuel Antonio Letelier, de 9 años, de Molina. Lo oyó contar en 1910 en Linares)",
+    "chars": 8829
+   },
+   {
+    "title": "3. Delgadina y el Culebrón",
+    "subtitle": "(Recitador: Pedro Danús, de 13 años, de Santiago. La oyó contar en la misma ciudad)",
+    "chars": 15617
+   },
+   {
+    "title": "4. La Tenquita",
+    "subtitle": "(Recitado en 1905 por Polonia Gonzalez, de 50 años, de la provincia de Colchagua)",
+    "chars": 5824
+   },
+   {
+    "title": "5. EL GALLITO (Cuento de pega)",
+    "subtitle": "(Dictado en 1911 por don Victoriano de Castro, español, de 55 años. Lo oyó contar en Belver de los Montes, provincia de Zaragoza, donde el cuento era muy popular, cuando él era niño)",
+    "chars": 2973
+   },
+   {
+    "title": "6. La tortilla o el Canarito encantado",
+    "subtitle": "(Referido por don Osvaldo Martínez, Presbítero, de Santiago, en 1912)",
+    "chars": 20534
+   },
+   {
+    "title": "7. El Rey tiene cachito",
+    "subtitle": "(Contado por el Presbítero don Osvaldo Martínez, de Santiago, en 1912)",
+    "chars": 4273
+   },
+   {
+    "title": "8. El cuerpo sin alma",
+    "subtitle": "(Referido en 1912 por Beatriz Montecinos, de 50 años, de Talca)",
+    "chars": 9611
+   },
+   {
+    "title": "9. La Huachita Cordera",
+    "subtitle": "(Referido en Abril de 1914 por Mercedes Albornoz, de 14 años, Villa Alegre)",
+    "chars": 11337
+   },
+   {
+    "title": "10. Las siete ciegas",
+    "subtitle": "(Referido por el niño Luis Smith, de 12 años, en 1910)",
+    "chars": 13583
+   },
+   {
+    "title": "11. El Miñique",
+    "subtitle": "(Referido por el niño Mannel Oporto, de 14 años, de Temuco, que lo oyó contar en Santiago en 1911)",
+    "chars": 10805
+   },
+   {
+    "title": "12. Los tres consejos",
+    "subtitle": "(Contado por la Señora Clorinda B. de Somerville, en 1915)",
+    "chars": 13651
+   },
+   {
+    "title": "13. El Loro adivino",
+    "subtitle": "(Referido por José Luis Pino, de 20 años, de Rancagua, en 1912)",
+    "chars": 21008
+   },
+   {
+    "title": "14. El medio pollo[d]",
+    "subtitle": "(Contado en 1906 por Polonia González, de 50 años, más o menos, natural de la provincia de Colchagua)",
+    "chars": 10447
+   },
+   {
+    "title": "15. El barco de los tres hachazos",
+    "subtitle": "(Me lo refirió el Capitán D. Alberto Muñoz Figueroa, de Santiago, en 1922)",
+    "chars": 17090
+   },
+   {
+    "title": "16. Hermosura del mundo, o el castillo de los tres azuelazos",
+    "subtitle": "(Contado por Tránsito González, maestro carpintero, de Choapa y 57 años de edad. Me lo refirió en Peñaflor, en 1922.) (1/2)",
+    "chars": 19964
+   },
+   {
+    "title": "16. Hermosura del mundo, o el castillo de los tres azuelazos",
+    "subtitle": "(Contado por Tránsito González, maestro carpintero, de Choapa y 57 años de edad. Me lo refirió en Peñaflor, en 1922.) (2/2)",
+    "chars": 19922
+   },
+   {
+    "title": "17. El Árbol de las tres manzanas de oro",
+    "subtitle": "(Referido en 1912 por Juan Ignacio Montecinos, de 32 años, de San Felipe, quien lo oyó contar en Santiago, siendo niño.)",
+    "chars": 17925
+   },
+   {
+    "title": "18. Los hijos del pescador, o el castillo de la Torderás, irás y no volverás",
+    "chars": 22709
+   },
+   {
+    "title": "19. El compadrito León, potito quemado",
+    "subtitle": "(Contado por Beatriz Montecinos, de Talca, de 50 años, en 1911)",
+    "chars": 18593
+   },
+   {
+    "title": "20. El Miñaco[e]",
+    "subtitle": "(Beatriz Montecinos)",
+    "chars": 4591
+   },
+   {
+    "title": "21. Chilindrín y Chilindrón",
+    "subtitle": "(Referido en 1917, por Anastasio Puga, de 92 años, natural de Guacarhue.)",
+    "chars": 19455
+   },
+   {
+    "title": "22. Juan valiente, el de la vaquilla",
+    "subtitle": "(Referido por el niño Samuel Antonio Letelier, de Molina, de 9 años. Lo oyó contar en Linares.)",
+    "chars": 5934
+   },
+   {
+    "title": "23. La Sapita encantada",
+    "subtitle": "(Referido por Beatriz Montecinos.)",
+    "chars": 12462
+   },
+   {
+    "title": "24. Gallarín y el Gigante",
+    "subtitle": "(Contado en Febrero de 1923 por el maestro carpintero Tránsito González, de 57 años, residente en Peñaflor.)",
+    "chars": 17535
+   },
+   {
+    "title": "25. Salir con su domingo siete",
+    "chars": 3145
+   },
+   {
+    "title": "26. La Lorita encantada",
+    "subtitle": "(Se lo contó, en 1909, Petronila Riquelme, de 56 años, natural de Chimbarongo, a don Luis Thayer Ojeda, quien tuvo la bondad de obsequiarme la transcripción, hecha por él, en Octubre de 1915.)",
+    "chars": 8393
+   },
+   {
+    "title": "27. El Diablo y el campesino",
+    "chars": 1621
+   },
+   {
+    "title": "28. El Lión y el hombre{*}",
+    "subtitle": "(Narrado en 1888 por el carrilano albañil Pedro Antonio Liberona, natural de Nancagua, de 55 años de edad, y escrito, según sus recuerdo). por don Roberto Regifo, en Diciembre de 1921",
+    "chars": 1754
+   },
+   {
+    "title": "28. El León y el hombre",
+    "chars": 9582
+   },
+   {
+    "title": "29. Los tres hermanos que salieron a aprender a hablar",
+    "subtitle": "(Referido por el niño M. I. Oportot, de 12 años, en 1912.)",
+    "chars": 1969
+   },
+   {
+    "title": "30. Las tres gangosas",
+    "subtitle": "(Contado por el niño Alfonso González, natural de Santiago, de 12 años, en 1912.)",
+    "chars": 1701
+   },
+   {
+    "title": "31. El capón asado",
+    "subtitle": "(Me lo refirió el joven D. A. Freire, de Santiago, en 1911.)",
+    "chars": 1730
+   },
+   {
+    "title": "32. El vendedor de coquitos",
+    "chars": 431
+   },
+   {
+    "title": "33. El vendedor de pequenes",
+    "subtitle": "(Variante del anterior)",
+    "chars": 444
+   },
+   {
+    "title": "34. El cuento de los tres difuntos",
+    "chars": 449
+   },
+   {
+    "title": "35. El Sacristán que habla a los fieles",
+    "subtitle": "(Contado por la Srta. Elisa Echeverría L., de Santiago, en 1914)",
+    "chars": 875
+   },
+   {
+    "title": "36. Por que el Jote tiene la cabeza y el cogote sin plumas",
+    "subtitle": "(Este cuentecillo y los que siguen, hasta el Núm. 40, me fueron contados en Peñaflor, en 1922, por el maestro carpintero Tránsito González)",
+    "chars": 2494
+   },
+   {
+    "title": "37. Las tres mentiras",
+    "chars": 1724
+   },
+   {
+    "title": "38. El Pequén y el Sapo",
+    "chars": 1566
+   },
+   {
+    "title": "39. El Guairao y el sapito",
+    "chars": 292
+   },
+   {
+    "title": "40. Los guairaos y el Sapo",
+    "chars": 355
+   },
+   {
+    "title": "II Parte",
+    "subtitle": "MITOS, TRADICIONES, CASOS. Narraciones supersticiosas",
+    "chars": 480
+   },
+   {
+    "title": "1. El Chanchillo",
+    "subtitle": "(Referido por D. H. Iribarren Charlín, de 17 años. 8 de Julio de 1911.)",
+    "chars": 969
+   },
+   {
+    "title": "2. El chumaco",
+    "subtitle": "(Información que en 1921 me suministró el cirujano dentista D. Roberto Sundt, natural de la provincia de Coquimbo.)",
+    "chars": 368
+   },
+   {
+    "title": "3. La Calchona",
+    "subtitle": "(Contado por el niño D. Ramón Fernández G., estudiante, de 14 años. Santiago, 1911.)",
+    "chars": 984
+   },
+   {
+    "title": "4. Otra versión",
+    "subtitle": "(Del joven estudiante D. Francisco Vásquez, de 15 años, de Santiago.)",
+    "chars": 1194
+   },
+   {
+    "title": "5. Otra versión",
+    "chars": 1537
+   },
+   {
+    "title": "6. La viuda",
+    "subtitle": "(Me lo contó el joven estudiante D. Carlos Puccio, de Molina y 17 años de edad, en 1911.)",
+    "chars": 269
+   },
+   {
+    "title": "7. La mujer larga",
+    "chars": 238
+   },
+   {
+    "title": "8. El Piguchén",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 888
+   },
+   {
+    "title": "9. La cuca",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 431
+   },
+   {
+    "title": "10. El cabro viejo",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 423
+   },
+   {
+    "title": "11. El hombre Tigre",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 1004
+   },
+   {
+    "title": "12. El peral encantado",
+    "chars": 228
+   },
+   {
+    "title": "13. La Sirena del río cato",
+    "subtitle": "(D. Augusto Escárate, de 12 años; ha vivido en Chillán.)",
+    "chars": 351
+   },
+   {
+    "title": "14. La Sirena de aculeo",
+    "chars": 391
+   },
+   {
+    "title": "15. La laguna de taguatagua",
+    "subtitle": "(Referido por D. Luis Barahona Novoa, dentista, en 1910.)",
+    "chars": 997
+   },
+   {
+    "title": "16. La cueva de la niña",
+    "chars": 448
+   },
+   {
+    "title": "17. La laguna de Pudahuel",
+    "subtitle": "(Referido en 1911 por el joven estudiante D. Ramón Fernández, de 15 años, de Santiago.)",
+    "chars": 1105
+   },
+   {
+    "title": "18. La laguna de las tres Pascualas",
+    "subtitle": "(Contado por D. Francisco 2.º Vásquez.)",
+    "chars": 1740
+   },
+   {
+    "title": "19. La cueva de la mula",
+    "chars": 477
+   },
+   {
+    "title": "20. La rana castigada",
+    "subtitle": "(Me lo refirió el estudiante D. Antonio Morales, de 16 años, en Santiago, en 1909.)",
+    "chars": 886
+   },
+   {
+    "title": "21. La rana vengativa",
+    "subtitle": "(Contado por el mismo joven Morales, en 1909.)",
+    "chars": 447
+   },
+   {
+    "title": "22. La cueva de las cardillas",
+    "subtitle": "(Me lo refirió el niño D. Oscar Salinas, de 12 años, en 1912. Lo oyó contar en Melipilla.)",
+    "chars": 1173
+   },
+   {
+    "title": "23. El hombre que quiso volar",
+    "subtitle": "(Referido en 1911, por D. Francisco 2.º Vásquez, que lo oyó contar en Santiago.)",
+    "chars": 2074
+   },
+   {
+    "title": "24. El falte brujo",
+    "subtitle": "(Me lo contó, en 1911, el joven D. Carlos Puccio, de 17 años, de Molina.)",
+    "chars": 704
+   },
+   {
+    "title": "25. Los brujos de Peumo",
+    "subtitle": "(Procede de D. Roberto Rengifo, quien me entregó escrita esta relación en 1921.)",
+    "chars": 1413
+   },
+   {
+    "title": "26. La aparicion de la culebra",
+    "subtitle": "(Me lo contó en 1911 el niño D. Juan Pereira, de 16 años, de Cauquenes.)",
+    "chars": 797
+   },
+   {
+    "title": "27. El comerciante convertido en burro",
+    "chars": 2138
+   },
+   {
+    "title": "28. El caballero que quiso aprender a brujo",
+    "subtitle": "(Referido por D. Francisco 2.º Vásquez.)",
+    "chars": 1900
+   },
+   {
+    "title": "29. El zapatero que se volvía gallo",
+    "chars": 5833
+   },
+   {
+    "title": "30. La Rosa de las monjas claras",
+    "chars": 2541
+   },
+   {
+    "title": "31. El caballero que fué transformado en caballo y después en pavo",
+    "subtitle": "(Contado en Peñaflor, en 1922, por el maestro carpintero Tránsito González, natural de Choapa, de 57 años de edad.)",
+    "chars": 5291
+   },
+   {
+    "title": "Ilusiones",
+    "subtitle": "32. EL CABRO DE LA CALLE DE BUERAS (Relatado en 1912 por el niño D. Enrique Alfaro, de 17 años, de Santiago.)",
+    "chars": 375
+   },
+   {
+    "title": "33. La niña de los grandes ojos",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 533
+   },
+   {
+    "title": "34. Las sombras",
+    "subtitle": "(D. Francisco 2.º Vásquez, 1911.)",
+    "chars": 1872
+   },
+   {
+    "title": "Maldicion",
+    "subtitle": "35. el risco del arriero (1910)",
+    "chars": 540
+   },
+   {
+    "title": "Tesoros",
+    "chars": 453
+   },
+   {
+    "title": "36. El entierro del naranjo",
+    "subtitle": "(Referido en 1911, por D. J. Andrés González, de 55 años, de Santiago.)",
+    "chars": 1330
+   },
+   {
+    "title": "37. Los dos viajeros",
+    "subtitle": "(Contado por D. Francisco 2.º Vásquez, en 1911.)",
+    "chars": 1856
+   },
+   {
+    "title": "38. El clérigo",
+    "subtitle": "(Contado por D. Francisco 2.º Vásquez, en 1911.)",
+    "chars": 2071
+   },
+   {
+    "title": "El Diablo",
+    "subtitle": "39. el niño dentudo (1910.)",
+    "chars": 831
+   },
+   {
+    "title": "40. El Diablo bailarin",
+    "subtitle": "(1910.)",
+    "chars": 579
+   },
+   {
+    "title": "41. El hijo del Diablo",
+    "chars": 3111
+   },
+   {
+    "title": "Pactos con el Diablo",
+    "subtitle": "42. el Diablo generoso",
+    "chars": 2421
+   },
+   {
+    "title": "43. Las doce palabras redobladas",
+    "subtitle": "(Contado por la Sta. Zoila Guerrero Gutiérrez, Prado de Peñaflor. Febrero de 1923.)",
+    "chars": 12760
+   },
+   {
+    "title": "Apéndice i",
+    "subtitle": "bibliografia de las obras que se citan en este volumen",
+    "chars": 2414
+   },
+   {
+    "title": "Notas comparativas",
+    "chars": 26422
+   },
+   {
+    "title": "Apéndice II",
+    "chars": 14367
+   }
+  ]
+ },
+ "cuentos-de-nunca-acabar": {
+  "words": 10634,
+  "bytes": 61790,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/69164",
+  "chapters": [
+   {
+    "title": "1. Cuento del Gatito montes",
+    "chars": 1295
+   },
+   {
+    "title": "3. El Gato sarapo",
+    "chars": 376
+   },
+   {
+    "title": "4. Los italianos i el inglés",
+    "chars": 273
+   },
+   {
+    "title": "6. El Candadito",
+    "chars": 656
+   },
+   {
+    "title": "7. La Mula baya de don Pedro Arcaya",
+    "chars": 1191
+   },
+   {
+    "title": "8. El Rei que tenia dos hijos",
+    "chars": 839
+   },
+   {
+    "title": "9. La Vaca del Rei",
+    "chars": 939
+   },
+   {
+    "title": "10. El Humito",
+    "chars": 2178
+   },
+   {
+    "title": "11. La Hormiguita",
+    "chars": 1858
+   },
+   {
+    "title": "12. Los Gansos",
+    "chars": 791
+   },
+   {
+    "title": "13. El Zorzal",
+    "chars": 940
+   },
+   {
+    "title": "14. El Fililo",
+    "chars": 492
+   },
+   {
+    "title": "15",
+    "chars": 557
+   },
+   {
+    "title": "16. Bartolo",
+    "chars": 311
+   },
+   {
+    "title": "17. El Porotal",
+    "chars": 253
+   },
+   {
+    "title": "18. El Perro leon amarillo",
+    "chars": 283
+   },
+   {
+    "title": "19. El Pato",
+    "chars": 686
+   },
+   {
+    "title": "20. El polaco i el inglés",
+    "chars": 392
+   },
+   {
+    "title": "21. El miedoso",
+    "chars": 3767
+   },
+   {
+    "title": "22. La Tenquita",
+    "chars": 12478
+   },
+   {
+    "title": "23. La Cuja",
+    "chars": 1776
+   },
+   {
+    "title": "24. El real i medio",
+    "chars": 2566
+   },
+   {
+    "title": "24. La Mata de Cóguiles",
+    "chars": 14483
+   },
+   {
+    "title": "25. La Pava",
+    "chars": 6324
+   }
+  ]
+ },
+ "la-iliada": {
+  "words": 150966,
+  "bytes": 903597,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/57654",
+  "chapters": [
+   {
+    "title": "Al lector",
+    "chars": 14918
+   },
+   {
+    "title": "Canto primero",
+    "chars": 32112
+   },
+   {
+    "title": "Canto II (1/2)",
+    "chars": 22838
+   },
+   {
+    "title": "Canto II (2/2)",
+    "chars": 22691
+   },
+   {
+    "title": "Canto III",
+    "chars": 23579
+   },
+   {
+    "title": "Canto IV",
+    "chars": 28285
+   },
+   {
+    "title": "Canto V (1/2)",
+    "chars": 23881
+   },
+   {
+    "title": "Canto V (2/2)",
+    "chars": 23796
+   },
+   {
+    "title": "Canto VI",
+    "chars": 27526
+   },
+   {
+    "title": "Canto VII",
+    "chars": 25548
+   },
+   {
+    "title": "Canto VIII",
+    "chars": 30438
+   },
+   {
+    "title": "Canto IX (1/2)",
+    "chars": 21344
+   },
+   {
+    "title": "Canto IX (2/2)",
+    "chars": 14757
+   },
+   {
+    "title": "Canto X",
+    "chars": 30315
+   },
+   {
+    "title": "Canto XI (1/2)",
+    "chars": 23117
+   },
+   {
+    "title": "Canto XI (2/2)",
+    "chars": 22914
+   },
+   {
+    "title": "Canto XII",
+    "chars": 25321
+   },
+   {
+    "title": "Canto XIII (1/2)",
+    "chars": 23430
+   },
+   {
+    "title": "Canto XIII (2/2)",
+    "chars": 22751
+   },
+   {
+    "title": "Canto XIV",
+    "chars": 27689
+   },
+   {
+    "title": "Canto XV (1/2)",
+    "chars": 20321
+   },
+   {
+    "title": "Canto XV (2/2)",
+    "chars": 20094
+   },
+   {
+    "title": "Canto XVI (1/2)",
+    "chars": 24041
+   },
+   {
+    "title": "Canto XVI (2/2)",
+    "chars": 23780
+   },
+   {
+    "title": "Canto XVII (1/2)",
+    "chars": 21914
+   },
+   {
+    "title": "Canto XVII (2/2)",
+    "chars": 21009
+   },
+   {
+    "title": "Canto XVIII",
+    "chars": 33470
+   },
+   {
+    "title": "Canto XIX",
+    "chars": 22925
+   },
+   {
+    "title": "Canto XX",
+    "chars": 27696
+   },
+   {
+    "title": "Canto XXI",
+    "chars": 34596
+   },
+   {
+    "title": "Canto XXII",
+    "chars": 28946
+   },
+   {
+    "title": "Canto XXIII (1/2)",
+    "chars": 24982
+   },
+   {
+    "title": "Canto XXIII (2/2)",
+    "chars": 24876
+   },
+   {
+    "title": "Canto XXIV (1/2)",
+    "chars": 22385
+   },
+   {
+    "title": "Canto XXIV (2/2)",
+    "chars": 21982
+   }
+  ]
+ },
+ "la-odisea": {
+  "words": 123489,
+  "bytes": 737031,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/58221",
+  "chapters": [
+   {
+    "title": "Al lector",
+    "chars": 17365
+   },
+   {
+    "title": "Canto primero",
+    "chars": 25172
+   },
+   {
+    "title": "Canto II",
+    "chars": 24496
+   },
+   {
+    "title": "Canto III",
+    "chars": 28451
+   },
+   {
+    "title": "Canto IV (1/2)",
+    "chars": 23932
+   },
+   {
+    "title": "Canto IV (2/2)",
+    "chars": 23083
+   },
+   {
+    "title": "Canto V",
+    "chars": 27804
+   },
+   {
+    "title": "Canto VI",
+    "chars": 18909
+   },
+   {
+    "title": "Canto VII",
+    "chars": 19431
+   },
+   {
+    "title": "Canto VIII",
+    "chars": 32768
+   },
+   {
+    "title": "Canto IX",
+    "chars": 32250
+   },
+   {
+    "title": "Canto X",
+    "chars": 32392
+   },
+   {
+    "title": "Canto XI",
+    "chars": 35437
+   },
+   {
+    "title": "Canto XII",
+    "chars": 25898
+   },
+   {
+    "title": "Canto XIII",
+    "chars": 24787
+   },
+   {
+    "title": "Canto XIV",
+    "chars": 31332
+   },
+   {
+    "title": "Canto XV",
+    "chars": 31448
+   },
+   {
+    "title": "Canto XVI",
+    "chars": 26408
+   },
+   {
+    "title": "Canto XVII",
+    "chars": 33774
+   },
+   {
+    "title": "Canto XVIII",
+    "chars": 24216
+   },
+   {
+    "title": "Canto XIX",
+    "chars": 33758
+   },
+   {
+    "title": "Canto XX",
+    "chars": 22158
+   },
+   {
+    "title": "Canto XXI",
+    "chars": 24754
+   },
+   {
+    "title": "Canto XXII",
+    "chars": 28028
+   },
+   {
+    "title": "Canto XXIII",
+    "chars": 20662
+   },
+   {
+    "title": "Canto XXIV",
+    "chars": 31217
+   }
+  ]
+ },
+ "fabulas-samaniego": {
+  "words": 41487,
+  "bytes": 271500,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/55206",
+  "chapters": [
+   {
+    "title": "Introducción",
+    "chars": 2694
+   },
+   {
+    "title": "Samaniego",
+    "chars": 4395
+   },
+   {
+    "title": "Prólogo del autor",
+    "chars": 7848
+   },
+   {
+    "title": "Advertencia",
+    "chars": 219
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Asno y el Cochino",
+    "part": "Libro primero",
+    "chars": 1976
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "La Cigarra y la Hormiga",
+    "chars": 1078
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Muchacho y la Fortuna",
+    "chars": 370
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "La Codorniz",
+    "chars": 443
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Águila y el Escarabajo",
+    "chars": 2060
+   },
+   {
+    "title": "Fábula VI",
+    "chars": 257
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "La Zorra y el Busto",
+    "chars": 150
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "El Ratón de la corte y el del campo",
+    "chars": 1000
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Herrero y el Perro",
+    "chars": 1191
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "La Zorra y la Cigüeña",
+    "chars": 1042
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "Las Moscas",
+    "chars": 247
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Leopardo y las Monas",
+    "chars": 1090
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Ciervo en la fuente",
+    "chars": 961
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "El León y la Zorra",
+    "chars": 991
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "La Cierva y el Cervato",
+    "chars": 897
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "El Labrador y la Cigüeña",
+    "chars": 626
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "La Serpiente y la Lima",
+    "chars": 302
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Calvo y la Mosca",
+    "chars": 733
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "Los dos Amigos y el Oso",
+    "chars": 856
+   },
+   {
+    "title": "Fábula XX",
+    "subtitle": "El Águila, la Gata y la Jabalina",
+    "chars": 1172
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El León con su ejército",
+    "part": "Libro segundo",
+    "chars": 2278
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "La Lechera",
+    "chars": 1487
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Asno sesudo",
+    "chars": 1174
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Zagal y las Ovejas",
+    "chars": 561
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Águila, la Corneja y la Tortuga",
+    "chars": 853
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "El Lobo y la Cigüeña",
+    "chars": 730
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "El Hombre y la Culebra",
+    "chars": 216
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "El Pájaro herido de una flecha",
+    "chars": 550
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Pescador y el Pez",
+    "chars": 599
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El Gorrión y la Liebre",
+    "chars": 502
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "Júpiter y la Tortuga",
+    "chars": 711
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Charlatán",
+    "chars": 1281
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Milano y las Palomas",
+    "chars": 816
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "Las dos Ranas",
+    "chars": 981
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "El parto de los Montes",
+    "chars": 488
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "Las Ranas pidiendo rey",
+    "chars": 997
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "El Asno y el Caballo",
+    "chars": 666
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Cordero y el Lobo",
+    "chars": 906
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "Las Cabras y los Chivos",
+    "chars": 732
+   },
+   {
+    "title": "Fábula XX",
+    "subtitle": "El Caballo y el Ciervo",
+    "chars": 992
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Águila y el Cuervo",
+    "part": "Libro tercero",
+    "chars": 2118
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "Los Animales con peste",
+    "chars": 1829
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Milano enfermo",
+    "chars": 603
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El León envejecido",
+    "chars": 930
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "La Zorra y la Gallina",
+    "chars": 848
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "La Cierva y el León",
+    "chars": 454
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "El León enamorado",
+    "chars": 973
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "Congreso de los Ratones",
+    "chars": 696
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Lobo y la Oveja",
+    "chars": 847
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El Hombre y la Pulga",
+    "chars": 591
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "El Cuervo y la Serpiente",
+    "chars": 158
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Asno y las Ranas",
+    "chars": 1322
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Asno y el Perro",
+    "chars": 972
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "El León y el Asno cazando",
+    "chars": 784
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "El Charlatán y el Rústico",
+    "chars": 1319
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "La Mona corrida",
+    "part": "Libro cuarto",
+    "chars": 1160
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "El Asno y Júpiter",
+    "chars": 1270
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Cazador y la Perdiz",
+    "chars": 555
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Viejo y la Muerte",
+    "chars": 707
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Enfermo y el Médico",
+    "chars": 554
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "La Zorra y las Uvas",
+    "chars": 577
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "La Cierva y la Viña",
+    "chars": 801
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "El Asno cargado de Reliquias",
+    "chars": 728
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "Los dos Machos",
+    "chars": 590
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El Cazador y el Perro",
+    "chars": 888
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "La Tortuga y el Águila",
+    "chars": 806
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El León y el Ratón",
+    "chars": 770
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "Las Liebres y las Ranas",
+    "chars": 516
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "El Gallo y el Zorro",
+    "chars": 1022
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "El León y la Cabra",
+    "chars": 748
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "La Hacha y el Mango",
+    "chars": 500
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "La Onza y los Pastores",
+    "chars": 1217
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Grajo vano",
+    "chars": 291
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "El Hombre y la Comadreja",
+    "chars": 713
+   },
+   {
+    "title": "Fábula XX",
+    "subtitle": "Batalla de las Comadrejas y los Ratones",
+    "chars": 750
+   },
+   {
+    "title": "Fábula XXI",
+    "subtitle": "El León y la Rana",
+    "chars": 690
+   },
+   {
+    "title": "Fábula XXII",
+    "subtitle": "El Ciervo y los Bueyes",
+    "chars": 1276
+   },
+   {
+    "title": "Fábula XXIII",
+    "subtitle": "Los Navegantes",
+    "chars": 372
+   },
+   {
+    "title": "Fábula XXIV",
+    "subtitle": "El Torrente y el Río",
+    "chars": 838
+   },
+   {
+    "title": "Fábula XXV",
+    "subtitle": "El León, el Lobo y la Zorra",
+    "chars": 1903
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "Los Ratones y el Gato",
+    "part": "Libro quinto",
+    "chars": 1602
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "El Asno y el Lobo",
+    "chars": 1149
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Asno y el Caballo",
+    "chars": 851
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Labrador y la Providencia",
+    "chars": 1009
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Asno vestido de León",
+    "chars": 702
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "La Gallina de los Huevos de oro",
+    "chars": 611
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "Los Cangrejos",
+    "chars": 1534
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "Las Ranas sedientas",
+    "chars": 886
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Cuervo y el Zorro",
+    "chars": 837
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "Un Cojo y un Picarón",
+    "chars": 501
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "El Carretero y Hércules",
+    "chars": 483
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "La Zorra y el Chivo",
+    "chars": 720
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Lobo, la Zorra y el Mono juez",
+    "chars": 409
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "Los dos Gallos",
+    "chars": 440
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "La Mona y la Zorra",
+    "chars": 669
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "La Gata mujer",
+    "chars": 794
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "La Leona y el Oso",
+    "chars": 894
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Lobo y el Perro flaco",
+    "chars": 1018
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "La Oveja y el Ciervo",
+    "chars": 549
+   },
+   {
+    "title": "Fábula XX",
+    "subtitle": "La Alforja",
+    "chars": 137
+   },
+   {
+    "title": "Fábula XXI",
+    "subtitle": "El Asno infeliz",
+    "chars": 446
+   },
+   {
+    "title": "Fábula XXII",
+    "subtitle": "El Jabalí y la Zorra",
+    "chars": 406
+   },
+   {
+    "title": "Fábula XXIII",
+    "subtitle": "El Perro y el Cocodrilo",
+    "chars": 295
+   },
+   {
+    "title": "Fábula XXIV",
+    "subtitle": "La Comadreja y los Ratones",
+    "chars": 1072
+   },
+   {
+    "title": "Fábula XXV",
+    "subtitle": "El Lobo y el Perro",
+    "chars": 2027
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Pastor y el Filósofo",
+    "chars": 3115
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "El Hombre y la Fantasma",
+    "chars": 1882
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Jabalí y el Carnero",
+    "chars": 661
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Raposo, la Mujer y el Gallo",
+    "chars": 693
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Filósofo y el Rústico",
+    "chars": 1281
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "La Pava y la Hormiga",
+    "chars": 1451
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "El Enfermo y la Vision",
+    "chars": 1330
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "El Camello y la Pulga",
+    "chars": 358
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Cerdo, el Carnero y la Cabra",
+    "chars": 1160
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El León, el Tigre y el Caminante",
+    "chars": 1413
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "La Muerte",
+    "chars": 674
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Amor y la Locura",
+    "chars": 641
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Raposo enfermo",
+    "part": "Libro séptimo",
+    "chars": 2012
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "Las Exequias de la Leona",
+    "chars": 1407
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Poeta y la Rosa",
+    "chars": 998
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Buho y el Hombre",
+    "chars": 1320
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "La Mona",
+    "chars": 249
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "Esopo y un Ateniense",
+    "chars": 612
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "Demetrio y Menandro",
+    "chars": 926
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "Las Hormigas",
+    "chars": 252
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "Los Gatos escrupulosos",
+    "chars": 1421
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El Águila y la Asamblea de los animales",
+    "chars": 1251
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "La Paloma",
+    "chars": 244
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Chivo afeitado",
+    "chars": 1783
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Naufragio de Simónides",
+    "part": "Libro octavo",
+    "chars": 1848
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "El Filósofo y la Pulga",
+    "chars": 1879
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Cazador y los Conejos",
+    "chars": 815
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "El Filósofo y el Faisán",
+    "chars": 1580
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Zapatero médico",
+    "chars": 715
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "El Murciélago y la Comadreja",
+    "chars": 862
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "La Mariposa y el Caracol",
+    "chars": 1822
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "Los dos Titiriteros",
+    "chars": 1692
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Raposo y el Perro",
+    "chars": 1412
+   },
+   {
+    "title": "Fábula primera",
+    "subtitle": "El Gato y las Aves",
+    "part": "Libro nono",
+    "chars": 1702
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "La Danza pastoril",
+    "chars": 1113
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "Los dos Perros",
+    "chars": 821
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "La Moda",
+    "chars": 1262
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "El Lobo y el Mastín",
+    "chars": 1090
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "La Hermosa y el Espejo",
+    "chars": 871
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "El Viejo y el Chalán",
+    "chars": 788
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "La Gata con Cascabeles",
+    "chars": 1293
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "El Ruiseñor y el Mochuelo",
+    "chars": 1011
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "El Amo y el Perro",
+    "chars": 1124
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "Los dos Cazadores",
+    "chars": 500
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "El Gato y el Cazador",
+    "chars": 1048
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Pastor",
+    "chars": 236
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "El Tordo Flautista",
+    "chars": 1038
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "El Raposo y el Lobo",
+    "chars": 768
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "El Ciudadano Pastor",
+    "chars": 2333
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "El Ladrón",
+    "chars": 254
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Joven filósofo y sus Compañeros",
+    "chars": 1501
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "El Elefante, el Toro, el Asno y los demás animales",
+    "chars": 3194
+   },
+   {
+    "title": "Apéndice",
+    "chars": 5088
+   },
+   {
+    "title": "Léxico",
+    "chars": 17645
+   },
+   {
+    "title": "Notas (1/2)",
+    "chars": 25676
+   },
+   {
+    "title": "Notas (2/2)",
+    "chars": 25529
+   }
+  ]
+ },
+ "fabulas-iriarte": {
+  "words": 13654,
+  "bytes": 88801,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/29497",
+  "chapters": [
+   {
+    "title": "Fábula I",
+    "subtitle": "El Elefante y otros animales",
+    "chars": 1780
+   },
+   {
+    "title": "Fábula II",
+    "subtitle": "El Gusano de seda y la Araña",
+    "chars": 429
+   },
+   {
+    "title": "Fábula III",
+    "subtitle": "El Oso, la Mona y el Cerdo",
+    "chars": 800
+   },
+   {
+    "title": "Fábula IV",
+    "subtitle": "La Abeja y los Zánganos",
+    "chars": 1108
+   },
+   {
+    "title": "Fábula V",
+    "subtitle": "Los dos Loros y la Cotorra",
+    "chars": 1040
+   },
+   {
+    "title": "Fábula VI",
+    "subtitle": "El Mono y el Titiritero",
+    "chars": 1895
+   },
+   {
+    "title": "Fábula VII",
+    "subtitle": "La Campana y el Esquilón",
+    "chars": 986
+   },
+   {
+    "title": "Fábula VIII",
+    "subtitle": "El Burro flautista",
+    "chars": 585
+   },
+   {
+    "title": "Fábula IX",
+    "subtitle": "La Hormiga y la Pulga",
+    "chars": 1466
+   },
+   {
+    "title": "Fábula X",
+    "subtitle": "La Parietaria y el Tomillo",
+    "chars": 742
+   },
+   {
+    "title": "Fábula XI",
+    "subtitle": "Los dos Conejos",
+    "chars": 759
+   },
+   {
+    "title": "Fábula XII",
+    "subtitle": "Los Huevos",
+    "chars": 1574
+   },
+   {
+    "title": "Fábula XIII",
+    "subtitle": "El Pato y la Serpiente",
+    "chars": 552
+   },
+   {
+    "title": "Fábula XIV",
+    "subtitle": "El Manguito, el Abanico y el Quitasol",
+    "chars": 693
+   },
+   {
+    "title": "Fábula XV",
+    "subtitle": "La Rana y el Renacuajo",
+    "chars": 441
+   },
+   {
+    "title": "Fábula XVI",
+    "subtitle": "La Avutarda",
+    "chars": 722
+   },
+   {
+    "title": "Fábula XVII",
+    "subtitle": "El Jilguero y el Cisne",
+    "chars": 710
+   },
+   {
+    "title": "Fábula XVIII",
+    "subtitle": "El Caminante y la Mula de Alquiler",
+    "chars": 1087
+   },
+   {
+    "title": "Fábula XIX",
+    "subtitle": "La Cabra y el Caballo",
+    "chars": 1040
+   },
+   {
+    "title": "Fábula XX",
+    "subtitle": "La Abeja y el Cuclillo",
+    "chars": 669
+   },
+   {
+    "title": "Fábula XXI",
+    "subtitle": "El Ratón y el Gato",
+    "chars": 971
+   },
+   {
+    "title": "Fábula XXIII",
+    "subtitle": "Los Perros y el Trapero",
+    "chars": 1143
+   },
+   {
+    "title": "Fábula XXIV",
+    "subtitle": "El Papagayo, el Tordo y la Marica",
+    "chars": 383
+   },
+   {
+    "title": "Fábula XXV",
+    "subtitle": "El Lobo y el Pastor",
+    "chars": 767
+   },
+   {
+    "title": "Fábula XXVI",
+    "subtitle": "El León y el Águila",
+    "chars": 933
+   },
+   {
+    "title": "Fábula XXVII",
+    "subtitle": "La Mona",
+    "chars": 1940
+   },
+   {
+    "title": "Fábula XXVIII",
+    "subtitle": "El Asno y su Amo",
+    "chars": 793
+   },
+   {
+    "title": "Fábula XXIX",
+    "subtitle": "El Gozque y el Macho de noria",
+    "chars": 1397
+   },
+   {
+    "title": "Fábula XXX",
+    "subtitle": "El Erudito y el Ratón",
+    "chars": 1416
+   },
+   {
+    "title": "Fábula XXXI",
+    "subtitle": "La Ardilla y el Caballo",
+    "chars": 893
+   },
+   {
+    "title": "Fábula XXXII",
+    "subtitle": "El Galán y la Dama",
+    "chars": 547
+   },
+   {
+    "title": "Fábula XXXIII",
+    "subtitle": "El Avestruz, el Dromedario y la Zorra",
+    "chars": 1099
+   },
+   {
+    "title": "Fábula XXXIV",
+    "subtitle": "El Cuervo y el Pavo",
+    "chars": 770
+   },
+   {
+    "title": "Fábula XXXV",
+    "subtitle": "La Oruga y la Zorra",
+    "chars": 1094
+   },
+   {
+    "title": "Fábula XXXVI",
+    "subtitle": "La compra del Asno",
+    "chars": 1161
+   },
+   {
+    "title": "Fábula XXXVII",
+    "subtitle": "El Buey y la Cigarra",
+    "chars": 567
+   },
+   {
+    "title": "Fábula XXXVIII",
+    "subtitle": "El Guacamayo y la Marmota",
+    "chars": 653
+   },
+   {
+    "title": "Fábula XXXIX",
+    "subtitle": "El Retrato de Golilla",
+    "chars": 2293
+   },
+   {
+    "title": "Fábula XL",
+    "subtitle": "Los dos Huéspedes",
+    "chars": 860
+   },
+   {
+    "title": "Fábula XLI",
+    "subtitle": "El Té y la Salvia",
+    "chars": 900
+   },
+   {
+    "title": "Fábula XLII",
+    "subtitle": "El Gato, el Lagarto y el Grillo",
+    "chars": 1502
+   },
+   {
+    "title": "Fábula XLIII",
+    "subtitle": "La Música de los Animales",
+    "chars": 2325
+   },
+   {
+    "title": "Fábula XLIV",
+    "subtitle": "La Espada y el Asador",
+    "chars": 1506
+   },
+   {
+    "title": "Fábula XLV",
+    "subtitle": "Los cuatro Lisiados",
+    "chars": 1386
+   },
+   {
+    "title": "Fábula XLVI",
+    "subtitle": "El Pollo y los dos Gallos",
+    "chars": 858
+   },
+   {
+    "title": "Fábula XLVII",
+    "subtitle": "La Urraca y la Mona",
+    "chars": 1393
+   },
+   {
+    "title": "Fábula XLVIII",
+    "subtitle": "El Ruiseñor y el Gorrión",
+    "chars": 690
+   },
+   {
+    "title": "Fábula XLIX",
+    "subtitle": "El Jardinero y su Amo",
+    "chars": 833
+   },
+   {
+    "title": "Fábula L",
+    "subtitle": "Los dos Tordos",
+    "chars": 1130
+   },
+   {
+    "title": "Fábula LI",
+    "subtitle": "El Fabricante de Galones y la Encajera",
+    "chars": 652
+   },
+   {
+    "title": "Fábula LII",
+    "subtitle": "El Cazador y el Hurón",
+    "chars": 1175
+   },
+   {
+    "title": "Fábula LIII",
+    "subtitle": "El Gallo, el Cerdo y el Cordero",
+    "chars": 1254
+   },
+   {
+    "title": "Fábula LIV",
+    "subtitle": "El Pedernal y el Eslabón",
+    "chars": 549
+   },
+   {
+    "title": "Fábula LV",
+    "subtitle": "El Juez y el Bandolero",
+    "chars": 787
+   },
+   {
+    "title": "Fábula LVI",
+    "subtitle": "La Criada y la Escoba",
+    "chars": 463
+   },
+   {
+    "title": "Fábula LVII",
+    "subtitle": "El Naturalista y las Lagartijas",
+    "chars": 1431
+   },
+   {
+    "title": "Fábula LVIII",
+    "subtitle": "La Discordia de los Relojes",
+    "chars": 1530
+   },
+   {
+    "title": "Fábula LIX",
+    "subtitle": "El Topo y otros animales",
+    "chars": 947
+   },
+   {
+    "title": "Fábula LX",
+    "subtitle": "El Volatín y su Maestro",
+    "chars": 833
+   },
+   {
+    "title": "Fábula LXI",
+    "subtitle": "El Sapo y el Mochuelo",
+    "chars": 735
+   },
+   {
+    "title": "Fábula LXII",
+    "subtitle": "El Burro del Aceitero",
+    "chars": 495
+   },
+   {
+    "title": "Fábula LXIII",
+    "subtitle": "La Contienda de los Mosquitos",
+    "chars": 2124
+   },
+   {
+    "title": "Fábula LXIV",
+    "subtitle": "La Rana y la Gallina",
+    "chars": 531
+   },
+   {
+    "title": "Fábula LXV",
+    "subtitle": "El Escarabajo",
+    "chars": 1118
+   },
+   {
+    "title": "Fábula LXVI",
+    "subtitle": "El Ricote erudito",
+    "chars": 1246
+   },
+   {
+    "title": "Fábula LXVII",
+    "subtitle": "La Víbora y la Sanguijuela",
+    "chars": 482
+   },
+   {
+    "title": "Fábula LXVIII",
+    "subtitle": "El Ricacho metido a Arquitecto",
+    "chars": 767
+   },
+   {
+    "title": "Fábula LXIX",
+    "subtitle": "El Médico, el Enfermo y la Enfermedad",
+    "chars": 660
+   },
+   {
+    "title": "Fábula LXX",
+    "subtitle": "El Canario y el Grajo",
+    "chars": 2270
+   },
+   {
+    "title": "Fábula LXXI",
+    "subtitle": "El Guacamayo y el Topo",
+    "chars": 519
+   },
+   {
+    "title": "Fábula LXXII",
+    "subtitle": "El Canario y otros Animales",
+    "chars": 1038
+   },
+   {
+    "title": "Fábula LXXIII",
+    "subtitle": "El Mono y el Elefante",
+    "chars": 1081
+   },
+   {
+    "title": "Fábula LXXIV",
+    "subtitle": "El río Tajo, una Fuente y un Arroyo",
+    "chars": 624
+   },
+   {
+    "title": "Fábula LXXV",
+    "subtitle": "El Caracol y los Galápagos",
+    "chars": 879
+   },
+   {
+    "title": "Fábula LXXVI",
+    "subtitle": "La Verruga, el Lobanillo y la Corcova",
+    "chars": 1750
+   }
+  ]
+ },
+ "leyendas-becquer": {
+  "words": 82998,
+  "bytes": 498008,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/53552",
+  "chapters": [
+   {
+    "title": "Maese Pérez el organista",
+    "part": "Leyendas",
+    "chars": 29622
+   },
+   {
+    "title": "Los ojos verdes",
+    "chars": 14837
+   },
+   {
+    "title": "El rayo de luna",
+    "chars": 19989
+   },
+   {
+    "title": "Tres fechas (1/2)",
+    "chars": 18897
+   },
+   {
+    "title": "Tres fechas (2/2)",
+    "chars": 18548
+   },
+   {
+    "title": "La corza blanca (1/2)",
+    "subtitle": "I",
+    "chars": 18606
+   },
+   {
+    "title": "La corza blanca (2/2)",
+    "chars": 18596
+   },
+   {
+    "title": "La rosa de pasión",
+    "chars": 17570
+   },
+   {
+    "title": "La promesa",
+    "chars": 18449
+   },
+   {
+    "title": "El monte de las ánimas",
+    "chars": 15557
+   },
+   {
+    "title": "El gnomo",
+    "subtitle": "I",
+    "chars": 29189
+   },
+   {
+    "title": "El Miserere",
+    "chars": 19116
+   },
+   {
+    "title": "Las hojas secas",
+    "chars": 7350
+   },
+   {
+    "title": "La venta de los gatos",
+    "chars": 23270
+   },
+   {
+    "title": "Carta primera",
+    "part": "Desde MI celda",
+    "chars": 31525
+   },
+   {
+    "title": "Carta segunda",
+    "chars": 18886
+   },
+   {
+    "title": "Carta tercera",
+    "chars": 22923
+   },
+   {
+    "title": "Carta cuarta",
+    "chars": 17942
+   },
+   {
+    "title": "Carta quinta",
+    "chars": 18251
+   },
+   {
+    "title": "Carta sexta",
+    "chars": 25386
+   },
+   {
+    "title": "Carta séptima",
+    "chars": 25538
+   },
+   {
+    "title": "Carta octava",
+    "chars": 24466
+   },
+   {
+    "title": "Carta novena",
+    "chars": 18753
+   }
+  ]
+ },
+ "raton-perez": {
+  "words": 4254,
+  "bytes": 26001,
+  "sourceUrl": "https://www.gutenberg.org/ebooks/36558",
+  "chapters": [
+   {
+    "title": "Ratón Pérez",
+    "chars": 24000
+   }
+  ]
  }
 }

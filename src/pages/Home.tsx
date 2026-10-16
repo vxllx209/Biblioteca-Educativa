@@ -1,16 +1,18 @@
-import { ArrowRight, BookOpenText, ClipboardList, Compass, Crown, PenLine, type LucideIcon } from 'lucide-react'
+import { ArrowRight, BookOpenText, ClipboardList, Compass, Crown, GraduationCap, PenLine, type LucideIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
 import { CoverFan } from '../components/BrandPanel'
 import { BookGrid } from '../components/BookGrid'
 import { Modal } from '../components/Modal'
+import { MotivationPanel } from '../components/Motivation'
 import { SectionHeader, TopActions } from '../components/PageHeader'
 import { ProgressBar } from '../components/ProgressBar'
 import { SearchBar } from '../components/SearchBar'
 import { RowSkeleton } from '../components/States'
 import { useAuth } from '../context/AuthContext'
 import { useLibrary } from '../context/LibraryContext'
+import { useStudy } from '../context/StudyContext'
 import { BOOKS, getBook } from '../data/books'
 import { KIND_LABEL, PRACTICE_SETS } from '../data/practice'
 import { useSimulatedLoading } from '../hooks/useSimulatedLoading'
@@ -100,8 +102,10 @@ function ContinueCard({ book, progress }: { book: Book; progress: ReadingProgres
 }
 
 export default function Home() {
-  const { user } = useAuth()
+  const { user, isPremium } = useAuth()
   const { progress, tasks, practice } = useLibrary()
+  const { streak } = useStudy()
+  const isStudent = user?.role !== 'Profesor'
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [showAll, setShowAll] = useState(false)
@@ -172,9 +176,26 @@ export default function Home() {
           description={pendingTasks ? plural(pendingTasks, '{n} tarea pendiente', '{n} tareas pendientes') : t('Todo al día')}
           cta={t('Ver tareas')}
         />
-        <QuickAction to="/explore" icon={Compass} tone="sage" title={t('Explorar')} description={t('Descubre nuevos libros')} cta={t('Explorar')} />
-        <QuickAction to="/premium" icon={Crown} tone="gold" title="Premium" description={t('Audiolibros y contenido exclusivo')} cta={t('Ver planes')} />
+        {isStudent ? (
+          <QuickAction
+            to="/paes"
+            icon={GraduationCap}
+            tone="sage"
+            title={t('Preparación PAES')}
+            description={streak ? plural(streak, '{n} día de racha', '{n} días de racha') : t('Lectora y M1 con tu mapa de habilidades')}
+            cta={t('Practicar')}
+          />
+        ) : (
+          <QuickAction to="/explore" icon={Compass} tone="sage" title={t('Explorar')} description={t('Descubre nuevos libros')} cta={t('Explorar')} />
+        )}
+        {isPremium ? (
+          isStudent && <QuickAction to="/explore" icon={Compass} tone="gold" title={t('Explorar')} description={t('Descubre nuevos libros')} cta={t('Explorar')} />
+        ) : (
+          <QuickAction to="/premium" icon={Crown} tone="gold" title="Premium" description={t('Audiolibros y contenido exclusivo')} cta={t('Ver planes')} />
+        )}
       </section>
+
+      {isStudent && <MotivationPanel compact />}
 
       <section aria-labelledby="continue-title">
         <SectionHeader

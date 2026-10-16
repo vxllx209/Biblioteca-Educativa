@@ -6,6 +6,7 @@ import { AudioProvider } from './context/AudioContext'
 import { AuthProvider } from './context/AuthContext'
 import { LibraryProvider } from './context/LibraryContext'
 import { LanguageBoundary, PreferencesProvider } from './context/PreferencesContext'
+import { StudyProvider } from './context/StudyContext'
 import { ToastProvider } from './context/ToastContext'
 import './index.css'
 
@@ -15,13 +16,15 @@ createRoot(document.getElementById('root')!).render(
       <PreferencesProvider>
         <ToastProvider>
           <AuthProvider>
-            <LibraryProvider>
-              <AudioProvider>
-                <LanguageBoundary>
-                  <App />
-                </LanguageBoundary>
-              </AudioProvider>
-            </LibraryProvider>
+            <StudyProvider>
+              <LibraryProvider>
+                <AudioProvider>
+                  <LanguageBoundary>
+                    <App />
+                  </LanguageBoundary>
+                </AudioProvider>
+              </LibraryProvider>
+            </StudyProvider>
           </AuthProvider>
         </ToastProvider>
       </PreferencesProvider>

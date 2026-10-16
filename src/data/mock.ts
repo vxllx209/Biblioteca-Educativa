@@ -145,7 +145,6 @@ export const PLANS: Plan[] = [
     price: 9.99,
     period: 'mes',
     description: 'Flexibilidad total, cancela cuando quieras.',
-    stripePriceId: 'price_monthly_placeholder',
     features: [
       { label: 'Acceso a todos los libros', included: true },
       { label: 'Favoritos ilimitados', included: true },
@@ -164,7 +163,6 @@ export const PLANS: Plan[] = [
     period: 'año',
     description: 'Ahorra más de 16% frente al plan mensual.',
     recommended: true,
-    stripePriceId: 'price_annual_placeholder',
     features: [
       { label: 'Acceso a todos los libros', included: true },
       { label: 'Favoritos ilimitados', included: true },

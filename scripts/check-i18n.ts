@@ -7,6 +7,9 @@ import { join } from 'node:path'
 import { BOOKS, CATEGORIES } from '../src/data/books'
 import { NOTIFICATIONS, PLANS, TASKS } from '../src/data/mock'
 import { KIND_LABEL, SUBJECT_APPROACH } from '../src/data/practice'
+import { AREAS, MASTERY_LABEL, MODE_LABEL, PAES_QUESTIONS, SKILLS } from '../src/data/paes'
+import { BADGE_INFO } from '../src/data/motivation'
+import { ENGAGEMENT_FILTER_LABEL, ENGAGEMENT_LABEL } from '../src/data/insights'
 import { ROLES, SUBJECTS } from '../src/data/school'
 import { navItems } from '../src/components/nav'
 import { en } from '../src/i18n/en'
@@ -46,6 +49,14 @@ const data = [
   ...NOTIFICATIONS.flatMap((n) => [n.title, n.body]),
   ...TASKS.flatMap((t) => [t.title, t.subject, t.description]),
   ...BOOKS.flatMap((b) => [b.language, b.subject, ...(b.levels ?? [])]),
+  ...AREAS.flatMap((a) => [a.title, a.description]),
+  ...Object.values(SKILLS).flatMap((s) => [s.label, s.description]),
+  ...Object.values(MASTERY_LABEL),
+  ...Object.values(MODE_LABEL),
+  ...Object.values(BADGE_INFO).flatMap((b) => [b.title, b.description]),
+  ...PAES_QUESTIONS.map((q) => q.ability ?? ''),
+  ...Object.values(ENGAGEMENT_LABEL),
+  ...Object.values(ENGAGEMENT_FILTER_LABEL),
 ]
 data.filter(Boolean).forEach((k) => keys.add(k))
 

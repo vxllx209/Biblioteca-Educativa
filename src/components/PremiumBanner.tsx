@@ -1,8 +1,12 @@
 import { ArrowRight, Crown } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { t } from '../i18n'
 
+/** Invitation to upgrade; hidden for users who already have a Premium plan. */
 export function PremiumBanner() {
+  const { isPremium } = useAuth()
+  if (isPremium) return null
   return (
     <section className="forest-panel rounded-feature p-6 shadow-lift sm:p-9" aria-labelledby="premium-banner-title">
       <svg className="pointer-events-none absolute -right-16 -bottom-24 size-80 text-gold opacity-20" viewBox="0 0 100 100" aria-hidden>

@@ -1,5 +1,6 @@
-import { BookOpen, Crown, Download, Headphones, ShieldCheck } from 'lucide-react'
-import { useState } from 'react'
+import { BookOpen, Copy, CreditCard, Crown, Download, Headphones, ShieldCheck } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Modal } from '../components/Modal'
 import { PageHeader } from '../components/PageHeader'
 import { PremiumPlan } from '../components/PremiumPlan'
@@ -7,7 +8,7 @@ import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { PLANS } from '../data/mock'
 import { formatPrice } from '../lib/format'
-import { PAYMENTS_BACKEND_URL, startCheckout } from '../services/payments'
+import { cancelSubscription, paymentsMode, startCheckout, TEST_CARD } from '../services/payments'
 import type { Plan } from '../types'
 import { t } from '../i18n'
 
@@ -22,21 +23,38 @@ export default function Premium() {
   const toast = useToast()
   const [selected, setSelected] = useState<Plan | null>(null)
   const [processing, setProcessing] = useState(false)
+  const navigate = useNavigate()
+  const [params, setParams] = useSearchParams()
+
+  // Back from Stripe without paying.
+  useEffect(() => {
+    if (params.get('pago') !== 'cancelado') return
+    toast(t('Cancelaste el pago. No se hizo ningún cobro.'), 'info')
+    setParams({}, { replace: true })
+  }, [params, setParams, toast])
+
   if (!user) return null
 
   const confirm = async () => {
     if (!selected) return
     setProcessing(true)
     try {
-      const res = await startCheckout(selected, user.email)
-      if (res.ok && res.reference !== 'redirect') {
-        setPlan(selected.id)
-        toast(selected.id === 'free' ? t('Cambiaste al plan Gratis') : t('¡Bienvenido a Premium! Plan {name} activo', { name: t(selected.name) }))
+      if (selected.id === 'free') {
+        await cancelSubscription()
+        setPlan('free')
+        toast(t('Cambiaste al plan Gratis'))
         setSelected(null)
+        setProcessing(false)
+        return
+      }
+      // Stripe redirects away; demo mode returns a simulated receipt.
+      const receipt = await startCheckout(selected, user.email)
+      if (receipt) {
+        setPlan(selected.id)
+        navigate('/premium/gracias', { state: { receipt } })
       }
     } catch (e) {
       toast((e as Error).message || t('No se pudo completar el pago'), 'error')
-    } finally {
       setProcessing(false)
     }
   }
@@ -108,10 +126,32 @@ export default function Premium() {
             <p className="text-sm text-muted">
               {selected.id === 'free'
                 ? t('Perderás el acceso a audiolibros completos, contenido premium y descargas ilimitadas.')
-                : PAYMENTS_BACKEND_URL
-                  ? t('Serás redirigido a la pasarela de pago segura para completar la compra.')
+                : paymentsMode === 'stripe'
+                  ? t('Te llevaremos a Stripe, la pasarela de pago segura, para completar la compra.')
                   : t('Modo demostración: no se realizará ningún cobro real. El plan se activará de inmediato.')}
             </p>
+            {selected.id !== 'free' && paymentsMode === 'stripe' && (
+              <div className="rounded-[14px] border border-dashed border-gold/60 bg-warning-soft/60 p-4">
+                <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-warning uppercase">
+                  <CreditCard className="size-4" aria-hidden /> {t('Modo de prueba')}
+                </p>
+                <p className="mt-1.5 text-sm text-text">{t('No se cobra dinero real. Paga con la tarjeta de prueba de Stripe:')}</p>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigator.clipboard.writeText(TEST_CARD.replace(/ /g, '')).then(
+                      () => toast(t('Número de tarjeta copiado')),
+                      () => toast(TEST_CARD, 'info'),
+                    )
+                  }
+                  className="mt-2 inline-flex items-center gap-2 rounded-lg bg-surface px-3 py-2 font-mono text-[15px] tracking-wider text-text ring-1 ring-line hover:ring-line-active"
+                  aria-label={t('Copiar número de tarjeta de prueba')}
+                >
+                  {TEST_CARD} <Copy className="size-4 text-muted" aria-hidden />
+                </button>
+                <p className="mt-2 text-xs text-muted">{t('Cualquier fecha futura, cualquier CVC y cualquier nombre.')}</p>
+              </div>
+            )}
           </div>
         )}
       </Modal>

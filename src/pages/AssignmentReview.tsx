@@ -1,4 +1,4 @@
-import { BookOpen, CalendarDays, CircleCheck, Clock, PenLine } from 'lucide-react'
+import { ArrowRight, BookOpen, CalendarDays, CircleCheck, Clock, PenLine, Sparkles, ThumbsUp } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader'
@@ -10,7 +10,8 @@ import { getPracticeSet } from '../data/practice'
 import { formatGrade, localDay, MAX_GRADE, MIN_GRADE, PASSING_GRADE, parseGrade } from '../data/school'
 import { useAsync } from '../hooks/useAsync'
 import { cn, dueLabel, formatDate, relativeTime } from '../lib/format'
-import { classroom, type Member, type Submission } from '../services/classroom'
+import { classroom, type Assignment, type Member, type Submission } from '../services/classroom'
+import { suggestGrade, tutorAvailable, type GradeSuggestion } from '../services/tutor'
 import { t } from '../i18n'
 
 type Filter = 'todas' | 'por-revisar' | 'revisadas' | 'sin-entrega'
@@ -131,7 +132,7 @@ export default function AssignmentReview() {
       ) : visible.length ? (
         <ul className="space-y-4">
           {visible.map(({ member, submission }) => (
-            <ReviewCard key={member.studentId} member={member} submission={submission} assignmentId={assignment.id} onSaved={data.reload} />
+            <ReviewCard key={member.studentId} member={member} submission={submission} assignment={assignment} subject={course.subject} onSaved={data.reload} />
           ))}
         </ul>
       ) : (
@@ -152,13 +153,50 @@ function Stat({ label, value }: { label: string; value: string }) {
   )
 }
 
-function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Member; submission?: Submission; assignmentId: string; onSaved: () => void }) {
+function ReviewCard({
+  member,
+  submission,
+  assignment,
+  subject,
+  onSaved,
+}: {
+  member: Member
+  submission?: Submission
+  assignment: Assignment
+  subject: string
+  onSaved: () => void
+}) {
+  const assignmentId = assignment.id
   const toast = useToast()
   const [grade, setGrade] = useState(submission?.grade !== undefined ? formatGrade(submission.grade) : '')
   const [feedback, setFeedback] = useState(submission?.feedback ?? '')
   const [saving, setSaving] = useState(false)
   const [touched, setTouched] = useState(false)
+  const [suggestion, setSuggestion] = useState<GradeSuggestion | null>(null)
+  const [suggesting, setSuggesting] = useState(false)
   const parsed = parseGrade(grade)
+
+  const suggest = async () => {
+    if (!submission) return
+    setSuggesting(true)
+    try {
+      const { suggestion: s } = await suggestGrade({
+        title: assignment.title,
+        instructions: assignment.instructions,
+        subject,
+        book: getBook(assignment.bookId)?.title,
+        answer: submission.answer,
+      })
+      const rounded = Math.round(Math.min(MAX_GRADE, Math.max(MIN_GRADE, s.grade)) * 10) / 10
+      setSuggestion({ ...s, grade: rounded })
+      setGrade(formatGrade(rounded))
+      setFeedback(s.feedback)
+    } catch (err) {
+      toast(err instanceof Error ? err.message : t('El tutor no está disponible en este momento.'), 'error')
+    } finally {
+      setSuggesting(false)
+    }
+  }
   const gradeError = touched && parsed === null ? t('Nota entre {min} y {max}.', { min: formatGrade(MIN_GRADE), max: formatGrade(MAX_GRADE) }) : ''
 
   const save = async () => {
@@ -202,6 +240,37 @@ function ReviewCard({ member, submission, assignmentId, onSaved }: { member: Mem
       {submission && (
         <>
           <p className="mt-4 rounded-xl bg-softer p-4 text-[15px] leading-relaxed whitespace-pre-line text-text">{submission.answer}</p>
+          {tutorAvailable && !submission.reviewedAt && !suggestion && (
+            <button onClick={suggest} disabled={suggesting} className="btn-secondary mt-3" aria-busy={suggesting}>
+              <Sparkles className="size-4" aria-hidden /> {suggesting ? t('Leyendo la entrega…') : t('Sugerir nota con IA')}
+            </button>
+          )}
+          {suggestion && (
+            <div role="status" className="mt-3 animate-rise space-y-3 rounded-xl border border-line bg-surface p-4">
+              <p className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide text-secondary uppercase">
+                <Sparkles className="size-4" aria-hidden /> {t('Sugerencia del tutor con IA')}
+                <span className="badge bg-soft text-accent normal-case">{t('Nota sugerida: {grade}', { grade: formatGrade(suggestion.grade) })}</span>
+              </p>
+              <p className="text-sm leading-relaxed text-text">{suggestion.rationale}</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <ul className="space-y-1.5">
+                  {suggestion.strengths.map((x) => (
+                    <li key={x} className="flex gap-2 text-[13px] text-text">
+                      <ThumbsUp className="mt-0.5 size-3.5 shrink-0 text-success" aria-hidden /> {x}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="space-y-1.5">
+                  {suggestion.improvements.map((x) => (
+                    <li key={x} className="flex gap-2 text-[13px] text-text">
+                      <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-warning" aria-hidden /> {x}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className="text-xs text-muted">{t('Completamos la nota y la retroalimentación: revísalas y ajústalas antes de guardar.')}</p>
+            </div>
+          )}
           <div className="mt-4 grid gap-4 sm:grid-cols-[8rem_1fr_auto] sm:items-end">
             <div>
               <label htmlFor={`grade-${member.studentId}`} className="label">

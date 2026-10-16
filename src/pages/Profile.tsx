@@ -6,6 +6,7 @@ import {
   Download,
   FileDown,
   Globe,
+  Heart,
   KeyRound,
   LogOut,
   Palette,
@@ -24,6 +25,7 @@ import { useAudio } from '../context/AudioContext'
 import { useAuth } from '../context/AuthContext'
 import { useLibrary } from '../context/LibraryContext'
 import { usePreferences } from '../context/PreferencesContext'
+import { useStudy } from '../context/StudyContext'
 import { useToast } from '../context/ToastContext'
 import { PLANS } from '../data/mock'
 import { cn } from '../lib/format'
@@ -114,6 +116,7 @@ export default function Profile() {
   const { user, logout, isPremium } = useAuth()
   const { prefs, setPref } = usePreferences()
   const library = useLibrary()
+  const study = useStudy()
   const audio = useAudio()
   const toast = useToast()
   const navigate = useNavigate()
@@ -129,6 +132,9 @@ export default function Profile() {
       downloads: library.downloads,
       readingProgress: library.progress,
       tasks: library.tasks,
+      practice: library.practice,
+      paes: study.paes,
+      activity: study.activity,
       preferences: prefs,
       exportedAt: new Date().toISOString(),
     }
@@ -152,6 +158,12 @@ export default function Profile() {
           label: 'Suscripción',
           description: `${t('Plan {name}', { name: t(plan?.name ?? 'Gratis') })}${isPremium ? ` · ${t('activo')}` : ''}`,
           onClick: () => navigate('/premium'),
+        },
+        {
+          icon: Heart,
+          label: 'Mis favoritos',
+          description: plural(library.favorites.length, '{n} libro guardado', '{n} libros guardados'),
+          onClick: () => navigate('/favorites'),
         },
         {
           icon: Download,

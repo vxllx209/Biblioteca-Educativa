@@ -174,8 +174,6 @@ export interface Plan {
   description: string
   features: { label: string; included: boolean }[]
   recommended?: boolean
-  /** Placeholder for a future Stripe Price ID. */
-  stripePriceId?: string
 }
 
 export interface AppNotification {
@@ -256,6 +254,65 @@ export interface PracticeResult {
   best: number
   attempts: number
   completedAt: string
+}
+
+/* ---------- PAES ---------- */
+
+/** Competencia Lectora and Competencia Matemática 1. */
+export type PaesArea = 'lectora' | 'm1'
+
+/** Lectora: reading skills. M1: content axes (each question also names the math skill it trains). */
+export type PaesSkill = 'localizar' | 'interpretar' | 'evaluar' | 'numeros' | 'algebra' | 'geometria' | 'probabilidad'
+
+/** A reading text taken from a book in the library. */
+export interface PaesPassage {
+  id: string
+  bookId: string
+  chapter: number
+  title: string
+  kind: 'literario' | 'no literario'
+  paragraphs: string[]
+}
+
+/** PAES items are multiple choice with four options, like the real test. */
+export interface PaesQuestion {
+  id: string
+  area: PaesArea
+  skill: PaesSkill
+  /** M1 skill trained: Resolver problemas, Modelar, Representar or Argumentar. */
+  ability?: string
+  passageId?: string
+  prompt: string
+  options: [string, string, string, string]
+  answer: number
+  explanation: string
+}
+
+/** Latest answer to a PAES question. */
+export interface PaesAnswer {
+  choice: number
+  correct: boolean
+  at: string
+  tries: number
+}
+
+export type PaesMode = 'diagnostico' | 'habilidad' | 'ensayo'
+
+export interface PaesSession {
+  id: string
+  mode: PaesMode
+  /** Area (ensayo) or skill (habilidad) practised; absent for the diagnostic. */
+  target?: string
+  score: number
+  max: number
+  completedAt: string
+  bySkill: Partial<Record<PaesSkill, { correct: number; total: number }>>
+}
+
+/** Points earned per local day (yyyy-mm-dd) and the weekly goal in points. */
+export interface Activity {
+  days: Record<string, number>
+  weeklyGoal: number
 }
 
 export interface PracticeDraft {

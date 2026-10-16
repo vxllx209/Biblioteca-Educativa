@@ -1,4 +1,4 @@
-import { ChevronRight, Copy, Plus, Presentation } from 'lucide-react'
+import { ChevronRight, Copy, Plus, Presentation, Sparkles } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { TextField } from '../components/Form'
@@ -11,7 +11,9 @@ import { SUBJECTS } from '../data/school'
 import { useAsync } from '../hooks/useAsync'
 import { copyCode } from '../lib/clipboard'
 import { cn } from '../lib/format'
+import { supabase } from '../lib/supabase'
 import { classroom } from '../services/classroom'
+import { createDemoCourse } from '../services/demoCourse'
 import { t } from '../i18n'
 
 export default function Courses() {
@@ -28,6 +30,18 @@ export default function Courses() {
     name: form.name.trim() ? '' : t('Ponle un nombre al curso, por ejemplo «4° medio A».'),
     subject: form.subject ? '' : t('Elige la asignatura.'),
   }
+
+  // Local mode only: a ready-made course with students and activity, to try the teacher panel.
+  const demo = () => {
+    const course = createDemoCourse(user!.id)
+    toast(t('Creamos un curso de demostración con 12 estudiantes.'))
+    navigate(`/aula/${course.id}`)
+  }
+  const demoButton = !supabase && (
+    <button className="btn-secondary" onClick={demo}>
+      <Sparkles className="size-4" aria-hidden /> {t('Curso de demostración')}
+    </button>
+  )
 
   const create = async (e: FormEvent) => {
     e.preventDefault()
@@ -50,9 +64,12 @@ export default function Courses() {
         title={t('Mis cursos')}
         subtitle={user?.school ? `${user.school} · ${t(user.subject ?? '')}` : t('Crea cursos, publica tareas y revisa entregas.')}
         actions={
-          <button className="btn-primary" onClick={() => setCreating(true)}>
-            <Plus className="size-5" aria-hidden /> {t('Nuevo curso')}
-          </button>
+          <div className="flex flex-wrap justify-end gap-2">
+            {demoButton}
+            <button className="btn-primary" onClick={() => setCreating(true)}>
+              <Plus className="size-5" aria-hidden /> {t('Nuevo curso')}
+            </button>
+          </div>
         }
       />
 
@@ -106,9 +123,12 @@ export default function Courses() {
           title={t('Aún no tienes cursos')}
           description={t('Crea un curso, comparte su código con tus estudiantes y empieza a publicar tareas.')}
           action={
-            <button className="btn-primary" onClick={() => setCreating(true)}>
-              <Plus className="size-5" aria-hidden /> {t('Crear mi primer curso')}
-            </button>
+            <div className="flex flex-wrap justify-center gap-2">
+              <button className="btn-primary" onClick={() => setCreating(true)}>
+                <Plus className="size-5" aria-hidden /> {t('Crear mi primer curso')}
+              </button>
+              {demoButton}
+            </div>
           }
         />
       )}

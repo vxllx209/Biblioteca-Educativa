@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, BookOpen, CircleCheck, CircleX, ClipboardCheck, 
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { OpenReview, QuestionView, wordCount } from '../components/practice/QuestionView'
+import { TutorPanel } from '../components/practice/TutorPanel'
 import { ProgressBar } from '../components/ProgressBar'
 import { ErrorState } from '../components/States'
 import { useAuth } from '../context/AuthContext'
@@ -11,6 +12,7 @@ import { KIND_LABEL, parseNumber, resolveSet, scoreAnswer, scramble } from '../d
 import { usePersistentState } from '../hooks/usePersistentState'
 import { cn } from '../lib/format'
 import { userKey } from '../lib/storage'
+import type { SavedFeedback } from '../services/tutor'
 import type { AnswerValue, PracticeSet, Question } from '../types'
 import { locale, plural, t } from '../i18n'
 
@@ -20,15 +22,18 @@ interface Session {
   checked: Record<string, boolean>
   texts: Record<string, string>
   drawings: Record<string, string>
+  /** Tutor IA feedback per open question (absent in sessions saved before the tutor existed). */
+  feedback?: Record<string, SavedFeedback>
   finished: boolean
 }
 
-const freshSession = (set: PracticeSet, keep?: Pick<Session, 'texts' | 'drawings'>): Session => ({
+const freshSession = (set: PracticeSet, keep?: Pick<Session, 'texts' | 'drawings' | 'feedback'>): Session => ({
   index: 0,
   answers: Object.fromEntries(set.questions.map((q) => [q.id, q.kind === 'order' ? scramble(q.items, set.id + q.id) : null])),
   checked: {},
   texts: keep?.texts ?? {},
   drawings: keep?.drawings ?? {},
+  feedback: keep?.feedback ?? {},
   finished: false,
 })
 
@@ -163,7 +168,7 @@ function Runner({ set }: { set: PracticeSet }) {
               className="btn-secondary"
               onClick={() => {
                 setSaved(false)
-                setSession(freshSession(set, { texts: session.texts, drawings: session.drawings }))
+                setSession(freshSession(set, { texts: session.texts, drawings: session.drawings, feedback: session.feedback }))
               }}
             >
               <RotateCcw className="size-4" aria-hidden /> {t('Reintentar')}
@@ -245,7 +250,28 @@ function Runner({ set }: { set: PracticeSet }) {
           drawing={drawing}
           onDrawing={(d) => setSession((s) => ({ ...s, drawings: { ...s.drawings, [q.id]: d } }))}
         />
-        {checked && q.kind === 'open' && <OpenReview question={q} value={value} onAssess={setAnswer} />}
+        {checked && q.kind === 'open' && (
+          <>
+            <div className="mt-6">
+              <TutorPanel
+                request={{
+                  book: book.title,
+                  chapter: book.chapters[set.chapter]?.title ?? '',
+                  subject: book.subject,
+                  prompt: q.prompt,
+                  guidance: q.guidance,
+                  model: q.model,
+                  criteria: q.criteria,
+                }}
+                answer={text}
+                feedback={session.feedback?.[q.id]}
+                onFeedback={(f) => setSession((s) => ({ ...s, feedback: { ...s.feedback, [q.id]: f } }))}
+                onAssess={setAnswer}
+              />
+            </div>
+            <OpenReview question={q} value={value} onAssess={setAnswer} />
+          </>
+        )}
       </section>
 
       <div className="sticky bottom-[calc(68px+env(safe-area-inset-bottom)+8px)] z-20 mt-5 flex items-center gap-3 rounded-[14px] border border-line bg-surface/95 p-3 shadow-card backdrop-blur md:bottom-4">

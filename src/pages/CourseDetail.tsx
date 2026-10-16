@@ -2,6 +2,7 @@ import { BookOpen, CalendarDays, ChevronRight, ClipboardList, Copy, Plus, Trash2
 import { useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { TextField } from '../components/Form'
+import { CourseDashboard } from '../components/insights/CourseDashboard'
 import { Modal } from '../components/Modal'
 import { PageHeader } from '../components/PageHeader'
 import { EmptyState, ErrorState, RowSkeleton } from '../components/States'
@@ -16,7 +17,7 @@ import { cn, dueLabel, formatDate } from '../lib/format'
 import { classroom, type NewAssignment } from '../services/classroom'
 import { t } from '../i18n'
 
-type Tab = 'tareas' | 'estudiantes'
+type Tab = 'panel' | 'tareas' | 'estudiantes'
 type Confirm = { kind: 'course' } | { kind: 'assignment'; id: string; title: string } | { kind: 'member'; id: string; name: string }
 
 const EMPTY: NewAssignment = { title: '', instructions: '', dueDate: '', bookId: '', practiceSetId: '' }
@@ -26,7 +27,7 @@ export default function CourseDetail() {
   const { user } = useAuth()
   const toast = useToast()
   const navigate = useNavigate()
-  const [tab, setTab] = useState<Tab>('tareas')
+  const [tab, setTab] = useState<Tab>('panel')
   const [creating, setCreating] = useState(false)
   const [form, setForm] = useState<NewAssignment>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
@@ -37,8 +38,11 @@ export default function CourseDetail() {
     const course = (await classroom.teacherCourses(user!.id)).find((c) => c.id === courseId)
     if (!course) return null
     const [members, assignments] = await Promise.all([classroom.members(courseId), classroom.assignments([courseId])])
-    const submissions = await classroom.submissions(assignments.map((a) => a.id))
-    return { course, members, assignments, submissions }
+    const [submissions, studentData] = await Promise.all([
+      classroom.submissions(assignments.map((a) => a.id)),
+      classroom.studentData(members.map((m) => m.studentId)),
+    ])
+    return { course, members, assignments, submissions, studentData }
   }, [courseId, user?.id])
 
   const stats = useMemo(() => {
@@ -132,7 +136,7 @@ export default function CourseDetail() {
       />
     )
 
-  const { course, members, assignments } = data.data
+  const { course, members, assignments, submissions, studentData } = data.data
 
   return (
     <div className="animate-fade-in">
@@ -161,6 +165,7 @@ export default function CourseDetail() {
         <div role="tablist" className="flex gap-2">
           {(
             [
+              ['panel', t('Panel')],
               ['tareas', t('Tareas ({n})', { n: assignments.length })],
               ['estudiantes', t('Estudiantes ({n})', { n: members.length })],
             ] as const
@@ -183,7 +188,9 @@ export default function CourseDetail() {
         )}
       </div>
 
-      {tab === 'tareas' ? (
+      {tab === 'panel' ? (
+        <CourseDashboard course={course} members={members} assignments={assignments} submissions={submissions} data={studentData} />
+      ) : tab === 'tareas' ? (
         assignments.length ? (
           <ul className="space-y-3">
             {assignments.map((a) => {

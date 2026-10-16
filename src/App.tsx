@@ -13,9 +13,12 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
+import PaesHub from './pages/PaesHub'
+import PaesRun from './pages/PaesRun'
 import PracticeHub from './pages/PracticeHub'
 import PracticeRun from './pages/PracticeRun'
 import Premium from './pages/Premium'
+import PremiumThanks from './pages/PremiumThanks'
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
 import Reader from './pages/Reader'
@@ -54,8 +57,11 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/premium/gracias" element={<PremiumThanks />} />
             <Route path="/practice/:bookId" element={<PracticeHub />} />
             <Route path="/practice/:bookId/:setId" element={<PracticeRun />} />
+            <Route path="/paes" element={<PaesHub />} />
+            <Route path="/paes/:mode/:target?" element={<PaesRun />} />
             <Route element={<RequireTeacher />}>
               <Route path="/aula" element={<Courses />} />
               <Route path="/aula/:courseId" element={<CourseDetail />} />

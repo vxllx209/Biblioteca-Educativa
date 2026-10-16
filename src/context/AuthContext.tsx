@@ -24,6 +24,10 @@ interface AuthValue {
   logout: () => void
   updateUser: (patch: Partial<Omit<User, 'id' | 'password'>>) => Promise<Result>
   changePassword: (current: string, next: string) => Promise<Result>
+  /**
+   * Shows a new plan in the session. Local mode stores it; with Supabase the plan was already
+   * changed on the server by the payments function, so this only updates the loaded profile.
+   */
   setPlan: (plan: PlanId) => void
 }
 
@@ -358,7 +362,6 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
       if (patch.subject !== undefined) row.subject = patch.subject
       if (patch.avatarColor !== undefined) row.avatar_color = patch.avatarColor
       if ('avatarDataUrl' in patch) row.avatar_url = patch.avatarDataUrl ?? null
-      if (patch.plan !== undefined) row.plan = patch.plan
       if (Object.keys(row).length) {
         const { error } = await client.from('profiles').update(row).eq('id', user.id)
         if (error) return fail(error)
@@ -394,9 +397,8 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
     (plan: PlanId) => {
       if (!user) return
       setProfile((p) => (p ? { ...p, plan } : p))
-      void client.from('profiles').update({ plan }).eq('id', user.id)
     },
-    [client, user],
+    [user],
   )
 
   return useMemo<AuthValue>(

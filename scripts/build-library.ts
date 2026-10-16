@@ -1,7 +1,8 @@
 /**
  * Builds the real reading material used by the app.
  *
- *   bun scripts/build-library.ts
+ *   bun scripts/build-library.ts            (every book)
+ *   bun scripts/build-library.ts id1 id2    (only these; the other books keep their current files)
  *
  * - Downloads public-domain texts (Project Gutenberg / Wikisource), strips the
  *   boilerplate and splits them into chapters  → public/books/<id>.json
@@ -86,14 +87,28 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
   const { document } = parseHTML(html)
   document
     .querySelectorAll(
-      '#pg-header, #pg-footer, .pg-boilerplate, section.pg-boilerplate, table, img, .pagenum, .pageno, .page-num, .mw-editsection, sup.reference, .reference, .ws-noexport, #headertemplate, .encabezado, .ws-header, .noprint, style, script, link, a[title^="Página:"]',
+      '#pg-header, #pg-footer, .pg-boilerplate, section.pg-boilerplate, img, .pagenum, .pageno, .page-num, .linenum, .mw-editsection, sup.reference, .reference, .ws-noexport, #headertemplate, .encabezado, .ws-header, .noprint, #conv-idiomas, .interwiki-extra, style, script, link, a[title^="Página:"]',
     )
+    .forEach((n) => n.remove())
+  // Drop caps printed apart (<div class="cap">E</div><p>n la…</p>) go back into their paragraph.
+  document.querySelectorAll('div.cap, span.dropcap, p.dropcap').forEach((cap) => {
+    const letter = cap.textContent?.trim() ?? ''
+    const next = cap.nextElementSibling
+    if (letter.length <= 2 && next?.tagName === 'P') {
+      next.insertAdjacentText('afterbegin', letter)
+      cap.remove()
+    }
+  })
+  // Tables are layout or data, except the ones that hold poems (kept when the source asks for them).
+  document
+    .querySelectorAll(src.keepPoemTables ? 'table:not([data-summary="poem"])' : 'table')
     .forEach((n) => n.remove())
 
   const chapterTag = sourceTag ?? src.chapter.tag
   const chapterRe = src.chapter.regex ? new RegExp(src.chapter.regex) : null
   const headingRe = src.chapter.heading ? new RegExp(src.chapter.heading, 'i') : null
   const drop = src.dropSections ? new RegExp(src.dropSections, 'i') : DEFAULT_DROP
+  const notChapter = src.notChapters ? new RegExp(src.notChapters) : null
   const level = (tag: string) => Number(tag.slice(1))
 
   const chapters: Chapter[] = []
@@ -104,8 +119,10 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
 
   const nodes = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, pre, div.stanza, div.poem, blockquote.poem, div.ws-div')
   for (const el of nodes) {
-    // Skip elements nested in a verse container we already take as a whole.
-    if (el.parentElement?.closest('div.stanza, div.poem, blockquote.poem, pre')) continue
+    // Skip elements nested in a verse container we already take as a whole
+    // (a poem made of stanzas is taken stanza by stanza instead).
+    const container = el.parentElement?.closest('div.stanza, div.poem, blockquote.poem, pre')
+    if (container && !(el.matches('div.stanza') && container.matches('div.poem, blockquote.poem'))) continue
     const tag = el.tagName.toLowerCase()
     // List items: keep content lists; skip tables of contents and paragraphs nested in items.
     if (tag === 'li' && (el.querySelector('a[href^="#"], p') || el.parentElement?.closest('li'))) continue
@@ -136,14 +153,23 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
     const isHeading = /^h\d$/.test(tag)
     const startsChapter =
       (chapterTag && tag === chapterTag) ||
-      (!!chapterRe && tag === 'p' && text.length < 90 && chapterRe.test(text)) ||
+      (!!chapterRe && tag === 'p' && (src.chapter.longTitles || text.length < 90) && chapterRe.test(text)) ||
       (!!headingRe && isHeading && headingRe.test(text))
 
+    if (startsChapter && notChapter?.test(text)) {
+      if (current && !dropping) current.blocks.push(['h', text.replace(/\n+/g, ' · ')])
+      continue
+    }
     if (startsChapter) {
       const title = text.replace(/\n+/g, ' · ')
       dropping = drop.test(title)
       if (dropping) continue
       current = { title, part: pendingPart, blocks: [] }
+      if (src.chapter.longTitles) {
+        // "CAP. II.—En que se trata…" → title "Cap. II", subtitle "En que se trata…"
+        const [head, ...rest] = title.split(/\.?\s*—\s*/)
+        if (rest.length) Object.assign(current, { title: head, subtitle: rest.join(' — ').replace(/\.$/, '') })
+      }
       pendingPart = undefined
       chapters.push(current)
       continue
@@ -179,9 +205,9 @@ function extract(html: string, src: Source, sourceTag?: string): Chapter[] {
   return chapters.filter((c) => c.blocks.reduce((n, [, x]) => n + x.length, 0) > 120)
 }
 
-async function wikisource(page: string): Promise<string> {
-  const url = `https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&redirects=1&page=${encodeURIComponent(page)}`
-  const json = JSON.parse(await cached(`ws-${page.replace(/[^\w]+/g, '_')}.json`, url, 1500))
+async function wikisource(page: string, section?: number): Promise<string> {
+  const url = `https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&redirects=1&page=${encodeURIComponent(page)}${section === undefined ? '' : `&section=${section}`}`
+  const json = JSON.parse(await cached(`ws-${page.replace(/[^\w]+/g, '_')}${section === undefined ? '' : `-s${section}`}.json`, url, 1500))
   return `<html><body>${json.parse.text}</body></html>`
 }
 
@@ -229,7 +255,7 @@ function caseTitle(s: string, proper: Set<string>) {
     const initial = w.length === 1 && s[at + 1] === '.'
     const lower = ACCENTS.get(w.toLowerCase()) ?? w.toLowerCase()
     let out = lower
-    if (ROMAN.test(w) && (w.length > 1 || /(cap[ií]tulo|libro|tratado|parte)\s+$/i.test(s.slice(0, at)))) out = w
+    if (ROMAN.test(w) && (w.length > 1 || /(cap[ií]tulo|cap\.|libro|tratado|parte|f[aá]bula|canto|crisi|ejemplo|exemplo|enxemplo)\s+$/i.test(s.slice(0, at)))) out = w
     else if (first || proper.has(lower) || initial) out = lower.charAt(0).toUpperCase() + lower.slice(1)
     first = false
     return out
@@ -309,7 +335,7 @@ function polish(chapters: Chapter[]): Chapter[] {
       ch.blocks.length > 1 &&
       first[1].length <= 220 &&
       ((first[0] === 'h' && !/^resumen$/i.test(first[1])) ||
-        (first[0] === 'p' && /^(cap[ií]tulo|tratado)\b/i.test(ch.title) && !/^[—«“"¡¿-]/.test(first[1])))
+        (first[0] === 'p' && /^(cap[ií]tulo|tratado|f[aá]bula)\b/i.test(ch.title) && !/^[—«“"¡¿-]/.test(first[1])))
     if (isSummary) {
       ch.subtitle = tidy(first[1])
       ch.blocks = ch.blocks.slice(1)
@@ -386,8 +412,13 @@ function local(file: string): Chapter[] {
   return chapters
 }
 
-const meta: Record<string, unknown> = {}
+// With ids on the command line, rebuild only those and keep the rest of the generated metadata.
+const only = new Set(process.argv.slice(2))
+const unknown = [...only].filter((id) => !SOURCES.some((s) => s.id === id))
+if (unknown.length) throw new Error(`Sin fuente: ${unknown.join(', ')}`)
+const meta: Record<string, unknown> = only.size ? { ...(await import('../src/data/library.generated')).LIBRARY } : {}
 for (const src of SOURCES) {
+  if (only.size && !only.has(src.id)) continue
   let chapters: Chapter[] = []
   let sourceUrl = ''
   if (src.gutenberg) {
@@ -401,7 +432,7 @@ for (const src of SOURCES) {
     sourceUrl = ''
   } else if (src.wikisource) {
     for (const [i, page] of src.wikisource.pages.entries()) {
-      const html = await wikisource(page)
+      const html = await wikisource(page, src.wikisource.sections?.[i])
       const blocks = extract(`<html><body><h1>x</h1>${html}</body></html>`, src, 'h1')[0]?.blocks ?? []
       // Drop the repeated title lines of the printed page ("Elementos", "De Euclides", "Libro primero").
       while (blocks.length && /^(elementos|de euclides|libro \p{L}+|pr[oó]logo[\p{L} ]*)\.?$/iu.test(blocks[0][1])) blocks.shift()
@@ -446,6 +477,34 @@ for (const src of SOURCES) {
   }
   if (src.minChars) chapters = chapters.filter((c) => c.blocks.reduce((n, [, x]) => n + x.length, 0) >= src.minChars!)
   chapters = src.local ? chapters : polish(chapters)
+  const proper = src.local ? new Set<string>() : properNouns(chapters)
+  const sentence = (t: string) => caseTitle(t.replace(/[.:,]+$/, '').trim(), proper)
+  if (src.titleSubtitle)
+    for (const c of chapters) {
+      const [head, ...rest] = c.title.split(' · ')
+      if (!rest.length) continue
+      // A section marker taken as subtitle ("I") goes back to the text.
+      if (c.subtitle) c.blocks.unshift(['h', c.subtitle])
+      c.title = sentence(head) // "CAPÍTULO IV." → "Capítulo IV"
+      c.subtitle = sentence(rest.join(' '))
+    }
+  if (src.subtitleFromFirst)
+    for (const c of chapters) {
+      const [first] = c.blocks
+      // "I" + "EL HOMBRE DE CARNE Y HUESO" → title "I", subtitle "El hombre de carne y hueso"
+      if (!c.subtitle && first?.[0] === 'p' && first[1].length <= 120 && first[1] === first[1].toUpperCase()) {
+        c.subtitle = sentence(first[1])
+        c.blocks.shift()
+      }
+    }
+  if (src.titleReplace)
+    for (const c of chapters)
+      for (const [re, to] of src.titleReplace) {
+        c.title = c.title.replace(new RegExp(re, 'g'), to).trim()
+        if (c.part) c.part = c.part.replace(new RegExp(re, 'g'), to).trim()
+        if (c.subtitle) c.subtitle = c.subtitle.replace(new RegExp(re, 'g'), to).trim()
+      }
+  if (src.noParts) chapters.forEach((c) => delete c.part)
   // A subtitle that only repeats the title (Wikisource page headers) adds nothing.
   const bare = (t: string) => strip(t).toLowerCase().replace(/\W+/g, '')
   chapters.forEach((c) => c.subtitle && bare(c.subtitle) === bare(c.title) && delete c.subtitle)
@@ -475,6 +534,6 @@ writeFileSync(
   OUT_META,
   `// Generated by scripts/build-library.ts — do not edit by hand.\n` +
     `import type { LibraryMeta } from '../types'\n\n` +
-    `export const LIBRARY: Record<string, LibraryMeta> = ${JSON.stringify(meta, null, 1)}\n`,
+    `export const LIBRARY: Record<string, LibraryMeta> = ${JSON.stringify(Object.fromEntries(SOURCES.filter((x) => meta[x.id]).map((x) => [x.id, meta[x.id]])), null, 1)}\n`,
 )
 console.log(`\n→ ${OUT_META}`)
