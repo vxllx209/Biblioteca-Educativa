@@ -3,6 +3,10 @@ import { createClient } from '@supabase/supabase-js'
 const url = import.meta.env.VITE_SUPABASE_URL
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY
 
+/** Project URL and public key, for the few calls that go around the client (e.g. auth settings). */
+export const supabaseUrl = url
+export const supabaseKey = key
+
 /**
  * Supabase client, or null when the env vars are missing.
  * Without it the app keeps working in local mode (accounts and data in localStorage).

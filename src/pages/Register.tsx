@@ -70,7 +70,7 @@ export default function Register() {
   return (
     <AuthCard
       title={t('Crea tu cuenta')}
-      subtitle={t('Únete y accede a cientos de libros para aprender a tu ritmo.')}
+      subtitle={t('Clásicos completos, audiolibros y prácticas para aprender a tu ritmo.')}
       footer={
         <>
           {t('¿Ya tienes una cuenta?')}{' '}
@@ -80,14 +80,14 @@ export default function Register() {
         </>
       }
     >
-      <form onSubmit={onSubmit} noValidate className="space-y-5">
+      <form onSubmit={onSubmit} noValidate className="stagger space-y-5">
         <RoleFields
           {...profile}
           onChange={(patch) => setProfile((p) => ({ ...p, ...patch }))}
           errors={submitted ? { school: errors.school, subject: errors.subject } : {}}
         />
         {error && (
-          <div role="alert" className="flex items-center gap-2 rounded-xl bg-error-soft px-4 py-3 text-sm font-medium text-error">
+          <div key={error} role="alert" className="animate-shake flex items-center gap-2 rounded-xl bg-error-soft px-4 py-3 text-sm font-medium text-error">
             <CircleAlert className="size-4 shrink-0" aria-hidden />
             {error}
           </div>
@@ -124,8 +124,10 @@ export default function Register() {
       <GoogleButton
         onClick={async () => {
           setLoading('google')
-          await loginWithGoogle()
+          setError('')
+          const res = await loginWithGoogle()
           setLoading(null)
+          if (!res.ok) setError(res.error)
         }}
         loading={loading === 'google'}
       />

@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CoverFan } from '../components/BrandPanel'
+import { FirstLines, LibraryFacts } from '../components/BrandPanel'
 import { GoogleButton } from '../components/Form'
 import { Logo } from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
@@ -18,20 +18,26 @@ export default function Welcome() {
     setLoading(true)
     const res = await loginWithGoogle()
     setLoading(false)
-    if (res.ok) toast(t('¡Bienvenido de nuevo!'))
+    if (!res.ok) toast(res.error, 'error')
+    else if (!supabase) toast(t('¡Bienvenido de nuevo!'))
   }
 
   return (
-    <main className="grid min-h-dvh lg:grid-cols-2 lg:gap-4 lg:p-4">
+    <main className="grid min-h-dvh lg:grid-cols-[1.1fr_1fr] lg:gap-4 lg:p-4">
       {/* Brand stage: full-bleed on mobile, rounded panel on desktop. */}
-      <section className="forest-panel flex flex-col px-6 pt-8 pb-14 sm:px-10 lg:rounded-[28px] lg:p-12">
-        <Logo onDark />
-        <CoverFan className="mx-auto mt-10 h-[230px] w-full max-w-[380px] animate-float sm:h-[260px] lg:my-auto lg:h-[340px] lg:max-w-[460px]" size="md" />
-        <div className="mt-10 lg:mt-0">
-          <span className="gold-rule" aria-hidden />
-          <h1 className="mt-5 max-w-lg font-display text-[34px] leading-[1.08] text-white sm:text-5xl">
-            {t('Tu biblioteca digital para aprender, descubrir y crecer.')}
+      <section className="forest-panel flex flex-col px-6 pt-8 pb-16 sm:px-10 lg:rounded-[28px] lg:p-12">
+        <div className="flex items-center justify-between gap-4">
+          <Logo onDark />
+          <Link to="/" className="rounded-full px-3 py-1.5 text-sm font-medium text-mint/80 transition-colors hover:bg-white/10 hover:text-white">
+            {t('Conoce la biblioteca')}
+          </Link>
+        </div>
+
+        <div className="mt-7 flex flex-1 flex-col items-center justify-center gap-6 sm:mt-10 sm:gap-10 lg:mt-0 lg:items-start">
+          <h1 className="max-w-lg text-center font-display text-[26px] leading-[1.1] text-white sm:text-[44px] lg:text-left">
+            {t('Toda gran historia empieza con una primera línea.')}
           </h1>
+          <FirstLines />
         </div>
       </section>
 
@@ -41,7 +47,7 @@ export default function Welcome() {
           <h2 className="mt-2 font-display text-[28px] leading-tight text-text sm:text-[32px]">{t('Empieza a leer hoy')}</h2>
           <p className="mt-2 text-[15px] text-muted">{t('Libros, audiolibros y práctica guiada en un solo lugar.')}</p>
 
-          <div className="mt-9 flex w-full flex-col gap-3">
+          <div className="mt-8 flex w-full flex-col gap-3">
             <Link to="/login" className="btn-primary group h-12">
               {t('Iniciar sesión')}
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
@@ -54,8 +60,11 @@ export default function Welcome() {
             </div>
             <GoogleButton onClick={google} loading={loading} />
           </div>
+
+          <LibraryFacts className="mt-10" />
+
           {!supabase && (
-            <p className="mt-10 rounded-xl border border-dashed border-line px-4 py-3 text-center text-xs text-muted">
+            <p className="mt-6 rounded-xl border border-dashed border-line px-4 py-3 text-center text-xs text-muted">
               {t('Cuenta de demostración:')} javier@biblioteca.edu · demo1234
             </p>
           )}

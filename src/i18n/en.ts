@@ -825,7 +825,6 @@ export const en: Record<string, string> = {
 
   // ——— Sign in, sign up, password
   '¡Bienvenido de nuevo!': 'Welcome back!',
-  'Tu biblioteca digital para aprender, descubrir y crecer.': 'Your digital library to learn, discover and grow.',
   'Iniciar sesión': 'Sign in',
   'Crear cuenta': 'Create account',
   'Cuenta de demostración:': 'Demo account:',
@@ -858,7 +857,7 @@ export const en: Record<string, string> = {
   'Elige la asignatura que dictas.': 'Choose the subject you teach.',
   '¡Tu cuenta fue creada con éxito!': 'Your account was created!',
   'Crea tu cuenta': 'Create your account',
-  'Únete y accede a cientos de libros para aprender a tu ritmo.': 'Join and get access to hundreds of books to learn at your own pace.',
+  'Clásicos completos, audiolibros y prácticas para aprender a tu ritmo.': 'Complete classics, audiobooks and practice to learn at your own pace.',
   '¿Ya tienes una cuenta?': 'Already have an account?',
   'Inicia sesión': 'Sign in',
   'Nombre completo': 'Full name',
@@ -912,10 +911,6 @@ export const en: Record<string, string> = {
 
   // ——— Brand panel, welcome and home hero
   'Menú': 'Menu',
-  'Cada página te acerca a quien quieres ser.': 'Every page brings you closer to who you want to be.',
-  'Práctica guiada al final de cada libro': 'Guided practice at the end of every book',
-  'Audiolibros para escuchar donde estés': 'Audiobooks to listen to wherever you are',
-  'Lectura sin conexión': 'Offline reading',
   'Bienvenido': 'Welcome',
   'Empieza a leer hoy': 'Start reading today',
   'Libros, audiolibros y práctica guiada en un solo lugar.': 'Books, audiobooks and guided practice in one place.',
@@ -1170,4 +1165,16 @@ export const en: Record<string, string> = {
   'Stripe todavía está procesando el pago. Espera unos segundos e inténtalo de nuevo.': 'Stripe is still processing the payment. Wait a few seconds and try again.',
   'Tu sesión expiró. Inicia sesión de nuevo.': 'Your session expired. Please sign in again.',
   'No pudimos conectar con la pasarela de pago. Inténtalo de nuevo.': "We couldn't reach the payment gateway. Please try again.",
+  'Responde con un clic o con las teclas A, B, C y D.': 'Answer with a click or the A, B, C and D keys.',
+  'No exactamente. La respuesta es la {letter}.': 'Not quite. The answer is {letter}.',
+  'Primeras líneas': 'First lines',
+  'Conoce la biblioteca': 'See the library',
+  'Toda gran historia empieza con una primera línea.': 'Every great story starts with a first line.',
+  'obras completas': 'complete works',
+  'horas de audiolibros': 'hours of audiobooks',
+  'preguntas de práctica': 'practice questions',
+  '¡Perfecto!': 'Perfect!',
+  '¡Buen comienzo!': 'Good start!',
+  'Tu próxima página te espera.': 'Your next page is waiting.',
+  'El inicio de sesión con Google aún no está activado. Usa tu correo y contraseña.': 'Google sign-in is not enabled yet. Use your email and password.',
 }

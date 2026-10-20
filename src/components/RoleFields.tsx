@@ -39,11 +39,11 @@ export function RoleFields({
                 aria-checked={active}
                 onClick={() => onChange({ role: r.value })}
                 className={cn(
-                  'flex items-start gap-3 rounded-xl border-2 p-4 text-left transition-colors',
+                  'flex items-start gap-3 rounded-xl border-2 p-4 text-left transition-[border-color,background-color,transform] duration-300 active:scale-[0.98]',
                   active ? 'border-primary bg-soft' : 'border-line bg-surface hover:border-line-active',
                 )}
               >
-                <span className={cn('grid size-10 shrink-0 place-items-center rounded-lg', active ? 'bg-primary text-white' : 'bg-bg2 text-muted')}>
+                <span className={cn('grid size-10 shrink-0 place-items-center rounded-lg transition-colors duration-300', active ? 'animate-pop bg-primary text-white' : 'bg-bg2 text-muted')}>
                   <Icon className="size-5" aria-hidden />
                 </span>
                 <span className="min-w-0">

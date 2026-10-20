@@ -168,6 +168,53 @@
   50% { transform: translateY(-8px); }
 }
 
+/* Welcome: fills the active "first line" dot while the quote is on screen. */
+.welcome-progress {
+  animation: welcome-progress linear forwards;
+}
+@keyframes welcome-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* First lines: each word settles like ink; the page drops onto the panel once. */
+.ink-word {
+  display: inline-block;
+  animation: ink-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes ink-in {
+  from { opacity: 0; filter: blur(5px); transform: translateY(0.3em); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+.dropcap-in {
+  animation: dropcap-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes dropcap-in {
+  from { opacity: 0; transform: scale(0.6) translateY(-0.1em); }
+  to { opacity: 1; transform: none; }
+}
+.paper-settle {
+  animation: paper-settle 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms backwards;
+}
+@keyframes paper-settle {
+  from { opacity: 0; transform: translateY(32px) rotate(-5deg); }
+}
+
+/* Auth forms: the gold rule draws in, and a fresh error nudges sideways. */
+.rule-draw {
+  animation: rule-draw 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 150ms backwards;
+}
+@keyframes rule-draw {
+  from { width: 0; }
+}
+.animate-shake {
+  animation: shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+@keyframes shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
 /* Thank-you page celebration. */
 .confetti-piece {
   position: absolute;
@@ -194,6 +241,8 @@
 @media (prefers-reduced-motion: reduce) {
   .confetti-piece { display: none; }
   .animate-celebrate { animation: none; }
+  /* Delays would otherwise keep these hidden for a moment. */
+  .ink-word, .dropcap-in, .paper-settle, .rule-draw { animation: none; }
 }
 
 /* ---------- Base ---------- */

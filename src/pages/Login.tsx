@@ -37,14 +37,17 @@ export default function Login() {
 
   const google = async () => {
     setLoading('google')
-    await loginWithGoogle()
+    setError('')
+    const res = await loginWithGoogle()
     setLoading(null)
+    if (!res.ok) setError(res.error)
   }
 
   return (
     <AuthCard
       title={t('Bienvenido de nuevo')}
       subtitle={t('Inicia sesión para continuar aprendiendo.')}
+      brandTitle={t('Tu próxima página te espera.')}
       footer={
         <>
           {t('¿No tienes una cuenta?')}{' '}
@@ -54,9 +57,9 @@ export default function Login() {
         </>
       }
     >
-      <form onSubmit={onSubmit} noValidate className="space-y-5">
+      <form onSubmit={onSubmit} noValidate className="stagger space-y-5">
         {error && (
-          <div role="alert" className="flex items-center gap-2 rounded-xl bg-error-soft px-4 py-3 text-sm font-medium text-error">
+          <div key={error} role="alert" className="animate-shake flex items-center gap-2 rounded-xl bg-error-soft px-4 py-3 text-sm font-medium text-error">
             <CircleAlert className="size-4 shrink-0" aria-hidden />
             {error}
           </div>

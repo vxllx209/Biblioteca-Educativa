@@ -15,7 +15,7 @@ import {
   Users,
   X,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode, type Ref } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode, type Ref } from 'react'
 import { Link } from 'react-router-dom'
 import { BookCover } from '../components/BookCover'
 import { PhysicsBook } from '../components/PhysicsBook'
@@ -824,57 +824,118 @@ function useConfetti(reduced: boolean) {
 function QuizDemo({ burst }: { burst: Burst }) {
   const [step, setStep] = useState(0)
   const [choice, setChoice] = useState<number | null>(null)
-  const [score, setScore] = useState(0)
+  const [results, setResults] = useState<boolean[]>([])
   const [shake, setShake] = useState(false)
+  const nextRef = useRef<HTMLButtonElement>(null)
+  const resultRef = useRef<HTMLHeadingElement>(null)
+  const celebrate = useRef(0)
+  const [cardRef, inView] = useInView<HTMLDivElement>(0.3)
   const finished = step >= QUIZ.length
   const item = QUIZ[Math.min(step, QUIZ.length - 1)]
+  const score = results.filter(Boolean).length
 
-  const answer = (i: number, e: ReactMouseEvent) => {
-    if (choice !== null) return
+  const answer = (i: number, at?: { x: number; y: number }) => {
+    if (choice !== null || finished) return
+    const right = i === item.q.answer
     setChoice(i)
-    if (i === item.q.answer) {
-      setScore((s) => s + 1)
-      burst(e.clientX, e.clientY)
+    setResults((r) => [...r, right])
+    if (right) {
+      const r = cardRef.current?.getBoundingClientRect()
+      burst(at?.x ?? (r ? r.left + r.width / 2 : innerWidth / 2), at?.y ?? (r ? r.top + r.height / 2 : innerHeight / 2))
     } else {
       setShake(true)
       setTimeout(() => setShake(false), 500)
     }
+    // Hand focus to "Next" so Enter keeps the quiz moving.
+    requestAnimationFrame(() => nextRef.current?.focus({ preventScroll: true }))
   }
   const next = () => {
     setChoice(null)
     setStep((s) => s + 1)
+    if (step !== QUIZ.length - 1) return
+    // "Next" unmounts with the last question; keep keyboard focus inside the card.
+    requestAnimationFrame(() => resultRef.current?.focus({ preventScroll: true }))
+    // A perfect run gets a celebration once the score ring fills.
+    if (score === QUIZ.length) {
+      celebrate.current = window.setTimeout(() => {
+        const r = cardRef.current?.getBoundingClientRect()
+        if (r) burst(r.left + r.width / 2, r.top + 120)
+      }, 900)
+    }
   }
   const restart = () => {
+    clearTimeout(celebrate.current)
     setStep(0)
-    setScore(0)
+    setResults([])
     setChoice(null)
   }
+
+  useEffect(() => () => clearTimeout(celebrate.current), [])
+
+  // A–D or 1–4 answer while the card is on screen (not while typing somewhere).
+  useEffect(() => {
+    if (!inView || finished || choice !== null) return
+    const onKey = (e: KeyboardEvent) => {
+      const typing = e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable]')
+      if (e.metaKey || e.ctrlKey || e.altKey || e.repeat || typing) return
+      const k = e.key.toLowerCase()
+      const i = Math.max('abcd'.indexOf(k), '1234'.indexOf(k))
+      if (i >= 0 && i < item.q.options.length) answer(i)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
 
   return (
     <section id="practica" className="scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="order-2 lg:order-1">
-          <div className={cn('lp-reveal lp-spot p-6 sm:p-8', shake && 'lp-shake')}>
-            {finished ? (
-              <div className="py-6 text-center">
-                <ScoreRing value={score} total={QUIZ.length} />
-                <h3 className="lp-serif mt-6 text-3xl font-bold">{score === QUIZ.length ? t('¡Perfecto!') : score >= QUIZ.length / 2 ? t('¡Muy bien!') : t('¡Buen comienzo!')}</h3>
-                <p className="mx-auto mt-3 max-w-sm text-[var(--lp-muted)]">
-                  {t('Te esperan {n} preguntas más, con explicación en cada respuesta.', { n: (STATS.questions - QUIZ.length).toLocaleString(locale()) })}
-                </p>
-                <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-                  <Link to="/register" className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--lp-mint)] px-6 font-semibold text-[#10201a]">
-                    {t('Seguir practicando')} <ArrowRight className="size-4" aria-hidden />
-                  </Link>
-                  <button type="button" onClick={restart} className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[var(--lp-line2)] px-6 font-semibold text-[var(--lp-mint)] hover:bg-white/5">
-                    <RotateCcw className="size-4" aria-hidden /> {t('Otra vez')}
-                  </button>
+          <div ref={cardRef} className="lp-reveal">
+            <div className={cn('lp-spot flex min-h-[640px] flex-col p-6 sm:min-h-[740px] sm:p-8', shake && 'lp-shake')}>
+              <QuizProgress step={step} results={results} />
+
+              {finished ? (
+                <div className="flex flex-1 animate-rise flex-col items-center justify-center pt-6 text-center">
+                  <ScoreRing value={score} total={QUIZ.length} />
+                  <h3 ref={resultRef} tabIndex={-1} className="lp-serif mt-5 text-3xl font-bold outline-none">{score === QUIZ.length ? t('¡Perfecto!') : score >= QUIZ.length / 2 ? t('¡Muy bien!') : t('¡Buen comienzo!')}</h3>
+                  <ul className="mt-6 w-full max-w-md divide-y divide-[var(--lp-line)] rounded-2xl border border-[var(--lp-line)] text-left">
+                    {QUIZ.map(({ book }, i) => (
+                      <li key={book.id} className="flex animate-rise items-center gap-3 px-4 py-2.5" style={{ animationDelay: `${200 + i * 90}ms` }}>
+                        <div className="w-6 shrink-0 overflow-hidden rounded-[3px]">
+                          <BookCover book={book} showText={false} />
+                        </div>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm">{book.title}</span>
+                          <span className="block text-xs text-[var(--lp-muted)]">{t(book.category)}</span>
+                        </span>
+                        {results[i] ? (
+                          <span className="grid size-6 place-items-center rounded-full bg-[#7cc0a0] text-[#0c1210]" aria-label={t('Correcta')}>
+                            <Check className="size-3.5" aria-hidden />
+                          </span>
+                        ) : (
+                          <span className="grid size-6 place-items-center rounded-full bg-[#de9292] text-[#0c1210]" aria-label={t('Incorrecta')}>
+                            <X className="size-3.5" aria-hidden />
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mx-auto mt-5 max-w-sm text-sm text-[var(--lp-muted)]">
+                    {t('Te esperan {n} preguntas más, con explicación en cada respuesta.', { n: (STATS.questions - QUIZ.length).toLocaleString(locale()) })}
+                  </p>
+                  <div className="mt-6 flex w-full flex-col justify-center gap-3 sm:flex-row">
+                    <Link to="/register" className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--lp-mint)] px-6 font-semibold text-[#10201a]">
+                      {t('Seguir practicando')} <ArrowRight className="size-4" aria-hidden />
+                    </Link>
+                    <button type="button" onClick={restart} className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[var(--lp-line2)] px-6 font-semibold text-[var(--lp-mint)] hover:bg-white/5">
+                      <RotateCcw className="size-4" aria-hidden /> {t('Otra vez')}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div key={step} className="animate-rise">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex min-w-0 items-center gap-3">
+              ) : (
+                <div key={step} className="flex flex-1 animate-rise flex-col">
+                  <div className="mt-6 flex min-w-0 items-center gap-3">
                     <div className="w-9 shrink-0 overflow-hidden rounded">
                       <BookCover book={item.book} showText={false} />
                     </div>
@@ -883,58 +944,57 @@ function QuizDemo({ burst }: { burst: Burst }) {
                       <p className="text-xs text-[var(--lp-gold)]">{t(item.book.category)}</p>
                     </div>
                   </div>
-                  <div className="flex shrink-0 gap-1.5" aria-label={t('Pregunta {n} de {total}', { n: step + 1, total: QUIZ.length })}>
-                    {QUIZ.map((_, i) => (
-                      <span key={i} className={cn('h-1.5 rounded-full transition-all duration-500', i < step ? 'w-4 bg-[var(--lp-sage)]' : i === step ? 'w-8 bg-[var(--lp-gold)]' : 'w-4 bg-white/15')} />
-                    ))}
-                  </div>
-                </div>
-                <p className="lp-serif mt-6 text-xl leading-snug font-bold sm:text-2xl">{item.q.prompt}</p>
-                <div className="mt-6 grid gap-2.5">
-                  {item.q.options.map((o, i) => {
-                    const isAnswer = i === item.q.answer
-                    const state = choice === null ? 'idle' : isAnswer ? 'right' : i === choice ? 'wrong' : 'dim'
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={(e) => answer(i, e)}
-                        disabled={choice !== null}
-                        className={cn(
-                          'group flex min-h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-left transition-all duration-300',
-                          state === 'idle' && 'border-[var(--lp-line2)] hover:-translate-y-0.5 hover:border-[var(--lp-sage)] hover:bg-white/[0.03]',
-                          state === 'right' && 'border-[#7cc0a0] bg-[#7cc0a0]/15',
-                          state === 'wrong' && 'border-[#de9292] bg-[#de9292]/12',
-                          state === 'dim' && 'border-[var(--lp-line)] opacity-45',
-                        )}
-                      >
-                        <span
+                  <p className="lp-serif mt-5 text-xl leading-snug font-bold sm:text-2xl">{item.q.prompt}</p>
+                  <div className="mt-6 grid gap-2.5">
+                    {item.q.options.map((o, i) => {
+                      const isAnswer = i === item.q.answer
+                      const state = choice === null ? 'idle' : isAnswer ? 'right' : i === choice ? 'wrong' : 'dim'
+                      return (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={(e) => answer(i, e.detail ? { x: e.clientX, y: e.clientY } : undefined)}
+                          disabled={choice !== null}
                           className={cn(
-                            'grid size-8 shrink-0 place-items-center rounded-lg text-sm font-bold transition-colors',
-                            state === 'right' ? 'bg-[#7cc0a0] text-[#0c1210]' : state === 'wrong' ? 'bg-[#de9292] text-[#0c1210]' : 'bg-white/[0.06] text-[var(--lp-mint)] group-hover:bg-[var(--lp-forest)]',
+                            'group flex min-h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--lp-gold)]',
+                            state === 'idle' && 'border-[var(--lp-line2)] hover:-translate-y-0.5 hover:border-[var(--lp-sage)] hover:bg-white/[0.03]',
+                            state === 'right' && 'border-[#7cc0a0] bg-[#7cc0a0]/15',
+                            state === 'wrong' && 'border-[#de9292] bg-[#de9292]/12',
+                            state === 'dim' && 'border-[var(--lp-line)] opacity-45',
                           )}
                         >
-                          {state === 'right' ? <Check className="size-4" aria-hidden /> : state === 'wrong' ? <X className="size-4" aria-hidden /> : 'ABCD'[i]}
-                        </span>
-                        <span className="text-[15px]">{o}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-                {choice !== null && (
-                  <div className="mt-5 animate-rise rounded-2xl border border-[var(--lp-line)] bg-white/[0.03] p-4">
-                    <p className={cn('text-sm font-semibold', choice === item.q.answer ? 'text-[#7cc0a0]' : 'text-[#de9292]')}>
-                      {choice === item.q.answer ? t('¡Correcto!') : t('No exactamente')}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-[var(--lp-mint)]/80">{item.q.explanation}</p>
-                    <button type="button" onClick={next} className="group mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-[var(--lp-mint)] px-5 text-sm font-semibold text-[#10201a]">
-                      {step === QUIZ.length - 1 ? t('Ver resultado') : t('Siguiente pregunta')}
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-                    </button>
+                          <span
+                            className={cn(
+                              'grid size-8 shrink-0 place-items-center rounded-lg text-sm font-bold transition-colors',
+                              state === 'right' ? 'bg-[#7cc0a0] text-[#0c1210]' : state === 'wrong' ? 'bg-[#de9292] text-[#0c1210]' : 'bg-white/[0.06] text-[var(--lp-mint)] group-hover:bg-[var(--lp-forest)]',
+                            )}
+                          >
+                            {state === 'right' ? <Check className="size-4" aria-hidden /> : state === 'wrong' ? <X className="size-4" aria-hidden /> : 'ABCD'[i]}
+                          </span>
+                          <span className="text-[15px]">{o}</span>
+                        </button>
+                      )
+                    })}
                   </div>
-                )}
-              </div>
-            )}
+                  {choice === null ? (
+                    <p className="mt-auto hidden pt-6 text-xs text-[var(--lp-muted)] sm:block">
+                      {t('Responde con un clic o con las teclas A, B, C y D.')}
+                    </p>
+                  ) : (
+                    <div className="mt-5 animate-rise rounded-2xl border border-[var(--lp-line)] bg-white/[0.03] p-4" aria-live="polite">
+                      <p className={cn('text-sm font-semibold', choice === item.q.answer ? 'text-[#7cc0a0]' : 'text-[#de9292]')}>
+                        {choice === item.q.answer ? t('¡Correcto!') : t('No exactamente. La respuesta es la {letter}.', { letter: 'ABCD'[item.q.answer] })}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-[var(--lp-mint)]/80">{item.q.explanation}</p>
+                      <button ref={nextRef} type="button" onClick={next} className="group mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-[var(--lp-mint)] px-5 text-sm font-semibold text-[#10201a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--lp-gold)]">
+                        {step === QUIZ.length - 1 ? t('Ver resultado') : t('Siguiente pregunta')}
+                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -959,6 +1019,28 @@ function QuizDemo({ burst }: { burst: Burst }) {
   )
 }
 
+/** One segment per question: green or red once answered, gold for the current one. */
+function QuizProgress({ step, results }: { step: number; results: boolean[] }) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="flex flex-1 gap-1.5" role="progressbar" aria-valuemin={0} aria-valuemax={QUIZ.length} aria-valuenow={results.length} aria-label={t('Pregunta {n} de {total}', { n: Math.min(step + 1, QUIZ.length), total: QUIZ.length })}>
+        {QUIZ.map((_, i) => (
+          <span
+            key={i}
+            className={cn(
+              'h-1.5 flex-1 rounded-full transition-colors duration-500',
+              i < results.length ? (results[i] ? 'bg-[#7cc0a0]' : 'bg-[#de9292]') : i === step ? 'bg-[var(--lp-gold)]' : 'bg-white/15',
+            )}
+          />
+        ))}
+      </div>
+      <span className="w-10 text-right text-xs text-[var(--lp-muted)] tabular-nums">
+        {Math.min(step + 1, QUIZ.length)}/{QUIZ.length}
+      </span>
+    </div>
+  )
+}
+
 function ScoreRing({ value, total }: { value: number; total: number }) {
   const [shown, setShown] = useState(0)
   useEffect(() => {
@@ -966,7 +1048,7 @@ function ScoreRing({ value, total }: { value: number; total: number }) {
     return () => cancelAnimationFrame(id)
   }, [value, total])
   return (
-    <div className="relative mx-auto size-36">
+    <div className="relative mx-auto size-32">
       <svg viewBox="0 0 120 120" className="size-full -rotate-90" aria-hidden>
         <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(220,235,228,0.1)" strokeWidth="10" />
         <circle cx="60" cy="60" r="52" fill="none" stroke="var(--lp-gold)" strokeWidth="10" strokeLinecap="round" pathLength={100} strokeDasharray="100" strokeDashoffset={100 - shown * 100} className="transition-[stroke-dashoffset] duration-[1400ms] ease-out" />
@@ -1216,7 +1298,7 @@ export default function Landing() {
       (entries) =>
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add('is-in')
+            e.target.setAttribute('data-in', '')
             io.unobserve(e.target)
           }
         }),

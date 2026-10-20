@@ -2,7 +2,7 @@ import type { Session, SupabaseClient, User as AuthUser } from '@supabase/supaba
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { DEMO_USER, USERS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseKey, supabaseUrl } from '../lib/supabase'
 import type { PlanId, Role, User } from '../types'
 import { t } from '../i18n'
 
@@ -224,6 +224,14 @@ function translateError(message: string): string {
   return message
 }
 
+/** Whether Google sign-in is turned on in the Supabase project; null when it can't be told. Asked once per session. */
+let googleCheck: Promise<boolean | null> | null = null
+const googleEnabled = () =>
+  (googleCheck ??= fetch(`${supabaseUrl}/auth/v1/settings`, { headers: { apikey: supabaseKey ?? '' } })
+    .then((r) => (r.ok ? (r.json() as Promise<{ external?: { google?: boolean } }>) : null))
+    .then((s) => (s ? !!s.external?.google : null))
+    .catch(() => null))
+
 const fail = (error: { message: string }): Result => ({ ok: false, error: translateError(error.message) })
 const appUrl = (path: string) => `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`
 
@@ -294,6 +302,8 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
   )
 
   const loginWithGoogle = useCallback<AuthValue['loginWithGoogle']>(async () => {
+    // If the provider is off in Supabase, the redirect would land on a bare JSON error page.
+    if ((await googleEnabled()) === false) return { ok: false, error: t('El inicio de sesión con Google aún no está activado. Usa tu correo y contraseña.') }
     // Redirects to Google; the session is picked up by onAuthStateChange on return.
     const { error } = await client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: appUrl('/home') } })
     return error ? fail(error) : { ok: true }
