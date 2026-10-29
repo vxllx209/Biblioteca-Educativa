@@ -4,11 +4,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Modal } from '../components/Modal'
 import { PageHeader } from '../components/PageHeader'
 import { PremiumPlan } from '../components/PremiumPlan'
+import { StripeCheckout } from '../components/StripeCheckout'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { PLANS } from '../data/mock'
 import { formatPrice } from '../lib/format'
-import { cancelSubscription, paymentsMode, startCheckout, TEST_CARD } from '../services/payments'
+import { cancelSubscription, embeddedCheckout, paymentsMode, startCheckout, TEST_CARD } from '../services/payments'
 import type { Plan } from '../types'
 import { t } from '../i18n'
 
@@ -23,6 +24,8 @@ export default function Premium() {
   const toast = useToast()
   const [selected, setSelected] = useState<Plan | null>(null)
   const [processing, setProcessing] = useState(false)
+  // Embedded Checkout: after confirming, the modal shows Stripe's card form.
+  const [paying, setPaying] = useState(false)
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
 
@@ -47,6 +50,11 @@ export default function Premium() {
         setProcessing(false)
         return
       }
+      if (embeddedCheckout) {
+        setPaying(true)
+        setProcessing(false)
+        return
+      }
       // Stripe redirects away; demo mode returns a simulated receipt.
       const receipt = await startCheckout(selected, user.email)
       if (receipt) {
@@ -58,6 +66,35 @@ export default function Premium() {
       setProcessing(false)
     }
   }
+
+  const close = () => {
+    if (processing) return
+    setSelected(null)
+    setPaying(false)
+  }
+
+  const testCard = (
+    <div className="rounded-[14px] border border-dashed border-gold/60 bg-warning-soft/60 p-4">
+      <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-warning uppercase">
+        <CreditCard className="size-4" aria-hidden /> {t('Modo de prueba')}
+      </p>
+      <p className="mt-1.5 text-sm text-text">{t('No se cobra dinero real. Paga con la tarjeta de prueba de Stripe:')}</p>
+      <button
+        type="button"
+        onClick={() =>
+          navigator.clipboard.writeText(TEST_CARD.replace(/ /g, '')).then(
+            () => toast(t('Número de tarjeta copiado')),
+            () => toast(TEST_CARD, 'info'),
+          )
+        }
+        className="mt-2 inline-flex items-center gap-2 rounded-lg bg-surface px-3 py-2 font-mono text-[15px] tracking-wider text-text ring-1 ring-line hover:ring-line-active"
+        aria-label={t('Copiar número de tarjeta de prueba')}
+      >
+        {TEST_CARD} <Copy className="size-4 text-muted" aria-hidden />
+      </button>
+      <p className="mt-2 text-xs text-muted">{t('Cualquier fecha futura, cualquier CVC y cualquier nombre.')}</p>
+    </div>
+  )
 
   return (
     <div className="animate-fade-in">
@@ -100,21 +137,35 @@ export default function Premium() {
 
       <Modal
         open={!!selected}
-        onClose={() => !processing && setSelected(null)}
-        title={selected?.id === 'free' ? t('Cambiar a plan Gratis') : t('Confirmar plan {name}', { name: t(selected?.name ?? '') })}
-        size="sm"
+        onClose={close}
+        title={
+          paying
+            ? t('Pagar plan {name}', { name: t(selected?.name ?? '') })
+            : selected?.id === 'free'
+              ? t('Cambiar a plan Gratis')
+              : t('Confirmar plan {name}', { name: t(selected?.name ?? '') })
+        }
+        size={paying ? 'lg' : 'sm'}
         footer={
-          <>
-            <button className="btn-secondary" onClick={() => setSelected(null)} disabled={processing}>
-              {t('Cancelar')}
-            </button>
-            <button className="btn-primary" onClick={confirm} disabled={processing} aria-busy={processing}>
-              {processing ? t('Procesando…') : selected?.id === 'free' ? t('Cambiar plan') : t('Confirmar y pagar')}
-            </button>
-          </>
+          !paying && (
+            <>
+              <button className="btn-secondary" onClick={close} disabled={processing}>
+                {t('Cancelar')}
+              </button>
+              <button className="btn-primary" onClick={confirm} disabled={processing} aria-busy={processing}>
+                {processing ? t('Procesando…') : selected?.id === 'free' ? t('Cambiar plan') : t('Confirmar y pagar')}
+              </button>
+            </>
+          )
         }
       >
-        {selected && (
+        {selected && paying && (
+          <div className="space-y-4">
+            {testCard}
+            <StripeCheckout plan={selected} onPaid={(id) => navigate(`/premium/gracias?session_id=${id}`)} />
+          </div>
+        )}
+        {selected && !paying && (
           <div className="space-y-4">
             <div className="flex items-center justify-between rounded-[14px] bg-softer p-4">
               <span className="font-medium text-text">{t('Plan {name}', { name: t(selected.name) })}</span>
@@ -127,31 +178,12 @@ export default function Premium() {
               {selected.id === 'free'
                 ? t('Perderás el acceso a audiolibros completos, contenido premium y descargas ilimitadas.')
                 : paymentsMode === 'stripe'
-                  ? t('Te llevaremos a Stripe, la pasarela de pago segura, para completar la compra.')
+                  ? embeddedCheckout
+                    ? t('Pagarás aquí mismo, con el formulario seguro de Stripe.')
+                    : t('Te llevaremos a Stripe, la pasarela de pago segura, para completar la compra.')
                   : t('Modo demostración: no se realizará ningún cobro real. El plan se activará de inmediato.')}
             </p>
-            {selected.id !== 'free' && paymentsMode === 'stripe' && (
-              <div className="rounded-[14px] border border-dashed border-gold/60 bg-warning-soft/60 p-4">
-                <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-warning uppercase">
-                  <CreditCard className="size-4" aria-hidden /> {t('Modo de prueba')}
-                </p>
-                <p className="mt-1.5 text-sm text-text">{t('No se cobra dinero real. Paga con la tarjeta de prueba de Stripe:')}</p>
-                <button
-                  type="button"
-                  onClick={() =>
-                    navigator.clipboard.writeText(TEST_CARD.replace(/ /g, '')).then(
-                      () => toast(t('Número de tarjeta copiado')),
-                      () => toast(TEST_CARD, 'info'),
-                    )
-                  }
-                  className="mt-2 inline-flex items-center gap-2 rounded-lg bg-surface px-3 py-2 font-mono text-[15px] tracking-wider text-text ring-1 ring-line hover:ring-line-active"
-                  aria-label={t('Copiar número de tarjeta de prueba')}
-                >
-                  {TEST_CARD} <Copy className="size-4 text-muted" aria-hidden />
-                </button>
-                <p className="mt-2 text-xs text-muted">{t('Cualquier fecha futura, cualquier CVC y cualquier nombre.')}</p>
-              </div>
-            )}
+            {selected.id !== 'free' && paymentsMode === 'stripe' && testCard}
           </div>
         )}
       </Modal>

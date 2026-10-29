@@ -42,6 +42,19 @@ async function call<T>(body: Record<string, unknown>): Promise<T> {
   return data
 }
 
+const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+
+/** With a publishable key, the card form is shown inside the app (Embedded Checkout) instead of on Stripe's page. */
+export const embeddedCheckout = paymentsMode === 'stripe' && !!publishableKey
+
+let stripeJs: ReturnType<typeof import('@stripe/stripe-js').loadStripe> | null = null
+/** Stripe.js, loaded the first time the payment form opens. */
+export const loadStripeJs = () => (stripeJs ??= import('@stripe/stripe-js').then(({ loadStripe }) => loadStripe(publishableKey!)))
+
+/** Creates an embedded Checkout Session; the form completes it and the thank-you page confirms it. */
+export const createEmbeddedCheckout = (plan: Plan) =>
+  call<{ clientSecret: string; sessionId: string }>({ action: 'checkout', embedded: true, planId: plan.id, origin: window.location.origin })
+
 /** Stripe mode: redirects to Stripe Checkout (never returns). Demo mode: returns the simulated receipt. */
 export async function startCheckout(plan: Plan, email: string): Promise<Receipt | null> {
   if (paymentsMode === 'stripe') {

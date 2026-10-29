@@ -1,5 +1,6 @@
 // Stripe Checkout for the Premium plans. Actions:
-//   checkout — creates a Checkout Session (subscription) and returns its URL.
+//   checkout — creates a Checkout Session (subscription) and returns its URL, or with `embedded`
+//              the client secret for Embedded Checkout.
 //   confirm  — called by the thank-you page: verifies the session with Stripe and activates the plan.
 //   cancel   — cancels the subscription and returns the user to the free plan.
 // Deploy: supabase functions deploy payments
@@ -72,10 +73,15 @@ Deno.serve(async (req) => {
         metadata: { plan: body.planId },
         subscription_data: { metadata: { plan: body.planId, user_id: user.id } },
         locale: 'es',
-        success_url: `${origin}/premium/gracias?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${origin}/premium?pago=cancelado`,
+        // Embedded: the card form is shown inside the app and the app moves on to the thank-you page itself.
+        ...(body.embedded
+          ? { ui_mode: 'embedded' as const, redirect_on_completion: 'never' as const }
+          : {
+              success_url: `${origin}/premium/gracias?session_id={CHECKOUT_SESSION_ID}`,
+              cancel_url: `${origin}/premium?pago=cancelado`,
+            }),
       })
-      return json({ url: session.url })
+      return json({ url: session.url, clientSecret: session.client_secret, sessionId: session.id })
     }
 
     if (body.action === 'confirm') {
