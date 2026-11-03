@@ -136,3 +136,5 @@ Los pagos usan **Stripe Checkout en modo de prueba**: no se cobra dinero real. L
 **Para probar:** en Premium elige un plan y paga con la tarjeta **4242 4242 4242 4242**, cualquier fecha futura, cualquier CVC y cualquier nombre. La tarjeta también se muestra, con un botón para copiarla, en la ventana de confirmación. Si cancelas en Stripe, vuelves a Premium con el aviso de que no se hizo ningún cobro. Cambiar al plan Gratis cancela la suscripción.
 
 Sin Supabase (modo local), la compra se simula y lleva a la misma página de agradecimiento.
+
+
