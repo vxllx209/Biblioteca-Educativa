@@ -19,7 +19,6 @@ export default function Welcome() {
     const res = await loginWithGoogle()
     setLoading(false)
     if (!res.ok) toast(res.error, 'error')
-    else if (!supabase) toast(t('¡Bienvenido de nuevo!'))
   }
 
   return (

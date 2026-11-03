@@ -1180,4 +1180,5 @@ export const en: Record<string, string> = {
   '¡Buen comienzo!': 'Good start!',
   'Tu próxima página te espera.': 'Your next page is waiting.',
   'El inicio de sesión con Google aún no está activado. Usa tu correo y contraseña.': 'Google sign-in is not enabled yet. Use your email and password.',
+  'El inicio de sesión con Google necesita la conexión con el servidor. Usa tu correo y contraseña.': 'Google sign-in needs the server connection. Use your email and password.',
 }

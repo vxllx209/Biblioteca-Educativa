@@ -1,6 +1,6 @@
 import type { Session, SupabaseClient, User as AuthUser } from '@supabase/supabase-js'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { DEMO_USER, USERS } from '../data/mock'
+import { USERS } from '../data/mock'
 import { usePersistentState } from '../hooks/usePersistentState'
 import { supabase, supabaseKey, supabaseUrl } from '../lib/supabase'
 import type { PlanId, Role, User } from '../types'
@@ -70,13 +70,10 @@ function useLocalAuth(): AuthValue {
   )
 
   const loginWithGoogle = useCallback<AuthValue['loginWithGoogle']>(async () => {
-    // Simulated OAuth: signs in with the demo Google account.
-    await wait(700)
-    const existing = users.find((u) => u.id === DEMO_USER.id)
-    if (!existing) setUsers((list) => [...list, DEMO_USER])
-    setSessionId(DEMO_USER.id)
-    return { ok: true }
-  }, [users, setUsers, setSessionId])
+    // Real Google accounts need Supabase; never fall back to signing in as the demo account.
+    await wait(300)
+    return { ok: false, error: t('El inicio de sesión con Google necesita la conexión con el servidor. Usa tu correo y contraseña.') }
+  }, [])
 
   const register = useCallback<AuthValue['register']>(
     async ({ fullName, email, password, role, school, subject }) => {
@@ -305,7 +302,10 @@ function useSupabaseAuth(client: SupabaseClient): AuthValue {
     // If the provider is off in Supabase, the redirect would land on a bare JSON error page.
     if ((await googleEnabled()) === false) return { ok: false, error: t('El inicio de sesión con Google aún no está activado. Usa tu correo y contraseña.') }
     // Redirects to Google; the session is picked up by onAuthStateChange on return.
-    const { error } = await client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: appUrl('/home') } })
+    const { error } = await client.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: appUrl('/home'), queryParams: { prompt: 'select_account' } },
+    })
     return error ? fail(error) : { ok: true }
   }, [client])
 
