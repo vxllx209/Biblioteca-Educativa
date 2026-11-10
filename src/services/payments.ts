@@ -42,7 +42,10 @@ async function call<T>(body: Record<string, unknown>): Promise<T> {
   return data
 }
 
-const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+// Publishable (public) test key, used when the host, e.g. Vercel, has no env vars set.
+const publishableKey =
+  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+  'pk_test_51UXa4kPXXrOMTHWDZZWRis00Ipw5RMuiOLX5Lwl2bovUsjDzFr01CpoSUaKV64IFy1mUo0FlDimIftjoJVyXqmRj0059IvZ9ml'
 
 /** With a publishable key, the card form is shown inside the app (Embedded Checkout) instead of on Stripe's page. */
 export const embeddedCheckout = paymentsMode === 'stripe' && !!publishableKey
